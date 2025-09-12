@@ -92,3 +92,6 @@ DB : pg
 日本語化 : rails-i18n,devise-i18n
 
 環境変数読み込み : dotenv-rails
+
+## 画面推移図
+https://www.figma.com/design/W7vW42qlox6ldEw0ebuMWa/shift_management_app?node-id=0-1&t=oPAAtNsYlm8YZgVm-1
