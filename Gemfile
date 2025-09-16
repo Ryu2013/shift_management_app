@@ -81,3 +81,4 @@ gem "capybara", "~> 3.40"
 gem "selenium-webdriver", "~> 4.32"
 gem "rubocop", "~> 1.80"
 gem "byebug", "~> 12.0"
+gem 'concurrent-ruby', '1.3.4'
