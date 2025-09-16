@@ -1,0 +1,33 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: app_development
+    ports:
+      - "5433:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+  web:
+    user: "${MYUID}:${MYGID}"
+    image: ruby:3.2.4
+    working_dir: /app
+    volumes:
+      - .:/app
+      - bundle:/usr/local/bundle
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    environment:
+      RUBYOPT: "-rlogger"
+      DATABASE_URL: postgresql://postgres:postgres@db:5432/app_development
+      RAILS_ENV: development
+    command: bash -lc "bundle install && bin/rails s -b 0.0.0.0 -p 3000"
+
+
+volumes:
+  db-data:
+  bundle:

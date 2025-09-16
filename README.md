@@ -75,6 +75,8 @@ DB : pg
 
 ビュー：slim-rails, turbo-rails
 
+自動で事業所名をURLのスラッグに変換:FriendlyId
+
 認証：devise, devise_invitable
 
 権限：pundit
