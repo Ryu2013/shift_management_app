@@ -1,0 +1,181 @@
+erDiagram
+    direction TB
+     OFFICES {
+        int id PK ""  
+        string registration_number  "介護保険事業所番号(介護給付費を請求する事業所を識別するための番号)"  
+        string name  ""  
+        string slug UK "URLに入れる用NOT NULL"  
+        datetime created_at  ""  
+        datetime updated_at  ""  
+    }
+
+
+    〇TEAMS {
+        あint id PK ""  
+        あint  office_id FK "Not NULL"  
+        あstring name  ""  
+        datetime created_at  ""  
+        datetime updated_at  ""  
+        あ%%UNIQUE(office_id, name)
+    }
+
+
+    CLIENTS {
+        あint id PK ""  
+        あint  office_id FK ""  
+        あint team_id FK ""  
+		あint medical_care "enum胃婁/喀痰吸引"
+        あstring name  ""  
+		あstring email ""
+        あstring address  ""  
+        あstring disease  "現病"  
+		あstring public_token "お客様シフト観覧ページ用URLトークン"
+        あstring note  ""  
+        datetime created_at  ""  
+        datetime updated_at  ""  
+    }
+
+
+    〇CLIENT_NEEDS {
+        あint id PK ""  
+        あint  office_id FK ""  
+        あint client_id FK ""  
+        あint week  "enumで0=日～6=土"  
+        time start_time  "NOT NULL例 07:00"  
+        time end_time  "NOT NULL 例 09:00"  
+        あint slots  "NOT NULL, default: 1必要人数 (例: 1/2/3)"  
+        datetime created_at  ""  
+        datetime updated_at  ""  
+    }
+
+	〇EMPLOYEE_CLIENTS {
+        int id PK ""    
+        int  office_id FK "マルチテナント用"    
+        int employee_id FK ""    
+        int client_id FK ""      
+        string note  "メモ"    
+        datetime created_at  ""    
+        datetime updated_at  ""    
+    }
+
+
+    EMPLOYEES {
+        int id PK ""  
+        int  office_id FK "マルチテナント用"  
+        あint team_id FK "部署"  
+        string name  ""  
+        string email  "( office_id, email) UNIQUE NOT NULL一つの事業所に一つのメールアドレス"  
+        string encrypted_password  "NOT NULL Devise用暗号化パスワード"  
+        あstring address  "ナビゲーション目的地"  
+        あstring commute  "通勤手段"  
+        あstring pref_days  "勤務希望曜日"  
+        あint pref_per_week  "希望勤務日数"  
+        string note  "メモ"  
+        string role  "役職"  
+        string reset_password_token  "deviseリセットトークン"  
+        int account_status  "enum アカウントの最終確認は管理者の手動で認証とする"  
+        datetime reset_password_sent_at  "トークン発行日時"  
+        datetime created_at  ""  
+        datetime updated_at  ""  
+        string invitation_token  "以下DEvise Invitabele用"  
+        datetime invitation_created_at  ""  
+        datetime invitation_sent_at  ""  
+        datetime invitation_accepted_at  ""  
+        int invited_by_id  ""  
+        string invited_by_type  ""  
+        int invitations_count  ""  
+    }
+
+
+    SHIFTS {
+        int id PK ""  
+        int  office_id FK "マルチテナント用"  
+        int client_id FK ""  
+        int type  "enum: day/night "  
+        int slots  "必要人数（default:1）not null"  
+        string note  ""  
+        date date ""
+        datetime created_at  ""  
+        datetime updated_at  ""  
+    }
+
+
+    SHIFT_MEMBERS {
+        int id PK ""  
+        int  office_id FK "マルチテナント用"  
+        int shift_id FK ""  
+        boolean is_escort  "同行かどうかを判定"  
+        int employee_id FK "( office_id,shift_id, employee_id) UNIQUE一つのシフトに同じ従業員は不可"  
+	    int work_status  "enumで出勤状況を確認用"  
+		datetime start_time  ""  
+        datetime end_time  ""  
+        datetime created_at  ""  
+        datetime updated_at  ""  
+    }
+
+
+    MAIL_LOGS {
+        int id PK ""  
+        int  office_id FK "マルチテナント用"  
+		int employee_id FK "送信元"
+        string subject  "件名のみ保存"  
+        datetime sent_at  "送信日時"  
+        string api_status  "Gmail api の呼び出しの成否記録、送信の成否はMAIL_RECIPIENTS.delivery_statusで管理"  
+		text api_error "API接続の失敗の理由"
+		string gmail_message_id  "Gmail APIでメールを特定するID（リンク作成用）" 
+        datetime created_at  ""  
+        datetime updated_at  ""  
+    }
+
+    MAIL_RECIPIENTS {
+        int id PK
+        int  office_id FK "マルチテナント用"
+        int mail_log_id FK
+        int employee_id FK "宛先"
+        int delivery_status "enum 失敗、成功"
+        text error_message "この宛先の失敗理由"
+        datetime created_at
+        datetime updated_at
+    }
+
+
+
+    CONTACT_STATUS {
+        int id  PK
+        int  office_id FK "マルチテナント用"  
+        int shift_member_id FK "誰の変更か"
+        int employee_id FK "誰が変更したか"
+        boolean is_notified  "未連絡/連絡済み"  
+        datetime notified_at  "いつ連絡済みしたか"  
+        datetime created_at
+        datetime updated_at
+    }
+
+
+     OFFICES||--o{TEAMS:""
+     OFFICES||--o{EMPLOYEES:""
+     OFFICES||--o{CLIENTS:""
+     OFFICES||--o{CLIENT_NEEDS:""
+     OFFICES||--o{SHIFTS:""
+     OFFICES||--o{CONTACT_STATUS:""
+     OFFICES||--o{MAIL_LOGS:""
+     OFFICES||--o{EMPLOYEE_CLIENTS:""
+     OFFICES||--o{MAIL_RECIPIENTS:""  
+     OFFICES||--o{SHIFT_MEMBERS:""  
+
+    TEAMS||--o{EMPLOYEES:""
+    TEAMS||--o{CLIENTS:""
+
+    CLIENTS||--o{CLIENT_NEEDS:""
+    CLIENTS||--o{SHIFTS:""
+    CLIENTS||--o{EMPLOYEE_CLIENTS:""
+
+    SHIFTS||--o{SHIFT_MEMBERS:""
+
+    SHIFT_MEMBERS||--o{CONTACT_STATUS:""
+
+    EMPLOYEES||--o{SHIFT_MEMBERS:""
+    EMPLOYEES||--o{CONTACT_STATUS:""
+    EMPLOYEES||--o{EMPLOYEE_CLIENTS:""  
+
+    MAIL_LOGS ||--|{ MAIL_RECIPIENTS :""
