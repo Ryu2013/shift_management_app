@@ -1,0 +1,14 @@
+module Employees
+  class ConfirmationsController < Devise::ConfirmationsController
+    protected
+
+    def after_confirmation_path_for(resource_name, resource)
+      office = resource.office
+      if office.present?
+        office_sign_in_path(office_slug: office.slug)
+      else
+        super
+      end
+    end
+  end
+end

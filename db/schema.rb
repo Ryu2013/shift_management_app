@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_09_15_070000) do
+ActiveRecord::Schema[7.0].define(version: 2025_09_17_115136) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -90,7 +90,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_09_15_070000) do
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
     t.string "name"
-    t.bigint "office_id", null: false
+    t.bigint "office_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "team_id"
@@ -108,6 +108,12 @@ ActiveRecord::Schema[7.0].define(version: 2025_09_15_070000) do
     t.bigint "invited_by_id"
     t.string "invited_by_type"
     t.integer "invitations_count", default: 0, null: false
+    t.string "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string "unconfirmed_email"
+    t.string "pending_office_name"
+    t.index ["confirmation_token"], name: "index_employees_on_confirmation_token", unique: true
     t.index ["invitation_token"], name: "index_employees_on_invitation_token", unique: true
     t.index ["invited_by_type", "invited_by_id"], name: "index_employees_on_invited_by_type_and_invited_by_id"
     t.index ["office_id", "email"], name: "index_employees_on_office_id_and_email", unique: true
