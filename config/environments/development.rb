@@ -62,7 +62,21 @@ Rails.application.configure do
 
   # Raises error for missing translations.
   # config.i18n.raise_on_missing_translations = true
-
+  config.action_mailer.raise_delivery_errors = true
+  # Do not dump schema after migrations.
+  config.active_record.dump_schema_after_migration = false
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.default_url_options = { host: "localhost:3000", protocol: 'https' } # host は適宜
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    address:              'smtp.gmail.com',
+    port:                 587,
+    domain:               'gmail.com', # または独自ドメイン
+    user_name:            ENV['GMAIL_USERNAME'],      # Gmailアドレス
+    password:             ENV['GMAIL_APP_PASSWORD'],  # アプリパスワード
+    authentication:       'plain',
+    enable_starttls_auto: true
+  }
   # Annotate rendered view with file names.
   # config.action_view.annotate_rendered_view_with_filenames = true
 
