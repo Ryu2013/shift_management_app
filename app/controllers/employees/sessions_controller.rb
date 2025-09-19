@@ -1,7 +1,6 @@
 module Employees
   class SessionsController < Devise::SessionsController
-    before_action :load_office_from_slug, only: :new
-    # deviseのログイン、ログアウトで使われるコントローラー。newやcreate等アクションは親が持っており、ここではbefore_actionのメソッドのみ追加している。
+    before_action :load_office_from_slug, only: [:new, :create]
 
     private
     # ログイン後にresourceにemployeeが入るので、そこから事業所のslugを取得してリダイレクト先を決定する。
