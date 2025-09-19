@@ -1,2 +1,16 @@
-h1 Shifts#index
-p Find me in app/views/shifts/index.html.slim
+section.dashboard
+  h1 シフト編集
+
+  - if @office.present?
+    p
+      | 事業所:
+      strong= @office.name
+  - else
+    p 事業所がまだ登録されていません。
+
+  - if @employee.present?
+    p
+      | 担当者:
+      strong= @employee.name.presence || @employee.email
+
+  p ここにシフト編集機能を追加してください。
