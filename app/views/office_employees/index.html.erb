@@ -1,0 +1,38 @@
+<h1>従業員一覧</h1>
+
+<div>
+  <label for="resource_selector">表示を切り替える:</label>
+  <%= select_tag :resource_selector,
+      options_for_select([
+        ['従業員', office_employees_path(office_slug: @office.slug)],
+        ['お客様', office_clients_path(office_slug: @office.slug)]
+      ], office_employees_path(office_slug: @office.slug)),
+      onchange: 'Turbo.visit(this.value)' %>
+</div>
+
+<% if @employees.any? %>
+  <table>
+    <thead>
+      <tr>
+        <th>氏名</th>
+        <th>住所</th>
+        <th>希望曜日</th>
+        <th>通勤手段</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @employees.each do |employee| %>
+        <tr>
+          <td><%= employee.name.presence || '-' %></td>
+          <td><%= employee.address.presence || '-' %></td>
+          <td><%= employee.pref_days.presence || '-' %></td>
+          <td><%= employee.commute.presence || '-' %></td>
+          <td><%= link_to '編集', edit_office_employee_path(office_slug: @office.slug, id: employee.id) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>従業員の登録がまだありません。</p>
+<% end %>

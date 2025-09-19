@@ -1,0 +1,26 @@
+<h1>変更連絡状況</h1>
+
+<% if @contact_statuses.any? %>
+  <table>
+    <thead>
+      <tr>
+        <th>シフトメンバー</th>
+        <th>担当者</th>
+        <th>連絡済み</th>
+        <th>連絡日時</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @contact_statuses.each do |status| %>
+        <tr>
+          <td><%= status.shift_member_id %></td>
+          <td><%= status.employee&.name || status.employee&.email %></td>
+          <td><%= status.is_notified ? 'はい' : 'いいえ' %></td>
+          <td><%= status.notified_at&.strftime('%Y-%m-%d %H:%M') || '-' %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>変更連絡状況はまだ登録されていません。</p>
+<% end %>

@@ -12,7 +12,7 @@ module Employees
         return root_path
       end
 
-      office_shift_path(office_slug: office.slug)
+      office_shifts_path(office_slug: office.slug)
     end
     
     ##ログイン画面にＧＥＴ時　にURLに事業所があるか？office内に存在しているかを確認

@@ -1,0 +1,72 @@
+<h1>従業員情報の編集</h1>
+
+<%= link_to '従業員一覧に戻る', office_employees_path(office_slug: @office.slug) %>
+<%= form_with model: [:office, @office, @managed_employee], url: office_employee_path(office_slug: @office.slug, id: @managed_employee.id), method: :patch do |f| %>
+  <div>
+    <%= f.label :name, '氏名' %><br>
+    <%= f.text_field :name %>
+  </div>
+
+  <div>
+    <%= f.label :address, '住所' %><br>
+    <%= f.text_field :address %>
+  </div>
+
+  <div>
+    <%= f.label :commute, '通勤手段' %><br>
+    <%= f.text_field :commute %>
+  </div>
+
+  <div>
+    <%= f.label :pref_days, '希望曜日' %><br>
+    <%= f.text_field :pref_days %>
+  </div>
+
+  <div>
+    <%= f.label :role, '役職' %><br>
+    <%= f.text_field :role %>
+  </div>
+
+  <div>
+    <%= f.label :note, 'メモ' %><br>
+    <%= f.text_area :note, rows: 3 %>
+  </div>
+
+  <h2>勤務希望（Employee Needs）</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>曜日</th>
+        <th>開始時刻</th>
+        <th>終了時刻</th>
+        <th>削除</th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= f.fields_for :employee_needs do |need_fields| %>
+        <tr>
+          <td>
+            <%= need_fields.select :week, options_for_select([
+              ['日', 0], ['月', 1], ['火', 2], ['水', 3], ['木', 4], ['金', 5], ['土', 6]
+            ], need_fields.object.week), include_blank: '--' %>
+          </td>
+          <td><%= need_fields.time_field :start_time %></td>
+          <td><%= need_fields.time_field :end_time %></td>
+          <td>
+            <% if need_fields.object.persisted? %>
+              <%= need_fields.check_box :_destroy %> 削除
+            <% else %>
+              <%= need_fields.check_box :_destroy %> 無効
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <p>新しい希望を追加したい場合は、最下行に入力してください。削除する場合はチェックボックスにチェックを入れてください。</p>
+  
+  <div>
+    <%= f.submit '更新する' %>
+  </div>
+<% end %>
