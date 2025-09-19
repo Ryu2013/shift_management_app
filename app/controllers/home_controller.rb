@@ -1,18 +1,14 @@
 class HomeController < ApplicationController
-  before_action :redirect_if_signed_in, only: :index
+  before_action :logout_if_signed_in, only: :index, if: :employee_signed_in?
 
   def index
   end
 
   private
   
-  #ログイン済みand事業所設定済みなら事業所のシフト画面へリダイレクト
-  def redirect_if_signed_in
-    return unless employee_signed_in?
-
-    office = current_employee.office
-    return if office.blank? # 事業所未設定ならそのまま表示
-
-    redirect_to office_shift_path(office_slug: office.slug)
+  #ログイン済みで何らかの方法でhomeに来た場合ログアウト
+  def logout_if_signed_in
+    sign_out(current_employee) 
+    flash[:alert] = '未ログインページにアクセスした為ログアウトしました。' 
   end
 end

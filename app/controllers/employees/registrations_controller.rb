@@ -9,7 +9,7 @@ module Employees
     end
 
     def after_inactive_sign_up_path_for(_resource)
-      flash[:notice] ||= '確認メールを送信しました。メール内のリンクを開いて登録を完了してください。' if is_flashing_format?
+      flash[:notice] = '確認メールを送信しました。メール内のリンクを開いて登録を完了してください。'
       new_employee_registration_path
     end
   end

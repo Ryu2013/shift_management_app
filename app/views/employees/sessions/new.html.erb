@@ -6,7 +6,7 @@
   <p class="office-context warning">事業所が見つかりませんでした。別のログインURLをお試しください。</p>
 <% end %>
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+<%= form_for(resource, as: resource_name, url: office_sign_in_path(office_slug: params[:office_slug])) do |f| %>
   <div class="field">
     <%= f.label :email, 'メールアドレス' %><br />
     <%= f.email_field :email, autofocus: true, autocomplete: 'email' %>
