@@ -1,0 +1,4 @@
+<%= @employee.name.presence || @employee.email %> 様
+
+メールアドレスの確認が完了しました。以下のURLからログインしてください。
+<%= office_sign_in_url(office_slug: @office.slug) %>

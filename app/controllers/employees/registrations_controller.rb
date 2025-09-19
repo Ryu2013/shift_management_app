@@ -9,7 +9,8 @@ module Employees
     end
 
     def after_inactive_sign_up_path_for(_resource)
-      new_employee_session_path
+      flash[:notice] = '確認メールを送信しました。メール内のリンクを開いて登録を完了してください。'
+      new_employee_registration_path
     end
   end
 end

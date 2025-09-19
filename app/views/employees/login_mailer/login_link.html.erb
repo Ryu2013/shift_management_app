@@ -1,0 +1,5 @@
+<p><%= @employee.name.presence || @employee.email %> 様</p>
+
+<p>メールアドレスの確認が完了しました。下記リンクから事業所専用のログインページへアクセスできます。</p>
+
+<p><%= link_to 'ログインページへ移動', office_sign_in_url(office_slug: @office.slug) %></p>

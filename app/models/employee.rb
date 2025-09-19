@@ -16,14 +16,32 @@ class Employee < ApplicationRecord
 
   validates :name, presence: true
   validates :pending_office_name, presence: true, if: -> { office_id.nil? }
+  validate :pending_office_name_uniqueness, on: :create
 
+  # メール確認URLクイック時、管理者のオフィスが未登録ならオフィス登録、既存ならログインページへ
   def after_confirmation
     return if office_id.present?
     return if pending_office_name.blank?
 
+    normalized_name = pending_office_name.strip
+
     Office.transaction do
-      created_office = Office.create!(name: pending_office_name)
+      created_office = Office.create!(name: normalized_name)
       update!(office: created_office, pending_office_name: nil)
     end
+
+    Employees::LoginMailer.with(employee: self).login_link.deliver_later
   end
+
+  private
+
+  def pending_office_name_uniqueness
+    return if pending_office_name.blank?
+
+    normalized_name = pending_office_name.strip
+    if Office.exists?(name: normalized_name)
+      errors.add(:pending_office_name, 'は既に登録されています。管理者に確認してください。')
+    end
+  end
+
 end
