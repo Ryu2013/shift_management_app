@@ -14,3 +14,9 @@ section.dashboard
       strong= @employee.name.presence || @employee.email
 
   p ここにシフト編集機能を追加してください。
+
+  - if @office.present?
+    p
+      = link_to '変更連絡状況を確認', office_contact_statuses_path(office_slug: @office.slug)
+    p
+      = link_to '従業員一覧を確認', office_employees_path(office_slug: @office.slug)

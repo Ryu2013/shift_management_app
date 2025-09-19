@@ -19,7 +19,10 @@ Rails.application.routes.draw do
   end
 
   scope '/:office_slug', as: :office do
-    get 'shift', to: 'shifts#index'
+    get 'shifts', to: 'shifts#index'
+    resources :contact_statuses, only: :index
+    resources :employees, controller: 'office_employees', only: [:index, :edit, :update]
+    resources :clients, controller: 'office_clients', only: :index
   end
 
   root to: 'home#index'

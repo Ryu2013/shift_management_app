@@ -9,6 +9,7 @@ class Employee < ApplicationRecord
   has_many :mail_logs, dependent: :destroy
   has_many :mail_recipients, dependent: :destroy
   has_many :employee_needs, dependent: :destroy
+  accepts_nested_attributes_for :employee_needs, allow_destroy: true
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
