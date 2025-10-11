@@ -9,7 +9,7 @@ class OfficesTest < ApplicationSystemTestCase
     visit root_path
     click_on "登録"
 
-    fill_in "Name", with: @office.name
+    fill_in "Name", with: "いちご"
     click_on "Create Office"
 
     assert_text "オフィスを作成しました。"
