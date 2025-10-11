@@ -1,0 +1,9 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @office %>
+
+<div>
+  <%= link_to "このオフィスを編集", edit_office_path(@office) %>
+
+  <%= button_to "このオフィスを削除", @office, method: :delete %>
+</div>
