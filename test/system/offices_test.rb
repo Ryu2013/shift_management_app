@@ -9,10 +9,10 @@ class OfficesTest < ApplicationSystemTestCase
     visit root_path
     click_on "登録"
 
-    fill_in "Name", with: @office.name
+    fill_in "Name", with: "いちご"
     click_on "Create Office"
 
-    assert_text "オフィスを作成しました。", message: "オフィスの作成に失敗しました。"
+    assert_text "オフィスを作成しました。"
   end
 
   test "オフィスを更新する" do
@@ -22,13 +22,13 @@ class OfficesTest < ApplicationSystemTestCase
     fill_in "Name", with: @office.name
     click_on "Update Office"
 
-    assert_text "オフィスを更新しました。", message: "オフィスの更新に失敗しました。"
+    assert_text "オフィスを更新しました。"
   end
 
   test "should destroy Office" do
     visit office_url(@office)
     click_on "このオフィスを消去", match: :first
 
-    assert_text "オフィスを削除しました。", message: "オフィスの削除に失敗しました。"
+    assert_text "オフィスを削除しました。"
   end
 end
