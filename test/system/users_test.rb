@@ -15,7 +15,7 @@ class UsersTest < ApplicationSystemTestCase
     fill_in "住所", with: "東京都"
     fill_in "希望出勤日数（週）", with: "5"
     fill_in "通勤手段", with: "電車"
-    click_button "Sign up"
+    click_button "登録する"
 
     user = User.find_by!(email: "test@example.com")
     assert_equal office.id, user.office_id
