@@ -15,7 +15,7 @@ class OfficesControllerTest < ActionDispatch::IntegrationTest
       post offices_url, params: { office: { name: "いちご" } }
     end
 
-    assert_redirected_to office_url(Office.last)
+    assert_redirected_to new_user_registration_path
   end
 
   test "should show office" do
