@@ -15,7 +15,7 @@ class OfficesController < ApplicationController
     @office = Office.new(office_params)
     if @office.save
       session[:office_id] = @office.id
-      redirect_to new_user_registration_path, notice: "オフィスを作成しました。"
+      redirect_to new_user_registration_path, notice: "オフィスを作成しました。", status: :see_other
     else
       render :new, status: :unprocessable_entity
     end
