@@ -10,15 +10,52 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_10_12_085705) do
+ActiveRecord::Schema[7.2].define(version: 2025_10_14_023303) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "clients", force: :cascade do |t|
+    t.bigint "office_id", null: false
+    t.bigint "team_id", null: false
+    t.integer "medical_care"
+    t.string "name"
+    t.string "email"
+    t.string "address"
+    t.string "disease"
+    t.string "public_token"
+    t.string "note"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["office_id"], name: "index_clients_on_office_id"
+    t.index ["team_id"], name: "index_clients_on_team_id"
+  end
 
   create_table "offices", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_offices_on_name", unique: true
+  end
+
+  create_table "shifts", force: :cascade do |t|
+    t.bigint "office_id", null: false
+    t.bigint "client_id", null: false
+    t.integer "shift_type"
+    t.integer "slots", default: 1, null: false
+    t.string "note"
+    t.date "date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["client_id"], name: "index_shifts_on_client_id"
+    t.index ["office_id"], name: "index_shifts_on_office_id"
+  end
+
+  create_table "teams", force: :cascade do |t|
+    t.bigint "office_id", null: false
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["office_id"], name: "index_teams_on_office_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -42,5 +79,10 @@ ActiveRecord::Schema[7.2].define(version: 2025_10_12_085705) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "clients", "offices"
+  add_foreign_key "clients", "teams"
+  add_foreign_key "shifts", "clients"
+  add_foreign_key "shifts", "offices"
+  add_foreign_key "teams", "offices"
   add_foreign_key "users", "offices"
 end

@@ -1,0 +1,23 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  office: one
+  team: one
+  medical_care: 1
+  name: MyString
+  email: MyString
+  address: MyString
+  disease: MyString
+  public_token: MyString
+  note: MyString
+
+two:
+  office: two
+  team: two
+  medical_care: 1
+  name: MyString
+  email: MyString
+  address: MyString
+  disease: MyString
+  public_token: MyString
+  note: MyString

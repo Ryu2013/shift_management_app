@@ -1,0 +1,47 @@
+<%= form_with(model: shift) do |form| %>
+  <% if shift.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(shift.errors.count, "error") %> prohibited this shift from being saved:</h2>
+
+      <ul>
+        <% shift.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :office_id, style: "display: block" %>
+    <%= form.text_field :office_id %>
+  </div>
+
+  <div>
+    <%= form.label :client_id, style: "display: block" %>
+    <%= form.text_field :client_id %>
+  </div>
+
+  <div>
+    <%= form.label :shift_type, style: "display: block" %>
+    <%= form.number_field :shift_type %>
+  </div>
+
+  <div>
+    <%= form.label :slots, style: "display: block" %>
+    <%= form.number_field :slots %>
+  </div>
+
+  <div>
+    <%= form.label :note, style: "display: block" %>
+    <%= form.text_field :note %>
+  </div>
+
+  <div>
+    <%= form.label :date, style: "display: block" %>
+    <%= form.date_field :date %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

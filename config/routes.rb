@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :shifts
+  resources :clients
+  resources :teams
   root "home#index"
 
   resources :offices, only: %i[new create show edit update destroy]
