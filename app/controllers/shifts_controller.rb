@@ -1,70 +1,65 @@
 class ShiftsController < ApplicationController
   before_action :set_shift, only: %i[ show edit update destroy ]
 
-  # GET /shifts or /shifts.json
   def index
-    @shifts = Shift.all
+    @teams = @office.teams
+    @clients = @office.clients
+    @shifts = @office.shifts
+
+    if params[:team_id].present?
+      team = @teams.find_by(id: params[:team_id])
+    else
+      team = @teams.order(:id).first
+    end
+
+    if params[:client_id].present?
+      client = @clients.find_by(id: params[:client_id])
+    else
+      client = team.clients.order(:id).first
+    end
+    @clients = team.clients
+    @shifts = client.shifts
   end
 
-  # GET /shifts/1 or /shifts/1.json
   def show
   end
 
-  # GET /shifts/new
   def new
-    @shift = Shift.new
+    @shift = @office.shifts.new
   end
 
-  # GET /shifts/1/edit
   def edit
   end
 
-  # POST /shifts or /shifts.json
   def create
     @shift = Shift.new(shift_params)
-
-    respond_to do |format|
-      if @shift.save
-        format.html { redirect_to @shift, notice: "Shift was successfully created." }
-        format.json { render :show, status: :created, location: @shift }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @shift.errors, status: :unprocessable_entity }
-      end
+    if @shift.save
+      redirect_to @shift, notice: "Shift was successfully created."
+    else
+      render :new, status: :unprocessable_entity
     end
   end
 
-  # PATCH/PUT /shifts/1 or /shifts/1.json
   def update
-    respond_to do |format|
-      if @shift.update(shift_params)
-        format.html { redirect_to @shift, notice: "Shift was successfully updated.", status: :see_other }
-        format.json { render :show, status: :ok, location: @shift }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @shift.errors, status: :unprocessable_entity }
-      end
+    if @shift.update(shift_params)
+      redirect_to @shift, notice: "Shift was successfully updated.", status: :see_other
+    else
+      render :edit, status: :unprocessable_entity
     end
   end
 
-  # DELETE /shifts/1 or /shifts/1.json
   def destroy
     @shift.destroy!
-
-    respond_to do |format|
-      format.html { redirect_to shifts_path, notice: "Shift was successfully destroyed.", status: :see_other }
-      format.json { head :no_content }
-    end
+    redirect_to shifts_path, notice: "Shift was successfully destroyed.", status: :see_other
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_shift
-      @shift = Shift.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def shift_params
-      params.require(:shift).permit(:office_id, :client_id, :shift_type, :slots, :note, :date)
-    end
+  def set_shift
+    @shift = @office.shifts.find(params[:id])
+  end
+
+  def shift_params
+    params.require(:shift).permit(:client_id, :shift_type, :slots, :note, :date)
+  end
 end

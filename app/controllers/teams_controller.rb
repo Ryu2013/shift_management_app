@@ -1,70 +1,49 @@
 class TeamsController < ApplicationController
   before_action :set_team, only: %i[ show edit update destroy ]
 
-  # GET /teams or /teams.json
   def index
-    @teams = Team.all
+    @teams = @office.teams.all
   end
 
-  # GET /teams/1 or /teams/1.json
   def show
   end
 
-  # GET /teams/new
   def new
-    @team = Team.new
+    @team = @office.teams.new
   end
 
-  # GET /teams/1/edit
   def edit
   end
 
-  # POST /teams or /teams.json
   def create
-    @team = Team.new(team_params)
-
-    respond_to do |format|
-      if @team.save
-        format.html { redirect_to @team, notice: "Team was successfully created." }
-        format.json { render :show, status: :created, location: @team }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @team.errors, status: :unprocessable_entity }
-      end
+    @team = @office.teams.new(team_params)
+    if @team.save
+      redirect_to new_client_path(team_id: @team.id), notice: "チームを作成しました。次にクライアントを登録してください。"
+    else
+      render :new, status: :unprocessable_entity
     end
   end
 
-  # PATCH/PUT /teams/1 or /teams/1.json
   def update
-    respond_to do |format|
-      if @team.update(team_params)
-        format.html { redirect_to @team, notice: "Team was successfully updated.", status: :see_other }
-        format.json { render :show, status: :ok, location: @team }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @team.errors, status: :unprocessable_entity }
-      end
+    if @team.update(team_params)
+      redirect_to @team, notice: "Team was successfully updated.", status: :see_other
+    else
+      render :edit, status: :unprocessable_entity
     end
   end
 
-  # DELETE /teams/1 or /teams/1.json
   def destroy
     @team.destroy!
-
-    respond_to do |format|
-      format.html { redirect_to teams_path, notice: "Team was successfully destroyed.", status: :see_other }
-      format.json { head :no_content }
-    end
+    redirect_to teams_path, notice: "Team was successfully destroyed.", status: :see_other
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_team
-      @team = Team.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def team_params
-      params.require(:team).permit(:office_id, :name)
-    end
+  def set_team
+    @team = @office.teams.find(params[:id])
+  end
+
+  def team_params
+    params.require(:team).permit(:name)
+  end
 end

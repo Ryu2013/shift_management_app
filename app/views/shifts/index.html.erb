@@ -3,6 +3,23 @@
 <% content_for :title, "Shifts" %>
 
 <h1>Shifts</h1>
+<% if @office.teams.exists? && @office.clients.exists? %>
+  <%= form_with url: shifts_path, method: :get, local: true do |f| %>
+    <div>
+      <%= f.label :team_id, "チーム" %>
+      <%= f.collection_select :team_id, @teams, :id, :name, include_blank: "すべてのチーム" %>
+    </div>
+
+    <div>
+      <%= f.label :client_id, "クライアント" %>
+      <%= f.collection_select :client_id, @clients, :id, :name, include_blank: "すべてのクライアント" %>
+    </div>
+
+    <div>
+      <%= f.submit "絞り込み" %>
+    </div>
+  <% end %>
+<% end %>
 
 <div id="shifts">
   <% @shifts.each do |shift| %>
@@ -13,4 +30,8 @@
   <% end %>
 </div>
 
-<%= link_to "New shift", new_shift_path %>
+  <%= link_to "New shift", new_shift_path %>
+  <%= link_to "チームを新規作成", new_team_path, class: "btn" %>
+  <%= link_to "クライアントを新規作成", new_client_path, class: "btn" %>
+
+

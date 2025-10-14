@@ -1,6 +1,9 @@
 <% content_for :title, "New team" %>
 
 <h1>New team</h1>
+<% unless @office.teams.exists? %>
+  <p>まずは事業所を登録しましょう。</p>
+<% end %>
 
 <%= render "form", team: @team %>
 
