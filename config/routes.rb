@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  resources :user_needs
+  resources :user_clients
+  resources :client_needs
+  resources :user_teams
   resources :shifts
   resources :clients
   resources :teams
