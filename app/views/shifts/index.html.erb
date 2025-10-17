@@ -1,37 +1,61 @@
 <p style="color: green"><%= notice %></p>
 
 <% content_for :title, "Shifts" %>
-
-<h1>Shifts</h1>
-<% if @office.teams.exists? && @office.clients.exists? %>
-  <%= form_with url: shifts_path, method: :get, local: true do |f| %>
-    <div>
-      <%= f.label :team_id, "チーム" %>
-      <%= f.collection_select :team_id, @teams, :id, :name, include_blank: "すべてのチーム" %>
-    </div>
-
-    <div>
-      <%= f.label :client_id, "クライアント" %>
-      <%= f.collection_select :client_id, @clients, :id, :name, include_blank: "すべてのクライアント" %>
-    </div>
-
-    <div>
-      <%= f.submit "絞り込み" %>
-    </div>
-  <% end %>
+<% content_for :head do %>
+  <%= stylesheet_link_tag "shift/index", "data-turbo-track": "dynamic" %>
 <% end %>
 
-<div id="shifts">
-  <% @shifts.each do |shift| %>
-    <%= render shift %>
-    <p>
-      <%= link_to "Show this shift", shift %>
-    </p>
-  <% end %>
+<div class="flexbox">
+  <%= link_to "変更連絡状況", "#" %> 
+  <%= link_to "顧客/従業員", "#" %>
+  <%= link_to "出勤状況", "#" %>
+  <%= link_to "ログアウト", destroy_user_session_path %>
 </div>
 
-  <%= link_to "New shift", new_shift_path %>
-  <%= link_to "チームを新規作成", new_team_path, class: "btn" %>
-  <%= link_to "クライアントを新規作成", new_client_path, class: "btn" %>
+<hr>
 
+  <%= form_with url: shifts_path, method: :get, local: true do |f| %>
 
+    <%= f.month_field :date, id: "real-month", style: "display: none;"%>
+
+    <div id="modal" class="modal">
+      <%= f.label :team_id, "チーム" %>
+      <%= f.collection_select :team_id, @teams, :id, :name, selected: @team.name %>
+
+      <%= f.label :client_id, "クライアント" %>
+      <%= f.collection_select :client_id, @clients, :id, :name, selected: @client.name %>
+    </div>
+    
+    <div class="flexbox">
+      <div id= "fake-month" class="fake-form">
+        <%= @date %>
+      </div>
+
+      <div id="fake-client" class="fake-form">
+        <%= @client.name %>
+      </div>
+
+      <%= f.submit "絞り込み", class: "fake-form" %>
+    </div>
+  <% end %>
+
+<div class="calendar">
+
+    <% %w(日 月 火 水 木 金 土).each do |wday| %>
+      <div class="week"><%= wday %></div>
+    <% end %>
+
+    <% @first_day.wday.times do %>
+      <div class="day"></div>
+    <% end %>
+
+    <% (@first_day..@last_day).each do |date| %>
+      <div class="day <%= 'today' if date == @today %>">
+        <%= date.day %>
+      </div>
+    <% end %>
+
+    <% (6 - @last_day.wday).times do %>
+      <div class="day"></div>
+    <% end %>
+</div>

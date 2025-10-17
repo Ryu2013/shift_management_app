@@ -6,19 +6,33 @@ class ShiftsController < ApplicationController
     @clients = @office.clients
     @shifts = @office.shifts
 
+    @today = Date.today
+    @first_day = @today.beginning_of_month
+    @last_day  = @today.end_of_month
+
+
     if params[:team_id].present?
-      team = @teams.find_by(id: params[:team_id])
+      @team = @teams.find_by(id: params[:team_id])
     else
-      team = @teams.order(:id).first
+      @team = @teams.order(:id).first
     end
 
     if params[:client_id].present?
-      client = @clients.find_by(id: params[:client_id])
+      @client = @clients.find_by(id: params[:client_id])
     else
-      client = team.clients.order(:id).first
+      @client = @team.clients.order(:id).first
     end
-    @clients = team.clients
-    @shifts = client.shifts
+    @clients = @team.clients
+    @shifts = @client.shifts
+
+    if params[:date].present?
+      date = Date.strptime(params[:date], "%Y-%m")
+      @shifts = @shifts.where(date: date.beginning_of_month..date.end_of_month)
+      @date = date.strftime("%m月")
+    else
+      @date = Date.current.strftime("%m月")
+      @shifts = @shifts.where(date: Date.current.beginning_of_month..Date.current.end_of_month)
+    end
   end
 
   def show
