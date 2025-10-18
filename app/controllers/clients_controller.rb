@@ -20,7 +20,7 @@ class ClientsController < ApplicationController
   def create
     @client = @office.clients.new(client_params)
     if @client.save
-      redirect_to @client, notice: "Client was successfully created."
+      redirect_to clients_path, notice: "Client was successfully created."
     else
       @teams = @office.teams.all
       render :new, status: :unprocessable_entity
@@ -29,7 +29,7 @@ class ClientsController < ApplicationController
 
   def update
     if @client.update(client_params)
-      redirect_to @client, notice: "Client was successfully updated.", status: :see_other
+      redirect_to clients_path, notice: "Client was successfully updated.", status: :see_other
     else
       @teams = @office.teams.all
       render :edit, status: :unprocessable_entity

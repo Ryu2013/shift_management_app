@@ -135,6 +135,7 @@ ja:
       show: "この利用者を表示"
       new: "利用者を追加"
       users: "従業員一覧"
+      shifts: "シフト一覧"
     new:
       title: "利用者を追加"
       heading: "利用者を追加"

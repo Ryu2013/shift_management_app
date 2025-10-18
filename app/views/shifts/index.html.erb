@@ -28,15 +28,15 @@
     </div>
     
     <div class="flexbox">
-      <div id= "fake-month" class="fake-form">
+      <div id= "fake-month" class="flex-btn">
         <%= @date %>
       </div>
 
-      <div id="fake-client" class="fake-form">
+      <div id="fake-client" class="flex-btn">
         <%= @client.name %>
       </div>
-      <%= link_to t(".new_shift"), new_shift_path(client_id: @client.id, client_name: @client.name), class: "fake-form" %>
-      <%= f.submit t(".form.submit"), class: "fake-form" %>
+      <%= link_to t(".new_shift"), new_shift_path(client_id: @client.id, client_name: @client.name), class: "flex-btn" %>
+      <%= f.submit t(".form.submit"), class: "flex-btn" %>
     </div>
   <% end %>
 
