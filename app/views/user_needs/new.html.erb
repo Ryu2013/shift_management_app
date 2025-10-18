@@ -1,11 +1,11 @@
-<% content_for :title, "New user need" %>
+<% content_for :title, t(".title") %>
 
-<h1>New user need</h1>
+<h1><%= t(".heading") %></h1>
 
 <%= render "form", user_need: @user_need %>
 
 <br>
 
 <div>
-  <%= link_to "Back to user needs", user_needs_path %>
+  <%= link_to t(".back"), user_needs_path %>
 </div>

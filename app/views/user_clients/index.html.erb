@@ -1,16 +1,16 @@
 <p style="color: green"><%= notice %></p>
 
-<% content_for :title, "user clients" %>
+<% content_for :title, t(".title") %>
 
-<h1>user clients</h1>
+<h1><%= t(".heading") %></h1>
 
 <div id="user_clients">
   <% @user_clients.each do |user_client| %>
     <%= render user_client %>
     <p>
-      <%= link_to "Show this user client", user_client %>
+      <%= link_to t(".show"), user_client %>
     </p>
   <% end %>
 </div>
 
-<%= link_to "New user client", new_user_client_path %>
+<%= link_to t(".new"), new_user_client_path %>

@@ -1,7 +1,7 @@
 <%= form_with(model: shift) do |form| %>
   <% if shift.errors.any? %>
     <div style="color: red">
-      <h2><%= pluralize(shift.errors.count, "error") %> prohibited this shift from being saved:</h2>
+      <h2><%= t(".errors.title", count: shift.errors.count) %></h2>
 
       <ul>
         <% shift.errors.each do |error| %>
@@ -27,12 +27,12 @@
   </div>
 
   <div>
-    <%= form.label :start_time, "開始", style: "display:block" %>
+    <%= form.label :start_time, t(".start_time"), style: "display:block" %>
     <%= form.time_field :start_time %>
   </div>
 
   <div>
-    <%= form.label :end_time, "終了", style: "display:block" %>
+    <%= form.label :end_time, t(".end_time"), style: "display:block" %>
     <%= form.time_field :end_time %>
   </div>
 
@@ -47,6 +47,6 @@
   </div>
 
   <div>
-    <%= form.submit %>
+    <%= form.submit t(".submit") %>
   </div>
 <% end %>

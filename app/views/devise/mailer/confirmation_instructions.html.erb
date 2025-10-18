@@ -1,5 +1,5 @@
-<p><%= @email %> 様、ようこそ。</p>
+<p><%= t(".greeting", email: @email) %></p>
 
-<p>以下のリンクからアカウントのメールアドレスを確認できます。</p>
+<p><%= t(".instruction") %></p>
 
-<p><%= link_to 'アカウントを確認する', confirmation_url(@resource, confirmation_token: @token) %></p>
+<p><%= link_to t(".action"), confirmation_url(@resource, confirmation_token: @token) %></p>

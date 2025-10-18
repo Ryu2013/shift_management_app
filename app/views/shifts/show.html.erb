@@ -3,8 +3,8 @@
 <%= render @shift %>
 
 <div>
-  <%= link_to "Edit this shift", edit_shift_path(@shift) %> |
-  <%= link_to "Back to shifts", shifts_path %>
+  <%= link_to t(".edit"), edit_shift_path(@shift) %> |
+  <%= link_to t(".back"), shifts_path %>
 
-  <%= button_to "Destroy this shift", @shift, method: :delete %>
+  <%= button_to t(".destroy"), @shift, method: :delete %>
 </div>

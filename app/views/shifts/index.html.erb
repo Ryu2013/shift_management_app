@@ -1,15 +1,15 @@
 <p style="color: green"><%= notice %></p>
 
-<% content_for :title, "Shifts" %>
+<% content_for :title, t(".title") %>
 <% content_for :head do %>
   <%= stylesheet_link_tag "shift/index", "data-turbo-track": "dynamic" %>
 <% end %>
 
 <div class="flexbox">
-  <%= link_to "変更連絡状況", "#" %> 
-  <%= link_to "顧客/従業員", clients_path %>
-  <%= link_to "出勤状況", "#" %>
-  <%= link_to "ログアウト", destroy_user_session_path %>
+  <%= link_to t(".nav.change_requests"), "#" %> 
+  <%= link_to t(".nav.clients_and_staff"), clients_path %>
+  <%= link_to t(".nav.attendance_status"), "#" %>
+  <%= link_to t(".nav.logout"), destroy_user_session_path %>
 </div>
 
 <hr>
@@ -19,10 +19,10 @@
     <%= f.month_field :date, id: "real-month", style: "display: none;"%>
 
     <div id="modal" class="modal">
-      <%= f.label :team_id, "チーム" %>
+      <%= f.label :team_id, t(".form.team") %>
       <%= f.collection_select :team_id, @teams, :id, :name, selected: @team.id %><br>
 
-      <%= f.label :client_id, "クライアント" %>
+      <%= f.label :client_id, t(".form.client") %>
       <%= f.collection_select :client_id, @clients, :id, :name, selected: @client.id %>
       <div id="close-modal" class="close-modal">✕</div>
     </div>
@@ -35,14 +35,14 @@
       <div id="fake-client" class="fake-form">
         <%= @client.name %>
       </div>
-      <%= link_to "新規シフト", new_shift_path(client_id: @client.id, client_name: @client.name), class: "fake-form" %>
-      <%= f.submit "絞り込み", class: "fake-form" %>
+      <%= link_to t(".new_shift"), new_shift_path(client_id: @client.id, client_name: @client.name), class: "fake-form" %>
+      <%= f.submit t(".form.submit"), class: "fake-form" %>
     </div>
   <% end %>
 
 <div class="calendar">
 
-    <% %w(日 月 火 水 木 金 土).each do |wday| %>
+    <% I18n.t("date.abbr_day_names").each do |wday| %>
       <div class="week"><%= wday %></div>
     <% end %>
 

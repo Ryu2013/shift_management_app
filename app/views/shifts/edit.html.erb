@@ -1,12 +1,12 @@
-<% content_for :title, "Editing shift" %>
+<% content_for :title, t(".title") %>
 
-<h1>Editing shift</h1>
+<h1><%= t(".heading") %></h1>
 
 <%= render "form", shift: @shift %>
 
 <br>
 
 <div>
-  <%= link_to "Show this shift", @shift %> |
-  <%= link_to "Back to shifts", shifts_path %>
+  <%= link_to t(".show"), @shift %> |
+  <%= link_to t(".back"), shifts_path %>
 </div>

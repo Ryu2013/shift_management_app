@@ -3,8 +3,8 @@
 <%= render @user_client %>
 
 <div>
-  <%= link_to "Edit this user client", edit_user_client_path(@user_client) %> |
-  <%= link_to "Back to user clients", user_clients_path %>
+  <%= link_to t(".edit"), edit_user_client_path(@user_client) %> |
+  <%= link_to t(".back"), user_clients_path %>
 
-  <%= button_to "Destroy this user client", @user_client, method: :delete %>
+  <%= button_to t(".destroy"), @user_client, method: :delete %>
 </div>

@@ -3,9 +3,9 @@
 <%= render @client %>
 
 <div>
-  <%= link_to "Edit this client", edit_client_path(@client) %> |
-  <%= link_to "Back to clients", clients_path %>
-  <%= link_to "シフトページに戻る", shifts_path %> |
+  <%= link_to t(".edit"), edit_client_path(@client) %> |
+  <%= link_to t(".back"), clients_path %>
+  <%= link_to t(".back_to_shifts"), shifts_path %> |
 
-  <%= button_to "Destroy this client", @client, method: :delete %>
+  <%= button_to t(".destroy"), @client, method: :delete %>
 </div>

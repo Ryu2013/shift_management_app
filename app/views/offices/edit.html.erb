@@ -1,11 +1,11 @@
-<% content_for :title, "オフィスの編集" %>
+<% content_for :title, t(".title") %>
 
-<h1>オフィスの編集</h1>
+<h1><%= t(".heading") %></h1>
 
 <%= render "form", office: @office %>
 
 <br>
 
 <div>
-  <%= link_to "このオフィスを表示", @office %> 
+  <%= link_to t(".show"), @office %> 
 </div>

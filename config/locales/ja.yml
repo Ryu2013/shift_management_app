@@ -1,0 +1,339 @@
+ja:
+  date:
+    abbr_day_names:
+      - 日
+      - 月
+      - 火
+      - 水
+      - 木
+      - 金
+      - 土
+  layouts:
+    application:
+      default_title: "シフト管理システム"
+  errors:
+    messages:
+      not_saved:
+        one: "%{resource}は保存できませんでした（1件のエラーがあります）。"
+        other: "%{resource}は保存できませんでした（%{count}件のエラーがあります）。"
+  activerecord:
+    models:
+      office: 事業所
+      team: チーム
+      client: 利用者
+      shift: シフト
+      client_need: 利用者ニーズ
+      user_need: 従業員希望
+      user_client: 担当利用者
+      user_team: チーム所属
+      user: 従業員
+    attributes:
+      office:
+        name: 事業所名
+      team:
+        office_id: 事業所
+        name: チーム名
+      client:
+        office_id: 事業所
+        team_id: チーム
+        medical_care: 医療区分
+        name: 氏名
+        email: メールアドレス
+        address: 住所
+        disease: 疾患
+        public_token: 公開トークン
+        note: 備考
+      shift:
+        office_id: 事業所
+        client_id: 利用者
+        shift_type: シフト種別
+        slots: 必要人数
+        note: 備考
+        date: 日付
+        start_time: 開始時刻
+        end_time: 終了時刻
+      client_need:
+        office_id: 事業所
+        client_id: 利用者
+        week: 曜日
+        type: 種別
+        start_time: 開始時刻
+        end_time: 終了時刻
+        slots: 必要人数
+      user_need:
+        office_id: 事業所
+        user_id: 従業員
+        week: 曜日
+        start_time: 開始時刻
+        end_time: 終了時刻
+      user_client:
+        office_id: 事業所
+        user_id: 従業員
+        client_id: 利用者
+        note: 備考
+      user_team:
+        team_id: チーム
+        use_id: 従業員
+      user:
+        name: 氏名
+        address: 住所
+        pref_per_week: 希望出勤日数（週）
+        commute: 通勤手段
+        email: メールアドレス
+        password: パスワード
+        password_confirmation: パスワード（確認用）
+        current_password: 現在のパスワード
+  home:
+    index:
+      heading: "ホーム"
+      new_office: "事業所を登録"
+  shifts:
+    index:
+      title: "シフト一覧"
+      nav:
+        change_requests: "変更連絡状況"
+        clients_and_staff: "顧客/従業員"
+        attendance_status: "出勤状況"
+        logout: "ログアウト"
+      form:
+        team: "チーム"
+        client: "利用者"
+        submit: "絞り込み"
+      new_shift: "新規シフト"
+    new:
+      title: "シフトを登録"
+      heading: "シフトを登録"
+      back: "シフト一覧に戻る"
+    edit:
+      title: "シフトを編集"
+      heading: "シフトを編集"
+      show: "このシフトを表示"
+      back: "シフト一覧に戻る"
+    show:
+      edit: "このシフトを編集"
+      back: "シフト一覧に戻る"
+      destroy: "このシフトを削除"
+    form:
+      errors:
+        title:
+          one: "%{count}件のエラーがあります。内容を確認してください。"
+          other: "%{count}件のエラーがあります。内容を確認してください。"
+      start_time: "開始"
+      end_time: "終了"
+      submit: "保存する"
+    shift:
+      office: "事業所"
+      client: "利用者"
+      shift_type: "シフト種別"
+      slots: "必要人数"
+      note: "備考"
+      date: "日付"
+  clients:
+    index:
+      title: "利用者一覧"
+      heading: "利用者一覧"
+      show: "この利用者を表示"
+      new: "利用者を追加"
+      users: "従業員一覧"
+    new:
+      title: "利用者を追加"
+      heading: "利用者を追加"
+      back: "利用者一覧に戻る"
+    edit:
+      title: "利用者を編集"
+      heading: "利用者を編集"
+      show: "この利用者を表示"
+      back: "利用者一覧に戻る"
+    show:
+      edit: "この利用者を編集"
+      back: "利用者一覧に戻る"
+      back_to_shifts: "シフトページに戻る"
+      destroy: "この利用者を削除"
+    form:
+      errors:
+        title:
+          one: "%{count}件のエラーがあります。内容を確認してください。"
+          other: "%{count}件のエラーがあります。内容を確認してください。"
+      team: "チーム"
+      submit: "保存する"
+    client:
+      office: "事業所"
+      team: "チーム"
+      medical_care: "医療区分"
+      name: "氏名"
+      email: "メールアドレス"
+      address: "住所"
+      disease: "疾患"
+      public_token: "公開トークン"
+      note: "備考"
+  teams:
+    index:
+      title: "チーム一覧"
+      heading: "チーム一覧"
+      show: "このチームを表示"
+      new: "チームを追加"
+    new:
+      title: "チームを追加"
+      heading: "チームを追加"
+      no_offices: "まずは事業所を登録しましょう。"
+      back: "チーム一覧に戻る"
+    edit:
+      title: "チームを編集"
+      heading: "チームを編集"
+      show: "このチームを表示"
+      back: "チーム一覧に戻る"
+    show:
+      edit: "このチームを編集"
+      back: "チーム一覧に戻る"
+      destroy: "このチームを削除"
+    form:
+      errors:
+        title:
+          one: "%{count}件のエラーがあります。内容を確認してください。"
+          other: "%{count}件のエラーがあります。内容を確認してください。"
+      submit: "保存する"
+    team:
+      office: "事業所"
+      name: "チーム名"
+  offices:
+    edit:
+      title: "事業所の編集"
+      heading: "事業所の編集"
+      show: "この事業所を表示"
+    new:
+      title: "事業所の登録"
+      heading: "事業所の登録"
+      back_to_home: "ホームに戻る"
+    show:
+      edit: "この事業所を編集"
+      destroy: "この事業所を削除"
+    form:
+      errors:
+        title:
+          one: "%{count}件のエラーがあります。内容を確認してください。"
+          other: "%{count}件のエラーがあります。内容を確認してください。"
+      submit: "保存する"
+    office:
+      name: "名称"
+  user_needs:
+    index:
+      title: "従業員希望一覧"
+      heading: "従業員希望一覧"
+      show: "この従業員希望を表示"
+      new: "従業員希望を追加"
+    new:
+      title: "従業員希望を追加"
+      heading: "従業員希望を追加"
+      back: "一覧に戻る"
+    edit:
+      title: "従業員希望を編集"
+      heading: "従業員希望を編集"
+      show: "この従業員希望を表示"
+      back: "一覧に戻る"
+    show:
+      edit: "この従業員希望を編集"
+      back: "一覧に戻る"
+      destroy: "この従業員希望を削除"
+    form:
+      errors:
+        title:
+          one: "%{count}件のエラーがあります。内容を確認してください。"
+          other: "%{count}件のエラーがあります。内容を確認してください。"
+      submit: "保存する"
+    user_need:
+      office: "事業所"
+      user: "従業員"
+      week: "曜日"
+      start_time: "開始時刻"
+      end_time: "終了時刻"
+  user_clients:
+    index:
+      title: "担当利用者一覧"
+      heading: "担当利用者一覧"
+      show: "この担当利用者を表示"
+      new: "担当利用者を追加"
+    new:
+      title: "担当利用者を追加"
+      heading: "担当利用者を追加"
+      back: "一覧に戻る"
+    edit:
+      title: "担当利用者を編集"
+      heading: "担当利用者を編集"
+      show: "この担当利用者を表示"
+      back: "一覧に戻る"
+    show:
+      edit: "この担当利用者を編集"
+      back: "一覧に戻る"
+      destroy: "この担当利用者を削除"
+    form:
+      errors:
+        title:
+          one: "%{count}件のエラーがあります。内容を確認してください。"
+          other: "%{count}件のエラーがあります。内容を確認してください。"
+      submit: "保存する"
+    user_client:
+      office: "事業所"
+      user: "従業員"
+      client: "利用者"
+      note: "備考"
+  user_teams:
+    index:
+      title: "チーム所属一覧"
+      heading: "チーム所属一覧"
+      show: "この所属情報を表示"
+      new: "所属情報を追加"
+    new:
+      title: "所属情報を追加"
+      heading: "所属情報を追加"
+      back: "一覧に戻る"
+    edit:
+      title: "所属情報を編集"
+      heading: "所属情報を編集"
+      show: "この所属情報を表示"
+      back: "一覧に戻る"
+    show:
+      edit: "この所属情報を編集"
+      back: "一覧に戻る"
+      destroy: "この所属情報を削除"
+    form:
+      errors:
+        title:
+          one: "%{count}件のエラーがあります。内容を確認してください。"
+          other: "%{count}件のエラーがあります。内容を確認してください。"
+      submit: "保存する"
+    user_team:
+      team: "チーム"
+      use: "従業員"
+  client_needs:
+    index:
+      title: "利用者ニーズ一覧"
+      heading: "利用者ニーズ一覧"
+      show: "このニーズを表示"
+      new: "利用者ニーズを追加"
+    new:
+      title: "利用者ニーズを追加"
+      heading: "利用者ニーズを追加"
+      back: "一覧に戻る"
+    edit:
+      title: "利用者ニーズを編集"
+      heading: "利用者ニーズを編集"
+      show: "このニーズを表示"
+      back: "一覧に戻る"
+    show:
+      edit: "このニーズを編集"
+      back: "一覧に戻る"
+      destroy: "このニーズを削除"
+    form:
+      errors:
+        title:
+          one: "%{count}件のエラーがあります。内容を確認してください。"
+          other: "%{count}件のエラーがあります。内容を確認してください。"
+      submit: "保存する"
+    client_need:
+      office: "事業所"
+      client: "利用者"
+      week: "曜日"
+      need_type: "種別"
+      start_time: "開始時刻"
+      end_time: "終了時刻"
+      slots: "必要人数"

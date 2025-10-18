@@ -1,8 +1,8 @@
-<% content_for :title, "New team" %>
+<% content_for :title, t(".title") %>
 
-<h1>New team</h1>
+<h1><%= t(".heading") %></h1>
 <% unless @office.teams.exists? %>
-  <p>まずは事業所を登録しましょう。</p>
+  <p><%= t(".no_offices") %></p>
 <% end %>
 
 <%= render "form", team: @team %>
@@ -10,5 +10,5 @@
 <br>
 
 <div>
-  <%= link_to "Back to teams", teams_path %>
+  <%= link_to t(".back"), teams_path %>
 </div>
