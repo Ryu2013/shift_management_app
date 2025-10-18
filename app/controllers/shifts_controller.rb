@@ -4,7 +4,7 @@ class ShiftsController < ApplicationController
   def index
     @teams = @office.teams
     @clients = @office.clients
-    @shifts = @office.shifts
+    shifts = @office.shifts
 
     @today = Date.today
     @first_day = @today.beginning_of_month
@@ -23,30 +23,32 @@ class ShiftsController < ApplicationController
       @client = @team.clients.order(:id).first
     end
     @clients = @team.clients
-    @shifts = @client.shifts
+    shifts = @client.shifts
 
     if params[:date].present?
       date = Date.strptime(params[:date], "%Y-%m")
-      @shifts = @shifts.where(date: date.beginning_of_month..date.end_of_month)
+      shifts = shifts.where(date: date.beginning_of_month..date.end_of_month)
       @date = date.strftime("%m月")
     else
       @date = Date.current.strftime("%m月")
-      @shifts = @shifts.where(date: Date.current.beginning_of_month..Date.current.end_of_month)
+      shifts = shifts.where(date: Date.current.beginning_of_month..Date.current.end_of_month)
     end
+
+    @shifts_by_date = shifts.group_by { |shift| shift.date }
   end
 
   def show
   end
 
   def new
-    @shift = @office.shifts.new
+    @shift = @office.shifts.new(client_id: params[:client_id])
   end
 
   def edit
   end
 
   def create
-    @shift = Shift.new(shift_params)
+    @shift = @office.shifts.build(shift_params)
     if @shift.save
       redirect_to @shift, notice: "Shift was successfully created."
     else

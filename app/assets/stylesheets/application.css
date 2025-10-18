@@ -8,6 +8,8 @@ html{
   font-size: 100%;
   background-color: #fefdf8;
 }
+
+/* スマホ〜タブレット */
 @media (min-width: 644px) {
   html {
     font-size: 125%;
@@ -23,4 +25,16 @@ html{
 }
 body {
   position: relative;
+}
+
+a{
+  color: inherit;
+}
+
+hr{
+  border: none;
+  background-color: black;
+  height: 2px;
+  margin: 0.5rem 1rem;
+  border-radius: 50%;
 }

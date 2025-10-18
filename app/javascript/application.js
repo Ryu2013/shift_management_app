@@ -6,9 +6,14 @@ document.addEventListener("turbo:load", () => {
   const real = document.getElementById("real-month");
   const modal = document.getElementById("modal");
   const fakeClient = document.getElementById("fake-client");
+  const closeModal = document.getElementById("close-modal");
 
   fakeClient.onclick = () => {
     modal.classList.toggle("open");
+  }
+
+  closeModal.onclick = () => {
+    modal.classList.remove("open");
   }
 
 

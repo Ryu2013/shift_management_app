@@ -7,7 +7,7 @@
 
 <div class="flexbox">
   <%= link_to "変更連絡状況", "#" %> 
-  <%= link_to "顧客/従業員", "#" %>
+  <%= link_to "顧客/従業員", clients_path %>
   <%= link_to "出勤状況", "#" %>
   <%= link_to "ログアウト", destroy_user_session_path %>
 </div>
@@ -20,10 +20,11 @@
 
     <div id="modal" class="modal">
       <%= f.label :team_id, "チーム" %>
-      <%= f.collection_select :team_id, @teams, :id, :name, selected: @team.name %>
+      <%= f.collection_select :team_id, @teams, :id, :name, selected: @team.id %><br>
 
       <%= f.label :client_id, "クライアント" %>
-      <%= f.collection_select :client_id, @clients, :id, :name, selected: @client.name %>
+      <%= f.collection_select :client_id, @clients, :id, :name, selected: @client.id %>
+      <div id="close-modal" class="close-modal">✕</div>
     </div>
     
     <div class="flexbox">
@@ -34,7 +35,7 @@
       <div id="fake-client" class="fake-form">
         <%= @client.name %>
       </div>
-
+      <%= link_to "新規シフト", new_shift_path(client_id: @client.id, client_name: @client.name), class: "fake-form" %>
       <%= f.submit "絞り込み", class: "fake-form" %>
     </div>
   <% end %>
@@ -52,6 +53,17 @@
     <% (@first_day..@last_day).each do |date| %>
       <div class="day <%= 'today' if date == @today %>">
         <%= date.day %>
+
+      <% if @shifts_by_date[date].present? %>
+        <% @shifts_by_date[date].each do |shift| %>
+        <%= link_to edit_shift_path(shift) do %>
+          <div class="shift <%= "night" if shift.shift_type == 0 %>">
+            <%= shift.client.name %> <br>
+            <%= shift.start_time.strftime("%H:%M") %> - <%= shift.end_time.strftime("%H:%M") %>
+          </div>
+        <% end %>
+        <% end %>
+      <% end %>
       </div>
     <% end %>
 
