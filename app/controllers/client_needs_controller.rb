@@ -25,7 +25,7 @@ class ClientNeedsController < ApplicationController
 
     respond_to do |format|
       if @client_need.save
-        format.html { redirect_to @client_need, notice: "Client need was successfully created." }
+        format.html { redirect_to @client_need, notice: "クライアント希望を作成しました。" }
         format.json { render :show, status: :created, location: @client_need }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +38,7 @@ class ClientNeedsController < ApplicationController
   def update
     respond_to do |format|
       if @client_need.update(client_need_params)
-        format.html { redirect_to @client_need, notice: "Client need was successfully updated.", status: :see_other }
+        format.html { redirect_to @client_need, notice: "クライアント希望を更新しました。", status: :see_other }
         format.json { render :show, status: :ok, location: @client_need }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -52,7 +52,7 @@ class ClientNeedsController < ApplicationController
     @client_need.destroy!
 
     respond_to do |format|
-      format.html { redirect_to client_needs_path, notice: "Client need was successfully destroyed.", status: :see_other }
+      format.html { redirect_to client_needs_path, notice: "クライアント希望を削除しました。", status: :see_other }
       format.json { head :no_content }
     end
   end

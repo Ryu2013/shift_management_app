@@ -25,7 +25,7 @@ class UserNeedsController < ApplicationController
 
     respond_to do |format|
       if @user_need.save
-        format.html { redirect_to @user_need, notice: "User need was successfully created." }
+        format.html { redirect_to @user_need, notice: "ユーザー希望を作成しました。" }
         format.json { render :show, status: :created, location: @user_need }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +38,7 @@ class UserNeedsController < ApplicationController
   def update
     respond_to do |format|
       if @user_need.update(user_need_params)
-        format.html { redirect_to @user_need, notice: "User need was successfully updated.", status: :see_other }
+        format.html { redirect_to @user_need, notice: "ユーザー希望を更新しました。", status: :see_other }
         format.json { render :show, status: :ok, location: @user_need }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -52,7 +52,7 @@ class UserNeedsController < ApplicationController
     @user_need.destroy!
 
     respond_to do |format|
-      format.html { redirect_to user_needs_path, notice: "User need was successfully destroyed.", status: :see_other }
+      format.html { redirect_to user_needs_path, notice: "ユーザー希望を削除しました。", status: :see_other }
       format.json { head :no_content }
     end
   end

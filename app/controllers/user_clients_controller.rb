@@ -25,7 +25,7 @@ class UserClientsController < ApplicationController
 
     respond_to do |format|
       if @user_client.save
-        format.html { redirect_to @user_client, notice: "user client was successfully created." }
+        format.html { redirect_to @user_client, notice: "ユーザークライアントを作成しました。" }
         format.json { render :show, status: :created, location: @user_client }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +38,7 @@ class UserClientsController < ApplicationController
   def update
     respond_to do |format|
       if @user_client.update(user_client_params)
-        format.html { redirect_to @user_client, notice: "user client was successfully updated.", status: :see_other }
+        format.html { redirect_to @user_client, notice: "ユーザークライアントを更新しました。", status: :see_other }
         format.json { render :show, status: :ok, location: @user_client }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -52,7 +52,7 @@ class UserClientsController < ApplicationController
     @user_client.destroy!
 
     respond_to do |format|
-      format.html { redirect_to user_clients_path, notice: "user client was successfully destroyed.", status: :see_other }
+      format.html { redirect_to user_clients_path, notice: "ユーザークライアントを削除しました。", status: :see_other }
       format.json { head :no_content }
     end
   end

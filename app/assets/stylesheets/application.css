@@ -8,7 +8,7 @@ html{
   font-size: 100%;
   background-color: #fefdf8;
 }
-body {
+html {
   position: relative;
   background-color: #FFF8F0;
   background: url("background-mobile.jpg") center/cover repeat-y;
@@ -20,13 +20,12 @@ body {
 @media (min-width: 370px) {
   html {
     font-size: 125%;
-  }
-  body {
     background-color: #FFF8F0;
     background: url("background.jpg") center top repeat-y;
     background-size: 100%;
   }
 }
+
 h1{
   text-align: center;
 }

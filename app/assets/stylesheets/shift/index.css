@@ -26,9 +26,47 @@
     display: block;
 }
 
+/* Shiftの色説明 */
+.shift-ex{
+  background: #F19494;
+  margin: 0.2em;
+  padding: 0 0.3rem;
+  border-radius: 0 6px 0 0;
+  border-left: solid 4px #E35B5B;
+  font-size: 1em;
+  text-align: left;
+}
+.shift-ex-night {
+  background: #B4E2FF;
+  margin: 0.2em;
+  padding: 0 0.3rem;
+  border-radius: 0 6px 0 0;
+  border-left: solid 4px #69C5FF;
+  font-size: 1em;
+  text-align: left;
+}
+.shift-ex-escort {
+  background: #C8F7C5;
+  margin: 0.4em;
+  padding: 0 0.3rem;
+  border-radius: 0 6px 0 0;
+  border-left: solid 4px #4CAF50;
+  font-size: 1em;
+  text-align: left;
+}
+.shift-ex-nil {
+  background: #E0E0E0;
+  margin: 0.2em;
+  padding: 0 0.3rem;
+  border-radius: 0 6px 0 0;
+  border-left: solid 4px #A0A0A0;
+  font-size: 1em;
+  text-align: left;
+}
+
 .calendar {
   width: 95%;
-  margin: 1rem auto;
+  margin: 0 auto;
   text-align: center;
   display: grid;
   height: 95vh;
@@ -52,11 +90,11 @@
   padding: 0.2em;
   border-radius: 0 4px 0 0;
   border-left: solid 4px #E35B5B;
-  font-size: 0.5em;
+  font-size: 0.5rem;
   text-align: left;
 }
 .night {
-  color: white;
+  color: #333333;
   border-left: solid 4px #69C5FF;
   background: #B4E2FF;
 }

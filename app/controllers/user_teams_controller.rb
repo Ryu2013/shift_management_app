@@ -25,7 +25,7 @@ class UserTeamsController < ApplicationController
 
     respond_to do |format|
       if @user_team.save
-        format.html { redirect_to @user_team, notice: "User team was successfully created." }
+        format.html { redirect_to @user_team, notice: "ユーザーチームを作成しました。" }
         format.json { render :show, status: :created, location: @user_team }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +38,7 @@ class UserTeamsController < ApplicationController
   def update
     respond_to do |format|
       if @user_team.update(user_team_params)
-        format.html { redirect_to @user_team, notice: "User team was successfully updated.", status: :see_other }
+        format.html { redirect_to @user_team, notice: "ユーザーチームを更新しました。", status: :see_other }
         format.json { render :show, status: :ok, location: @user_team }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -52,7 +52,7 @@ class UserTeamsController < ApplicationController
     @user_team.destroy!
 
     respond_to do |format|
-      format.html { redirect_to user_teams_path, notice: "User team was successfully destroyed.", status: :see_other }
+      format.html { redirect_to user_teams_path, notice: "ユーザーチームを削除しました。", status: :see_other }
       format.json { head :no_content }
     end
   end

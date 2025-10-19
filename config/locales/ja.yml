@@ -83,6 +83,30 @@ ja:
         password: パスワード
         password_confirmation: パスワード（確認用）
         current_password: 現在のパスワード
+    errors:
+      models:
+        office:
+          attributes:
+            name:
+              blank: "を入力してください。"
+              taken: "はすでに存在します。"
+        team:
+          attributes:
+            name:
+              blank: "を入力してください。"
+        client:
+          attributes:
+            name:
+              blank: "を入力してください。"
+            email:
+              blank: "を入力してください。"
+              invalid: "メールアドレスの形式が正しくありません。"
+        shift:
+          attributes:
+            start_time:
+              blank: "を入力してください。"
+            end_time:
+              blank: "を入力してください。"
   home:
     index:
       heading: "ホーム"
