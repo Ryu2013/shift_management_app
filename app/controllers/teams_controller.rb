@@ -26,7 +26,7 @@ class TeamsController < ApplicationController
 
   def update
     if @team.update(team_params)
-      redirect_to @team, notice: "Team was successfully updated.", status: :see_other
+      redirect_to @team, notice: "チームを更新しました。", status: :see_other
     else
       render :edit, status: :unprocessable_entity
     end
@@ -34,7 +34,7 @@ class TeamsController < ApplicationController
 
   def destroy
     @team.destroy!
-    redirect_to teams_path, notice: "Team was successfully destroyed.", status: :see_other
+    redirect_to teams_path, notice: "チームを削除しました。", status: :see_other
   end
 
   private

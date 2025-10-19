@@ -50,7 +50,7 @@ class ShiftsController < ApplicationController
   def create
     @shift = @office.shifts.build(shift_params)
     if @shift.save
-      redirect_to @shift, notice: "Shift was successfully created."
+      redirect_to @shift, notice: "シフトを作成しました。"
     else
       render :new, status: :unprocessable_entity
     end
@@ -58,7 +58,7 @@ class ShiftsController < ApplicationController
 
   def update
     if @shift.update(shift_params)
-      redirect_to @shift, notice: "Shift was successfully updated.", status: :see_other
+      redirect_to @shift, notice: "シフトを更新しました。", status: :see_other
     else
       render :edit, status: :unprocessable_entity
     end
@@ -66,7 +66,7 @@ class ShiftsController < ApplicationController
 
   def destroy
     @shift.destroy!
-    redirect_to shifts_path, notice: "Shift was successfully destroyed.", status: :see_other
+    redirect_to shifts_path, notice: "シフトを削除しました。", status: :see_other
   end
 
   private
