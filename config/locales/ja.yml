@@ -18,24 +18,24 @@ ja:
         other: "%{resource}は保存できませんでした（%{count}件のエラーがあります）。"
   activerecord:
     models:
-      office: 事業所
-      team: チーム
+      office: 会社名
+      team: 部署
       client: 利用者
       shift: シフト
       client_need: 利用者ニーズ
       user_need: 従業員希望
       user_client: 担当利用者
-      user_team: チーム所属
+      user_team: 部署所属
       user: 従業員
     attributes:
       office:
-        name: 事業所名
+        name: 会社名
       team:
-        office_id: 事業所
-        name: チーム名
+        office_id: 会社名
+        name: 部署名
       client:
-        office_id: 事業所
-        team_id: チーム
+        office_id: 会社名
+        team_id: 部署
         medical_care: 医療区分
         name: 氏名
         email: メールアドレス
@@ -44,7 +44,7 @@ ja:
         public_token: 公開トークン
         note: 備考
       shift:
-        office_id: 事業所
+        office_id: 会社名
         client_id: 利用者
         shift_type: シフト種別
         slots: 必要人数
@@ -53,7 +53,7 @@ ja:
         start_time: 開始時刻
         end_time: 終了時刻
       client_need:
-        office_id: 事業所
+        office_id: 会社名
         client_id: 利用者
         week: 曜日
         type: 種別
@@ -61,18 +61,18 @@ ja:
         end_time: 終了時刻
         slots: 必要人数
       user_need:
-        office_id: 事業所
+        office_id: 会社名
         user_id: 従業員
         week: 曜日
         start_time: 開始時刻
         end_time: 終了時刻
       user_client:
-        office_id: 事業所
+        office_id: 会社名
         user_id: 従業員
         client_id: 利用者
         note: 備考
       user_team:
-        team_id: チーム
+        team_id: 部署
         user_id: 従業員
       user:
         name: 氏名
@@ -110,7 +110,7 @@ ja:
   home:
     index:
       heading: "ホーム"
-      new_office: "事業所を登録"
+      new_office: "会社名を登録"
   shifts:
     index:
       title: "シフト一覧"
@@ -120,7 +120,7 @@ ja:
         attendance_status: "出勤状況"
         logout: "ログアウト"
       form:
-        team: "チーム"
+        team: "部署"
         client: "利用者"
         submit: "絞り込み"
       new_shift: "新規シフト"
@@ -146,7 +146,7 @@ ja:
       end_time: "終了"
       submit: "保存する"
     shift:
-      office: "事業所"
+      office: "会社名"
       client: "利用者"
       shift_type: "シフト種別"
       slots: "必要人数"
@@ -179,11 +179,11 @@ ja:
         title:
           one: "%{count}件のエラーがあります。内容を確認してください。"
           other: "%{count}件のエラーがあります。内容を確認してください。"
-      team: "チーム"
+      team: "部署"
       submit: "保存する"
     client:
-      office: "事業所"
-      team: "チーム"
+      office: "会社名"
+      team: "部署"
       medical_care: "医療区分"
       name: "氏名"
       email: "メールアドレス"
@@ -193,51 +193,53 @@ ja:
       note: "備考"
   teams:
     index:
-      title: "チーム一覧"
-      heading: "チーム一覧"
-      show: "このチームを表示"
-      new: "チームを追加"
+      title: "部署一覧"
+      heading: "部署一覧"
+      show: "この部署を表示"
+      new: "部署を追加"
     new:
-      title: "チームを追加"
-      heading: "チームを追加"
-      no_offices: "まずは事業所を登録しましょう。"
-      back: "チーム一覧に戻る"
+      title: "部署を追加"
+      heading: "部署を追加"
+      no_offices: "まずは会社名を登録しましょう。"
+      back: "部署一覧に戻る"
     edit:
-      title: "チームを編集"
-      heading: "チームを編集"
-      show: "このチームを表示"
-      back: "チーム一覧に戻る"
+      title: "部署を編集"
+      heading: "部署を編集"
+      show: "この部署を表示"
+      back: "部署一覧に戻る"
     show:
-      edit: "このチームを編集"
-      back: "チーム一覧に戻る"
-      destroy: "このチームを削除"
+      edit: "この部署を編集"
+      back: "部署一覧に戻る"
+      destroy: "この部署を削除"
     form:
       errors:
         title:
           one: "%{count}件のエラーがあります。内容を確認してください。"
           other: "%{count}件のエラーがあります。内容を確認してください。"
+      team_name: "部署名"
       submit: "保存する"
     team:
-      office: "事業所"
-      name: "チーム名"
+      office: "会社名"
+      name: "部署名"
   offices:
     edit:
-      title: "事業所の編集"
-      heading: "事業所の編集"
-      show: "この事業所を表示"
+      title: "会社名の編集"
+      heading: "会社名の編集"
+      show: "この会社名を表示"
     new:
-      title: "事業所の登録"
-      heading: "事業所の登録"
+      title: "会社名の登録"
+      heading: "会社名の登録"
       back_to_home: "ホームに戻る"
     show:
-      edit: "この事業所を編集"
-      destroy: "この事業所を削除"
+      edit: "この会社名を編集"
+      destroy: "この会社名を削除"
     form:
       errors:
         title:
           one: "%{count}件のエラーがあります。内容を確認してください。"
           other: "%{count}件のエラーがあります。内容を確認してください。"
       submit: "保存する"
+      team_name: "部署名"
     office:
       name: "名称"
   user_needs:
@@ -266,7 +268,7 @@ ja:
           other: "%{count}件のエラーがあります。内容を確認してください。"
       submit: "保存する"
     user_need:
-      office: "事業所"
+      office: "会社名"
       user: "従業員"
       week: "曜日"
       start_time: "開始時刻"
@@ -297,14 +299,14 @@ ja:
           other: "%{count}件のエラーがあります。内容を確認してください。"
       submit: "保存する"
     user_client:
-      office: "事業所"
+      office: "会社名"
       user: "従業員"
       client: "利用者"
       note: "備考"
   user_teams:
     index:
-      title: "チーム所属一覧"
-      heading: "チーム所属一覧"
+      title: "部署所属一覧"
+      heading: "部署所属一覧"
       show: "この所属情報を表示"
       new: "所属情報を追加"
     new:
@@ -327,7 +329,7 @@ ja:
           other: "%{count}件のエラーがあります。内容を確認してください。"
       submit: "保存する"
     user_team:
-      team: "チーム"
+      team: "部署"
       user: "従業員"
   client_needs:
     index:
@@ -355,10 +357,19 @@ ja:
           other: "%{count}件のエラーがあります。内容を確認してください。"
       submit: "保存する"
     client_need:
-      office: "事業所"
+      office: "会社名"
       client: "利用者"
       week: "曜日"
       need_type: "種別"
       start_time: "開始時刻"
       end_time: "終了時刻"
       slots: "必要人数"
+  users:
+    index:
+      title: "従業員一覧"
+      heading: "従業員一覧"
+      new: "従業員を追加"
+      shifts: "シフト一覧"
+    user:
+      name: "氏名"
+      address: "住所"

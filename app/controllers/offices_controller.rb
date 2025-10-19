@@ -17,7 +17,8 @@ class OfficesController < ApplicationController
     @office = Office.new(office_params)
     if @office.save
       session[:office_id] = @office.id
-      redirect_to new_user_registration_path, notice: "オフィスを作成しました。", status: :see_other
+      team_id = @office.teams.first.id
+      redirect_to new_user_registration_path(team_id: team_id), notice: "オフィスを作成しました。", status: :see_other
     else
       render :new, status: :unprocessable_entity
     end
@@ -39,6 +40,6 @@ class OfficesController < ApplicationController
   private
 
   def office_params
-    params.require(:office).permit(:name)
+    params.require(:office).permit(:name, :team_name)
   end
 end
