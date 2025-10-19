@@ -8,7 +8,13 @@ class OfficesControllerTest < ActionDispatch::IntegrationTest
     sign_in @user
   end
 
-  test "smoke test" do
-    assert true
+  test "indexにアクセスできる" do
+    get offices_url
+    assert_response :success
+  end
+
+  test "showにアクセスできる" do
+    get office_url(offices(:one))
+    assert_response :success
   end
 end

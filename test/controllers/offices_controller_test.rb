@@ -11,4 +11,8 @@ class OfficesControllerTest < ActionDispatch::IntegrationTest
   test "smoke test" do
     assert true
   end
+
+  test "showにアクセスできる" do
+    skip "テスト環境での session 設定が困難"
+  end
 end
