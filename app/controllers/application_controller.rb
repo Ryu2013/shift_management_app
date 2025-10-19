@@ -8,13 +8,13 @@ class ApplicationController < ActionController::Base
   session[:office_id] = current_user.office_id
   office = Office.find_by(id: session[:office_id])
 
-  case
-  when !office.teams.exists?
-    new_team_path
-  else
-    shifts_path
+    case
+    when !office.teams.exists?
+      new_team_path
+    else
+      shifts_path
+    end
   end
-end
 
 
   private
