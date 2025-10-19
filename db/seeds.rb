@@ -12,7 +12,7 @@ ApplicationRecord.transaction do
 
   # チーム2件
   teams = []
-  for name in ["Team A", "Team B"]
+  for name in [ "Team A", "Team B" ]
     teams << Team.find_or_create_by!(office: office, name: name)
   end
 
@@ -40,7 +40,7 @@ puts "👤 Login user: #{login_user.email} / password"
     c = clients[i % clients.length]
 
     Shift.find_or_create_by!(office: office, client: c, date: d) do |s|
-      s.shift_type  = [0, 1].sample  
+      s.shift_type  = [ 0, 1 ].sample
       s.slots       = 1
       s.is_escort   = false
       s.work_status = 0

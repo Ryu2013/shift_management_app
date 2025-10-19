@@ -5,12 +5,12 @@ class ClientsTest < ApplicationSystemTestCase
     @client = clients(:one)
   end
 
-  test "visiting the index" do
+  test "一覧ページにアクセスする" do
     visit clients_url
     assert_selector "h1", text: "Clients"
   end
 
-  test "should create client" do
+  test "利用者を作成できる" do
     visit clients_url
     click_on "New client"
 
@@ -29,7 +29,7 @@ class ClientsTest < ApplicationSystemTestCase
     click_on "Back"
   end
 
-  test "should update Client" do
+  test "利用者を更新できる" do
     visit client_url(@client)
     click_on "Edit this client", match: :first
 
@@ -48,7 +48,7 @@ class ClientsTest < ApplicationSystemTestCase
     click_on "Back"
   end
 
-  test "should destroy Client" do
+  test "利用者を削除できる" do
     visit client_url(@client)
     click_on "Destroy this client", match: :first
 

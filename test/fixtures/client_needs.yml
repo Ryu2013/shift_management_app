@@ -4,7 +4,6 @@ one:
   office: one
   client: one
   week: 1
-  type: 1
   start_time: 2025-10-15 16:32:34
   end_time: 2025-10-15 16:32:34
   slots: 1
@@ -13,7 +12,6 @@ two:
   office: two
   client: two
   week: 1
-  type: 1
   start_time: 2025-10-15 16:32:34
   end_time: 2025-10-15 16:32:34
   slots: 1

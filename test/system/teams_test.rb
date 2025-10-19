@@ -5,12 +5,12 @@ class TeamsTest < ApplicationSystemTestCase
     @team = teams(:one)
   end
 
-  test "visiting the index" do
+  test "一覧ページにアクセスする" do
     visit teams_url
     assert_selector "h1", text: "Teams"
   end
 
-  test "should create team" do
+  test "チームを作成できる" do
     visit teams_url
     click_on "New team"
 
@@ -22,7 +22,7 @@ class TeamsTest < ApplicationSystemTestCase
     click_on "Back"
   end
 
-  test "should update Team" do
+  test "チームを更新できる" do
     visit team_url(@team)
     click_on "Edit this team", match: :first
 
@@ -34,7 +34,7 @@ class TeamsTest < ApplicationSystemTestCase
     click_on "Back"
   end
 
-  test "should destroy Team" do
+  test "チームを削除できる" do
     visit team_url(@team)
     click_on "Destroy this team", match: :first
 

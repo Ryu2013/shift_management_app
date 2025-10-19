@@ -5,12 +5,12 @@ class ClientNeedsTest < ApplicationSystemTestCase
     @client_need = client_needs(:one)
   end
 
-  test "visiting the index" do
+  test "一覧ページにアクセスする" do
     visit client_needs_url
     assert_selector "h1", text: "Client needs"
   end
 
-  test "should create client need" do
+  test "利用者ニーズを作成できる" do
     visit client_needs_url
     click_on "New client need"
 
@@ -27,7 +27,7 @@ class ClientNeedsTest < ApplicationSystemTestCase
     click_on "Back"
   end
 
-  test "should update Client need" do
+  test "利用者ニーズを更新できる" do
     visit client_need_url(@client_need)
     click_on "Edit this client need", match: :first
 
@@ -44,7 +44,7 @@ class ClientNeedsTest < ApplicationSystemTestCase
     click_on "Back"
   end
 
-  test "should destroy Client need" do
+  test "利用者ニーズを削除できる" do
     visit client_need_url(@client_need)
     click_on "Destroy this client need", match: :first
 

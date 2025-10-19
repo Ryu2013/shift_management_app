@@ -18,7 +18,7 @@ end
 
 
   private
-  #ログイン後すべてのアクションで事業所情報を確認する
+  # ログイン後すべてのアクションで事業所情報を確認する
   def office_authenticate
     sess = session[:office_id]
     if sess.blank? || sess.to_i != current_user.office_id

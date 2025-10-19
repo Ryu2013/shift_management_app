@@ -73,7 +73,7 @@ ja:
         note: 備考
       user_team:
         team_id: チーム
-        use_id: 従業員
+        user_id: 従業員
       user:
         name: 氏名
         address: 住所
@@ -304,7 +304,7 @@ ja:
       submit: "保存する"
     user_team:
       team: "チーム"
-      use: "従業員"
+      user: "従業員"
   client_needs:
     index:
       title: "利用者ニーズ一覧"

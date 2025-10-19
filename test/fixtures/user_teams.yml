@@ -2,8 +2,8 @@
 
 one:
   team: one
-  use: one
+  user: one
 
 two:
   team: two
-  use: two
+  user: two

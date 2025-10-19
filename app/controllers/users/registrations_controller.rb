@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Users::RegistrationsController < Devise::RegistrationsController
-  before_action :set_office_from_session, only: [:new, :create]
+  before_action :set_office_from_session, only: [ :new, :create ]
 
   private
   # session から事業所情報を取得しておく

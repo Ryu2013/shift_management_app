@@ -5,12 +5,12 @@ class ShiftsTest < ApplicationSystemTestCase
     @shift = shifts(:one)
   end
 
-  test "visiting the index" do
+  test "一覧ページにアクセスする" do
     visit shifts_url
     assert_selector "h1", text: "Shifts"
   end
 
-  test "should create shift" do
+  test "シフトを作成できる" do
     visit shifts_url
     click_on "New shift"
 
@@ -26,7 +26,7 @@ class ShiftsTest < ApplicationSystemTestCase
     click_on "Back"
   end
 
-  test "should update Shift" do
+  test "シフトを更新できる" do
     visit shift_url(@shift)
     click_on "Edit this shift", match: :first
 
@@ -42,7 +42,7 @@ class ShiftsTest < ApplicationSystemTestCase
     click_on "Back"
   end
 
-  test "should destroy Shift" do
+  test "シフトを削除できる" do
     visit shift_url(@shift)
     click_on "Destroy this shift", match: :first
 

@@ -1,7 +1,7 @@
 require "test_helper"
 
 class ClientTest < ActiveSupport::TestCase
-  # test "the truth" do
+  # test "真偽値の確認" do
   #   assert true
   # end
 end

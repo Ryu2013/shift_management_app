@@ -25,7 +25,7 @@ class OfficesTest < ApplicationSystemTestCase
     assert_text "オフィスを更新しました。"
   end
 
-  test "should destroy Office" do
+  test "オフィスを削除する" do
     visit office_url(@office)
     click_on "このオフィスを消去", match: :first
 

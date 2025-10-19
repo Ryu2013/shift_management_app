@@ -5,12 +5,12 @@ class UserNeedsTest < ApplicationSystemTestCase
     @user_need = user_needs(:one)
   end
 
-  test "visiting the index" do
+  test "一覧ページにアクセスする" do
     visit user_needs_url
     assert_selector "h1", text: "User needs"
   end
 
-  test "should create user need" do
+  test "従業員希望を作成できる" do
     visit user_needs_url
     click_on "New user need"
 
@@ -25,7 +25,7 @@ class UserNeedsTest < ApplicationSystemTestCase
     click_on "Back"
   end
 
-  test "should update User need" do
+  test "従業員希望を更新できる" do
     visit user_need_url(@user_need)
     click_on "Edit this user need", match: :first
 
@@ -40,7 +40,7 @@ class UserNeedsTest < ApplicationSystemTestCase
     click_on "Back"
   end
 
-  test "should destroy User need" do
+  test "従業員希望を削除できる" do
     visit user_need_url(@user_need)
     click_on "Destroy this user need", match: :first
 
