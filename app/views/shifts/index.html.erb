@@ -1,0 +1,73 @@
+<p style="color: green"><%= notice %></p>
+
+<% content_for :title, t(".title") %>
+<% content_for :head do %>
+  <%= stylesheet_link_tag "shift/index", "data-turbo-track": "dynamic" %>
+<% end %>
+
+<div class="flexbox">
+  <%= link_to t(".nav.change_requests"), "#" %> 
+  <%= link_to t(".nav.clients_and_staff"), clients_path %>
+  <%= link_to t(".nav.attendance_status"), "#" %>
+  <%= link_to t(".nav.logout"), destroy_user_session_path %>
+</div>
+
+<hr>
+
+  <%= form_with url: shifts_path, method: :get, local: true do |f| %>
+
+    <%= f.month_field :date, id: "real-month", style: "display: none;"%>
+
+    <div id="modal" class="modal">
+      <%= f.label :team_id, t(".form.team") %>
+      <%= f.collection_select :team_id, @teams, :id, :name, selected: @team.id %><br>
+
+      <%= f.label :client_id, t(".form.client") %>
+      <%= f.collection_select :client_id, @clients, :id, :name, selected: @client.id %>
+      <div id="close-modal" class="close-modal">✕</div>
+    </div>
+    
+    <div class="flexbox">
+      <div id= "fake-month" class="flex-btn">
+        <%= @date %>
+      </div>
+
+      <div id="fake-client" class="flex-btn">
+        <%= @client.name %>
+      </div>
+      <%= link_to t(".new_shift"), new_shift_path(client_id: @client.id, client_name: @client.name), class: "flex-btn" %>
+      <%= f.submit t(".form.submit"), class: "flex-btn" %>
+    </div>
+  <% end %>
+
+<div class="calendar">
+
+    <% I18n.t("date.abbr_day_names").each do |wday| %>
+      <div class="week"><%= wday %></div>
+    <% end %>
+
+    <% @first_day.wday.times do %>
+      <div class="day"></div>
+    <% end %>
+
+    <% (@first_day..@last_day).each do |date| %>
+      <div class="day <%= 'today' if date == @today %>">
+        <%= date.day %>
+
+      <% if @shifts_by_date[date].present? %>
+        <% @shifts_by_date[date].each do |shift| %>
+        <%= link_to edit_shift_path(shift) do %>
+          <div class="shift <%= "night" if shift.shift_type == 0 %>">
+            <%= shift.client.name %> <br>
+            <%= shift.start_time.strftime("%H:%M") %> - <%= shift.end_time.strftime("%H:%M") %>
+          </div>
+        <% end %>
+        <% end %>
+      <% end %>
+      </div>
+    <% end %>
+
+    <% (6 - @last_day.wday).times do %>
+      <div class="day"></div>
+    <% end %>
+</div>

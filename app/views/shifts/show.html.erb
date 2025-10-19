@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @shift %>
+
+<div>
+  <%= link_to t(".edit"), edit_shift_path(@shift) %> |
+  <%= link_to t(".back"), shifts_path %>
+
+  <%= button_to t(".destroy"), @shift, method: :delete %>
+</div>

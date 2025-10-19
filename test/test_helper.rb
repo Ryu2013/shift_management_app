@@ -5,11 +5,9 @@ require "rails/test_help"
 module ActiveSupport
   class TestCase
     # Run tests in parallel with specified workers
-    parallelize(workers: :number_of_processors)
+    # parallelize(workers: :number_of_processors)  # フィクスチャのハッシュ化問題を避けるため無効化
 
     # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
     fixtures :all
-    self.use_instantiated_fixtures = true
-    # Add more helper methods to be used by all tests here...
   end
 end

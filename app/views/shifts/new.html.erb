@@ -1,0 +1,11 @@
+<% content_for :title, t(".title") %>
+
+<h1><%= t(".heading") %></h1>
+
+<%= render "form", shift: @shift %>
+
+<br>
+
+<div>
+  <%= link_to t(".back"), shifts_path %>
+</div>

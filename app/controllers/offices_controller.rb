@@ -1,5 +1,7 @@
 class OfficesController < ApplicationController
-  before_action :set_office, only: %i[show edit update destroy]
+  skip_before_action :authenticate_user!, only: %i[new create]
+  skip_before_action :office_authenticate, only: %i[new create]
+
 
   def show
   end
@@ -15,7 +17,7 @@ class OfficesController < ApplicationController
     @office = Office.new(office_params)
     if @office.save
       session[:office_id] = @office.id
-      redirect_to new_user_registration_path, notice: "オフィスを作成しました。"
+      redirect_to new_user_registration_path, notice: "オフィスを作成しました。", status: :see_other
     else
       render :new, status: :unprocessable_entity
     end
@@ -35,10 +37,6 @@ class OfficesController < ApplicationController
   end
 
   private
-
-  def set_office
-    @office = Office.find(params[:id])
-  end
 
   def office_params
     params.require(:office).permit(:name)

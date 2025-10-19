@@ -1,0 +1,52 @@
+<%= form_with(model: shift) do |form| %>
+  <% if shift.errors.any? %>
+    <div style="color: red">
+      <h2><%= t(".errors.title", count: shift.errors.count) %></h2>
+
+      <ul>
+        <% shift.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.hidden_field :client_id, value: params[:client_id] %>
+    <%= params[:client_name] %>
+  </div>
+
+  <div>
+    <%= form.label :shift_type, style: "display: block" %>
+    <%= form.number_field :shift_type %>
+  </div>
+
+  <div>
+    <%= form.label :slots, style: "display: block" %>
+    <%= form.number_field :slots %>
+  </div>
+
+  <div>
+    <%= form.label :start_time, t(".start_time"), style: "display:block" %>
+    <%= form.time_field :start_time %>
+  </div>
+
+  <div>
+    <%= form.label :end_time, t(".end_time"), style: "display:block" %>
+    <%= form.time_field :end_time %>
+  </div>
+
+  <div>
+    <%= form.label :note, style: "display: block" %>
+    <%= form.text_field :note %>
+  </div>
+
+  <div>
+    <%= form.label :date, style: "display: block" %>
+    <%= form.date_field :date %>
+  </div>
+
+  <div>
+    <%= form.submit t(".submit") %>
+  </div>
+<% end %>

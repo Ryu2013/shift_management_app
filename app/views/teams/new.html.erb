@@ -1,0 +1,14 @@
+<% content_for :title, t(".title") %>
+
+<h1><%= t(".heading") %></h1>
+<% unless @office.teams.exists? %>
+  <p><%= t(".no_offices") %></p>
+<% end %>
+
+<%= render "form", team: @team %>
+
+<br>
+
+<div>
+  <%= link_to t(".back"), teams_path %>
+</div>

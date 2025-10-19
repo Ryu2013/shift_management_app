@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @client_need %>
+
+<div>
+  <%= link_to t(".edit"), edit_client_need_path(@client_need) %> |
+  <%= link_to t(".back"), client_needs_path %>
+
+  <%= button_to t(".destroy"), @client_need, method: :delete %>
+</div>

@@ -1,12 +1,12 @@
 <p style="color: green"><%= notice %></p>
-<% content_for :title, "新しいオフィス" %>
+<% content_for :title, t(".title") %>
 
-<h1>新しいオフィス</h1>
+<h1><%= t(".heading") %></h1>
 
 <%= render "form", office: @office %>
 
 <br>
 
 <div>
-  <%= link_to "ホームページに戻る", root_path %>
+  <%= link_to t(".back_to_home"), root_path %>
 </div>

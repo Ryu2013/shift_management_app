@@ -1,0 +1,11 @@
+<% content_for :title, t(".title") %>
+
+<h1><%= t(".heading") %></h1>
+
+<%= render "form", client_need: @client_need %>
+
+<br>
+
+<div>
+  <%= link_to t(".back"), client_needs_path %>
+</div>

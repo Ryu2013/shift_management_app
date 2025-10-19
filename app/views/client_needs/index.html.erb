@@ -1,0 +1,16 @@
+<p style="color: green"><%= notice %></p>
+
+<% content_for :title, t(".title") %>
+
+<h1><%= t(".heading") %></h1>
+
+<div id="client_needs">
+  <% @client_needs.each do |client_need| %>
+    <%= render client_need %>
+    <p>
+      <%= link_to t(".show"), client_need %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to t(".new"), new_client_need_path %>

@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  office: one
+  client: one
+  shift_type: 1
+  slots: 1
+  note: MyString
+  date: 2025-10-14
+
+two:
+  office: two
+  client: two
+  shift_type: 1
+  slots: 1
+  note: MyString
+  date: 2025-10-14

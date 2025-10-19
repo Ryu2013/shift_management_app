@@ -1,0 +1,11 @@
+<% content_for :title, t(".title") %>
+
+<h1><%= t(".heading") %></h1>
+
+<%= render "form", client: @client %>
+
+<br>
+
+<div class="flexbox">
+  <%= link_to t(".back"), clients_path, class: "flex-btn" %>
+</div>
