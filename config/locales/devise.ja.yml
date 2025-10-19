@@ -9,10 +9,10 @@ ja:
         submit: "ログイン"
     registrations:
       new:
-        heading: "新規登録"
+        heading: "管理者登録"
         name: "氏名"
         address: "住所"
-        pref_per_week: "希望出勤日数（週）"
+        pref_per_week: "出勤日数（週）"
         commute: "通勤手段"
         email: "メールアドレス"
         password: "パスワード"

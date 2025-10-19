@@ -14,14 +14,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def sign_up_params
     params.require(:user).permit(
       :name, :address, :pref_per_week, :commute,
-      :email, :password, :password_confirmation
+      :email, :password, :password_confirmation, :team_id
     ).merge(office_id: @office.id)
   end
 
   # 編集画面で追加属性を許可したいならこちらも
   def account_update_params
     params.require(:user).permit(
-      :name, :address, :pref_per_week, :commute,
+      :name, :address, :pref_per_week, :commute, :team_id,
       :email, :password, :password_confirmation, :current_password
     )
   end

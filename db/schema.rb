@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 14) do
+ActiveRecord::Schema[7.2].define(version: 15) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -127,9 +127,11 @@ ActiveRecord::Schema[7.2].define(version: 14) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "team_id", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["office_id"], name: "index_users_on_office_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["team_id"], name: "index_users_on_team_id"
   end
 
   add_foreign_key "client_needs", "clients"
@@ -148,4 +150,5 @@ ActiveRecord::Schema[7.2].define(version: 14) do
   add_foreign_key "user_teams", "teams"
   add_foreign_key "user_teams", "users"
   add_foreign_key "users", "offices"
+  add_foreign_key "users", "teams"
 end

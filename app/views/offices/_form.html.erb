@@ -13,7 +13,12 @@
 
   <div>
     <%= form.label :name, style: "display: block" %>
-    <%= form.text_field :name %>
+    <%= form.text_field :name, required: true %>
+  </div>
+
+  <div>
+    <%= form.label :team_name, t(".team_name"), style: "display: block" %>
+    <%= form.text_field :team_name, required: true %>
   </div>
 
   <div class="flexbox">

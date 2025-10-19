@@ -9,8 +9,8 @@ class ApplicationController < ActionController::Base
   office = Office.find_by(id: session[:office_id])
 
     case
-    when !office.teams.exists?
-      new_team_path
+    when !office.teams.joins(:clients).exists?
+      new_client_path
     else
       shifts_path
     end
