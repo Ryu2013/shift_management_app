@@ -21,3 +21,15 @@ two:
   disease: MyString
   public_token: MyString
   note: MyString
+
+# Additional client under team(:one) so deletion leaves one client
+three:
+  office: one
+  team: one
+  medical_care: 1
+  name: Another Client
+  email: another_client@example.com
+  address: Another Address
+  disease: 
+  public_token: another-token
+  note: 

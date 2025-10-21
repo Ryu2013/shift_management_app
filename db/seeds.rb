@@ -7,8 +7,10 @@ puts "🌱 Seeding start (ENV=#{Rails.env})"
 
 # db/seeds.rb
 ApplicationRecord.transaction do
-  # オフィス1件
-  office = Office.find_or_create_by!(name: "本社")
+  # オフィス1件（team_name は attr_accessor なのでブロックでセット）
+  office = Office.find_or_create_by!(name: "本社") do |new_office|
+    new_office.team_name = "本社チーム"
+  end
 
   # チーム2件
   teams = []
@@ -19,6 +21,7 @@ ApplicationRecord.transaction do
 login_user = User.find_or_initialize_by(email: "honsya@example.com")
 login_user.name           ||= "本社ログイン用"
 login_user.office         ||= office           # ← NOT NULL 対策
+login_user.team           ||= teams.first     # ← Team 必須
 login_user.account_status ||= 0
 login_user.password = "password"              # ← 毎回セットでOK（暗号化される）
 login_user.save!
@@ -41,7 +44,6 @@ puts "👤 Login user: #{login_user.email} / password"
 
     Shift.find_or_create_by!(office: office, client: c, date: d) do |s|
       s.shift_type  = [ 0, 1 ].sample
-      s.slots       = 1
       s.is_escort   = false
       s.work_status = 0
       s.start_time  = "09:00"

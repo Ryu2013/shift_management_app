@@ -1,17 +1,17 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
 one:
   office: one
   client: one
   shift_type: 1
-  slots: 1
   note: MyString
   date: 2025-10-14
-
+  start_time: "09:00"
+  end_time: "18:00"
 two:
   office: two
   client: two
   shift_type: 1
-  slots: 1
   note: MyString
   date: 2025-10-14
+  start_time: "09:00"
+  end_time: "18:00"

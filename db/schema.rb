@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 15) do
+ActiveRecord::Schema[7.2].define(version: 2025_10_21_000241) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -32,7 +32,7 @@ ActiveRecord::Schema[7.2].define(version: 15) do
     t.bigint "office_id", null: false
     t.bigint "team_id", null: false
     t.integer "medical_care"
-    t.string "name"
+    t.string "name", null: false
     t.string "email"
     t.string "address"
     t.string "disease"
@@ -55,9 +55,8 @@ ActiveRecord::Schema[7.2].define(version: 15) do
     t.bigint "office_id", null: false
     t.bigint "client_id", null: false
     t.integer "shift_type"
-    t.integer "slots", default: 1, null: false
     t.string "note"
-    t.date "date"
+    t.date "date", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id"

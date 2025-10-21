@@ -7,12 +7,14 @@ class ApplicationController < ActionController::Base
   def after_sign_in_path_for(resource)
   session[:office_id] = current_user.office_id
   office = Office.find_by(id: session[:office_id])
+  @team = current_user.team
 
     case
     when !office.teams.joins(:clients).exists?
-      new_client_path
+      new_team_client_path(@team)
     else
-      shifts_path
+      @client = @team.clients.order(:id).first
+      team_client_shifts_path(@team, @client)
     end
   end
 
@@ -25,7 +27,19 @@ class ApplicationController < ActionController::Base
       session.delete(:office_id)
       redirect_to root_path, alert: "事業所情報が不明です" and return
     end
-
     @office = Office.find_by(id: session[:office_id])
+  end
+
+
+  def set_team
+    if @office.teams.present?
+      @team = @office.teams.find_by(id: params[:id]) || @office.teams.order(:id).first
+    end
+  end
+
+  def set_client
+    if @team.clients.present?
+      @client = @team.clients.find_by(id: params[:id]) || @team.clients.order(:id).first
+    end
   end
 end

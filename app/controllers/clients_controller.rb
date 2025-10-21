@@ -1,15 +1,13 @@
 class ClientsController < ApplicationController
-  before_action :set_client, only: %i[show edit update destroy]
+  before_action :set_team
+  before_action :set_client, only: %i[index edit update destroy]
 
   def index
-    @clients = @office.clients.all
-  end
-
-  def show
+    @clients = @team.clients.all
   end
 
   def new
-    @client = @office.clients.new
+    @client = @team.clients.new
     @teams = @office.teams.all
   end
 
@@ -20,7 +18,7 @@ class ClientsController < ApplicationController
   def create
     @client = @office.clients.new(client_params)
     if @client.save
-      redirect_to clients_path, notice: "クライアントを作成しました。"
+      redirect_to team_clients_path(@team), notice: "クライアントを作成しました。"
     else
       @teams = @office.teams.all
       render :new, status: :unprocessable_entity
@@ -29,7 +27,7 @@ class ClientsController < ApplicationController
 
   def update
     if @client.update(client_params)
-      redirect_to clients_path, notice: "クライアントを更新しました。", status: :see_other
+      redirect_to team_clients_path(@team), notice: "クライアントを更新しました。", status: :see_other
     else
       @teams = @office.teams.all
       render :edit, status: :unprocessable_entity
@@ -38,14 +36,11 @@ class ClientsController < ApplicationController
 
   def destroy
     @client.destroy
-    redirect_to clients_path, notice: "クライアントを削除しました。", status: :see_other
+    redirect_to team_clients_path(@team), notice: "クライアントを削除しました。", status: :see_other
   end
 
   private
 
-  def set_client
-    @client = @office.clients.find(params[:id])
-  end
 
   def client_params
     params.require(:client).permit(:team_id, :medical_care, :name, :email, :address, :disease, :public_token, :note)

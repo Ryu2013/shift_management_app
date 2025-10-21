@@ -1,11 +1,15 @@
 Rails.application.routes.draw do
+  resources :teams do
+    resources :clients, only: %i[index new create edit update destroy] do
+      resources :shifts, only: %i[index new create edit update destroy]
+    end
+  end
+  
   resources :user_needs
   resources :user_clients
   resources :client_needs
   resources :user_teams
-  resources :shifts
-  resources :clients
-  resources :teams
+
   root "home#index"
 
   resources :offices, only: %i[new create show edit update destroy]

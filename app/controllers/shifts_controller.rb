@@ -1,28 +1,16 @@
 class ShiftsController < ApplicationController
-  before_action :set_shift, only: %i[ show edit update destroy ]
+  before_action :set_shift, only: %i[ edit update destroy ]
+  before_action :set_team
+  before_action :set_client
 
   def index
     @teams = @office.teams
-    @clients = @office.clients
-    shifts = @office.shifts
+    @clients = @team.clients
 
     @today = Date.today
     @first_day = @today.beginning_of_month
     @last_day  = @today.end_of_month
 
-
-    if params[:team_id].present?
-      @team = @teams.find_by(id: params[:team_id])
-    else
-      @team = @teams.order(:id).first
-    end
-
-    if params[:client_id].present?
-      @client = @clients.find_by(id: params[:client_id])
-    else
-      @client = @team.clients.order(:id).first
-    end
-    @clients = @team.clients
     shifts = @client.shifts
 
     if params[:date].present?
@@ -37,9 +25,6 @@ class ShiftsController < ApplicationController
     @shifts_by_date = shifts.group_by { |shift| shift.date }
   end
 
-  def show
-  end
-
   def new
     @shift = @office.shifts.new(client_id: params[:client_id])
   end
@@ -50,7 +35,7 @@ class ShiftsController < ApplicationController
   def create
     @shift = @office.shifts.build(shift_params)
     if @shift.save
-      redirect_to @shift, notice: "シフトを作成しました。"
+      redirect_to team_client_shifts_path(@team, @client), notice: "シフトを作成しました。"
     else
       render :new, status: :unprocessable_entity
     end
@@ -58,7 +43,7 @@ class ShiftsController < ApplicationController
 
   def update
     if @shift.update(shift_params)
-      redirect_to @shift, notice: "シフトを更新しました。", status: :see_other
+      redirect_to team_client_shifts_path(@team, @client), notice: "シフトを更新しました。", status: :see_other
     else
       render :edit, status: :unprocessable_entity
     end
@@ -66,7 +51,7 @@ class ShiftsController < ApplicationController
 
   def destroy
     @shift.destroy!
-    redirect_to shifts_path, notice: "シフトを削除しました。", status: :see_other
+    redirect_to team_client_shifts_path(@team, @client), notice: "シフトを削除しました。", status: :see_other
   end
 
   private
