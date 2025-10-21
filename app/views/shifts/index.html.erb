@@ -7,14 +7,14 @@
 
 <div class="flexbox">
   <%= link_to t(".nav.change_requests"), "#" %> 
-  <%= link_to t(".nav.clients_and_staff"), clients_path %>
+  <%= link_to t(".nav.clients_and_staff"), team_clients_path(@team) %>
   <%= link_to t(".nav.attendance_status"), "#" %>
   <%= link_to t(".nav.logout"), destroy_user_session_path %>
 </div>
 
 <hr>
 
-  <%= form_with url: shifts_path, method: :get, local: true do |f| %>
+  <%= form_with url: team_client_shifts_path(@team, @client), method: :get, local: true do |f| %>
 
     <%= f.month_field :date, id: "real-month", style: "display: none;"%>
 
@@ -35,7 +35,7 @@
       <div id="fake-client" class="flex-btn">
         <%= @client.name %>
       </div>
-      <%= link_to t(".new_shift"), new_shift_path(client_id: @client.id, client_name: @client.name), class: "flex-btn" %>
+      <%= link_to t(".new_shift"), new_team_client_shift_path(@team, @client), class: "flex-btn" %>
       <%= f.submit t(".form.submit"), class: "flex-btn" %>
     </div>
   <% end %>
@@ -63,8 +63,8 @@
 
       <% if @shifts_by_date[date].present? %>
         <% @shifts_by_date[date].each do |shift| %>
-        <%= link_to edit_shift_path(shift) do %>
-          <div class="shift <%= "night" if shift.shift_type == 0 %>">
+        <%= link_to edit_team_client_shift_path(@team, @client, shift) do %>
+          <div class="shift <%= "night" if shift.shift_type == "night" %>">
             <%= shift.client.name %> <br>
             <%= shift.start_time.strftime("%H:%M") %> - <%= shift.end_time.strftime("%H:%M") %>
           </div>

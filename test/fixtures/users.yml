@@ -9,6 +9,7 @@
 
 one:
   office: one
+  team: one
   name: "山田太郎"
   address: "東京都渋谷区"
   pref_per_week: 5
@@ -26,6 +27,7 @@ one:
 
 two:
   office: two
+  team: two
   name: "佐藤花子"
   address: "大阪市北区"
   pref_per_week: 3

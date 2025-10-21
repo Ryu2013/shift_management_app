@@ -1,4 +1,4 @@
-<%= form_with(model: shift) do |form| %>
+<%= form_with(model: [@team, @client, shift], local: true) do |form| %>
   <% if shift.errors.any? %>
     <div style="color: red">
       <h2><%= t(".errors.title", count: shift.errors.count) %></h2>
@@ -18,22 +18,17 @@
 
   <div>
     <%= form.label :shift_type, style: "display: block" %>
-    <%= form.number_field :shift_type %>
-  </div>
-
-  <div>
-    <%= form.label :slots, style: "display: block" %>
-    <%= form.number_field :slots %>
+    <%= form.select :shift_type, [['日勤', 'day'], ['夜勤', 'night']] %>
   </div>
 
   <div>
     <%= form.label :start_time, t(".start_time"), style: "display:block" %>
-    <%= form.time_field :start_time %>
+    <%= form.time_field :start_time ,required: true %>
   </div>
 
   <div>
     <%= form.label :end_time, t(".end_time"), style: "display:block" %>
-    <%= form.time_field :end_time %>
+    <%= form.time_field :end_time ,required: true %>
   </div>
 
   <div>
@@ -43,10 +38,10 @@
 
   <div>
     <%= form.label :date, style: "display: block" %>
-    <%= form.date_field :date %>
+    <%= form.date_field :date , required: true %>
   </div>
 
-  <div>
+  <div class="flexbox">
     <%= form.submit t(".submit") %>
   </div>
 <% end %>

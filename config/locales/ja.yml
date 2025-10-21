@@ -13,6 +13,10 @@ ja:
       default_title: "シフト管理システム"
   errors:
     messages:
+      record_invalid: "%{errors}"
+      blank: "を入力してください。"
+      taken: "はすでに存在します。"
+      too_short: "は%{count}文字以上で入力してください。"
       not_saved:
         one: "%{resource}は保存できませんでした（1件のエラーがあります）。"
         other: "%{resource}は保存できませんでした（%{count}件のエラーがあります）。"
@@ -83,7 +87,17 @@ ja:
         password: パスワード
         password_confirmation: パスワード（確認用）
         current_password: 現在のパスワード
+    enums:
+      shift:
+        shift_type:
+          day: 日勤
+          night: 夜勤
     errors:
+      messages:
+        blank: "を入力してください。"
+        taken: "はすでに存在します。"
+        too_short: "は%{count}文字以上で入力してください。"
+        record_invalid: "%{errors}"
       models:
         office:
           attributes:
@@ -133,9 +147,6 @@ ja:
       heading: "シフトを編集"
       show: "このシフトを表示"
       back: "シフト一覧に戻る"
-    show:
-      edit: "このシフトを編集"
-      back: "シフト一覧に戻る"
       destroy: "このシフトを削除"
     form:
       errors:
@@ -169,6 +180,8 @@ ja:
       heading: "利用者を編集"
       show: "この利用者を表示"
       back: "利用者一覧に戻る"
+      destroy: "この利用者を削除"
+      confirm_destroy: "本当に削除しますか？"
     show:
       edit: "この利用者を編集"
       back: "利用者一覧に戻る"
@@ -181,6 +194,8 @@ ja:
           other: "%{count}件のエラーがあります。内容を確認してください。"
       team: "部署"
       submit: "保存する"
+      destroy: "消去"
+      confirm_destroy: "本当に削除しますか？"
     client:
       office: "会社名"
       team: "部署"

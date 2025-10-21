@@ -1,23 +1,23 @@
 <h2><%= t(".heading") %></h2>
 <h2><%= @office.name %></h2>
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name,team_id:params[:team_id])) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
 
   <%= f.hidden_field :team_id, value: params[:team_id] %>
 
   <div class="field">
     <%= f.label :name, t(".name") %><br />
-    <%= f.text_field :name,autocomplete: "name" %>
+    <%= f.text_field :name,autocomplete: "name", autofocus: true , required: true%>
   </div>
 
    <div>
     <%= f.label :address, t(".address") %><br />
-    <%= f.text_field :address %>
+    <%= f.text_field :address , required: true%>
   </div>
 
   <div>
     <%= f.label :pref_per_week, t(".pref_per_week") %><br />
-    <%= f.number_field :pref_per_week, in: 0..7 %>
+    <%= f.select :pref_per_week, 0..7 %>
   </div>
 
   <div>
@@ -27,7 +27,7 @@
 
   <div class="field">
     <%= f.label :email, t(".email") %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    <%= f.email_field :email, autocomplete: "email" , required: true %>
   </div>
 
   <div class="field">
@@ -35,12 +35,12 @@
     <% if @minimum_password_length %>
     <em><%= t(".password_hint", count: @minimum_password_length) %></em>
     <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
+    <%= f.password_field :password, autocomplete: "new-password", required: true %>
   </div>
 
   <div class="field">
     <%= f.label :password_confirmation, t(".password_confirmation") %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+    <%= f.password_field :password_confirmation, autocomplete: "new-password", required: true %>
   </div>
 
   <div class="flexbox">

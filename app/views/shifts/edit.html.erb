@@ -7,6 +7,6 @@
 <br>
 
 <div class="flexbox">
-  <%= link_to t(".show"), @shift ,class: "flex-btn" %> |
-  <%= link_to t(".back"), shifts_path ,class: "flex-btn" %>
+  <%= link_to t(".back"), team_client_shifts_path(@team, @client) ,class: "flex-btn" %>
+  <%= button_to t(".destroy"), team_client_shift_path(@team, @client, @shift), method: :delete , class: "flex-btn" %>
 </div>

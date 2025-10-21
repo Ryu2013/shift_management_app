@@ -12,13 +12,13 @@
   </div>
 
   <% if devise_mapping.rememberable? %>
-    <div class="field">
-      <%= f.check_box :remember_me %>
+    <div class="flexbox">
+      <%= f.check_box :remember_me ,style: "width: 1rem; margin: 0;" %>
       <%= f.label :remember_me, t(".remember_me") %>
     </div>
   <% end %>
 
-  <div class="actions">
+  <div class="flexbox">
     <%= f.submit t(".submit") %>
   </div>
 <% end %>

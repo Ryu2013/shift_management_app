@@ -6,7 +6,12 @@
 
 <br>
 
-<div>
-  <%= link_to t(".show"), @client %> 
-  <%= link_to t(".back"), clients_path %>
-</div>
+  <% if @team&.clients&.exists? %>
+  <div class="flexbox">
+    <%= link_to t(".back"), team_clients_path(@team), class: "flex-btn" %>
+    <% if @team.clients.count > 1 %>
+    <%= button_to t(".destroy"), [@team, @client], method: :delete, data: { turbo_confirm: t(".confirm_destroy") }, class: "flex-btn" %>
+    <% end %>
+  </div>
+  <% end %>
+
