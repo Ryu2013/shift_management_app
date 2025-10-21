@@ -87,6 +87,10 @@ ja:
         password: パスワード
         password_confirmation: パスワード（確認用）
         current_password: 現在のパスワード
+  devise:
+    sessions:
+      user:
+        signed_out: "ログアウトしました。"
     enums:
       shift:
         shift_type:

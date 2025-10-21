@@ -9,7 +9,9 @@
   <%= link_to t(".nav.change_requests"), "#" %> 
   <%= link_to t(".nav.clients_and_staff"), team_clients_path(@team) %>
   <%= link_to t(".nav.attendance_status"), "#" %>
-  <%= link_to t(".nav.logout"), destroy_user_session_path %>
+  <%= link_to "ログアウト",
+            destroy_user_session_path,
+            data: { turbo_method: :delete, turbo_confirm: "ログアウトしますか？" } %>
 </div>
 
 <hr>
