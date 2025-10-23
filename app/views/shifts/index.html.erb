@@ -1,5 +1,3 @@
-<p style="color: green"><%= notice %></p>
-
 <% content_for :title, t(".title") %>
 <% content_for :head do %>
   <%= stylesheet_link_tag "shift/index", "data-turbo-track": "dynamic" %>
@@ -63,8 +61,8 @@
       <div class="day <%= 'today' if date == @today %>">
         <%= date.day %>
 
-      <% if @shifts_by_date[date].present? %>
-        <% @shifts_by_date[date].each do |shift| %>
+      <% if @shifts[date].present? %>
+        <% @shifts[date].each do |shift| %>
         <%= link_to edit_team_client_shift_path(@team, @client, shift) do %>
           <div class="shift <%= "night" if shift.shift_type == "night" %>">
             <%= shift.client.name %> <br>

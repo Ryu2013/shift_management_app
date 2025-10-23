@@ -7,7 +7,7 @@ class ClientsController < ApplicationController
   end
 
   def new
-    @client = @team.clients.new
+    @client = @office.clients.build(team: @team)
     @teams = @office.teams.all
   end
 

@@ -11,18 +11,9 @@ class ShiftsController < ApplicationController
     @first_day = @today.beginning_of_month
     @last_day  = @today.end_of_month
 
-    shifts = @client.shifts
-
-    if params[:date].present?
-      date = Date.strptime(params[:date], "%Y-%m")
-      shifts = shifts.where(date: date.beginning_of_month..date.end_of_month)
-      @date = date.strftime("%m月")
-    else
-      @date = Date.current.strftime("%m月")
-      shifts = shifts.where(date: Date.current.beginning_of_month..Date.current.end_of_month)
-    end
-
-    @shifts_by_date = shifts.group_by { |shift| shift.date }
+    date = params[:date].present? ? Date.strptime(params[:date], "%Y-%m") : Date.current
+    @shifts = @client.shifts.scope_month(date).group_by { |shift| shift.date }
+    @date = date.strftime("%m月")
   end
 
   def new
