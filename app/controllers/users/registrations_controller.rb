@@ -2,9 +2,9 @@
 
 class Users::RegistrationsController < Devise::RegistrationsController
    prepend_before_action :set_office_from_session, only: [ :new, :create ]
-  
+
   private
-  # New,Create時に,Currentをセット。session[:office_id]がなければリダイレクト
+  # New,Create時に@officeをセット。session[:office_id]がなければリダイレクト
   def set_office_from_session
     @office = Office.find_by(id: session[:office_id])
     redirect_to root_path, alert: "事業所情報が不明です" unless @office

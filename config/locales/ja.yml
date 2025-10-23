@@ -94,6 +94,8 @@ ja:
           attributes:
             email:
               already_confirmed: "このメールアドレスは既に確認済みです。"
+            confirmation_token:
+              invalid: "確認トークンが無効です。再送したメールをご確認ください。"
   devise:
     confirmations:
       confirmed: "メールアドレスの確認が完了しました。"
@@ -106,12 +108,16 @@ ja:
     sessions:
       user:
         signed_out: "ログアウトしました。"
+        signed_in: "ログインしました。"
     failure:
       unauthenticated: "ログインが必要です。"
       unconfirmed: "メールアドレスの確認が完了していません。メールをご確認ください。"
       user:
         unauthenticated: "ログインが必要です。"
         unconfirmed: "メールアドレスの確認が完了していません。メールをご確認ください。"
+      invalid: "メールアドレスまたはパスワードが正しくありません。"
+      user:
+        invalid: "メールアドレスまたはパスワードが正しくありません。"
     enums:
       shift:
         shift_type:

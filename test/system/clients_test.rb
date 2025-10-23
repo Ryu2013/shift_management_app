@@ -41,5 +41,5 @@ class ClientsTest < ApplicationSystemTestCase
       click_on "この利用者を削除", match: :first
     end
     assert_text "クライアントを削除しました"
-  end 
+  end
 end

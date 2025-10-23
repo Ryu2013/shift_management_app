@@ -42,5 +42,4 @@ class ApplicationController < ActionController::Base
       @client = @team.clients.find_by(id: params[:id]) || @team.clients.order(:id).first
     end
   end
-  
 end

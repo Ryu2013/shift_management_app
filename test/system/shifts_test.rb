@@ -19,7 +19,7 @@ class ShiftsTest < ApplicationSystemTestCase
 
   test "新しいシフトを作成する" do
     visit new_team_client_shift_path(@team, @client)
-    
+
     page.execute_script("document.getElementById('shift_start_time').value = '09:00'")
     page.execute_script("document.getElementById('shift_end_time').value   = '17:00'")
     page.execute_script("document.getElementById('shift_date').value       = '2024-07-01'")

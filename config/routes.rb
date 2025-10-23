@@ -4,7 +4,7 @@ Rails.application.routes.draw do
       resources :shifts, only: %i[index new create edit update destroy]
     end
   end
-  
+
   resources :user_needs
   resources :user_clients
   resources :client_needs
@@ -14,8 +14,11 @@ Rails.application.routes.draw do
 
   resources :offices, only: %i[new create show edit update destroy]
   devise_for :users, controllers: { registrations: "users/registrations" }
-  resources :users, only: [:index]
+  resources :users, only: [ :index ]
+
+  if Rails.env.development?
   mount LetterOpenerWeb::Engine, at: "/letter_opener"
+  end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

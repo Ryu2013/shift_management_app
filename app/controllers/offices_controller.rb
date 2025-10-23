@@ -42,6 +42,6 @@ class OfficesController < ApplicationController
   private
 
   def office_params
-    params.require(:office).permit(:name, teams_attributes: [:name])
+    params.require(:office).permit(:name, teams_attributes: [ :name ])
   end
 end
