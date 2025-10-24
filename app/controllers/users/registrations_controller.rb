@@ -2,6 +2,9 @@
 
 class Users::RegistrationsController < Devise::RegistrationsController
    prepend_before_action :set_office_from_session, only: [ :new, :create ]
+   before_action :set_team, only: [ :edit ]
+   before_action :office_authenticate, only: [ :edit, :update, :destroy ]
+   before_action :set_team, only: [ :edit, :update ]
 
   private
   # New,Create時に@officeをセット。session[:office_id]がなければリダイレクト
@@ -24,5 +27,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
       :name, :address, :pref_per_week, :commute, :team_id,
       :email, :password, :password_confirmation, :current_password
     )
+  end
+
+  def office_authenticate
+    sess = session[:office_id]
+    if sess.blank? || sess.to_i != current_user.office_id
+      session.delete(:office_id)
+      redirect_to root_path, alert: "事業所情報が不明です" and return
+    end
+    @office = Office.find_by(id: session[:office_id])
   end
 end

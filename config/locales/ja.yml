@@ -101,14 +101,67 @@ ja:
       confirmed: "メールアドレスの確認が完了しました。"
       user:
         confirmed: "メールアドレスの確認が完了しました。"
+      new:
+        heading: "確認メールを再送"
+        email: "メールアドレス"
+        submit: "送信する"
     registrations:
       signed_up_but_unconfirmed: "ご登録のメールアドレス宛に確認メールを送信しました。メールをご確認ください。"
       user:
         signed_up_but_unconfirmed: "ご登録のメールアドレス宛に確認メールを送信しました。メールをご確認ください。"
+      new:
+        heading: "従業員を登録"
+        name: "氏名"
+        address: "住所"
+        pref_per_week: "希望出勤日数（週）"
+        commute: "通勤手段"
+        email: "メールアドレス"
+        password: "パスワード"
+        password_hint: "%{count}文字以上で入力してください。"
+        password_confirmation: "パスワード（確認用）"
+        submit: "登録する"
+      edit:
+        heading: "従業員の情報を編集"
+        name: "氏名"
+        address: "住所"
+        pref_per_week: "希望出勤日数（週）"
+        commute: "通勤手段"
+        email: "メールアドレス"
+        pending_confirmation: "現在%{email}で確認中です。"
+        password: "新しいパスワード"
+        password_hint: "変更しない場合は空欄のままにしてください。"
+        password_length: "%{count}文字以上で入力してください。"
+        password_confirmation: "新しいパスワード（確認用）"
+        current_password: "現在のパスワード"
+        current_password_hint: "変更を保存するには現在のパスワードが必要です。"
+        submit: "更新する"
+        cancel_heading: "アカウントを削除"
+        requires_employee: "従業員を削除するには最低1名必要です。"
+        cancel_prompt: "アカウントを削除する場合はこちらをクリックしてください。"
+        cancel_button: "アカウントを削除"
+        cancel_confirm: "本当にアカウントを削除しますか？"
+        back: "戻る"
     sessions:
+      new:
+        heading: "ログイン"
+        email: "メールアドレス"
+        password: "パスワード"
+        remember_me: "ログイン状態を保持する"
+        submit: "ログイン"
       user:
         signed_out: "ログアウトしました。"
         signed_in: "ログインしました。"
+    passwords:
+      new:
+        heading: "パスワード再設定"
+        email: "メールアドレス"
+        submit: "再設定メールを送信する"
+      edit:
+        heading: "パスワードを変更"
+        password: "新しいパスワード"
+        password_confirmation: "新しいパスワード（確認用）"
+        password_length: "%{count}文字以上で入力してください。"
+        submit: "パスワードを更新する"
     failure:
       unauthenticated: "ログインが必要です。"
       unconfirmed: "メールアドレスの確認が完了していません。メールをご確認ください。"
@@ -118,6 +171,42 @@ ja:
       invalid: "メールアドレスまたはパスワードが正しくありません。"
       user:
         invalid: "メールアドレスまたはパスワードが正しくありません。"
+    unlocks:
+      new:
+        heading: "ロック解除メールを再送"
+        email: "メールアドレス"
+        submit: "送信する"
+    shared:
+      links:
+        sign_in: "ログイン"
+        sign_up: "新規登録"
+        forgot_password: "パスワードをお忘れですか？"
+        resend_confirmation: "確認メールを再送する"
+        resend_unlock: "ロック解除メールを再送する"
+        omniauth: "%{provider}でログイン"
+    mailer:
+      confirmation_instructions:
+        greeting: "%{email} 様"
+        instruction: "以下のリンクからメールアドレスの確認を行ってください。"
+        action: "メールアドレスを確認する"
+      email_changed:
+        greeting: "%{email} 様"
+        changing: "メールアドレスを%{email}に変更しようとしています。"
+        changed: "メールアドレスが%{email}に変更されました。"
+      password_change:
+        greeting: "%{email} 様"
+        message: "パスワードが更新されました。"
+      reset_password_instructions:
+        greeting: "%{email} 様"
+        instruction: "以下のリンクからパスワードを再設定してください。"
+        action: "パスワードを再設定する"
+        ignore: "このメールに心当たりがない場合は破棄してください。"
+        note: "リンクにアクセスするまでパスワードは変更されません。"
+      unlock_instructions:
+        greeting: "%{email} 様"
+        message: "複数回のログイン失敗によりアカウントがロックされています。"
+        instruction: "以下のリンクからアカウントのロックを解除できます。"
+        action: "アカウントのロックを解除する"
     enums:
       shift:
         shift_type:
@@ -207,6 +296,8 @@ ja:
       title: "利用者を追加"
       heading: "利用者を追加"
       back: "利用者一覧に戻る"
+      destroy: "この利用者を削除"
+      confirm_destroy: "本当に削除しますか？"
     edit:
       title: "利用者を編集"
       heading: "利用者を編集"
@@ -417,6 +508,7 @@ ja:
       heading: "従業員一覧"
       new: "従業員を追加"
       shifts: "シフト一覧"
+      clients: "利用者一覧"
     user:
       name: "氏名"
       address: "住所"

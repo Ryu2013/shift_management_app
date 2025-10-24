@@ -7,12 +7,13 @@
 
 <div class="flexbox">
   <%= link_to t(".new"), "#", class: "flex-btn" %>
-  <%= link_to t(".shifts"), shifts_path, class: "flex-btn" %>
+  <%= link_to t(".shifts"), team_client_shifts_path(@team,@client), class: "flex-btn" %>
+  <%= link_to t(".clients"), team_clients_path(@team), class: "flex-btn" %>
 </div>
 
 <div id="clients">
   <% @users.each do |user| %>
-    <%= link_to "#" do %>
+    <%= link_to edit_user_registration_path(user) do %>
       <div class="card">
         <%= render user %>
       </div>
