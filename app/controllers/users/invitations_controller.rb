@@ -1,10 +1,10 @@
 class Users::InvitationsController < Devise::InvitationsController
-  before_action :office_authenticate
+  before_action :office_authenticate, only: [ :new, :create ]
 
   protected
 
   def invite_params
-    super.merge(office_id: @office.id, team_id: params[:user][:team_id])
+    super.merge(office_id: @office.id, team_id: params[:user][:team_id], name: params[:user][:name])
   end
 
   def office_authenticate

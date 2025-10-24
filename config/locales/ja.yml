@@ -171,6 +171,9 @@ ja:
       invalid: "メールアドレスまたはパスワードが正しくありません。"
       user:
         invalid: "メールアドレスまたはパスワードが正しくありません。"
+      already_authenticated: "すでにログインしています。"
+      user:
+        already_authenticated: "すでにログインしています。"
     unlocks:
       new:
         heading: "ロック解除メールを再送"
