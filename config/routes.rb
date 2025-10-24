@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   root "home#index"
 
   resources :offices, only: %i[new create show edit update destroy]
-  devise_for :users, controllers: { registrations: "users/registrations" }
+  devise_for :users, controllers: { registrations: "users/registrations", invitations: "users/invitations" }
   resources :users, only: [ :index ]
 
   if Rails.env.development?
