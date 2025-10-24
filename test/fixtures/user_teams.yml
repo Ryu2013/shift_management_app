@@ -3,7 +3,9 @@
 one:
   team: one
   user: one
+  office: one
 
 two:
   team: two
   user: two
+  office: two
