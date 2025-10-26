@@ -13,6 +13,7 @@ class ClientsController < ApplicationController
 
   def edit
     @teams = @office.teams.all
+    @client_need = @client.client_needs.build
   end
 
   def create

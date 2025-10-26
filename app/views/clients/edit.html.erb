@@ -1,8 +1,18 @@
 <% content_for :title, t(".title") %>
-
+<%= turbo_stream_from [@team, :client_needs] %>
 <h1><%= t(".heading") %></h1>
 
 <%= render "form", client: @client %>
+
+<h3>必要シフト</h3>
+<div id="client_needs">
+<%= render @client.client_needs.select(&:persisted?) %>
+</div>
+
+<h4>追加</h4>
+<%= turbo_frame_tag "client_need" do %>
+  <%= link_to "新規追加", new_client_need_path %>
+<% end %>
 
 <br>
 
@@ -14,4 +24,3 @@
     <% end %>
   </div>
   <% end %>
-
