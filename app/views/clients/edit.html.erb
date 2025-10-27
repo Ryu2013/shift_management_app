@@ -26,8 +26,6 @@
   </div>
 <% end %>
 
-<br>
-
   <% if @team&.clients&.exists? %>
   <div class="flexbox">
     <%= link_to t(".back"), team_clients_path(@team), class: "flex-btn" %>

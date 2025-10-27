@@ -20,7 +20,7 @@
 
     <div id="modal" class="modal">
       <%= f.label :team_id, t(".form.team") %>
-      <%= f.collection_select :team_id, @teams, :id, :name, selected: @team.id %><br>
+      <%= f.collection_select :team_id, @teams, :id, :name, selected: @team.id %>
 
       <%= f.label :client_id, t(".form.client") %>
       <%= f.collection_select :client_id, @clients, :id, :name, selected: @client.id %>

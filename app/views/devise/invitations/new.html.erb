@@ -4,35 +4,36 @@
   <%= render "devise/shared/error_messages", resource: resource %>
 
   <% resource.class.invite_key_fields.each do |field| -%>
-    <div class="field">
-      <%= f.label :name, "氏名" %><br>
+    
+      <%= f.label :name, "氏名" %>
       <%= f.text_field :name, required: true %>
-    </div>
-    <div class="field">
-      <%= f.label field %><br />
+    
+  
+      <%= f.label field %>
       <%= f.text_field field, required: true %>
-    </div>
-    <div class="field">
-      <%= f.label :team_id, "所属部署" %><br>
+  
+    
+      <%= f.label :team_id, "所属部署" %>
       <%= f.collection_select :team_id, @office.teams, :id, :name, prompt: "所属部署を選択してください", required: true %>
-    </div>
+  
 
-    <div>
-      <%= f.label :address, "住所" %><br />
+   
+      <%= f.label :address, "住所" %>
       <%= f.text_field :address , required: true%>
-    </div>
+   
 
-    <div>
-      <%= f.label :pref_per_week, "週あたりの希望勤務日数" %><br />
+  
+      <%= f.label :pref_per_week, "週あたりの希望勤務日数" %>
       <%= f.select :pref_per_week, 0..7 %>
-    </div>
+ 
 
-    <div>
-      <%= f.label :commute, "通勤手段" %><br />
+ 
+      <%= f.label :commute, "通勤手段" %>
       <%= f.text_field :commute %>
-    </div>
+   
     <% end %>
-    <div class="actions">
+    <div class="flexbox">
       <%= f.submit t("devise.invitations.new.submit_button") %>
+      <%= link_to "戻る", users_path, class: "flex-btn" %>
     </div>
   <% end %>
