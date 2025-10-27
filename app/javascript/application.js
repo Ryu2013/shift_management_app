@@ -5,7 +5,7 @@ document.addEventListener("turbo:load", () => {
   const fake = document.getElementById("fake-month");
   const real = document.getElementById("real-month");
   const modal = document.getElementById("modal");
-  const fakeClient = document.getElementById("fake-client");
+  const fakeClient = document.getElementById("open-modal");
   const closeModal = document.getElementById("close-modal");
 
   fakeClient.onclick = () => {
