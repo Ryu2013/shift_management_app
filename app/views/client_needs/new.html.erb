@@ -2,6 +2,7 @@
 <h1><%= t(".heading") %></h1>
 
 <%= render "form", client_need: @client_need %>
-
-<%= link_to "閉じる", edit_team_client_path(@team, @client) %>
+<div class="flexbox">
+  <%= link_to "閉じる", edit_team_client_path(@team, @client) ,class: "flex-btn"%>
+</div>
 <% end %>

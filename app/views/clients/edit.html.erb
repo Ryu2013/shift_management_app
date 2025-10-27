@@ -9,13 +9,21 @@
 <%= render "form", client: @client %>
 
 <h3>必要シフト</h3>
-<div id="client_needs">
-<%= render @client.client_needs.select(&:persisted?) %>
+<% ClientNeed.weeks.keys.each do |week| %>
+ <div class="card">
+  <h4><%= t("activerecord.attributes.client_need.weeks.#{week}") %></h4>
+    <div id="client_needs_<%= week %>">
+      <%= render (@needs_by_week[week] || []) %>
+    </div>
+</div>
+<% end %>
+
 </div>
 
-<h4>追加</h4>
 <%= turbo_frame_tag "client_need" do %>
-  <%= link_to "新規追加", new_client_need_path %>
+  <div class="flexbox">
+  <%= link_to "新規追加", new_client_need_path , class: "flex-btn" %>
+  </div>
 <% end %>
 
 <br>

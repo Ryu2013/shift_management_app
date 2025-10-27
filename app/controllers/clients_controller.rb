@@ -13,7 +13,7 @@ class ClientsController < ApplicationController
 
   def edit
     @teams = @office.teams.all
-    @client_need = @client.client_needs.build
+    @needs_by_week = @client.client_needs.order(:week,:shift_type, :start_time).group_by(&:week)
   end
 
   def create

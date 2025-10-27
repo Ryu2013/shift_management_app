@@ -36,7 +36,7 @@
     <%= form.select :slots ,[1,2,3,4,5,6,7,8,9,10], required: true %>
   </div>
     
-  <div>
-    <%= form.submit t(".submit") %>
+  <div class="flexbox">
+    <%= form.submit t(".submit") , class: "flex-btn" %>
   </div>
 <% end %>

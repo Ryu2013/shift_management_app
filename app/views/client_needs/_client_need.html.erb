@@ -1,23 +1,16 @@
 <div id="<%= dom_id client_need %>">
   <div class="shift <%= "night" if client_need.shift_type == "night" %>">
 
-    <strong><%= t(".week") %></strong>
-    <%= t("activerecord.attributes.client_need.weeks.#{client_need.week}") %>
-
-    <strong><%= t(".need_type") %></strong>
     <%= t("activerecord.attributes.client_need.shift_types.#{client_need.shift_type}") %>
 
-    <strong><%= t(".start_time") %></strong>
     <%= l client_need.start_time %>
-
-    <strong><%= t(".end_time") %></strong>
+    <strong>～</strong>
     <%= l client_need.end_time %>
-    
+
     <strong><%= t(".slots") %></strong>
     <%= client_need.slots %>
 
-  <% if client_need.persisted? %>
   <%= button_to "Delete", client_need_path(client_need), method: :delete, form: { data: { turbo_confirm: "delete?" } },class: "flex-btn" %>
-  <% end %>
+
  </div>
 </div>
