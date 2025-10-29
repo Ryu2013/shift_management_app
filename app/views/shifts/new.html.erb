@@ -1,5 +1,5 @@
-<% content_for :title, t(".title") %>
-
+<%= turbo_frame_tag "shift_edit" do %>
+<div class="modal open">
 <h1><%= t(".heading") %></h1>
 <%= button_to "今月のシフト自動生成",
       generate_monthly_shifts_team_client_shifts_path(@team, @client, date: @date),
@@ -12,3 +12,4 @@
 <div class="flexbox">
   <%= link_to t(".back"), team_client_shifts_path(@team, @client), class: "flex-btn" %>
 </div>
+<% end %>

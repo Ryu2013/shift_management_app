@@ -3,6 +3,10 @@
   <%= stylesheet_link_tag "shift/index", "data-turbo-track": "dynamic" %>
 <% end %>
 
+
+<%= turbo_frame_tag "shift_edit" do %>
+<% end %>
+
 <div class="flexbox">
   <%= link_to t(".nav.change_requests"), "#" %> 
   <%= link_to t(".nav.clients_and_staff"), team_clients_path(@team) %>
@@ -35,7 +39,7 @@
       <div id="open-modal" class="flex-btn">
         <%= @client.name %>
       </div>
-      <%= link_to t(".new_shift"), new_team_client_shift_path(@team, @client, date: @date), class: "flex-btn" %>
+      <%= link_to t(".new_shift"), new_team_client_shift_path(@team, @client, date: @date), data: { turbo_frame: "shift_edit" }, class: "flex-btn" %>
       <%= f.submit t(".form.submit"), class: "flex-btn" %>
     </div>
   <% end %>
@@ -59,18 +63,17 @@
 
     <% (@first_day..@last_day).each do |date| %>
       <div class="day <%= 'today' if date == @today %>">
-        <%= date.day %>
+          <%= date.day %>
 
-      <% if @shifts[date].present? %>
-        <% @shifts[date].each do |shift| %>
-        <%= link_to edit_team_client_shift_path(@team, @client, shift) do %>
-          <div class="shift <%= "night" if shift.shift_type == "night" %>">
-            <%= shift.client.name %> <br>
-            <%= shift.start_time.strftime("%H:%M") %> - <%= shift.end_time.strftime("%H:%M") %>
-          </div>
+        <% if @shifts[date].present? %>
+          <% @shifts[date].each do |shift| %>
+            <%= link_to edit_team_client_shift_path(@team, @client, shift), data: { turbo_frame: "shift_edit" } do %>
+              <div class="shift <%= "night" if shift.shift_type == "night" %>">
+                <%= render shift %>
+              </div>
+            <% end %>
+          <% end %>
         <% end %>
-        <% end %>
-      <% end %>
       </div>
     <% end %>
 
