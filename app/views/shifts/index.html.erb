@@ -29,13 +29,13 @@
     
     <div class="flexbox">
       <div id= "fake-month" class="flex-btn">
-        <%= @date %>
+        <%= @date_view %>
       </div>
 
       <div id="open-modal" class="flex-btn">
         <%= @client.name %>
       </div>
-      <%= link_to t(".new_shift"), new_team_client_shift_path(@team, @client), class: "flex-btn" %>
+      <%= link_to t(".new_shift"), new_team_client_shift_path(@team, @client, date: @date), class: "flex-btn" %>
       <%= f.submit t(".form.submit"), class: "flex-btn" %>
     </div>
   <% end %>

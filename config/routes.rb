@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
   resources :teams do
     resources :clients, only: %i[index new create edit update destroy] do
-      resources :shifts, only: %i[index new create edit update destroy]
+      resources :shifts, only: %i[index new create edit update destroy] do
+        post :generate_monthly_shifts, on: :collection
+      end
     end
   end
 

@@ -1,6 +1,11 @@
 <% content_for :title, t(".title") %>
 
 <h1><%= t(".heading") %></h1>
+<%= button_to "今月のシフト自動生成",
+      generate_monthly_shifts_team_client_shifts_path(@team, @client, date: @date),
+      method: :post,
+      data: { turbo_confirm: "今月のシフトを生成します。よろしいですか？" },
+      class: "flex-btn" %>
 
 <%= render "form", shift: @shift %>
 
