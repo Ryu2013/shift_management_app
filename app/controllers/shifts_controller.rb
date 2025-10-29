@@ -6,12 +6,11 @@ class ShiftsController < ApplicationController
   def index
     @teams = @office.teams
     @clients = @team.clients
-
-    @today = Date.today
-    @first_day = @today.beginning_of_month
-    @last_day  = @today.end_of_month
-
     @date = params[:date].present? ? Date.strptime(params[:date], "%Y-%m") : Date.current
+    @today = Date.today
+    @first_day = @date.beginning_of_month
+    @last_day  = @date.end_of_month
+
     @shifts = @client.shifts.scope_month(@date).group_by { |shift| shift.date }
     @date_view = @date.strftime("%m月")
   end
