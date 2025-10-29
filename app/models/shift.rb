@@ -13,5 +13,5 @@ class Shift < ApplicationRecord
 
   private
 
-  def stream_key = [client.team, :shifts]
+  def stream_key = [ client.team, :shifts ]
 end

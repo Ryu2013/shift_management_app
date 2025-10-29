@@ -1,6 +1,6 @@
 module Shifts
   class MonthlyGenerator
-    #簡易クラスの生成。keyword_init: trueでキーワード引数で明示的に初期化Result.new(created: created, errors: errors)
+    # 簡易クラスの生成。keyword_init: trueでキーワード引数で明示的に初期化Result.new(created: created, errors: errors)
     Result = Struct.new(:created, :errors, keyword_init: true)
 
     def initialize(client:, month:, office:)

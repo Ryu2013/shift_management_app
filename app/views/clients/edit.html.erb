@@ -8,32 +8,41 @@
 
 <%= render "form", client: @client %>
 
-  <% if @team&.clients&.exists? %>
-  <div class="flexbox">
-    <%= link_to "戻る", team_clients_path(@team), class: "flex-btn" %>
-    <div id="open-modal" class="flex-btn">
+  <% if @team.clients.exists? %>
+    <div class="flexbox">
+
+      <%= link_to "戻る", team_clients_path(@team), class: "flex-btn" %>
+
+      <div id="open-modal" class="flex-btn">
       シフト作成
+      </div>
+
+      <% if @team.clients.count > 1 %>
+        <%= button_to "利用者を消去", [@team, @client], method: :delete, data: { turbo_confirm: t(".confirm_destroy") }, class: "flex-btn" %>
+      <% end %>
+
     </div>
-    <% if @team.clients.count > 1 %>
-    <%= button_to t(".destroy"), [@team, @client], method: :delete, data: { turbo_confirm: t(".confirm_destroy") }, class: "flex-btn" %>
-    <% end %>
-  </div>
   <% end %>
+
 <div id="modal" class="modal">
+
   <div id="close-modal" class="close-modal">✕</div>
   <h3>シフト作成</h3>
-    <% ClientNeed.weeks.keys.each do |week| %>
-      <div class="card">
+
+  <% ClientNeed.weeks.keys.each do |week| %>
+    <div class="card">
         <h4><%= t("activerecord.attributes.client_need.weeks.#{week}") %></h4>
-          <div id="client_needs_<%= week %>">
-            <%= render (@needs_by_week[week] || []) %>
-          </div>
-      </div>
-    <% end %>
+        <div id="client_needs_<%= week %>">
+          <%= render (@needs_by_week[week] || []) %>
+        </div>
+    </div>
+  <% end %>
+
   <%= turbo_frame_tag "client_need" do %>
-  <div class="flexbox">
-  <%= link_to "新規追加", new_client_need_path , class: "flex-btn" %>
-  </div>
-<% end %>
+    <div class="flexbox">
+      <%= link_to "新規追加", new_client_need_path , class: "flex-btn" %>
+    </div>
+  <% end %>
+
 </div>
 
