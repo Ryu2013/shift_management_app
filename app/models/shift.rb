@@ -8,8 +8,8 @@ class Shift < ApplicationRecord
   scope :scope_month, ->(month) { where(date: month.beginning_of_month..month.end_of_month) }
 
   after_create_commit  -> { broadcast_append_to  stream_key, target: "shifts_#{date}" }
-  after_update_commit  -> { broadcast_replace_to stream_key, target: "shifts_#{date}" }
-  after_destroy_commit -> { broadcast_remove_to  stream_key, target: "shifts_#{date}" }
+  after_update_commit  -> { broadcast_replace_to stream_key }
+  after_destroy_commit -> { broadcast_remove_to  stream_key }
 
   private
 

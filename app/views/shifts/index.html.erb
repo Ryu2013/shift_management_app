@@ -66,13 +66,9 @@
       <div class="day <%= 'today' if date == @today %>">
           <%= date.day %>
 
-        <% if @shifts[date].present? %>
-          <% @shifts[date].each do |shift| %>
-            <div id="shifts_<%= date %>">
-                  <%= render shift %>
-            </div>
-          <% end %>
-        <% end %>
+        <div id="shifts_<%= date %>">
+          <%= render (@shifts[date] || []) %>
+        </div>
       </div>
     <% end %>
 
