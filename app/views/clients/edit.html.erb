@@ -22,14 +22,14 @@
 <div id="modal" class="modal">
   <div id="close-modal" class="close-modal">✕</div>
   <h3>シフト作成</h3>
-  <% ClientNeed.weeks.keys.each do |week| %>
-  <div class="card">
-    <h4><%= t("activerecord.attributes.client_need.weeks.#{week}") %></h4>
-      <div id="client_needs_<%= week %>">
-        <%= render (@needs_by_week[week] || []) %>
+    <% ClientNeed.weeks.keys.each do |week| %>
+      <div class="card">
+        <h4><%= t("activerecord.attributes.client_need.weeks.#{week}") %></h4>
+          <div id="client_needs_<%= week %>">
+            <%= render (@needs_by_week[week] || []) %>
+          </div>
       </div>
-    </div>
-  <% end %>
+    <% end %>
   <%= turbo_frame_tag "client_need" do %>
   <div class="flexbox">
   <%= link_to "新規追加", new_client_need_path , class: "flex-btn" %>

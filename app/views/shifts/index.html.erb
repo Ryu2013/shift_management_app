@@ -1,4 +1,5 @@
 <% content_for :title, t(".title") %>
+<%= turbo_stream_from [@team, :shifts] %>
 <% content_for :head do %>
   <%= stylesheet_link_tag "shift/index", "data-turbo-track": "dynamic" %>
 <% end %>
@@ -67,11 +68,9 @@
 
         <% if @shifts[date].present? %>
           <% @shifts[date].each do |shift| %>
-            <%= link_to edit_team_client_shift_path(@team, @client, shift), data: { turbo_frame: "shift_edit" } do %>
-              <div class="shift <%= "night" if shift.shift_type == "night" %>">
-                <%= render shift %>
-              </div>
-            <% end %>
+            <div id="shifts_<%= date %>">
+                  <%= render shift %>
+            </div>
           <% end %>
         <% end %>
       </div>

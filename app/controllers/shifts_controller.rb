@@ -26,7 +26,10 @@ class ShiftsController < ApplicationController
   def create
     @shift = @office.shifts.build(shift_params)
     if @shift.save
-      redirect_to team_client_shifts_path(@team, @client), notice: "シフトを作成しました。"
+      respond_to do |format|
+        format.turbo_stream
+        format.html { redirect_to team_client_shifts_path(@team, @client), notice: "シフトを作成しました。" }
+      end
     else
       render :new, status: :unprocessable_entity
     end
@@ -34,7 +37,10 @@ class ShiftsController < ApplicationController
 
   def update
     if @shift.update(shift_params)
-      redirect_to team_client_shifts_path(@team, @client), notice: "シフトを更新しました。", status: :see_other
+      respond_to do |format|
+        format.turbo_stream
+        format.html { redirect_to team_client_shifts_path(@team, @client), notice: "シフトを更新しました。", status: :see_other }
+      end
     else
       render :edit, status: :unprocessable_entity
     end
@@ -42,7 +48,10 @@ class ShiftsController < ApplicationController
 
   def destroy
     @shift.destroy!
-    redirect_to team_client_shifts_path(@team, @client), notice: "シフトを削除しました。", status: :see_other
+    respond_to do |format|
+      format.turbo_stream
+      format.html { redirect_to team_client_shifts_path(@team, @client), notice: "シフトを削除しました。", status: :see_other }
+    end
   end
 
   def generate_monthly_shifts
