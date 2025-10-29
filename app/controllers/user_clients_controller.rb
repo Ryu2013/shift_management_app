@@ -1,25 +1,23 @@
 class UserClientsController < ApplicationController
+  before_action :office_authenticate
+  before_action :set_team
+  before_action :set_client
   before_action :set_user_client, only: %i[ show edit update destroy ]
 
-  # GET /user_clients or /user_clients.json
   def index
     @user_clients = userClient.all
   end
 
-  # GET /user_clients/1 or /user_clients/1.json
   def show
   end
 
-  # GET /user_clients/new
   def new
     @user_client = userClient.new
   end
 
-  # GET /user_clients/1/edit
   def edit
   end
 
-  # POST /user_clients or /user_clients.json
   def create
     @user_client = userClient.new(user_client_params)
 
@@ -34,7 +32,6 @@ class UserClientsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /user_clients/1 or /user_clients/1.json
   def update
     respond_to do |format|
       if @user_client.update(user_client_params)
@@ -47,7 +44,6 @@ class UserClientsController < ApplicationController
     end
   end
 
-  # DELETE /user_clients/1 or /user_clients/1.json
   def destroy
     @user_client.destroy!
 
@@ -58,12 +54,10 @@ class UserClientsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_user_client
       @user_client = userClient.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
     def user_client_params
       params.require(:user_client).permit(:office_id, :user_id, :client_id, :note)
     end
