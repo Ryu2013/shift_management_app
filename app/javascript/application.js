@@ -24,3 +24,22 @@ document.addEventListener("turbo:load", () => {
     fake.textContent = `${m}月`;
   };
 });
+//httpもしくはturboDriveで発火確認。blordcast,turboFrameでは発火していない。
+//すべてのページでwindow.Turbo.visitを確認したが、一応http処理も残す。
+document.addEventListener("turbo:load", () => {
+const form = document.getElementById("filters-form");
+console.log("発火");
+if (!form) return;
+form.addEventListener("submit", (e) => {
+e.preventDefault();
+const teamId = form.querySelector('[name="team_id"]').value;
+const clientId = form.querySelector('[name="client_id"]').value;
+const date = form.querySelector('#real-month')?.value || "";
+const q = date ? `?date=${encodeURIComponent(date)}` : "";
+if (window.Turbo?.visit) {
+Turbo.visit(`/teams/${teamId}/clients/${clientId}/shifts${q}`);
+} else {
+window.location.href = `/teams/${teamId}/clients/${clientId}/shifts${q}`;
+}
+});
+});

@@ -13,14 +13,17 @@ class ShiftsController < ApplicationController
 
     @shifts = @client.shifts.scope_month(@date).group_by { |shift| shift.date }
     @date_view = @date.strftime("%m月")
+
   end
 
   def new
     @shift = @office.shifts.new(client_id: params[:client_id])
     @date = params[:date]
+    @user_clients = @client.users
   end
 
   def edit
+    @user_clients = @client.users
   end
 
   def create

@@ -19,7 +19,7 @@
 
 <hr>
 
-  <%= form_with url: team_client_shifts_path(@team, @client), method: :get, local: true do |f| %>
+  <%= form_with url: team_client_shifts_path(@team, @client), method: :get, local: true,  html: { id: "filters-form" } do |f| %>
 
     <%= f.month_field :date, id: "real-month", style: "display: none;"%>
 
