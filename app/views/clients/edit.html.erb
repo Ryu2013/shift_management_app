@@ -4,24 +4,17 @@
   <%= stylesheet_link_tag "client/edit", "data-turbo-track": "dynamic" %>
 <% end %>
 
-<h1><%= t(".heading") %></h1>
+<h1><%= @client.name %></h1>
 
 <%= render "form", client: @client %>
 
-  <% if @team.clients.exists? %>
-    <div class="flexbox">
-
-      <%= link_to "戻る", team_clients_path(@team), class: "flex-btn" %>
-
-      <div id="open-modal" class="flex-btn">
-      シフト作成
-      </div>
-
-      <% if @team.clients.count > 1 %>
-        <%= button_to "利用者を消去", [@team, @client], method: :delete, data: { turbo_confirm: t(".confirm_destroy") }, class: "flex-btn" %>
-      <% end %>
-
-    </div>
+  <% if @team.clients.count > 1 %>
+  <div class="flexbox">
+    <%= button_to "利用者を消去", [@team, @client], method: :delete, data: { turbo_confirm: t(".confirm_destroy") }, class: "flex-btn" %>
+    <%= turbo_frame_tag "user_client" do %>
+      <%= link_to "担当可能従業員の追加", new_user_client_path %>
+    <% end %>
+  </div>
   <% end %>
 
 <div id="modal" class="modal">

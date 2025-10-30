@@ -46,18 +46,16 @@
     <%= form.text_field :note %>
   </div>
 
-  <%= form.fields_for :user_clients do |user_client| %>
-  <%= user_client.hidden_field :id if user_client.object.persisted? %>
-
-  <div> <%= user_client.label :name, "担当可能従業員" %> <%= user_client.collection_select :user_id, @users, :id, :name, prompt: "担当従業員を選択" %> </div>
-    <% if user_client.object.persisted? %>
-      <%= user_client.check_box :_destroy %>
-      <%= user_client.label :_destroy, "削除" %>
-    <% end %>
-  <% end %>
-
   
   <div class="flexbox">
+      <% if @team.clients.exists? %>
+          <%= link_to "戻る", team_clients_path(@team), class: "flex-btn" %>
+      <% end %>
+      
+      <div id="open-modal" class="flex-btn">
+      シフト作成
+      </div>
+
       <%= form.submit t(".submit"), class: "flex-btn" %>
   </div>
 
