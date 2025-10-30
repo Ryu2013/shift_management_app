@@ -33,13 +33,13 @@ class ApplicationController < ActionController::Base
 
   def set_team
     if @office.teams.present?
-      @team = @office.teams.find_by(id: params[:id] || params[:team_id]) || @office.teams.order(:id).first
+      @team = @office.teams.find_by(id: params[:team_id] || params[:id]) || @office.teams.order(:id).first
     end
   end
 
   def set_client
     if @team.clients.present?
-      @client = @team.clients.find_by(id: params[:id] || params[:client_id]) || @team.clients.order(:id).first
+      @client = @team.clients.find_by(id: params[:client_id] || params[:id]) || @team.clients.order(:id).first
     end
   end
 end

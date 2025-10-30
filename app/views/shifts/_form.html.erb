@@ -17,9 +17,9 @@
 
   <div>
     <%= form.label :user_id, "担当従業員", style: "display: block" %>
-    <%= form.collection_select :user_id, @user_clients, :id, :name, prompt: "担当従業員を選択" %>
+    <%= form.collection_select :user_id, @client.users, :id, :name, prompt: "担当従業員を選択" %>
   </div>
-  
+
   <div>
     <%= form.label :shift_type, style: "display: block" %>
     <%= form.select :shift_type, [['日勤', 'day'], ['夜勤', 'night']] %>

@@ -14,6 +14,8 @@ class ClientsController < ApplicationController
   def edit
     @teams = @office.teams.all
     @needs_by_week = @client.client_needs.order(:week, :shift_type, :start_time).group_by(&:week)
+    @client.user_clients.build(office: @office)
+    @users = @team.users
   end
 
   def create
@@ -21,6 +23,8 @@ class ClientsController < ApplicationController
     if @client.save
       redirect_to team_clients_path(@team), notice: "クライアントを作成しました。"
     else
+      @needs_by_week = @client.client_needs.order(:week, :shift_type, :start_time).group_by(&:week)
+      @users = @team.users
       @teams = @office.teams.all
       render :new, status: :unprocessable_entity
     end
@@ -30,6 +34,8 @@ class ClientsController < ApplicationController
     if @client.update(client_params)
       redirect_to team_clients_path(@team), notice: "クライアントを更新しました。", status: :see_other
     else
+      @needs_by_week = @client.client_needs.order(:week, :shift_type, :start_time).group_by(&:week)
+      @users = @team.users
       @teams = @office.teams.all
       render :edit, status: :unprocessable_entity
     end
@@ -44,6 +50,6 @@ class ClientsController < ApplicationController
 
 
   def client_params
-    params.require(:client).permit(:team_id, :medical_care, :name, :email, :address, :disease, :public_token, :note)
+    params.require(:client).permit(:team_id, :medical_care, :name, :email, :address, :disease, :public_token, :note, user_clients_attributes: [:id, :user_id, :note, :_destroy])
   end
 end

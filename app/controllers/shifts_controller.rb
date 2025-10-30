@@ -13,7 +13,7 @@ class ShiftsController < ApplicationController
 
     @shifts = @client.shifts.scope_month(@date).group_by { |shift| shift.date }
     @date_view = @date.strftime("%m月")
-
+    @user_clients = @client.users
   end
 
   def new
@@ -71,6 +71,6 @@ class ShiftsController < ApplicationController
   end
 
   def shift_params
-    params.require(:shift).permit(:client_id, :shift_type, :slots, :note, :date, :start_time, :end_time)
+    params.require(:shift).permit(:user_id, :client_id, :shift_type, :slots, :note, :date, :start_time, :end_time)
   end
 end

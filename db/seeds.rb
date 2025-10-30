@@ -4,46 +4,66 @@ Rails.logger = ActiveSupport::TaggedLogging.new(Logger.new($stdout))
 
 puts "🌱 Seeding start (ENV=#{Rails.env})"
 
-
-# db/seeds.rb
+# スキーマに合わせて、存在チェックしながら安全に作成
 ApplicationRecord.transaction do
-  # オフィス1件（team_name は attr_accessor なのでブロックでセット）
-  office = Office.find_or_create_by!(name: "本社") do |new_office|
-    new_office.team_name = "本社チーム"
+  # Office（ユニーク: name）
+  office = Office.find_or_create_by!(name: "本社")
+
+  # Teams（少なくともログインユーザー用のメインチームを用意）
+  main_team = Team.find_or_create_by!(office: office, name: "本社チーム")
+  # 追加のサンプルチーム
+  ["Team A", "Team B"].each do |name|
+    Team.find_or_create_by!(office: office, name: name)
   end
 
-  # チーム2件
-  teams = []
-  for name in [ "Team A", "Team B" ]
-    teams << Team.find_or_create_by!(office: office, name: name)
+  # ログイン可能ユーザー（Devise: confirmable 対応のため confirmed_at を付与）
+  login_user = User.find_or_initialize_by(email: "honsya@example.com")
+  login_user.name           ||= "本社ログイン用"
+  login_user.office         ||= office
+  login_user.team           ||= main_team
+  login_user.account_status ||= 0 # active
+  login_user.password = "password" # 都度セットでOK
+  login_user.confirmed_at ||= Time.current
+  login_user.save!
+
+  puts "👤 Login user: #{login_user.email} / password"
+
+  # 追加の従業員10名（本社チーム配属・即ログイン可能）
+  employees = []
+  10.times do |i|
+    email = "employee#{i + 1}@example.com"
+    u = User.find_or_initialize_by(email: email)
+    u.name           ||= "従業員#{i + 1}"
+    u.office         ||= office
+    u.team           ||= main_team
+    u.account_status ||= 0
+    u.password = "password"
+    u.confirmed_at ||= Time.current
+    u.save!
+    employees << u
   end
+  puts "👥 Employees: #{employees.map(&:email).join(', ')} / password"
 
-login_user = User.find_or_initialize_by(email: "honsya@example.com")
-login_user.name           ||= "本社ログイン用"
-login_user.office         ||= office           # ← NOT NULL 対策
-login_user.team           ||= teams.first     # ← Team 必須
-login_user.account_status ||= 0
-login_user.password = "password"              # ← 毎回セットでOK（暗号化される）
-login_user.save!
-puts "👤 Login user: #{login_user.email} / password"
-
-  # 各チームにクライアント10名ずつ（合計20名）
+  # クライアントをメインチームに作成
   clients = []
-  for team in teams
-    for i in 1..10
-      name = "#{team.name}-#{i}"
-      clients << Client.find_or_create_by!(office: office, team: team, name: name)
-    end
+  10.times do |i|
+    name = "#{main_team.name}-#{i + 1}"
+    clients << Client.find_or_create_by!(office: office, team: main_team, name: name)
   end
 
-  # シフト24件（1日ごとに1件、クライアントは循環）
-  base = Date.current.beginning_of_month
-  for i in 0...100
-    d = base + i
-    c = clients[i % clients.length]
+  # user_clients（ユニークインデックス対応）: ログインユーザーを先頭クライアントに紐付け
+  first_client = clients.first
+  if first_client
+    UserClient.find_or_create_by!(office: office, client: first_client, user: login_user)
+  end
 
+  # シフト（当月〜100日分）: user は未設定でも可（schemaではNULL可）
+  base = Date.current.beginning_of_month
+  100.times do |i|
+    d = base + i.days
+    c = clients[i % clients.length]
     Shift.find_or_create_by!(office: office, client: c, date: d) do |s|
-      s.shift_type  = [ 0, 1 ].sample
+      s.shift_type  = [0, 1].sample
       s.is_escort   = false
       s.work_status = 0
       s.start_time  = "09:00"
@@ -52,8 +72,9 @@ puts "👤 Login user: #{login_user.email} / password"
     end
   end
 end
+
 puts "✅ Seeding done."
 puts "Counts: #{{
   offices: Office.count, teams: Team.count, clients: Client.count,
-  shifts: Shift.count, users: User.count
+  shifts: Shift.count, users: User.count, user_clients: UserClient.count
 }}"
