@@ -122,9 +122,11 @@ ja:
     registrations:
       destroyed: "アカウントを削除しました。"
       signed_up_but_unconfirmed: "ご登録のメールアドレス宛に確認メールを送信しました。メールをご確認ください。"
+      updated: "アカウント情報を更新しました。"
       user:
         destroyed: "アカウントを削除しました。"
         signed_up_but_unconfirmed: "ご登録のメールアドレス宛に確認メールを送信しました。メールをご確認ください。"
+        updated: "アカウント情報を更新しました。"
       new:
         heading: "従業員を登録"
         name: "氏名"
