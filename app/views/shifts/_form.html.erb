@@ -17,18 +17,19 @@
 
   <div>
     <%= form.label :user_id, "担当従業員", style: "display: block" %>
-    <% @client.users.each do |u| %>
-        <% if shift&.persisted? %>
-          <%= button_to u.name, team_client_shift_path(@team, @client, shift), method: :patch, params: { shift: { user_id: u.id } }, class: "flex-btn" %>
-        <% else %>
-          <%= form.collection_select :user_id, @client.users, :id, :name, prompt: "担当従業員を選択" %>
+      <% if shift&.persisted? %>
+        <%= button_tag "未配置", type: "submit", name: "shift[user_id]", value: "", class: "flex-btn" %>
+        <% @client.users.each do |u| %>
+        <%= button_tag u.name, type: "submit", name: "shift[user_id]", value: u.id, class: "flex-btn" %>
         <% end %>
-    <% end %>
+      <% else %>
+        <%= form.collection_select :user_id, @client.users, :id, :name, prompt: "担当従業員を選択" %>
+      <% end %>
   </div>
 
   <div>
     <%= form.label :shift_type, style: "display: block" %>
-    <%= form.select :shift_type, [['日勤', 'day'], ['夜勤', 'night']] %>
+    <%= form.select :shift_type, [['日勤', 'day'], ['夜勤', 'night'],['同行','escort']] %>
   </div>
 
   <div>
