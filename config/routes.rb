@@ -17,7 +17,7 @@ Rails.application.routes.draw do
 
   resources :offices, only: %i[new create show edit update destroy]
   devise_for :users, controllers: { registrations: "users/registrations", invitations: "users/invitations" }
-  resources :users, only: [ :index ]
+  resources :users, only:  [:index, :edit, :update]
 
   if Rails.env.development?
   mount LetterOpenerWeb::Engine, at: "/letter_opener"
