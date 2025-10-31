@@ -105,3 +105,8 @@
   border-left: solid 4px #69C5FF;
   background: #B4E2FF;
 }
+
+.nil {
+  color: #333333;
+  background: #E0E0E0;
+}

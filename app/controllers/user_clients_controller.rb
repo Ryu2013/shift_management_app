@@ -2,7 +2,7 @@ class UserClientsController < ApplicationController
   before_action :office_authenticate
   before_action :set_team
   before_action :set_client
-  before_action :set_user_client, only: %i[ edit destroy ]
+  before_action :set_user_client, only: %i[ destroy ]
 
   def new
     @user_client = @client.user_clients.build
@@ -10,15 +10,12 @@ class UserClientsController < ApplicationController
     @users = @team.users
   end
 
-  def edit
-  end
-
   def create
     @user_client = @client.user_clients.build(user_client_params)
 
     respond_to do |format|
       if @user_client.save
-        format.html { redirect_to new_user_client_path(@user_client), notice: "ユーザークライアントを作成しました。" }
+        format.html { redirect_to new_team_client_user_client_path(@team, @client), notice: "ユーザークライアントを作成しました。" }
         format.turbo_stream
       else
         format.html { render :new, status: :unprocessable_entity }

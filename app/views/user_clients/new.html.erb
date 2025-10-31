@@ -11,7 +11,7 @@
       </div>
 
       <% @users.each do |u| %>
-      <%= button_to u.name, user_clients_path, method: :post, params: { user_client: { user_id: u.id, client_id: @client.id } }, class: "flex-btn" %>
+      <%= button_to u.name, team_client_user_clients_path(@team, @client), method: :post, params: { user_client: { user_id: u.id, client_id: @client.id } }, class: "flex-btn" %>
       <% end %>
 
       <%= link_to "閉じる", edit_team_client_path(@team, @client) ,class: "flex-btn"%>

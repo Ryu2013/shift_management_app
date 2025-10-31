@@ -17,7 +17,13 @@
 
   <div>
     <%= form.label :user_id, "担当従業員", style: "display: block" %>
-    <%= form.collection_select :user_id, @client.users, :id, :name, prompt: "担当従業員を選択" %>
+    <% @client.users.each do |u| %>
+        <% if shift&.persisted? %>
+          <%= button_to u.name, team_client_shift_path(@team, @client, shift), method: :patch, params: { shift: { user_id: u.id } }, class: "flex-btn" %>
+        <% else %>
+          <%= form.collection_select :user_id, @client.users, :id, :name, prompt: "担当従業員を選択" %>
+        <% end %>
+    <% end %>
   </div>
 
   <div>

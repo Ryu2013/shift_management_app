@@ -12,7 +12,7 @@
   <div class="flexbox">
     <%= button_to "利用者を消去", [@team, @client], method: :delete, data: { turbo_confirm: t(".confirm_destroy") }, class: "flex-btn" %>
     <%= turbo_frame_tag "user_client" do %>
-      <%= link_to "担当可能従業員の追加", new_user_client_path %>
+      <%= link_to "担当可能従業員の追加", new_team_client_user_client_path(@team, @client),class: "flex-btn" %>
     <% end %>
   </div>
   <% end %>

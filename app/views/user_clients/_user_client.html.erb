@@ -10,5 +10,5 @@
     <%= user_client.note %>
   </p>
 
-  <%= button_to t(".destroy"), user_client, method: :delete %>
+  <%= button_to t(".destroy"), team_client_user_client_path(user_client.client.team, user_client.client, user_client), method: :delete %>
 </div>
