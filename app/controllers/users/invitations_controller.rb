@@ -4,7 +4,7 @@ class Users::InvitationsController < Devise::InvitationsController
   protected
 
   def invite_params
-    super.merge(office_id: @office.id, team_id: params[:user][:team_id], name: params[:user][:name], address: params[:user][:address], pref_per_week: params[:user][:pref_per_week], commute: params[:user][:commute])
+    super.merge(office_id: @office.id, team_id: params[:user][:team_id], name: params[:user][:name], address: params[:user][:address], pref_per_week: params[:user][:pref_per_week], commute: params[:user][:commute], role: User.roles[:employee])
   end
 
   def office_authenticate

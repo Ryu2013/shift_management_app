@@ -28,12 +28,16 @@ class Users::RegistrationsController < Devise::RegistrationsController
     redirect_to root_path, alert: "事業所情報が不明です" unless @office
   end
 
-  # 登録用ストロングパラメータ（permit + office_id をサーバ側で付与）
+  # 登録用ストロングパラメータ（permit + office_id/role をサーバ側で付与）
+  # 一人目（該当オフィス内で初のユーザー）のみ admin、それ以外は employee を付与
   def sign_up_params
-    params.require(:user).permit(
+    permitted = params.require(:user).permit(
       :name, :address, :pref_per_week, :commute,
       :email, :password, :password_confirmation, :team_id
-    ).merge(office_id: @office.id)
+    )
+    first_in_office = !@office.users.exists?
+    role_value = first_in_office ? User.roles[:admin] : User.roles[:employee]
+    permitted.merge(office_id: @office.id, role: role_value)
   end
 
   # 編集画面用ストロングパラメータ
