@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   end
 
   namespace :employee do
-    resources :shifts, only: %i[index] 
+    resources :shifts, only: %i[index update] 
   end
 
   resources :user_needs

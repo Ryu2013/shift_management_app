@@ -1,5 +1,5 @@
-<% content_for :title, t(".title") %>
-<%= turbo_stream_from [@team, :shifts] %>
+<% content_for :title, "従業員シフトページ" %>
+
 <% content_for :head do %>
   <%= stylesheet_link_tag "shift/index", "data-turbo-track": "dynamic" %>
 <% end %>
@@ -26,8 +26,12 @@
         <%= current_user.name %>
       </div>
       <%= f.submit "変更", class: "flex-btn" %>
+       <% end %>
+       
+      <% if @today_shift.present? %>
+        <%= button_to "出勤", employee_shift_path(@today_shift), method: :patch, params: { shift: { work_status: "work" } },form: { onsubmit: "return confirm('出勤しましたか？')" }, class: "flex-btn" %>
+      <% end %>
     </div>
-  <% end %>
 
   <div class="flexbox">
     <p class="shift-ex">日勤</p>
