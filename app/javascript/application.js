@@ -8,21 +8,25 @@ document.addEventListener("turbo:load", () => {
   const fakeClient = document.getElementById("open-modal");
   const closeModal = document.getElementById("close-modal");
 
-  fakeClient.onclick = () => {
-    modal.classList.toggle("open");
+  if (fakeClient && closeModal && modal) {
+    fakeClient.onclick = () => {
+      modal.classList.toggle("open");
+    };
+
+    closeModal.onclick = () => {
+      modal.classList.remove("open");
+    };
   }
 
-  closeModal.onclick = () => {
-    modal.classList.remove("open");
-  }
-
-
+  if (fake && real) {
   fake.onclick = () => real.showPicker();
 
   real.onchange = () => {
     const [y, m] = real.value.split("-");
     fake.textContent = `${m}月`;
   };
+  };
+  
 });
 //httpもしくはturboDriveで発火確認。blordcast,turboFrameでは発火していない。
 //すべてのページでwindow.Turbo.visitを確認したが、一応http処理も残す。
