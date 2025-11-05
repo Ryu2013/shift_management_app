@@ -6,6 +6,7 @@ Rails.application.routes.draw do
         post :generate_monthly_shifts, on: :collection
       end
     end
+    resources :work_statuses, only: %i[index]
   end
 
   namespace :employee do
