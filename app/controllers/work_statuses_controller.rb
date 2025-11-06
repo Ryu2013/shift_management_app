@@ -4,15 +4,18 @@ class WorkStatusesController < ApplicationController
 
   def index
     @date  = params[:date].present? ? Date.parse(params[:date]) : Date.current
-    @today = @date
+    @clients = @team.clients.order(:id)
 
     @shifts = @office.shifts
       .joins(:client)
-      .where(date: @today, clients: { team_id: @team.id })
+      .where(date: @date, clients: { team_id: @team.id })
       .includes(:user, :client)
       .order('clients.name ASC, start_time ASC')
+      .group_by(&:client_id)
+    
+    all_shifts = @shifts.values.flatten
 
-    @work_count     = @shifts.where(work_status: :work).count
-    @not_work_count = @shifts.where(work_status: :not_work).count
+    @work_count     = all_shifts.count { |s| s.work_status == "work" }
+    @not_work_count = all_shifts.count { |s| s.work_status == "not_work" }
   end
 end

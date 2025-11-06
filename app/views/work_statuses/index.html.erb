@@ -1,32 +1,22 @@
 <% content_for :title, "出勤状況" %>
 <%= turbo_stream_from [@team, :shifts] %>
+<% content_for :head do %>
+  <%= stylesheet_link_tag "shift/work_statuses", "data-turbo-track": "dynamic" %>
+<% end %>
+<h1 style="text-align: center;">出勤状況</h1>
 
 <%= form_with url: team_work_statuses_path(@team), method: :get, local: true do |f| %>
-  <%= f.date_field :date, value: @date, class: "..." %>
-  <%= f.submit "表示" %>
+<div class="flexbox" style="margin: 20px;">
+  <%= f.date_field :date, value: @date, style: "margin:0 0.5rem 0 0;" %>
+  <%= f.submit "表示", style: "width: 3rem;" %>
+</div>
 <% end %>
 
-<p>出勤: <%= @work_count %> / 未出勤: <%= @not_work_count %></p>
+<p style="text-align: center;">出勤: <%= @work_count %> / 未出勤: <%= @not_work_count %></p>
+<% @clients.each do |client| %>
+  <h2><%= client.name %></h2>
+   <%= render partial: 'work_statuses/shift', collection: (@shifts[client.id] || []) %>
+<% end %>
 
-<table>
-  <thead>
-    <tr>
-      <th>利用者</th>
-      <th>従業員</th>
-      <th>時間</th>
-      <th>種別</th>
-      <th>出勤状況</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @shifts.each do |shift| %>
-      <tr id="<%= dom_id(shift) %>">
-        <td><%= shift.client.name %></td>
-        <td><%= shift.user&.name || "未配置" %></td>
-        <td><%= shift.start_time.strftime("%H:%M") %> - <%= shift.end_time.strftime("%H:%M") %></td>
-        <td><%= t("activerecord.attributes.shift.shift_types.#{shift.shift_type}") %></td>
-        <td><%= shift.work_status == "work" ? "出勤済" : "未出勤" %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+
+
