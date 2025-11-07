@@ -109,3 +109,7 @@
   color: #333333;
   background: #E0E0E0;
 }
+
+.shift-form {
+  display: none;
+}

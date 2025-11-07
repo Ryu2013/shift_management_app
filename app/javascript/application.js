@@ -11,7 +11,7 @@ document.addEventListener("turbo:load", () => {
   if (fakeClient && closeModal && modal) {
     fakeClient.onclick = () => {
       modal.classList.toggle("open");
-    };
+    }
 
     closeModal.onclick = () => {
       modal.classList.remove("open");
@@ -46,4 +46,16 @@ Turbo.visit(`/teams/${teamId}/clients/${clientId}/shifts${q}`);
 window.location.href = `/teams/${teamId}/clients/${clientId}/shifts${q}`;
 }
 });
+});
+
+// シフト個別変更フォームの表示処理
+// turbo:frame-loadで発火させることで、turbo frame内の要素に対応
+document.addEventListener("turbo:frame-load", () => {
+const btn = document.getElementById("shift-form-btn");
+const form = document.getElementById("shift-form");
+if (btn && form) {
+btn.addEventListener("click", () => {
+  form.classList.toggle("open");
+});
+}
 });
