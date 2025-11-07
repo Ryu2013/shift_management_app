@@ -15,17 +15,6 @@ html {
   background-size: 100%;
 }
 
-
-/* タブレットorPC */
-@media (min-width: 370px) {
-  html {
-    font-size: 125%;
-    background-color: #FFF8F0;
-    background: url("background.jpg") center top repeat-y;
-    background-size: 100%;
-  }
-}
-
 h1,h2,h3,h4,h5,h6{
   text-align: center;
 }
@@ -44,6 +33,12 @@ hr{
   height: 2px;
   margin: 0.5rem 1rem;
   border-radius: 50%;
+}
+button{
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
 }
 
 input:not([type="submit"]), select, textarea {
@@ -111,7 +106,7 @@ input[type="submit"] {
     left: 50%;
     transform: translateX(-50%);
     width: 90%;
-    background: white;
+    background: #fefdf8;
     border: 1px solid #ccc;
     border-radius: 6px;
     padding: 1em;
@@ -129,4 +124,20 @@ input[type="submit"] {
 
 .open {
     display: block;
+}
+.pc-nav {
+    display: none;
+}
+
+/* タブレット＆PC用 */
+@media (min-width: 380px) {
+  html {
+    font-size: 125%;
+    background-color: #FFF8F0;
+    background: url("background.jpg") center top repeat-y;
+    background-size: 100%;
+  }
+  .pc-nav {
+    display: flex;
+  }
 }

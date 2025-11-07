@@ -8,7 +8,7 @@
 <%= turbo_frame_tag "shift_edit" do %>
 <% end %>
 
-<div class="flexbox">
+<div class="flexbox pc-nav">
   <%= link_to t(".nav.clients_and_staff"), team_clients_path(@team) %>
   <%= link_to t(".nav.attendance_status"), team_work_statuses_path(@team) %>
   <%= link_to "ログアウト",
@@ -16,7 +16,7 @@
             data: { turbo_method: :delete, turbo_confirm: "ログアウトしますか？" } %>
 </div>
 
-<hr>
+<hr class="pc-nav">
 
   <%= form_with url: team_client_shifts_path(@team, @client), method: :get, local: true,  html: { id: "filters-form" } do |f| %>
 

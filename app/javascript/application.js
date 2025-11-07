@@ -53,9 +53,11 @@ window.location.href = `/teams/${teamId}/clients/${clientId}/shifts${q}`;
 document.addEventListener("turbo:frame-load", () => {
 const btn = document.getElementById("shift-form-btn");
 const form = document.getElementById("shift-form");
-if (btn && form) {
+const deleteBtn = document.getElementById("shift-form-delete");
+if (btn && form && deleteBtn) {
 btn.addEventListener("click", () => {
   form.classList.toggle("open");
+  deleteBtn.classList.toggle("open");
 });
 }
 });

@@ -1,18 +1,4 @@
 
-.modal{
-    display:none;
-    position: absolute;
-    top: 50px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 90%;
-    background: white;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    padding: 1em;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-    z-index: 1000;
-}
 .close-modal {
     position: absolute;
     top: 10px;
@@ -104,6 +90,13 @@
   border-left: solid 4px #69C5FF;
   background: #B4E2FF;
 }
+
+.escort {
+  color: #333333;
+  border-left: solid 4px #4CAF50;
+  background: #C8F7C5;
+}
+
 
 .nil {
   color: #333333;
