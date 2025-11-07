@@ -1,27 +1,9 @@
 <div id="<%= dom_id user_need %>">
-  <p>
-    <strong><%= t(".office") %></strong>
-    <%= user_need.office_id %>
-  </p>
+    <%= l user_need.start_time %>
+    <strong>～</strong>
+    <%= l user_need.end_time %>
+    <br>
 
-  <p>
-    <strong><%= t(".user") %></strong>
-    <%= user_need.user_id %>
-  </p>
-
-  <p>
-    <strong><%= t(".week") %></strong>
-    <%= user_need.week %>
-  </p>
-
-  <p>
-    <strong><%= t(".start_time") %></strong>
-    <%= user_need.start_time %>
-  </p>
-
-  <p>
-    <strong><%= t(".end_time") %></strong>
-    <%= user_need.end_time %>
-  </p>
+  <%= button_to "Delete", user_need_path(user_need), method: :delete, form: { data: { turbo_confirm: "delete?" } },class: "flex-btn" %>
 
 </div>

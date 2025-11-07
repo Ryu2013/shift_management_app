@@ -1,14 +1,14 @@
-<% content_for :title, t(".title") %>
+<%= turbo_frame_tag "user_needs" do %>
+<div class="modal open">
+  <h1><%= t(".heading") %></h1>
 
-<h1><%= t(".heading") %></h1>
-
-<div id="user_needs">
-  <% @user_needs.each do |user_need| %>
-    <%= render user_need %>
-    <p>
-      <%= link_to t(".show"), user_need %>
-    </p>
+  <% UserNeed.weeks.keys.each do |week| %>
+    <div class="card">
+      <h2><%= t("activerecord.attributes.user_need.weeks.#{week}") %></h2>
+      <div id="user_needs_<%= week %>">
+       <%= render (@user_needs[week] || []) %>
+      </div>
+    </div>
   <% end %>
-</div>
-
-<%= link_to t(".new"), new_user_need_path %>
+  <%= render "form", user_need: @user_need %>
+<% end %>
