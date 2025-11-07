@@ -17,7 +17,6 @@ Rails.application.routes.draw do
   resources :user_needs
   resources :user_clients
   resources :client_needs
-  resources :user_teams
   root "home#index"
 
   resources :offices, only: %i[new create show edit update destroy]
