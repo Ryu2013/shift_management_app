@@ -33,6 +33,7 @@ hr{
   height: 2px;
   margin: 0.5rem 1rem;
   border-radius: 50%;
+  display: none
 }
 button{
     background: none;
@@ -64,6 +65,19 @@ input[type="submit"] {
     box-shadow: 2px 3px rgba(2, 2, 2, 0.188);
 }
 
+.pc-logo{
+  width: 110px;
+  position: absolute;
+  top: 0px;
+  left: 10px;
+  display: block;
+}
+.hamburger{
+  width: 50px;
+  margin: 0.2rem 1rem 0 auto;
+  cursor: pointer;
+}
+
 .flexbox {
     display: flex;
     gap: 0.5rem;
@@ -76,7 +90,7 @@ input[type="submit"] {
     align-items: center;
     justify-content: center;
     padding: 0.4em 0.2em;
-    border: 2px solid #333333;
+    border: 2px solid #666666;
     border-radius: 30px;
     cursor: pointer;
     background: white;
@@ -101,7 +115,7 @@ input[type="submit"] {
 
 .modal{
     display:none;
-    position: absolute;
+    position: fixed;
     top: 50px;
     left: 50%;
     transform: translateX(-50%);
@@ -122,22 +136,53 @@ input[type="submit"] {
     font-weight: bold;
 }
 
-.open {
-    display: block;
-}
-.pc-nav {
+.menus {
     display: none;
+}
+.menus.open {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    height: 100vh;
+    background-color: #fff8f0;
+    position: fixed;
+    align-items: center;
+}
+.menu {
+    font-size: 2rem;
+    margin: 1rem 0;
 }
 
 /* タブレット＆PC用 */
-@media (min-width: 380px) {
+@media (min-width: 450px) {
   html {
     font-size: 125%;
     background-color: #FFF8F0;
     background: url("background.jpg") center top repeat-y;
     background-size: 100%;
   }
-  .pc-nav {
+  hr {
+    display: block;
+  }
+  .pc-logo{
+    width: 90px;
+  }
+  .menus {
     display: flex;
+    gap: 2rem;
+    justify-content: center;
+    margin-top: 0.5rem;
+  }
+  .menu {
+    display: flex;
+
+    align-self: center;
+
+
+    font-size: 1rem;
+    margin:0;
+  }
+  .mobile-nav {
+    display: none;
   }
 }

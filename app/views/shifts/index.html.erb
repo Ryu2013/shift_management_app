@@ -8,15 +8,21 @@
 <%= turbo_frame_tag "shift_edit" do %>
 <% end %>
 
-<div class="flexbox pc-nav">
-  <%= link_to t(".nav.clients_and_staff"), team_clients_path(@team) %>
-  <%= link_to t(".nav.attendance_status"), team_work_statuses_path(@team) %>
-  <%= link_to "ログアウト",
-            destroy_user_session_path,
-            data: { turbo_method: :delete, turbo_confirm: "ログアウトしますか？" } %>
-</div>
+  <div class="flexbox mobile-nav">
+    <%= image_tag "hamburger.png", alt: "ハンバーガーメニュー", class: "hamburger" ,id: "hamburger" %>
+  </div>
+<%= image_tag "logo.png", alt: "ロゴ画像", class: "pc-logo" %>
 
-<hr class="pc-nav">
+  <div class="menus">
+    <%= link_to t(".nav.clients_and_staff"), team_clients_path(@team),class: "menu" %>
+    <%= link_to t(".nav.attendance_status"), team_work_statuses_path(@team),class: "menu" %>
+    <%= link_to "ログアウト",
+              destroy_user_session_path,
+              data: { turbo_method: :delete, turbo_confirm: "ログアウトしますか？" }, class: "menu" %>
+  </div>
+
+
+<hr >
 
   <%= form_with url: team_client_shifts_path(@team, @client), method: :get, local: true,  html: { id: "filters-form" } do |f| %>
 

@@ -61,3 +61,14 @@ btn.addEventListener("click", () => {
 });
 }
 });
+
+// ハンバーガーメニューの表示処理
+document.addEventListener("turbo:load", () => {
+const hamburger = document.getElementById("hamburger");
+const pcNav = document.querySelector(".menus");
+if (hamburger && pcNav) {
+hamburger.addEventListener("click", () => {
+  pcNav.classList.toggle("open");
+});
+}
+});
