@@ -10,7 +10,7 @@
 
 <div id="clients">
   <% @users.each do |user| %>
-    <%= link_to edit_user_path(user) do %>
+    <%= link_to edit_team_user_path(@team, user) do %>
       <div class="card">
         <%= render user %>
       </div>

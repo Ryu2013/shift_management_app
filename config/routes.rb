@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   resources :teams do
+    resources :users, only:  [:index, :edit, :update]
     resources :clients, only: %i[index new create edit update destroy] do
       resources :user_clients, only: %i[new create destroy]
       resources :shifts, only: %i[index new create edit update destroy] do

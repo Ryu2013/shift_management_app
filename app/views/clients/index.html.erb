@@ -7,7 +7,7 @@
 <div class="flexbox">
   <%= link_to t(".new"), new_team_client_path(@team), class: "flex-btn" %>
   <%= link_to t(".shifts"), team_client_shifts_path(@team, @client), class: "flex-btn" %>
-  <%= link_to t(".users"), users_path, class: "flex-btn" %>
+  <%= link_to t(".users"), team_users_path(@team), class: "flex-btn" %>
 </div>
 
 <div id="clients">

@@ -41,9 +41,9 @@
   </div>
 
   <div class="flexbox">
-    <%= turbo_frame_tag "user_needs" do %>
-      <%= link_to "出勤希望日", user_needs_path, class: "flex-btn" %>
-    <% end %>
+      <%= turbo_frame_tag "user_needs" do %>
+        <%= link_to "出勤希望日", user_needs_path, class: "flex-btn" %>
+      <% end %>
     <%= form.submit "更新する" %>
     <%= link_to "戻る", users_path, class: "flex-btn" %>
   </div>
