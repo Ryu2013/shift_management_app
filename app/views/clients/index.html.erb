@@ -11,7 +11,15 @@
 <div class="flexbox">
   <%= link_to t(".new"), new_team_client_path(@team), class: "flex-btn" %>
 
-  <%= link_to t(".users"), team_users_path(@team), class: "flex-btn" %>
+  <div class="toggle-switch">
+    <%= link_to team_users_path(@team), class: "toggle-selected #{'active' if current_page?(team_users_path(@team))}" do %>
+      従業員
+    <% end %>
+
+    <%= link_to team_clients_path(@team), class: "toggle-selected #{'active' if current_page?(team_clients_path(@team))}" do %>
+      利用者
+    <% end %>
+  </div>
 </div>
 
 <div id="clients">
