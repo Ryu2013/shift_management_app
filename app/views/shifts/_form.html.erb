@@ -53,6 +53,11 @@
             <%= form.date_field :date , required: true %>
           </div>
 
+          <div>
+            <%= form.label :work_status,"出勤状況", style: "display: block" %>
+            <%= form.select :work_status, [['未出勤', 'not_work'], ['出勤', 'work']] %>
+          </div>
+
           <div class="flexbox">
             <%= form.submit t(".submit") %>
           </div>

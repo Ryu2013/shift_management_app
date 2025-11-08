@@ -82,6 +82,7 @@ input[type="submit"] {
     gap: 0.5rem;
     align-items: center;
     justify-content: center;
+    flex-wrap: wrap;
 }
 
 .flex-btn {
@@ -98,6 +99,7 @@ input[type="submit"] {
     box-shadow: 2px 3px rgba(2, 2, 2, 0.188);
     margin: 0.1rem;
     font-size: 0.8rem;
+    white-space: nowrap;
 }
 
 .flex-btn:hover {

@@ -2,6 +2,10 @@
   <div class="modal open">
       <%= turbo_stream_from [@team, :user_clients] %>
 
+       <%= link_to edit_team_client_path(@team, @client) do %>
+          <div class="back-btn">✕</div>
+      <% end %>
+
       <h2>担当可能従業員</h2>
 
       <div id="user_clients">
@@ -12,12 +16,11 @@
 
       <hr style="display:block;">
 
+      <h2><%= @team.name %>の従業員</h2>
       <div class="flexbox">
       <% @users.each do |u| %>
       <%= button_to u.name, team_client_user_clients_path(@team, @client), method: :post, params: { user_client: { user_id: u.id, client_id: @client.id } }, class: "flex-btn" %>
       <% end %>
       </div>
-
-      <%= link_to "閉じる", edit_team_client_path(@team, @client) ,class: "flex-btn"%>
   </div>
 <% end %>
