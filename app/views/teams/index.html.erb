@@ -1,5 +1,7 @@
 <% content_for :title, t(".title") %>
-
+ <%= link_to  team_client_shifts_path(@team,@client) do %>
+  <%= image_tag "back-btn.png", alt: t(".shifts"), class: "back-image" %>
+<% end %>
 <h1><%= t(".heading") %></h1>
 
 <div id="teams">

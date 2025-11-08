@@ -170,6 +170,14 @@ input[type="submit"] {
     margin: 1rem 0;
 }
 
+.back-image {
+  width: 50px;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  cursor: pointer;
+}
+
 /* タブレット＆PC用 */
 @media (min-width: 450px) {
   html {

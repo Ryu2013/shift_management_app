@@ -1,5 +1,8 @@
 class TeamsController < ApplicationController
-  before_action :set_team, only: %i[ show edit update destroy ]
+  before_action :authenticate_user!
+  before_action :office_authenticate
+  before_action :set_team
+  before_action :set_client
 
   def index
     @teams = @office.teams.all
@@ -38,10 +41,6 @@ class TeamsController < ApplicationController
   end
 
   private
-
-  def set_team
-    @team = @office.teams.find(params[:id])
-  end
 
   def team_params
     params.require(:team).permit(:name)

@@ -6,7 +6,9 @@
 <h1><%= "利用者" %></h1>
 <div class="flexbox">
   <%= link_to t(".new"), new_team_client_path(@team), class: "flex-btn" %>
-  <%= link_to t(".shifts"), team_client_shifts_path(@team, @client), class: "flex-btn" %>
+  <%= link_to team_client_shifts_path(@team, @client) do %>
+    <%= image_tag "back-btn.png", alt: t(".shifts"), class: "back-image" %>
+  <% end %>
   <%= link_to t(".users"), team_users_path(@team), class: "flex-btn" %>
 </div>
 
