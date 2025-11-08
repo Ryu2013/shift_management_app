@@ -5,10 +5,9 @@
 <div id="teams">
   <% @teams.each do |team| %>
     <%= render team %>
-    <p>
-      <%= link_to t(".show"), team %>
-    </p>
   <% end %>
 </div>
 
-<%= link_to t(".new"), new_team_path %>
+<%= turbo_frame_tag "new_team" do %>
+<%= link_to t(".new"), new_team_path ,class: "flex-btn" %>
+<% end %>

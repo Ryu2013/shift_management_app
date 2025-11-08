@@ -106,3 +106,14 @@
 .shift-form {
   display: none;
 }
+
+.back-btn {
+  font-size: 1.5rem;
+  color:#E35B5B;
+  font-weight: bold;
+  float: right;
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  cursor: pointer;
+}

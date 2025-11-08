@@ -4,7 +4,7 @@ class User < ApplicationRecord
          :confirmable, :invitable
 
   belongs_to :office
-  belongs_to :team
+  belongs_to :team, optional: true
   has_many :clients, through: :user_clients
   has_many :user_clients, dependent: :destroy
   has_many :shifts, dependent: :nullify

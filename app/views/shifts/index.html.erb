@@ -14,6 +14,7 @@
 <%= image_tag "logo.png", alt: "ロゴ画像", class: "pc-logo" %>
 
   <div class="menus">
+    <%= link_to "部署", teams_path, class: "menu" %>
     <%= link_to t(".nav.clients_and_staff"), team_clients_path(@team),class: "menu" %>
     <%= link_to t(".nav.attendance_status"), team_work_statuses_path(@team),class: "menu" %>
     <%= link_to "ログアウト",
@@ -29,12 +30,12 @@
     <%= f.month_field :date, id: "real-month", style: "display: none;"%>
 
     <div id="modal" class="modal">
+      <div id="close-modal" class="back-btn">✕</div>
       <%= f.label :team_id, t(".form.team") %>
       <%= f.collection_select :team_id, @teams, :id, :name, selected: @team.id %>
 
       <%= f.label :client_id, t(".form.client") %>
       <%= f.collection_select :client_id, @clients, :id, :name, selected: @client.id %>
-      <div id="close-modal" class="close-modal">✕</div>
     </div>
     
     <div class="flexbox">
