@@ -1,6 +1,7 @@
 class WorkStatusesController < ApplicationController
   before_action :office_authenticate
   before_action :set_team
+  before_action :set_client
 
   def index
     @date  = params[:date].present? ? Date.parse(params[:date]) : Date.current

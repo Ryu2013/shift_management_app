@@ -3,19 +3,27 @@
 <% content_for :head do %>
   <%= stylesheet_link_tag "shift/work_statuses", "data-turbo-track": "dynamic" %>
 <% end %>
-<h1 style="text-align: center;">出勤状況</h1>
 
+<h1 style="text-align: center;">出勤状況</h1>
+<p style="text-align: center;">出勤: <%= @work_count %> / 未出勤: <%= @not_work_count %></p>
 <%= form_with url: team_work_statuses_path(@team), method: :get, local: true do |f| %>
 <div class="flexbox" style="margin: 20px;">
-  <%= f.date_field :date, value: @date, style: "margin:0 0.5rem 0 0;" %>
+  <%= link_to "シフト一覧に戻る", team_client_shifts_path(@team, @client), class: "flex-btn"%>  
+  <%= f.date_field :date, value: @date, id: "real-date" ,style: "display:none;" %>
+  <div id="fake-date" class="flex-btn">
+    <%= @date.strftime("%Y年%m月%d日") %>
+  </div>
   <%= f.submit "表示", style: "width: 3rem;" %>
 </div>
 <% end %>
 
-<p style="text-align: center;">出勤: <%= @work_count %> / 未出勤: <%= @not_work_count %></p>
+
 <% @clients.each do |client| %>
   <h2><%= client.name %></h2>
    <%= render partial: 'work_statuses/shift', collection: (@shifts[client.id] || []) %>
+   <%= if @shifts[client.id].blank?
+         content_tag :p, "シフトが登録されていません。", style: "margin-bottom: 20px; text-align: center;"
+       end %>
 <% end %>
 
 

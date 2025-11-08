@@ -32,7 +32,6 @@ document.addEventListener("turbo:load", () => {
 //すべてのページでwindow.Turbo.visitを確認したが、一応http処理も残す。
 document.addEventListener("turbo:load", () => {
 const form = document.getElementById("filters-form");
-console.log("発火");
 if (!form) return;
 form.addEventListener("submit", (e) => {
 e.preventDefault();
@@ -68,7 +67,22 @@ const hamburger = document.getElementById("hamburger");
 const pcNav = document.querySelector(".menus");
 if (hamburger && pcNav) {
 hamburger.addEventListener("click", () => {
-  pcNav.classList.toggle("open");
+  pcNav.classList.toggle("open-menus");
 });
+}
+});
+
+//出勤状況確認ページの日付選択の見た目が気に入らないのでカスタマイズ
+// 日付選択用のカレンダーピッカー表示
+document.addEventListener("turbo:load", () => {
+const fakeDate = document.getElementById("fake-date");
+const realDate = document.getElementById("real-date");
+if (fakeDate && realDate) {
+  fakeDate.onclick = () => realDate.showPicker();
+
+  realDate.onchange = () => {
+    const [y, m, d] = realDate.value.split("-");
+    fakeDate.textContent = `${y}年${m}月${d}日`;
+  };
 }
 });

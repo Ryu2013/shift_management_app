@@ -76,6 +76,7 @@ input[type="submit"] {
   width: 50px;
   margin: 0.2rem 1rem 0 auto;
   cursor: pointer;
+  z-index: 1;
 }
 
 .flexbox {
@@ -135,18 +136,34 @@ input[type="submit"] {
     font-size: 1.2em;
     font-weight: bold;
 }
+.open {
+    display: block;
+}
 
 .menus {
-    display: none;
-}
-.menus.open {
+    /* keep the element present so transitions can run (don't use display:none) */
     display: flex;
-    width: 100%;
     flex-direction: column;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #fff8f000;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.6s ease, opacity 0.6s ease;
+    align-items: center;
+}
+.open-menus {
+    /* expand to a large max-height and fade in */
+    max-height: 100vh;
+    opacity: 1;
+    position: fixed;
+    top: 0;
+    left: 0;
     height: 100vh;
     background-color: #fff8f0;
-    position: fixed;
-    align-items: center;
 }
 .menu {
     font-size: 2rem;
@@ -172,6 +189,13 @@ input[type="submit"] {
     gap: 2rem;
     justify-content: center;
     margin-top: 0.5rem;
+    flex-direction: row;
+    position: static;
+    background-color: transparent;
+    max-height: none;
+    opacity: 1;
+    height: auto;
+    transition: none;
   }
   .menu {
     display: flex;
