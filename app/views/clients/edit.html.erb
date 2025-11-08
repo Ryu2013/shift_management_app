@@ -4,6 +4,12 @@
   <%= stylesheet_link_tag "client/edit", "data-turbo-track": "dynamic" %>
 <% end %>
 
+  <% if @team.clients.exists? %>
+      <%= link_to team_clients_path(@team) do %>
+        <%= image_tag "back-btn.png", alt: t(".clients"), class: "back-image" %>
+      <% end %>
+  <% end %>
+
 <h1><%= @client.name %></h1>
 
 <%= render "form", client: @client %>
@@ -20,7 +26,7 @@
 
 <div id="modal" class="modal">
 
-  <div id="close-modal" class="close-modal">✕</div>
+  <div id="close-modal" class="back-btn">✕</div>
   <h3>シフト作成</h3>
 
   <% ClientNeed.weeks.keys.each do |week| %>

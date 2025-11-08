@@ -134,6 +134,10 @@ input[type="submit"] {
     font-size: 1.2em;
     font-weight: bold;
 }
+
+.shift-form {
+  display: none;
+}
 .open {
     display: block;
 }
@@ -171,6 +175,17 @@ input[type="submit"] {
 .back-image {
   width: 50px;
   margin: 1rem 2rem 0 1rem;
+  cursor: pointer;
+}
+
+.back-btn {
+  font-size: 1.5rem;
+  color:#E35B5B;
+  font-weight: bold;
+  float: right;
+  position: absolute;
+  top: 5px;
+  right: 10px;
   cursor: pointer;
 }
 

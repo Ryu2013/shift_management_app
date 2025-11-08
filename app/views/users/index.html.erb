@@ -13,11 +13,11 @@
   <%= link_to t(".new"),  new_user_invitation_path, class: "flex-btn" %>
 
   <div class="toggle-switch">
-    <%= link_to team_users_path(@team), class: "toggle-selected #{'active' if current_page?(team_users_path(@team))}" do %>
+    <%= link_to team_users_path(@team), class: "toggle-selected #{'active' if params[:controller].to_s.end_with?('users')}" do %>
       従業員
     <% end %>
 
-    <%= link_to team_clients_path(@team), class: "toggle-selected #{'active' if current_page?(team_clients_path(@team))}" do %>
+    <%= link_to team_clients_path(@team), class: "toggle-selected #{'active' if params[:controller].to_s.end_with?('clients')}" do %>
       利用者
     <% end %>
   </div>

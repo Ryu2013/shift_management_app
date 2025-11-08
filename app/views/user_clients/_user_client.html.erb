@@ -1,14 +1,8 @@
 <div id="<%= dom_id user_client %>">
 
-  <p>
-    <strong><%= t(".user") %></strong>
+  <p style="font-size: 1.5rem;">
     <%= user_client.user.name %>
   </p>
 
-  <p>
-    <strong><%= t(".note") %></strong>
-    <%= user_client.note %>
-  </p>
-
-  <%= button_to t(".destroy"), team_client_user_client_path(user_client.client.team, user_client.client, user_client), method: :delete %>
+  <%= button_to "担当から外す", team_client_user_client_path(user_client.client.team, user_client.client, user_client), method: :delete ,class: "flex-btn" %>
 </div>

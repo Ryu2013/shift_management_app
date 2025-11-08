@@ -8,10 +8,6 @@
     font-weight: bold;
 }
 
-.open {
-    display: block;
-}
-
 /* Shiftの色説明 */
 .shift-ex{
   background: #F19494;
@@ -101,10 +97,6 @@
 .nil {
   color: #333333;
   background: #E0E0E0;
-}
-
-.shift-form {
-  display: none;
 }
 
 .back-btn {
