@@ -1,12 +1,14 @@
 <% content_for :title, t(".title") %>
 
+<%= link_to  team_client_shifts_path(@team,@client) do %>
+  <%= image_tag "back-btn.png", alt: t(".shifts"), class: "back-image" %>
+<% end %>
+
 <h1><%= "従業員" %></h1>
 
 <div class="flexbox">
   <%= link_to t(".new"),  new_user_invitation_path, class: "flex-btn" %>
-  <%= link_to  team_client_shifts_path(@team,@client) do %>
-  <%= image_tag "back-btn.png", alt: t(".shifts"), class: "back-image" %>
-  <% end %>
+
   <%= link_to t(".clients"), team_clients_path(@team), class: "flex-btn" %>
 </div>
 

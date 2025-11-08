@@ -8,11 +8,10 @@
 <%= turbo_frame_tag "shift_edit" do %>
 <% end %>
 
-  <div class="flexbox mobile-nav">
+  <div class="flexbox">
+    <%= image_tag "logo.png", alt: "ロゴ画像", class: "pc-logo" %>
     <%= image_tag "hamburger.png", alt: "ハンバーガーメニュー", class: "hamburger" ,id: "hamburger" %>
   </div>
-<%= image_tag "logo.png", alt: "ロゴ画像", class: "pc-logo" %>
-
   <div class="menus">
     <%= link_to "部署", teams_path, class: "menu" %>
     <%= link_to t(".nav.clients_and_staff"), team_clients_path(@team),class: "menu" %>
