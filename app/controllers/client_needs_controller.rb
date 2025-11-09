@@ -1,5 +1,4 @@
 class ClientNeedsController < ApplicationController
-  before_action :office_authenticate
   before_action :set_team
   before_action :set_client
   before_action :set_client_need, only: %i[ show edit update destroy ]

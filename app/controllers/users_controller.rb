@@ -1,6 +1,5 @@
 # app/controllers/users_controller.rb
 class UsersController < ApplicationController
-  before_action :office_authenticate
   before_action :set_team
   before_action :set_client
   before_action :set_user, only: [:edit, :update]

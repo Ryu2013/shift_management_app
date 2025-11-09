@@ -1,5 +1,4 @@
 class UserClientsController < ApplicationController
-  before_action :office_authenticate
   before_action :set_team
   before_action :set_client
   before_action :set_user_client, only: %i[ destroy ]

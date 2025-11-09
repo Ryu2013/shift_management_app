@@ -1,6 +1,7 @@
 class OfficesController < ApplicationController
   skip_before_action :authenticate_user!, only: %i[new create]
   skip_before_action :office_authenticate, only: %i[new create]
+  skip_before_action :user_authenticate, only: %i[new create]
 
 
   def show

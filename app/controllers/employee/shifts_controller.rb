@@ -1,5 +1,5 @@
 class Employee::ShiftsController < ApplicationController
-  before_action :office_authenticate
+  skip_before_action :user_authenticate
   before_action :set_team
   before_action :set_client
 

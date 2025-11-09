@@ -2,22 +2,26 @@ class ApplicationController < ActionController::Base
   allow_browser versions: :modern
   before_action :authenticate_user!, unless: :devise_controller?
   before_action :office_authenticate, unless: :devise_controller?
+  before_action :user_authenticate, unless: :devise_controller?
 
   # deviseのログイン後のリダイレクト先を指定
   def after_sign_in_path_for(resource)
   session[:office_id] = current_user.office_id
   office = Office.find_by(id: session[:office_id])
-  team = current_user.team
+  team = current_user.team || office.teams.order(:id).first
 
-    case
-    when !office.teams.joins(:clients).exists?
-      new_team_client_path(team)
+    if current_user.admin?
+      case
+      when !office.teams.joins(:clients).exists?
+        new_team_client_path(team)
+      else
+        client = team.clients.order(:id).first
+        team_client_shifts_path(team, client)
+      end
     else
-      client = team.clients.order(:id).first
-      team_client_shifts_path(team, client)
+      employee_shifts_path
     end
   end
-
 
   private
   # ログイン後すべてのアクションで事業所情報を確認する
@@ -28,6 +32,13 @@ class ApplicationController < ActionController::Base
       redirect_to root_path, alert: "事業所情報が不明です" and return
     end
     @office = Office.find_by(id: session[:office_id])
+  end
+
+  # ユーザー権限確認（admin以外はリダイレクト）
+  def user_authenticate
+    if current_user.employee?
+      redirect_to employee_shifts_path, alert: "権限がありません" and return
+    end
   end
 
 

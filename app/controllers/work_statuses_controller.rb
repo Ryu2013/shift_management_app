@@ -1,5 +1,4 @@
 class WorkStatusesController < ApplicationController
-  before_action :office_authenticate
   before_action :set_team
   before_action :set_client
 
