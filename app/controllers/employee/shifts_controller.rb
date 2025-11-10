@@ -36,4 +36,3 @@ class Employee::ShiftsController < ApplicationController
     params.require(:shift).permit(:work_status)
   end
 end
-

@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   resources :teams do
-    resources :users, only:  [:index, :edit, :update]
+    resources :users, only:  [ :index, :edit, :update ]
     resources :clients, only: %i[index new create edit update destroy] do
       resources :user_clients, only: %i[new create destroy]
       resources :shifts, only: %i[index new create edit update destroy] do
@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   end
 
   namespace :employee do
-    resources :shifts, only: %i[index update] 
+    resources :shifts, only: %i[index update]
   end
 
   resources :user_needs
@@ -21,7 +21,7 @@ Rails.application.routes.draw do
 
   resources :offices, only: %i[new create show edit update destroy]
   devise_for :users, controllers: { registrations: "users/registrations", invitations: "users/invitations" }
-  resources :users, only:  [:index, :edit, :update]
+  resources :users, only:  [ :index, :edit, :update ]
 
   if Rails.env.development?
   mount LetterOpenerWeb::Engine, at: "/letter_opener"

@@ -10,9 +10,9 @@ class WorkStatusesController < ApplicationController
       .joins(:client)
       .where(date: @date, clients: { team_id: @team.id })
       .includes(:user, :client)
-      .order('clients.name ASC, start_time ASC')
+      .order("clients.name ASC, start_time ASC")
       .group_by(&:client_id)
-    
+
     all_shifts = @shifts.values.flatten
 
     @work_count     = all_shifts.count { |s| s.work_status == "work" }

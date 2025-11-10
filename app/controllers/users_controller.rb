@@ -2,7 +2,7 @@
 class UsersController < ApplicationController
   before_action :set_team
   before_action :set_client
-  before_action :set_user, only: [:edit, :update]
+  before_action :set_user, only: [ :edit, :update ]
 
   def index
     @teams = @office.teams

@@ -8,7 +8,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   protected
   def update_resource(resource, params)
-
   email_changed = params.key?(:email) && params[:email] != resource.email
     if params[:password].present? || email_changed
     super
@@ -20,7 +19,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     end
   end
 
-  
+
   private
   # New,Create時に@officeをセット。session[:office_id]がなければリダイレクト
   def set_office_from_session
@@ -48,7 +47,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     )
   end
 
-  #　User情報更新時にパスワードとEmail以外の変更はcurrent_passwordなしで更新可能にする
+  # 　User情報更新時にパスワードとEmail以外の変更はcurrent_passwordなしで更新可能にする
   def update_resource(resource, params)
     email_changed = params.key?(:email) && params[:email] != resource.email
       if params[:password].present? || email_changed
