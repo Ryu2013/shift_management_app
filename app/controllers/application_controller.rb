@@ -6,11 +6,11 @@ class ApplicationController < ActionController::Base
 
   # deviseのログイン後のリダイレクト先を指定
   def after_sign_in_path_for(resource)
-  session[:office_id] = current_user.office_id
+  session[:office_id] = resource.office_id
   office = Office.find_by(id: session[:office_id])
-  team = current_user.team || office.teams.order(:id).first
+  team = resource.team || office.teams.order(:id).first
 
-    if current_user.admin?
+    if resource.admin?
       case
       when !office.teams.joins(:clients).exists?
         new_team_client_path(team)
