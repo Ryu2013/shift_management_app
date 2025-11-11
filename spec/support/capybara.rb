@@ -1,5 +1,5 @@
-#Capybaraが使用するドライバーの設定する。接続先のSeleniumサーバーのURLは環境変数SELENIUM_DRIVER_URLで指定する
-#ここのURLはwebコンテナから見たSeleniumサーバーのURLを指定する必要がある。
+# Capybaraが使用するドライバーの設定する。接続先のSeleniumサーバーのURLは環境変数SELENIUM_DRIVER_URLで指定する
+# ここのURLはwebコンテナから見たSeleniumサーバーのURLを指定する必要がある。
 Capybara.register_driver :remote_chrome do |app|
   options = Selenium::WebDriver::Chrome::Options.new
   options.add_argument('no-sandbox')

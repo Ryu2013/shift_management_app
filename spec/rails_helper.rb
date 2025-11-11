@@ -29,9 +29,9 @@ RSpec.configure do |config|
   config.use_transactional_fixtures = true
 
   # Capybara.server_host = '0.0.0.0' Capybara.server_port = 3001はwebコンテナ上の自分から見たURL。
-  #自分のどのip.portでSeleniumサーバーを待つかを指定する。
-  #app_hostはseleniumコンテナから見たwebサーバーのURLを指定する。
-  #同一composeネットワーク内のサービス名で指定できる。
+  # 自分のどのip.portでSeleniumサーバーを待つかを指定する。
+  # app_hostはseleniumコンテナから見たwebサーバーのURLを指定する。
+  # 同一composeネットワーク内のサービス名で指定できる。
   config.before(:each, type: :system) do
     if ENV['SELENIUM_DRIVER_URL'].present?
       # ローカルではSeleniumを使う

@@ -12,6 +12,5 @@ RSpec.describe Office, type: :model do
       office.valid?
       expect(office.errors[:name]).to include("を入力してください。")
     end
-
   end
 end
