@@ -40,8 +40,11 @@ RSpec.configure do |config|
       Capybara.server_port = 3001
       Capybara.app_host = 'http://web:3001'
     else
-      # github actionsではヘッドレスChromeを利用
-      driven_by :selenium, using: :headless_chrome
+      # github actions/ローカルとも、Seleniumサーバ無しでヘッドレスChromeを利用
+      driven_by :selenium, using: :headless_chrome do |options|
+        options.add_argument('--no-sandbox')
+        options.add_argument('--disable-dev-shm-usage')
+      end
     end
     Capybara.ignore_hidden_elements = false
   end
