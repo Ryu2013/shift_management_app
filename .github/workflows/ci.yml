@@ -72,9 +72,24 @@ jobs:
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
+          node-version: '20'
+          cache: 'yarn'
+
+      - name: Enable Corepack (Yarn)
+        run: corepack enable
+
+      - name: Install JS deps
+        run: yarn install --frozen-lockfile
+
+      - name: Build JS
+        run: yarn build
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
           node-version: 20
       - name: Install JS deps
-        run: upm ci
+        run: npm ci
 
       - name: Build jobs
         run: npm run build
