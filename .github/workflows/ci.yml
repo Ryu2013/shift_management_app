@@ -69,6 +69,16 @@ jobs:
           ruby-version: .ruby-version
           bundler-cache: true
 
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install JS deps
+        run: upm ci
+
+      - name: Build jobs
+        run: npm run build
+
       - name: Run RSpec tests (headless Chrome)
         env:
           RAILS_ENV: test
