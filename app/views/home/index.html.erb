@@ -1,5 +1,38 @@
-<h1><%= t(".heading") %></h1>
-<div class=flexbox>
-  <%= link_to t(".new_office"), new_office_path ,class: "flex-btn"%>
-  <%= link_to t(".login"), new_user_session_path ,class: "flex-btn"%>
+<% content_for :head do %>
+  <%= stylesheet_link_tag "home/index", "data-turbo-track": "dynamic" %>
+<% end %>
+
+
+<div class="flexbox header">
+  <%= image_tag "logo.png", alt: "ロゴ画像", class: "pc-logo" %>
+  <%= link_to "新規登録", new_office_path ,class: "flex-btn",style: " margin-left: auto;"%>
+  <%= link_to "ログイン", new_user_session_path ,class: "flex-btn"%>
+</div>
+
+<%= image_tag "title.png", alt: "タイトル画像", class: "title fadein" %>
+
+<div class="shifts_img">
+  <%= image_tag "client_need.png", alt: "担当者選択", class: "client_need_img fadein" %>
+</div>
+
+<p class="home_text fadein">2クイックで</p>
+<p class="home_text2 fadein" >簡単にシフト登録!</p>
+
+<%= image_tag "work_statuses.png", alt: "出勤状況管理", class: "work_statuses_img fadein" %>
+
+<p class="home_text3 fadein">勤怠管理も</p>
+<p class="home_text4 fadein" >らくらく!</p>
+
+<div class="employee_img fadein">
+  <%= image_tag "pointer.png", alt: "ポインター", class: "pointer_img" %>
+</div>
+
+<p class="home_text5 fadein">出勤も</p>
+<p class="home_text6 fadein" >共有も１クイック</p>
+
+<%= image_tag "footer_title.png", alt: "フッター画像", class: "footer_title fadein" %>
+
+<div class="flexbox footer">
+  <%= link_to "新規登録", new_office_path ,class: "flex-btn"%>
+  <%= link_to "ログイン", new_user_session_path ,class: "flex-btn"%>
 </div>

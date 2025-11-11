@@ -1,37 +1,16 @@
 <div id="<%= dom_id client_need %>">
-  <p>
-    <strong><%= t(".office") %></strong>
-    <%= client_need.office_id %>
-  </p>
+  <div class="shift <%= "night" if client_need.shift_type == "night" %>">
 
-  <p>
-    <strong><%= t(".client") %></strong>
-    <%= client_need.client_id %>
-  </p>
+    <strong><%= t("activerecord.attributes.client_need.shift_types.#{client_need.shift_type}") %></strong>
 
-  <p>
-    <strong><%= t(".week") %></strong>
-    <%= client_need.week %>
-  </p>
-
-  <p>
-    <strong><%= t(".need_type") %></strong>
-    <%= client_need.type %>
-  </p>
-
-  <p>
-    <strong><%= t(".start_time") %></strong>
-    <%= client_need.start_time %>
-  </p>
-
-  <p>
-    <strong><%= t(".end_time") %></strong>
-    <%= client_need.end_time %>
-  </p>
-
-  <p>
+    <%= l client_need.start_time %>
+    <strong>～</strong>
+    <%= l client_need.end_time %>
+    <br>
     <strong><%= t(".slots") %></strong>
     <%= client_need.slots %>
-  </p>
 
+  <%= button_to "消去", client_need_path(client_need), method: :delete, form: { data: { turbo_confirm: "delete?" } },class: "flex-btn" %>
+
+ </div>
 </div>

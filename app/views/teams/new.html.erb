@@ -1,3 +1,4 @@
+<%= turbo_frame_tag "new_team" do %>
 <% content_for :title, t(".title") %>
 
 <h1><%= t(".heading") %></h1>
@@ -7,8 +8,4 @@
 
 <%= render "form", team: @team %>
 
-<br>
-
-<div>
-  <%= link_to t(".back"), teams_path %>
-</div>
+<% end %>

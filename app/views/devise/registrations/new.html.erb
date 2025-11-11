@@ -6,27 +6,27 @@
   <%= f.hidden_field :team_id, value: params[:team_id] %>
 
   <div class="field">
-    <%= f.label :name, t(".name") %><br />
+    <%= f.label :name, t(".name") %>
     <%= f.text_field :name,autocomplete: "name", autofocus: true , required: true%>
   </div>
 
    <div>
-    <%= f.label :address, t(".address") %><br />
+    <%= f.label :address, t(".address") %>
     <%= f.text_field :address , required: true%>
   </div>
 
   <div>
-    <%= f.label :pref_per_week, t(".pref_per_week") %><br />
+    <%= f.label :pref_per_week, t(".pref_per_week") %>
     <%= f.select :pref_per_week, 0..7 %>
   </div>
 
   <div>
-    <%= f.label :commute, t(".commute") %><br />
+    <%= f.label :commute, t(".commute") %>
     <%= f.text_field :commute %>
   </div>
 
   <div class="field">
-    <%= f.label :email, t(".email") %><br />
+    <%= f.label :email, t(".email") %>
     <%= f.email_field :email, autocomplete: "email" , required: true %>
   </div>
 
@@ -34,12 +34,12 @@
     <%= f.label :password, t(".password") %>
     <% if @minimum_password_length %>
     <em><%= t(".password_hint", count: @minimum_password_length) %></em>
-    <% end %><br />
+    <% end %>
     <%= f.password_field :password, autocomplete: "new-password", required: true %>
   </div>
 
   <div class="field">
-    <%= f.label :password_confirmation, t(".password_confirmation") %><br />
+    <%= f.label :password_confirmation, t(".password_confirmation") %>
     <%= f.password_field :password_confirmation, autocomplete: "new-password", required: true %>
   </div>
 

@@ -58,9 +58,7 @@ Googleマップの経路リンク（従業員アプリからワンタップで�
 ## 使用する技術スタック
 - 使用するフレームワーク
 Ruby on Rails 7
-Slim
 Turbo
-Bootstrap
 
 - データベース
 Postgres
@@ -73,11 +71,9 @@ Heroku + Heroku Postgres
 
 DB : pg
 
-ビュー：slim-rails, turbo-rails
+ビュー： turbo-rails
 
-自動で事業所名をURLのスラッグに変換:FriendlyId
-
-認証：devise, devise_invitable
+認証：devise
 
 権限：pundit
 

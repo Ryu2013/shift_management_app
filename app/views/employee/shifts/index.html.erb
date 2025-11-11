@@ -1,0 +1,66 @@
+<% content_for :title, "従業員シフトページ" %>
+
+<% content_for :head do %>
+  <%= stylesheet_link_tag "shift/index", "data-turbo-track": "dynamic" %>
+<% end %>
+
+  <div class="flexbox">
+    <%= image_tag "logo.png", alt: "ロゴ画像", class: "pc-logo" %>
+    <%= image_tag "hamburger.png", alt: "ハンバーガーメニュー", class: "hamburger" ,id: "hamburger" %>
+  </div>
+  <div class="menus">
+    <%= link_to "ログアウト",
+              destroy_user_session_path,
+              data: { turbo_method: :delete, turbo_confirm: "ログアウトしますか？" }, class: "menu" %>
+  </div>
+
+<hr>
+
+  <%= form_with url: employee_shifts_path, method: :get, local: true do |f| %>
+
+    <%= f.month_field :date, id: "real-month", style: "display: none;"%>
+
+    <div class="flexbox">
+      <div style="font-size: 1.5rem;"><%= current_user.name %>様</div>
+      <div id= "fake-month" class="flex-btn">
+        <%= @date_view %>
+      </div>
+
+      <%= f.submit "変更", class: "flex-btn" %>
+       <% end %>
+       
+      <% if @today_shift.present? %>
+        <%= button_to "出勤", employee_shift_path(@today_shift), method: :patch, params: { shift: { work_status: "work" } },form: { onsubmit: "return confirm('出勤しましたか？')" }, class: "flex-btn" %>
+      <% end %>
+    </div>
+
+  <div class="flexbox">
+    <p class="shift-ex">日勤</p>
+    <p class="shift-ex-night">夜勤</p>
+    <p class="shift-ex-escort">同行</p>
+  </div>
+
+<div class="calendar">
+
+    <% I18n.t("date.abbr_day_names").each do |wday| %>
+      <div class="week"><%= wday %></div>
+    <% end %>
+
+    <% @first_day.wday.times do %>
+      <div class="day"></div>
+    <% end %>
+
+    <% (@first_day..@last_day).each do |date| %>
+      <div class="day <%= 'today' if date == @today %>">
+          <%= date.day %>
+
+        <div id="shifts_<%= date %>">
+          <%= render (@shifts[date] || []) %>
+        </div>
+      </div>
+    <% end %>
+
+    <% (6 - @last_day.wday).times do %>
+      <div class="day"></div>
+    <% end %>
+</div>

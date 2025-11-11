@@ -12,18 +12,12 @@
   <% end %>
 
   <div>
-    <%= form.label :office_id, style: "display: block" %>
-    <%= form.text_field :office_id %>
+    <%= form.hidden_field :user_id %>
   </div>
 
-  <div>
-    <%= form.label :user_id, style: "display: block" %>
-    <%= form.text_field :user_id %>
-  </div>
-
-  <div>
+   <div>
     <%= form.label :week, style: "display: block" %>
-    <%= form.number_field :week %>
+    <%= form.select :week, ClientNeed.weeks.keys.map { |k| [t("activerecord.attributes.client_need.weeks.#{k}"), k] }, required: true %>
   </div>
 
   <div>

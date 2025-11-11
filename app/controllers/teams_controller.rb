@@ -1,5 +1,6 @@
 class TeamsController < ApplicationController
-  before_action :set_team, only: %i[ show edit update destroy ]
+  before_action :set_team
+  before_action :set_client
 
   def index
     @teams = @office.teams.all
@@ -9,16 +10,16 @@ class TeamsController < ApplicationController
   end
 
   def new
-    @team = @office.teams.new
+    @team = @office.teams.build
   end
 
   def edit
   end
 
   def create
-    @team = @office.teams.new(team_params)
+    @team = @office.teams.build(team_params)
     if @team.save
-      redirect_to new_client_path(team_id: @team.id), notice: "チームを作成しました。次にクライアントを登録してください。"
+      redirect_to new_team_client_path(team_id: @team.id), notice: "チームを作成しました。次にクライアントを登録してください。"
     else
       render :new, status: :unprocessable_entity
     end
@@ -26,7 +27,7 @@ class TeamsController < ApplicationController
 
   def update
     if @team.update(team_params)
-      redirect_to @team, notice: "チームを更新しました。", status: :see_other
+      redirect_to teams_path(@team), notice: "チームを更新しました。", status: :see_other
     else
       render :edit, status: :unprocessable_entity
     end
@@ -38,10 +39,6 @@ class TeamsController < ApplicationController
   end
 
   private
-
-  def set_team
-    @team = @office.teams.find(params[:id])
-  end
 
   def team_params
     params.require(:team).permit(:name)

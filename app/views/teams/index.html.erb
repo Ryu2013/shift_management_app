@@ -1,14 +1,15 @@
 <% content_for :title, t(".title") %>
-
+ <%= link_to  team_client_shifts_path(@team,@client) do %>
+  <%= image_tag "back-btn.png", alt: t(".shifts"), class: "back-image" %>
+<% end %>
 <h1><%= t(".heading") %></h1>
 
 <div id="teams">
   <% @teams.each do |team| %>
     <%= render team %>
-    <p>
-      <%= link_to t(".show"), team %>
-    </p>
   <% end %>
 </div>
 
-<%= link_to t(".new"), new_team_path %>
+<%= turbo_frame_tag "new_team" do %>
+<%= link_to t(".new"), new_team_path ,class: "flex-btn" %>
+<% end %>

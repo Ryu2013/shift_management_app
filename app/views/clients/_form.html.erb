@@ -46,7 +46,14 @@
     <%= form.text_field :note %>
   </div>
 
+  
   <div class="flexbox">
-    <%= form.submit t(".submit"), class: "flex-btn" %>
+      
+      <div id="open-modal" class="flex-btn">
+      シフト作成
+      </div>
+
+      <%= form.submit t(".submit"), class: "flex-btn" %>
   </div>
-<% end %>
+
+  <% end %>

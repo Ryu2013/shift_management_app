@@ -1,12 +1,7 @@
-<% content_for :title, t(".title") %>
+<%= turbo_frame_tag dom_id(@client_need) do %>
 
 <h1><%= t(".heading") %></h1>
 
-<%= render "form", client_need: @client_need %>
-
-<br>
-
-<div>
-  <%= link_to t(".show"), @client_need %> |
-  <%= link_to t(".back"), client_needs_path %>
-</div>
+  <%= render "form", client_need: @client_need %>
+  <%= link_to "キャンセル", root_path, data: { turbo_frame: "_top" } %>
+<% end %>

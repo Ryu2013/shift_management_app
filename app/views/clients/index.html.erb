@@ -3,11 +3,23 @@
   <%= stylesheet_link_tag "client/index", "data-turbo-track": "dynamic" %>
 <% end %>
 
-<h1><%= t(".heading") %></h1>
+<%= link_to team_client_shifts_path(@team, @client) do %>
+ <%= image_tag "back-btn.png", alt: t(".shifts"), class: "back-image" %>
+<% end %>
+
+<h1><%= "利用者" %></h1>
 <div class="flexbox">
   <%= link_to t(".new"), new_team_client_path(@team), class: "flex-btn" %>
-  <%= link_to t(".shifts"), team_client_shifts_path(@team, @client), class: "flex-btn" %>
-  <%= link_to t(".users"), users_path, class: "flex-btn" %>
+
+  <div class="toggle-switch">
+    <%= link_to team_users_path(@team), class: "toggle-selected #{'active' if current_page?(team_users_path(@team))}" do %>
+      従業員
+    <% end %>
+
+    <%= link_to team_clients_path(@team), class: "toggle-selected #{'active' if current_page?(team_clients_path(@team))}" do %>
+      利用者
+    <% end %>
+  </div>
 </div>
 
 <div id="clients">

@@ -1,70 +1,66 @@
 class ClientNeedsController < ApplicationController
+  before_action :set_team
+  before_action :set_client
   before_action :set_client_need, only: %i[ show edit update destroy ]
 
-  # GET /client_needs or /client_needs.json
   def index
-    @client_needs = ClientNeed.all
+    @client_needs = @client.client_needs.all
+    @client_need = @client.client_needs.build
   end
 
-  # GET /client_needs/1 or /client_needs/1.json
   def show
   end
 
-  # GET /client_needs/new
   def new
-    @client_need = ClientNeed.new
+    @client_need = @client.client_needs.build
   end
 
-  # GET /client_needs/1/edit
   def edit
   end
 
-  # POST /client_needs or /client_needs.json
   def create
-    @client_need = ClientNeed.new(client_need_params)
-
-    respond_to do |format|
-      if @client_need.save
-        format.html { redirect_to @client_need, notice: "クライアント希望を作成しました。" }
-        format.json { render :show, status: :created, location: @client_need }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @client_need.errors, status: :unprocessable_entity }
+  @client_need = @client.client_needs.build(client_need_params)
+    if @client_need.save
+      respond_to do |format|
+      format.turbo_stream
+      format.html { redirect_to edit_team_client_path(@team, @client), notice: "クライアント希望を作成しました。" }
+      end
+    else
+      respond_to do |format|
+      format.turbo_stream { render :new, status: :unprocessable_entity }
+      format.html { render :new, status: :unprocessable_entity }
       end
     end
   end
 
-  # PATCH/PUT /client_needs/1 or /client_needs/1.json
   def update
-    respond_to do |format|
-      if @client_need.update(client_need_params)
-        format.html { redirect_to @client_need, notice: "クライアント希望を更新しました。", status: :see_other }
-        format.json { render :show, status: :ok, location: @client_need }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @client_need.errors, status: :unprocessable_entity }
+    if @client_need.update(client_need_params)
+     respond_to do |format|
+     format.turbo_stream
+     format.html { redirect_to edit_team_client_path(@team, @client), notice: "クライアント希望を更新しました。", status: :see_other }
+     end
+    else
+      respond_to do |format|
+      format.turbo_stream { render :edit, status: :unprocessable_entity }
+      format.html { render :edit, status: :unprocessable_entity }
       end
     end
   end
 
-  # DELETE /client_needs/1 or /client_needs/1.json
   def destroy
     @client_need.destroy!
-
     respond_to do |format|
-      format.html { redirect_to client_needs_path, notice: "クライアント希望を削除しました。", status: :see_other }
-      format.json { head :no_content }
+    format.turbo_stream
+    format.html { redirect_to edit_team_client_path(@team, @client), notice: "クライアント希望を削除しました。", status: :see_other }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_client_need
-      @client_need = ClientNeed.find(params[:id])
+      @client_need = @client.client_needs.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
     def client_need_params
-      params.require(:client_need).permit(:office_id, :client_id, :week, :type, :start_time, :end_time, :slots)
+      params.require(:client_need).permit(:office_id, :client_id, :week, :shift_type, :start_time, :end_time, :slots)
     end
 end

@@ -10,18 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_10_22_130341) do
+ActiveRecord::Schema[7.2].define(version: 2025_11_08_053425) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "client_needs", force: :cascade do |t|
     t.bigint "office_id", null: false
     t.bigint "client_id", null: false
-    t.integer "week"
-    t.integer "type"
-    t.time "start_time"
-    t.time "end_time"
-    t.integer "slots"
+    t.integer "week", null: false
+    t.integer "shift_type", null: false
+    t.time "start_time", null: false
+    t.time "end_time", null: false
+    t.integer "slots", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["client_id"], name: "index_client_needs_on_client_id"
@@ -84,6 +84,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_10_22_130341) do
     t.string "note"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["client_id", "user_id"], name: "index_user_clients_on_client_id_and_user_id", unique: true
     t.index ["client_id"], name: "index_user_clients_on_client_id"
     t.index ["office_id"], name: "index_user_clients_on_office_id"
     t.index ["user_id"], name: "index_user_clients_on_user_id"
@@ -101,24 +102,12 @@ ActiveRecord::Schema[7.2].define(version: 2025_10_22_130341) do
     t.index ["user_id"], name: "index_user_needs_on_user_id"
   end
 
-  create_table "user_teams", force: :cascade do |t|
-    t.bigint "team_id", null: false
-    t.bigint "user_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "office_id", null: false
-    t.index ["office_id"], name: "index_user_teams_on_office_id"
-    t.index ["team_id"], name: "index_user_teams_on_team_id"
-    t.index ["user_id"], name: "index_user_teams_on_user_id"
-  end
-
   create_table "users", force: :cascade do |t|
     t.bigint "office_id", null: false
     t.string "name", null: false
     t.string "address"
     t.integer "pref_per_week"
     t.string "commute"
-    t.string "role"
     t.integer "account_status", default: 0, null: false
     t.string "note"
     t.string "email", default: "", null: false
@@ -128,13 +117,25 @@ ActiveRecord::Schema[7.2].define(version: 2025_10_22_130341) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "team_id", null: false
+    t.bigint "team_id"
     t.string "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string "unconfirmed_email"
+    t.string "invitation_token"
+    t.datetime "invitation_created_at"
+    t.datetime "invitation_sent_at"
+    t.datetime "invitation_accepted_at"
+    t.integer "invitation_limit"
+    t.string "invited_by_type"
+    t.bigint "invited_by_id"
+    t.integer "invitations_count", default: 0
+    t.integer "role", default: 0, null: false
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
+    t.index ["invited_by_id"], name: "index_users_on_invited_by_id"
+    t.index ["invited_by_type", "invited_by_id"], name: "index_users_on_invited_by"
     t.index ["office_id"], name: "index_users_on_office_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["team_id"], name: "index_users_on_team_id"
@@ -153,9 +154,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_10_22_130341) do
   add_foreign_key "user_clients", "users"
   add_foreign_key "user_needs", "offices"
   add_foreign_key "user_needs", "users"
-  add_foreign_key "user_teams", "offices"
-  add_foreign_key "user_teams", "teams"
-  add_foreign_key "user_teams", "users"
   add_foreign_key "users", "offices"
   add_foreign_key "users", "teams"
 end

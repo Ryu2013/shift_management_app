@@ -1,18 +1,4 @@
 
-.modal{
-    display:none;
-    position: absolute;
-    top: 50px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 90%;
-    background: white;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    padding: 1em;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-    z-index: 1000;
-}
 .close-modal {
     position: absolute;
     top: 10px;
@@ -20,10 +6,6 @@
     cursor: pointer;
     font-size: 1.2em;
     font-weight: bold;
-}
-
-.open {
-    display: block;
 }
 
 /* Shiftの色説明 */
@@ -74,6 +56,11 @@
   grid-template-rows: 1.5em repeat(6, 1fr);
 }
 
+.today {
+  color: rgb(0, 167, 250);
+  border-radius: 4px;
+}
+
 .week {
   font-weight: bold;
 }
@@ -92,6 +79,7 @@
   border-left: solid 4px #E35B5B;
   font-size: 0.5rem;
   text-align: left;
+  color: #333333;
 }
 .night {
   color: #333333;
@@ -99,8 +87,25 @@
   background: #B4E2FF;
 }
 
-.today {
-  color: rgb(0, 167, 250);
+.escort {
+  color: #333333;
+  border-left: solid 4px #4CAF50;
+  background: #C8F7C5;
+}
+
+
+.nil {
+  color: #333333;
+  background: #E0E0E0;
+}
+
+.back-btn {
+  font-size: 1.5rem;
+  color:#E35B5B;
   font-weight: bold;
-  border-radius: 4px;
+  float: right;
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  cursor: pointer;
 }

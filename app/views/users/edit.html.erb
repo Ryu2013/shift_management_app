@@ -1,0 +1,51 @@
+<% content_for :title, "従業員の情報を編集" %>
+<%= turbo_stream_from [@team, :user_needs] %>
+
+<h1>従業員の情報を編集</h1>
+
+<%= form_with model: @user, url: user_path(@user), method: :patch, local: true do |form| %>
+  <% if @user.errors.any? %>
+    <div style="color: red">
+      <h2><%= "#{@user.errors.count}件のエラーがあります。内容を確認してください。" %></h2>
+      <ul>
+        <% @user.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :name, "氏名", style: "display: block" %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div>
+    <%= form.label :address, "住所", style: "display: block" %>
+    <%= form.text_field :address %>
+  </div>
+
+  <div>
+    <%= form.label :pref_per_week, "希望出勤日数（週）", style: "display: block" %>
+    <%= form.number_field :pref_per_week, min: 0 %>
+  </div>
+
+  <div>
+    <%= form.label :commute, "通勤手段", style: "display: block" %>
+    <%= form.text_field :commute %>
+  </div>
+
+  <div>
+    <%= form.label :team_id, "部署", style: "display: block" %>
+    <%= form.collection_select :team_id, @teams, :id, :name %>
+  </div>
+
+  <div class="flexbox">
+      <%= turbo_frame_tag "user_needs" do %>
+        <%= link_to "出勤希望日", user_needs_path, class: "flex-btn" %>
+      <% end %>
+    <%= form.submit "更新する" %>
+    <%= link_to "戻る", users_path, class: "flex-btn" %>
+  </div>
+<% end %>
+

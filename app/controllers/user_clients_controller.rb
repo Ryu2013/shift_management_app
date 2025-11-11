@@ -1,69 +1,42 @@
 class UserClientsController < ApplicationController
-  before_action :set_user_client, only: %i[ show edit update destroy ]
+  before_action :set_team
+  before_action :set_client
+  before_action :set_user_client, only: %i[ destroy ]
 
-  # GET /user_clients or /user_clients.json
-  def index
-    @user_clients = userClient.all
-  end
-
-  # GET /user_clients/1 or /user_clients/1.json
-  def show
-  end
-
-  # GET /user_clients/new
   def new
-    @user_client = userClient.new
+    @user_client = @client.user_clients.build
+    @user_clients = @client&.user_clients
+    @users = @team.users
   end
 
-  # GET /user_clients/1/edit
-  def edit
-  end
-
-  # POST /user_clients or /user_clients.json
   def create
-    @user_client = userClient.new(user_client_params)
+    @user_client = @client.user_clients.build(user_client_params)
 
     respond_to do |format|
       if @user_client.save
-        format.html { redirect_to @user_client, notice: "ユーザークライアントを作成しました。" }
-        format.json { render :show, status: :created, location: @user_client }
+        format.html { redirect_to new_team_client_user_client_path(@team, @client), notice: "ユーザークライアントを作成しました。" }
+        format.turbo_stream
       else
         format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @user_client.errors, status: :unprocessable_entity }
+        format.turbo_stream
       end
     end
   end
 
-  # PATCH/PUT /user_clients/1 or /user_clients/1.json
-  def update
-    respond_to do |format|
-      if @user_client.update(user_client_params)
-        format.html { redirect_to @user_client, notice: "ユーザークライアントを更新しました。", status: :see_other }
-        format.json { render :show, status: :ok, location: @user_client }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @user_client.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /user_clients/1 or /user_clients/1.json
   def destroy
     @user_client.destroy!
 
     respond_to do |format|
       format.html { redirect_to user_clients_path, notice: "ユーザークライアントを削除しました。", status: :see_other }
-      format.json { head :no_content }
+      format.turbo_stream
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_user_client
-      @user_client = userClient.find(params[:id])
+      @user_client = @client.user_clients.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
     def user_client_params
       params.require(:user_client).permit(:office_id, :user_id, :client_id, :note)
     end

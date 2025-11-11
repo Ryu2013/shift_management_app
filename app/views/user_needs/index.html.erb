@@ -1,14 +1,18 @@
-<% content_for :title, t(".title") %>
-
-<h1><%= t(".heading") %></h1>
-
-<div id="user_needs">
-  <% @user_needs.each do |user_need| %>
-    <%= render user_need %>
-    <p>
-      <%= link_to t(".show"), user_need %>
-    </p>
-  <% end %>
+<%= turbo_frame_tag "user_needs" do %>
+<div class="modal open">
+  <h1><%= t(".heading") %></h1>
+  
+  <div class="flexbox">
+  <%= link_to "閉じる", edit_team_user_path(@team, @user) ,class: "flex-btn"%>
 </div>
 
-<%= link_to t(".new"), new_user_need_path %>
+  <% UserNeed.weeks.keys.each do |week| %>
+    <div class="card">
+      <h2><%= t("activerecord.attributes.user_need.weeks.#{week}") %></h2>
+      <div id="user_needs_<%= week %>">
+       <%= render (@user_needs[week] || []) %>
+      </div>
+    </div>
+  <% end %>
+  <%= render "form", user_need: @user_need %>
+<% end %>
