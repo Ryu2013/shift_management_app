@@ -231,3 +231,6 @@ input[type="submit"] {
     display: none;
   }
 }
+@media (display-mode: standalone) {
+.turbo-progress-bar { display: none !important; }
+}

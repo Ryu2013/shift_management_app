@@ -58,3 +58,7 @@ group :test do
   gem "selenium-webdriver"
   gem "rack_session_access"
 end
+
+group :production do
+  gem 'redis', '>= 4.0.1'
+end

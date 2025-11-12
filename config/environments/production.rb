@@ -105,11 +105,13 @@ Rails.application.configure do
     enable_starttls_auto: true
   }
   config.action_mailer.default_url_options = { host: "shift-management-app-f04c8ce17ef9.herokuapp.com", protocol: "https" }
-  # Enable DNS rebinding protection and other `Host` header attacks.
-  # config.hosts = [
-  #   "example.com",     # Allow requests from example.com
-  #   /.*\.example\.com/ # Allow requests from subdomains like `www.example.com`
-  # ]
-  # Skip DNS rebinding protection for the default health check endpoint.
-  # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
+  
+  # Action Cable の接続先を指定する
+  config.action_cable.url = "wss://shift-management-app-f04c8ce17ef9.herokuapp.com/cable"
+
+  # Action Cable へのリクエスト元を制限することでセキュリティを強化する
+  config.action_cable.allowed_request_origins = [
+  "https://shift-management-app-f04c8ce17ef9.herokuapp.com"
+  ]
+  
 end
