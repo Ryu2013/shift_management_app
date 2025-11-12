@@ -6,6 +6,5 @@ test:
 
 production:
   adapter: redis
-  # Heroku Redis は TLS (rediss://) を推奨。REDIS_TLS_URL 優先、無ければ REDIS_URL を使用。
-  url: <%= ENV["REDIS_TLS_URL"] || ENV["REDIS_URL"] || "redis://localhost:6379/1" %>
+  url: <%= ENV.fetch("REDIS_URL") { "redis://localhost:6379/1" } %>
   channel_prefix: shift_management_production
