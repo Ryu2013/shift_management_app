@@ -18,8 +18,8 @@
     text-decoration: none; 
     color: #333333; 
     background: #FFF8F0;
-     display: inline-block;
-      font-weight: 500; 
+    display: inline-block;
+    font-weight: 500; 
 }
 
 .toggle-selected.active {
@@ -28,6 +28,6 @@
 }
 
 .toggle-selected:not(.active):hover { 
-    background: #eef2ff; 
+    background: #4CAF50; 
     color: #111827; 
 }

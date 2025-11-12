@@ -1,9 +1,9 @@
-<% content_for :title, t(".title") %>
-
+<%= turbo_frame_tag "user_need" do %>
 <h1><%= t(".heading") %></h1>
 
 <%= render "form", user_need: @user_need %>
 
-<div>
-  <%= link_to t(".back"), user_needs_path %>
+<div class="flexbox">
+  <%= link_to "閉じる", edit_user_path(@team, @user) ,class: "flex-btn"%>
 </div>
+<% end %>

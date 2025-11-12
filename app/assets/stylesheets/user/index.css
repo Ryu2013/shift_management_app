@@ -20,6 +20,6 @@
 }
 
 .toggle-selected:not(.active):hover { 
-    background: #eef2ff; 
+    background: #4CAF50; 
     color: #111827; 
 }

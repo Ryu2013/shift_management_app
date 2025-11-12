@@ -1,3 +1,22 @@
+/*JSで操作する部分はcontent_forで差し込んだ方が安定する*/
+.modal{
+    display:none;
+    position: fixed;
+    top: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    background: #fefdf8;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 1em;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
+
+.open {
+    display: block;
+}
 
 .close-modal {
     position: absolute;
@@ -8,42 +27,53 @@
     font-weight: bold;
 }
 
-/* Shiftの色説明 */
-.shift-ex{
+.shift {
   background: #F19494;
   margin: 0.2em;
-  padding: 0 0.3rem;
+  padding: 0.2em;
   border-radius: 0 6px 0 0;
   border-left: solid 4px #E35B5B;
-  font-size: 1em;
+  font-size: 0.5rem;
   text-align: left;
+  color: #333333;
 }
-.shift-ex-night {
+
+/* Shiftの色説明 */
+.shift.ex{
+  font-size: 1em;
+}
+.shift.ex-night {
   background: #B4E2FF;
-  margin: 0.2em;
-  padding: 0 0.3rem;
-  border-radius: 0 6px 0 0;
   border-left: solid 4px #69C5FF;
   font-size: 1em;
-  text-align: left;
 }
-.shift-ex-escort {
+.shift.ex-escort {
   background: #C8F7C5;
-  margin: 0.4em;
-  padding: 0 0.3rem;
-  border-radius: 0 6px 0 0;
   border-left: solid 4px #4CAF50;
   font-size: 1em;
-  text-align: left;
 }
-.shift-ex-nil {
+.shift.ex-nil {
   background: #E0E0E0;
-  margin: 0.2em;
-  padding: 0 0.3rem;
-  border-radius: 0 6px 0 0;
   border-left: solid 4px #A0A0A0;
   font-size: 1em;
-  text-align: left;
+}
+
+.night {
+  color: #333333;
+  border-left: solid 4px #69C5FF;
+  background: #B4E2FF;
+}
+
+.escort {
+  color: #333333;
+  border-left: solid 4px #4CAF50;
+  background: #C8F7C5;
+}
+
+
+.nil {
+  color: #333333;
+  background: #E0E0E0;
 }
 
 .calendar {
@@ -69,34 +99,6 @@
   border: 1px dashed #aeaeaeff;
   padding: .5em 0;
   background-color: #ffFFF8F0;
-}
-
-.shift {
-  background: #F19494;
-  margin: 0.2em;
-  padding: 0.2em;
-  border-radius: 0 4px 0 0;
-  border-left: solid 4px #E35B5B;
-  font-size: 0.5rem;
-  text-align: left;
-  color: #333333;
-}
-.night {
-  color: #333333;
-  border-left: solid 4px #69C5FF;
-  background: #B4E2FF;
-}
-
-.escort {
-  color: #333333;
-  border-left: solid 4px #4CAF50;
-  background: #C8F7C5;
-}
-
-
-.nil {
-  color: #333333;
-  background: #E0E0E0;
 }
 
 .back-btn {

@@ -1,8 +1,9 @@
 <%= turbo_frame_tag "client_need" do %>
-<h1><%= t(".heading") %></h1>
-
-<%= render "form", client_need: @client_need %>
 <div class="flexbox">
   <%= link_to "閉じる", edit_team_client_path(@team, @client) ,class: "flex-btn"%>
 </div>
+<h1><%= t(".heading") %></h1>
+
+<%= render "form", client_need: @client_need %>
+
 <% end %>
