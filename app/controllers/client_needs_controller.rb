@@ -39,6 +39,6 @@ class ClientNeedsController < ApplicationController
     end
 
     def client_need_params
-      params.require(:client_need).permit(:office_id, :client_id, :week, :shift_type, :start_time, :end_time, :slots)
+      params.require(:client_need).permit(:week, :shift_type, :start_time, :end_time, :slots)
     end
 end

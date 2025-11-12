@@ -3,7 +3,8 @@ class ClientsController < ApplicationController
   before_action :set_client, only: %i[index edit update destroy]
 
   def index
-    @clients = @team.clients.all
+    @clients = @office.clients.all.order(:name).group_by(&:team_id)
+    @teams = @office.teams.all.order(:id)
   end
 
   def new

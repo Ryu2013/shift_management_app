@@ -5,8 +5,8 @@ class UsersController < ApplicationController
   before_action :set_user, only: [ :edit, :update ]
 
   def index
-    @teams = @office.teams
-    @users = @team.users.order(:id)
+    @users = @office.users.all.order(:name).group_by(&:team_id)
+    @teams = @office.teams.all.order(:id)
   end
 
   def edit

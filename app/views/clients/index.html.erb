@@ -7,7 +7,7 @@
  <%= image_tag "back-btn.png", alt: t(".shifts"), class: "back-image" %>
 <% end %>
 
-<h1><%= "利用者" %></h1>
+<h1>利用者</h1>
 <div class="flexbox">
   <%= link_to t(".new"), new_team_client_path(@team), class: "flex-btn" %>
 
@@ -23,11 +23,14 @@
 </div>
 
 <div id="clients">
-  <% @clients.each do |client| %>
-    <%= link_to edit_team_client_path(@team, client) do %>
-      <div class="card">
-      <%= render client %>
-      </div>
+  <% @teams.each do |team| %>
+    <h3><%= team.name || "未所属" %></h3>
+      <% @clients[team.id].each do |client| %>
+      <%= link_to edit_team_client_path(@team, client) do %>
+        <div class="card">
+         <%= render client %>
+        </div>
+      <% end %>
     <% end %>
   <% end %>
 </div>

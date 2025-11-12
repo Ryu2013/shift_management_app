@@ -24,11 +24,14 @@
 </div>
 
 <div id="clients">
-  <% @users.each do |user| %>
-    <%= link_to edit_team_user_path(@team, user) do %>
-      <div class="card">
-        <%= render user %>
-      </div>
+  <% @teams.each do |team| %>
+    <h3><%= team.name || "未所属" %></h3>
+      <% @users[team.id].each do |user| %>
+      <%= link_to edit_team_user_path(@team, user) do %>
+        <div class="card">
+         <%= render user %>
+        </div>
+      <% end %>
     <% end %>
   <% end %>
 </div>
