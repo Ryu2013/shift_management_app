@@ -3,7 +3,9 @@
   <%= image_tag "back-btn.png", alt: t(".shifts"), class: "back-image" %>
 <% end %>
 <h1><%= t(".heading") %></h1>
-
+<div class="flexbox">
+  <p>自分の所属している部署は削除できません。</p>
+</div>
 <div id="teams">
   <% @teams.each do |team| %>
     <%= render team %>

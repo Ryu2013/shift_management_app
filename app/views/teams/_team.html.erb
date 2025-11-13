@@ -1,13 +1,28 @@
 <% team_dom_id = dom_id(team) %>
 <div id="<%= team_dom_id %>">
     <%= turbo_frame_tag team_dom_id do %>
-       <div class="flexbox card">
-      <strong><%= t(".name") %></strong>
-      <%= team.name %>
-      <%= link_to "編集", edit_team_path(team) ,class: "flex-btn" ,style: "width: 3rem;" %>
-      <% if @office.teams.count > 1 %>
-      <%= button_to "削除", team_path(team), method: :delete, form: { onsubmit: "return confirm('本当に削除しますか？')" },data: { turbo: false }, class: "flex-btn", style: "width: 3rem;" %>
-      <% end %>
-      </div>
+        <div class="flexbox card">
+                <strong><%= t(".name") %></strong>
+                        <%= team.name %>
+                        <%= link_to "編集", edit_team_path(team) ,class: "flex-btn" ,style: "width: 3rem;" %>
+                        <% if @office.teams.count > 1 && team != current_user.team %>
+                                <%= button_to "削除",
+                                team_path(team),
+                                method: :delete,
+                                form: {
+                                    onsubmit: "return confirmDelete()"
+                                },
+                                data: { turbo: false },
+                                class: "flex-btn",
+                                style: "width: 3rem;" %>
+                        <% end %>
+        </div>
       <% end %>
 </div>
+
+<script>
+  function confirmDelete() {
+    const text = prompt("部署に所属している全ての従業員、利用者も削除されます。本当に削除する場合は『削除』と入力してください。");
+    return text === "削除";
+  }
+</script>
