@@ -1,10 +1,9 @@
 class User < ApplicationRecord
   devise :invitable, :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable,
-         :confirmable, :invitable
+         :validatable, :confirmable, :lockable
 
   belongs_to :office
-  belongs_to :team, optional: true
+  belongs_to :team
   has_many :clients, through: :user_clients
   has_many :user_clients, dependent: :destroy
   has_many :shifts, dependent: :nullify

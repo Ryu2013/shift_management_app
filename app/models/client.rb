@@ -1,6 +1,6 @@
 class Client < ApplicationRecord
   belongs_to :office
-  belongs_to :team, optional: true
+  belongs_to :team
   has_many :shifts, dependent: :destroy
   has_many :client_needs, dependent: :destroy
   has_many :user_clients, dependent: :destroy

@@ -11,6 +11,11 @@
   <% end %>
 
   <div>
+    <%= form.label :team_id, "部署", style: "display: block" %>
+    <%= form.collection_select :team_id, @teams, :id, :name %>
+  </div>
+
+  <div>
     <%= form.label :name, "氏名", style: "display: block" %>
     <%= form.text_field :name %>
   </div>
@@ -31,15 +36,38 @@
   </div>
 
   <div>
-    <%= form.label :team_id, "部署", style: "display: block" %>
-    <%= form.collection_select :team_id, @teams, :id, :name %>
+    <%= form.label :role, "管理者権限の付与", style: "display: block" %>
+    <%= form.select :role, [['管理者', 'admin'], ['一般', 'employee']] %>
   </div>
+
+  <div class="field">
+    <%= form.label :email, t(".email") %>
+    <%= form.email_field :email, autofocus: true, autocomplete: "email" %>
+  </div>
+
+  <div class="field">
+    <%= form.label :password, "パスワード" %>
+    <%= form.password_field :password, autocomplete: "new-password" %>
+  </div>
+
+
+  <div class="field">
+    <%= form.label :password_confirmation, "確認用パスワード" %>
+    <%= form.password_field :password_confirmation, autocomplete: "new-password" %>
+  </div>
+
 
   <div class="flexbox">
 
     <div id="open-modal" class="flex-btn">
     出勤希望
     </div>
+
+    <% if @user == current_user %>
+     自分を削除することはできません。
+    <% else %>
+    <%= button_to "アカウントを消す", team_user_path(@team, @user), data: { confirm: t(".cancel_confirm"), turbo_confirm: t(".cancel_confirm") }, method: :delete , class: "flex-btn" %>
+    <% end %>
 
     <%= form.submit "更新する" %>
   </div>
