@@ -1,18 +1,11 @@
 class OfficesController < ApplicationController
-  skip_before_action :authenticate_user!, only: %i[new create]
-  skip_before_action :office_authenticate, only: %i[new create]
-  skip_before_action :user_authenticate, only: %i[new create]
-
-
-  def show
-  end
+  skip_before_action :authenticate_user!
+  skip_before_action :office_authenticate
+  skip_before_action :user_authenticate
 
   def new
     @office = Office.new
     @office.teams.build
-  end
-
-  def edit
   end
 
   def create
@@ -25,19 +18,6 @@ class OfficesController < ApplicationController
       flash.now[:alert] = "部署の作成に失敗しました。もう一度お試しください。"
       render :new, status: :unprocessable_entity
     end
-  end
-
-  def update
-    if @office.update(office_params)
-      redirect_to @office, notice: "オフィスを更新しました。", status: :see_other
-    else
-      render :edit, status: :unprocessable_entity
-    end
-  end
-
-  def destroy
-  @office.destroy!
-  redirect_to new_office_path, notice: "オフィスを削除しました。", status: :see_other
   end
 
   private

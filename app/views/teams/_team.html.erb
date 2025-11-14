@@ -1,13 +1,18 @@
 <% team_dom_id = dom_id(team) %>
 <div id="<%= team_dom_id %>">
     <%= turbo_frame_tag team_dom_id do %>
-       <div class="flexbox card">
-      <strong><%= t(".name") %></strong>
-      <%= team.name %>
-      <%= link_to "編集", edit_team_path(team) ,class: "flex-btn" ,style: "width: 3rem;" %>
-      <% if @office.teams.count > 1 %>
-      <%= button_to "削除", team_path(team), method: :delete, form: { onsubmit: "return confirm('本当に削除しますか？')" },data: { turbo: false }, class: "flex-btn", style: "width: 3rem;" %>
-      <% end %>
-      </div>
-      <% end %>
+        <div class="flexbox card">
+                <strong><%= t(".name") %></strong>
+                        <%= team.name %>
+                        <%= link_to "編集", edit_team_path(team) ,class: "flex-btn" ,style: "width: 3rem;" %>
+                        <% if @office.teams.count > 1 && !team.clients.exists? && !team.users.exists? %>
+                                <%= button_to "削除",
+                                team_path(team),
+                                method: :delete,
+                                data: { turbo: false },
+                                class: "flex-btn",
+                                style: "width: 3rem;" %>
+                        <% end %>
+        </div>
+    <% end %>
 </div>

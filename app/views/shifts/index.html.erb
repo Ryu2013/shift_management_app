@@ -26,35 +26,37 @@
 
   <%= form_with url: team_client_shifts_path(@team, @client), method: :get, local: true,  html: { id: "filters-form" } do |f| %>
 
-    <%= f.month_field :date, id: "real-month", style: "display: none;"%>
-
-    <div id="modal" class="modal">
-      <div id="close-modal" class="back-btn">✕</div>
-      <%= f.label :team_id, t(".form.team") %>
-      <%= f.collection_select :team_id, @teams, :id, :name, selected: @team.id %>
-
-      <%= f.label :client_id, t(".form.client") %>
-      <%= f.collection_select :client_id, @clients, :id, :name, selected: @client.id %>
-    </div>
+    <%= f.month_field :date, id: "real-month", style: "display: none;",
+                        onchange: "this.form.requestSubmit();" %>
     
     <div class="flexbox">
-      <div id= "fake-month" class="flex-btn">
+      <div id= "fake-month" class="flex-btn" style="width: 2.5rem;">
         <%= @date_view %>
       </div>
 
-      <div id="open-modal" class="flex-btn">
-        <%= @client.name %>
-      </div>
+      <%= f.collection_select :selected_team_id,
+                  @teams,
+                  :id,
+                  :name,
+                  { selected: @team.id  },
+                  { class: "flex-btn", style: "width: auto;", onchange: "this.form.requestSubmit();" } %>
+
+      <%= f.collection_select  :selected_client_id,
+                  @clients,
+                  :id,
+                  :name,
+                  { selected: @client.id  },
+                  { class: "flex-btn", style: "width: auto;", onchange: "this.form.requestSubmit();" } %>
+      
       <%= link_to t(".new_shift"), new_team_client_shift_path(@team, @client, date: @date), data: { turbo_frame: "shift_edit" }, class: "flex-btn" %>
-      <%= f.submit t(".form.submit"), class: "flex-btn" %>
     </div>
   <% end %>
 
   <div class="flexbox">
-    <p class="shift-ex">日勤</p>
-    <p class="shift-ex-night">夜勤</p>
-    <p class="shift-ex-escort">同行</p>
-    <p class="shift-ex-nil">未配置</p>
+    <p class="shift ex">日勤</p>
+    <p class="shift ex-night">夜勤</p>
+    <p class="shift ex-escort">同行</p>
+    <p class="shift ex-nil">未配置</p>
   </div>
 
 <div class="calendar">

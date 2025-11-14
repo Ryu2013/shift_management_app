@@ -3,7 +3,9 @@
   <%= image_tag "back-btn.png", alt: t(".shifts"), class: "back-image" %>
 <% end %>
 <h1><%= t(".heading") %></h1>
-
+<div class="flexbox">
+  <p>部署を消去するには従業員、利用者がいない必要があります。</p>
+</div>
 <div id="teams">
   <% @teams.each do |team| %>
     <%= render team %>

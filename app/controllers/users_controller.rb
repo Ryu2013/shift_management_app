@@ -2,24 +2,48 @@
 class UsersController < ApplicationController
   before_action :set_team
   before_action :set_client
-  before_action :set_user, only: [ :edit, :update ]
+  before_action :set_user, only: [ :edit, :update, :destroy ]
 
   def index
-    @teams = @office.teams
-    @users = @team.users.order(:id)
+    if params[:selected_team_id].present?
+      requested_team = @office.teams.find_by(id: params[:selected_team_id])
+      if requested_team && requested_team.id != @team&.id
+        redirect_to team_users_path(requested_team) and return
+      end
+    end
+
+    @users = @team.users.all.order(:name)
+    @teams = @office.teams.joins(:users).distinct.order(:id)
   end
 
   def edit
     @teams = @office.teams
+    @user_needs = @user.user_needs.order(:week, :start_time).group_by(&:week)
   end
 
   def update
-    if @user.update(user_params)
-      redirect_to users_path, notice: "従業員情報を更新しました。", status: :see_other
+    attributes = user_params.compact_blank
+
+    if attributes[:password].blank?
+      attributes.delete(:password)
+      attributes.delete(:password_confirmation)
+    end
+
+    if attributes[:email].blank?
+      attributes.delete(:email)
+    end
+
+    if @user.update(attributes)
+      redirect_to team_users_path(@user.team), notice: "従業員情報を更新しました。", status: :see_other
     else
       @teams = @office.teams
       render :edit, status: :unprocessable_entity
     end
+  end
+
+  def destroy
+    @user.destroy
+    redirect_to team_users_path(current_user.team), notice: "従業員を削除しました。", status: :see_other
   end
 
   private
@@ -28,6 +52,6 @@ class UsersController < ApplicationController
     end
 
     def user_params
-      params.require(:user).permit(:name, :address, :pref_per_week, :commute, :team_id)
+      params.require(:user).permit(:name, :address, :pref_per_week, :commute, :team_id, :email, :role, :password, :password_confirmation)
     end
 end

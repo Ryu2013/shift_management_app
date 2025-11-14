@@ -2,24 +2,25 @@ require_relative "boot"
 
 require "rails/all"
 
-# Require the gems listed in Gemfile, including any gems
-# you've limited to :test, :development, or :production.
+# Gemfileに記載されているgemを読み込みます。
+# :test、:development、:productionなどで制限したgemも含まれます。
 Bundler.require(*Rails.groups)
 
 module App
   class Application < Rails::Application
-    # Initialize configuration defaults for originally generated Rails version.
+    # 元々生成されたRailsのバージョンに対する設定のデフォルト値を初期化します。
     config.load_defaults 7.2
 
-    # Please, add to the `ignore` list any other `lib` subdirectories that do
-    # not contain `.rb` files, or that should not be reloaded or eager loaded.
-    # Common ones are `templates`, `generators`, or `middleware`, for example.
+    # `.rb`ファイルを含まない、またはリロード／イーガーロードしたくない
+    # `lib`のサブディレクトリがあれば、`ignore`リストに追加してください。
+    # 一般的には `templates`、`generators`、`middleware` などがあります。
     config.autoload_lib(ignore: %w[assets tasks])
     config.i18n.default_locale = :ja
-    # Configuration for the application, engines, and railties goes here.
+
+    # アプリケーション、エンジン、railtiesの設定はここに記述します。
     #
-    # These settings can be overridden in specific environments using the files
-    # in config/environments, which are processed later.
+    # これらの設定は、後で処理される config/environments の各環境ファイルで
+    # 上書きできます。
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")

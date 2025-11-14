@@ -15,4 +15,8 @@ class Users::InvitationsController < Devise::InvitationsController
     end
     @office = Office.find_by(id: session[:office_id])
   end
+
+  def after_invite_path_for(inviter, invitee)
+    team_users_path(@office.teams.order(:id).first)
+  end
 end

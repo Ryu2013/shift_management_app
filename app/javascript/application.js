@@ -5,11 +5,12 @@ document.addEventListener("turbo:load", () => {
   const fake = document.getElementById("fake-month");
   const real = document.getElementById("real-month");
   const modal = document.getElementById("modal");
-  const fakeClient = document.getElementById("open-modal");
+  const openModal = document.getElementById("open-modal");
   const closeModal = document.getElementById("close-modal");
 
-  if (fakeClient && closeModal && modal) {
-    fakeClient.onclick = () => {
+  // user_client用簡易モーダル表示処理
+  if (openModal && closeModal && modal) {
+    openModal.onclick = () => {
       modal.classList.toggle("open");
     }
 
@@ -18,34 +19,19 @@ document.addEventListener("turbo:load", () => {
     };
   }
 
+  // シフト一覧ページの月選択カスタマイズ処理
   if (fake && real) {
   fake.onclick = () => real.showPicker();
 
   real.onchange = () => {
     const [y, m] = real.value.split("-");
     fake.textContent = `${m}月`;
+    real.form.requestSubmit();
   };
   };
   
 });
-//httpもしくはturboDriveで発火確認。blordcast,turboFrameでは発火していない。
-//すべてのページでwindow.Turbo.visitを確認したが、一応http処理も残す。
-document.addEventListener("turbo:load", () => {
-const form = document.getElementById("filters-form");
-if (!form) return;
-form.addEventListener("submit", (e) => {
-e.preventDefault();
-const teamId = form.querySelector('[name="team_id"]').value;
-const clientId = form.querySelector('[name="client_id"]').value;
-const date = form.querySelector('#real-month')?.value || "";
-const q = date ? `?date=${encodeURIComponent(date)}` : "";
-if (window.Turbo?.visit) {
-Turbo.visit(`/teams/${teamId}/clients/${clientId}/shifts${q}`);
-} else {
-window.location.href = `/teams/${teamId}/clients/${clientId}/shifts${q}`;
-}
-});
-});
+
 
 // シフト個別変更フォームの表示処理
 // turbo:frame-loadで発火させることで、turbo frame内の要素に対応
@@ -83,6 +69,7 @@ if (fakeDate && realDate) {
   realDate.onchange = () => {
     const [y, m, d] = realDate.value.split("-");
     fakeDate.textContent = `${y}年${m}月${d}日`;
+    realDate.form.requestSubmit();
   };
 }
 });

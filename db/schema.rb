@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_11_08_053425) do
+ActiveRecord::Schema[7.2].define(version: 2025_11_13_085759) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -117,7 +117,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_11_08_053425) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "team_id"
+    t.bigint "team_id", null: false
     t.string "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
@@ -131,6 +131,9 @@ ActiveRecord::Schema[7.2].define(version: 2025_11_08_053425) do
     t.bigint "invited_by_id"
     t.integer "invitations_count", default: 0
     t.integer "role", default: 0, null: false
+    t.integer "failed_attempts", default: 0, null: false
+    t.string "unlock_token"
+    t.datetime "locked_at"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
@@ -139,6 +142,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_11_08_053425) do
     t.index ["office_id"], name: "index_users_on_office_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["team_id"], name: "index_users_on_team_id"
+    t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end
 
   add_foreign_key "client_needs", "clients"

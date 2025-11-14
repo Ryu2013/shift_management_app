@@ -102,10 +102,6 @@ input[type="submit"] {
     white-space: nowrap;
 }
 
-.flex-btn:hover {
-    background: #F19494;
-}
-
 .card {
     background-color: #fff;
     border: solid 0.1rem #000000;
@@ -114,38 +110,9 @@ input[type="submit"] {
     margin: 1rem;
     }
 
-.modal{
-    display:none;
-    position: fixed;
-    top: 50px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 90%;
-    background: #fefdf8;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    padding: 1em;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-    z-index: 1000;
-}
-.close-modal {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    cursor: pointer;
-    font-size: 1.2em;
-    font-weight: bold;
-}
 
-.shift-form {
-  display: none;
-}
-.open {
-    display: block;
-}
 
 .menus {
-    /* keep the element present so transitions can run (don't use display:none) */
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -160,7 +127,6 @@ input[type="submit"] {
     align-items: center;
 }
 .open-menus {
-    /* expand to a large max-height and fade in */
     max-height: 100vh;
     opacity: 1;
     position: fixed;

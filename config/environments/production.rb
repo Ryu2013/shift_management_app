@@ -1,98 +1,94 @@
 require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
-  # Settings specified here will take precedence over those in config/application.rb.
+  # ここで指定した設定は config/application.rb より優先されます。
 
-  # Code is not reloaded between requests.
+  # リクエスト間でコードは再読み込みされません。
   config.enable_reloading = false
 
-  # Eager load code on boot. This eager loads most of Rails and
-  # your application in memory, allowing both threaded web servers
-  # and those relying on copy on write to perform better.
-  # Rake tasks automatically ignore this option for performance.
+  # 起動時にコードを eager load します。これにより Rails とアプリの大部分がメモリに読み込まれ、
+  # スレッド化されたウェブサーバや copy-on-write に依存するサーバのパフォーマンスが向上します。
+  # Rake タスクはパフォーマンスのため自動的にこのオプションを無視します。
   config.eager_load = true
 
-  # Full error reports are disabled and caching is turned on.
+  # 詳細なエラーレポートは無効化され、キャッシュは有効になっています。
   config.consider_all_requests_local = false
   config.action_controller.perform_caching = true
 
-  # Ensures that a master key has been made available in ENV["RAILS_MASTER_KEY"], config/master.key, or an environment
-  # key such as config/credentials/production.key. This key is used to decrypt credentials (and other encrypted files).
+  # ENV["RAILS_MASTER_KEY"], config/master.key, または config/credentials/production.key のような環境キーに
+  # マスターキーが用意されていることを保証します。このキーは資格情報（や他の暗号化ファイル）を復号するために使用されます。
   # config.require_master_key = true
 
-  # Disable serving static files from `public/`, relying on NGINX/Apache to do so instead.
+  # public/ から静的ファイルを提供するのを無効にし、代わりに NGINX/Apache に依存します。
   # config.public_file_server.enabled = false
 
-  # Compress CSS using a preprocessor.
+  # プリプロセッサを使って CSS を圧縮します。
   # config.assets.css_compressor = :sass
 
-  # Do not fall back to assets pipeline if a precompiled asset is missed.
+  # プリコンパイルされたアセットが見つからない場合にアセットパイプラインへフォールバックしないようにします。
   config.assets.compile = false
 
-  # Enable serving of images, stylesheets, and JavaScripts from an asset server.
+  # アセットサーバーから画像、スタイルシート、JavaScript を配信する機能を有効にします。
   # config.asset_host = "http://assets.example.com"
 
-  # Specifies the header that your server uses for sending files.
+  # サーバがファイル送信に使用するヘッダーを指定します。
   # config.action_dispatch.x_sendfile_header = "X-Sendfile" # for Apache
   # config.action_dispatch.x_sendfile_header = "X-Accel-Redirect" # for NGINX
 
-  # Store uploaded files on the local file system (see config/storage.yml for options).
+  # アップロードされたファイルをローカルファイルシステムに保存します（オプションは config/storage.yml を参照）。
   config.active_storage.service = :local
 
-  # Mount Action Cable outside main process or domain.
+  # Action Cable をメインプロセスやドメインの外にマウントします。
   # config.action_cable.mount_path = nil
   # config.action_cable.url = "wss://example.com/cable"
   # config.action_cable.allowed_request_origins = [ "http://example.com", /http:\/\/example.*/ ]
 
-  # Assume all access to the app is happening through a SSL-terminating reverse proxy.
-  # Can be used together with config.force_ssl for Strict-Transport-Security and secure cookies.
+  # アプリへのすべてのアクセスが SSL 終端を行うリバースプロキシ経由で行われていると仮定します。
+  # Strict-Transport-Security とセキュアクッキーのために config.force_ssl と併用できます。
   # config.assume_ssl = true
 
-  # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
+  # アプリへのすべてのアクセスを SSL に強制し、Strict-Transport-Security を使用し、セキュアクッキーを有効にします。
   config.force_ssl = true
 
-  # Skip http-to-https redirect for the default health check endpoint.
+  # デフォルトのヘルスチェックエンドポイントに対する HTTP→HTTPS のリダイレクトをスキップします。
   # config.ssl_options = { redirect: { exclude: ->(request) { request.path == "/up" } } }
 
-  # Log to STDOUT by default
+  # デフォルトで STDOUT にログを出力します
   config.logger = ActiveSupport::Logger.new(STDOUT)
     .tap  { |logger| logger.formatter = ::Logger::Formatter.new }
     .then { |logger| ActiveSupport::TaggedLogging.new(logger) }
 
-  # Prepend all log lines with the following tags.
+  # すべてのログ行に次のタグを先頭につけます。
   config.log_tags = [ :request_id ]
 
-  # "info" includes generic and useful information about system operation, but avoids logging too much
-  # information to avoid inadvertent exposure of personally identifiable information (PII). If you
-  # want to log everything, set the level to "debug".
+  # 「info」はシステム運用に関する一般的で有用な情報を含みますが、個人情報の曝露を避けるためにログ量を抑えます。
+  # すべて記録したい場合はレベルを "debug" に設定してください。
   config.log_level = ENV.fetch("RAILS_LOG_LEVEL", "info")
 
-  # Use a different cache store in production.
+  # 本番環境では別のキャッシュストアを使用します。
   # config.cache_store = :mem_cache_store
 
-  # Use a real queuing backend for Active Job (and separate queues per environment).
+  # Active Job に実際のキューバックエンドを使用します（環境ごとにキューを分ける）。
   # config.active_job.queue_adapter = :resque
   # config.active_job.queue_name_prefix = "app_production"
 
-  # Disable caching for Action Mailer templates even if Action Controller
-  # caching is enabled.
+  # Action Controller のキャッシュが有効でも、Action Mailer テンプレートに対するキャッシュを無効にします。
   config.action_mailer.perform_caching = false
 
-  # Ignore bad email addresses and do not raise email delivery errors.
-  # Set this to true and configure the email server for immediate delivery to raise delivery errors.
+  # 不正なメールアドレスを無視して、メール配信エラーを発生させません。
+  # 配信エラーを発生させたい場合は true に設定し、メールサーバを即時配信するよう設定してください。
   # config.action_mailer.raise_delivery_errors = false
 
-  # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
-  # the I18n.default_locale when a translation cannot be found).
+  # I18n のロケールフォールバックを有効にします（翻訳が見つからない場合に I18n.default_locale にフォールバックします）。
   config.i18n.fallbacks = true
 
-  # Don't log any deprecations.
+  # 非推奨の警告をログに記録しません。
   config.active_support.report_deprecations = false
 
-  # Do not dump schema after migrations.
+  # マイグレーション後にスキーマをダンプしません。
   config.active_record.dump_schema_after_migration = false
 
-  # Only use :id for inspections in production.
+  # 本番環境では検査に :id のみを使用します。
   config.active_record.attributes_for_inspect = [ :id ]
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {

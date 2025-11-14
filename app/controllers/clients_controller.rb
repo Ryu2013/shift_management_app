@@ -3,7 +3,15 @@ class ClientsController < ApplicationController
   before_action :set_client, only: %i[index edit update destroy]
 
   def index
-    @clients = @team.clients.all
+    if params[:selected_team_id].present?
+      requested_team = @office.teams.find_by(id: params[:selected_team_id])
+      if requested_team && requested_team.id != @team&.id
+        redirect_to team_clients_path(requested_team) and return
+      end
+    end
+
+    @clients = @team.clients.all.order(:name)
+    @teams = @office.teams.joins(:clients).distinct.order(:id)
   end
 
   def new
@@ -21,7 +29,7 @@ class ClientsController < ApplicationController
   def create
     @client = @office.clients.new(client_params)
     if @client.save
-      redirect_to team_clients_path(@team), notice: "クライアントを作成しました。"
+      redirect_to team_clients_path(@client.team), notice: "クライアントを作成しました。"
     else
       @needs_by_week = @client.client_needs.order(:week, :shift_type, :start_time).group_by(&:week)
       @users = @team.users
@@ -32,7 +40,7 @@ class ClientsController < ApplicationController
 
   def update
     if @client.update(client_params)
-      redirect_to team_clients_path(@team), notice: "クライアントを更新しました。", status: :see_other
+      redirect_to team_clients_path(@client.team), notice: "クライアントを更新しました。", status: :see_other
     else
       @needs_by_week = @client.client_needs.order(:week, :shift_type, :start_time).group_by(&:week)
       @users = @team.users

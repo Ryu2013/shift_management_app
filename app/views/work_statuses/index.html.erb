@@ -8,28 +8,34 @@
   <%= image_tag "back-btn.png", alt: "シフト一覧", class: "back-image" %>  
 <% end %>
 
-<h1>出勤状況</h1>
-
-<p style="text-align: center;">出勤: <%= @work_count %> / 未出勤: <%= @not_work_count %></p>
-
-
 <%= form_with url: team_work_statuses_path(@team), method: :get, local: true do |f| %>
   <div class="flexbox" style="margin: 20px;"> 
     <%= f.date_field :date, value: @date, id: "real-date" ,style: "display:none;" %>
+
+    <%= f.collection_select :selected_team_id,
+                            @teams,
+                            :id,
+                            :name,
+                            { selected: @team.id  },
+                            { class: "flex-btn", style: "width: auto;", onchange: "this.form.requestSubmit();" } %>
+     
       <div id="fake-date" class="flex-btn">
         <%= @date.strftime("%Y年%m月%d日") %>
       </div>
-    <%= f.submit "表示", style: "width: 3rem;" %>
+
   </div>
 <% end %>
 
+<p style="text-align: center;">出勤: <%= @work_count %> / 未出勤: <%= @not_work_count %></p>
 
 <% @clients.each do |client| %>
+  <div class="card">
   <h2><%= client.name %></h2>
    <%= render partial: 'work_statuses/shift', collection: (@shifts[client.id] || []) %>
    <%= if @shifts[client.id].blank?
          content_tag :p, "シフトが登録されていません。", style: "margin-bottom: 20px; text-align: center;"
        end %>
+  </div>
 <% end %>
 
 

@@ -1,6 +1,6 @@
 class TeamsController < ApplicationController
   before_action :set_team
-  before_action :set_client
+  before_action :set_client, only: %i[index show new edit create update]
 
   def index
     @teams = @office.teams.all

@@ -1,4 +1,4 @@
-<%= form_with(model: client_need) do |form| %>
+<%= form_with(model:[@team, @client, client_need]) do |form| %>
   <% if client_need.errors.any? %>
     <div style="color: red">
       <h2><%= t(".errors.title", count: client_need.errors.count) %></h2>

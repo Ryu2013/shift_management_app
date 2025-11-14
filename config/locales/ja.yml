@@ -119,6 +119,12 @@ ja:
         user:
           attributes:
             email:
+              not_found: "メールアドレスが見つかりません。"
+    errors:
+      models:
+        user:
+          attributes:
+            email:
               already_confirmed: "このメールアドレスは既に確認済みです。"
             confirmation_token:
               invalid: "確認トークンが無効です。再送したメールをご確認ください。"
@@ -127,10 +133,12 @@ ja:
       confirmed: "メールアドレスの確認が完了しました。"
       user:
         confirmed: "メールアドレスの確認が完了しました。"
+        send_instructions: "確認メールを送信しました。メールをご確認ください。"
       new:
         heading: "確認メールを再送"
         email: "メールアドレス"
         submit: "送信する"
+      send_instructions: "確認メールを送信しました。メールをご確認ください。"
     registrations:
       destroyed: "アカウントを削除しました。"
       signed_up_but_unconfirmed: "ご登録のメールアドレス宛に確認メールを送信しました。メールをご確認ください。"
@@ -198,9 +206,17 @@ ja:
       user:
         unauthenticated: "ログインが必要です。"
         unconfirmed: "メールアドレスの確認が完了していません。メールをご確認ください。"
+        not_found_in_database: "メールアドレスまたはパスワードが正しくありません。"
+        last_attempt: "ログイン試行回数の上限が近づいています。次に失敗するとアカウントがロックされます。"
+        locked: "複数回のログイン失敗によりアカウントがロックされています。ロック解除メールをご確認ください。"
       invalid: "メールアドレスまたはパスワードが正しくありません。"
       user:
         invalid: "メールアドレスまたはパスワードが正しくありません。"
+        last_attempt: "ログイン試行回数の上限が近づいています。次に失敗するとアカウントがロックされます。"
+        locked: "複数回のログイン失敗によりアカウントがロックされています。ロック解除メールをご確認ください。"
+      not_found_in_database: "メールアドレスまたはパスワードが正しくありません。"
+      last_attempt: "ログイン試行回数の上限が近づいています。次に失敗するとアカウントがロックされます。"
+      locked: "複数回のログイン失敗によりアカウントがロックされています。ロック解除メールをご確認ください。"
       already_authenticated: "すでにログインしています。"
       user:
         already_authenticated: "すでにログインしています。"

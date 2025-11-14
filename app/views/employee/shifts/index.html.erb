@@ -12,6 +12,7 @@
     <%= link_to "ログアウト",
               destroy_user_session_path,
               data: { turbo_method: :delete, turbo_confirm: "ログアウトしますか？" }, class: "menu" %>
+    <%= link_to "従業員情報の変更", edit_user_registration_path, class: "menu" %>
   </div>
 
 <hr>
@@ -35,9 +36,9 @@
     </div>
 
   <div class="flexbox">
-    <p class="shift-ex">日勤</p>
-    <p class="shift-ex-night">夜勤</p>
-    <p class="shift-ex-escort">同行</p>
+    <p class="shift ex">日勤</p>
+    <p class="shift ex-night">夜勤</p>
+    <p class="shift ex-escort">同行</p>
   </div>
 
 <div class="calendar">
