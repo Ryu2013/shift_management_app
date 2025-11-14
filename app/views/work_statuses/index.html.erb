@@ -16,6 +16,7 @@
 <%= form_with url: team_work_statuses_path(@team), method: :get, local: true do |f| %>
   <div class="flexbox" style="margin: 20px;"> 
     <%= f.date_field :date, value: @date, id: "real-date" ,style: "display:none;" %>
+    <%= f.collection_select :selected_team_id, @teams, :id, :name, selected: @team.id %>
       <div id="fake-date" class="flex-btn">
         <%= @date.strftime("%Y年%m月%d日") %>
       </div>

@@ -22,7 +22,7 @@ class ClientsController < ApplicationController
   def create
     @client = @office.clients.new(client_params)
     if @client.save
-      redirect_to team_clients_path(@team), notice: "クライアントを作成しました。"
+      redirect_to team_clients_path(@client.team), notice: "クライアントを作成しました。"
     else
       @needs_by_week = @client.client_needs.order(:week, :shift_type, :start_time).group_by(&:week)
       @users = @team.users
@@ -33,7 +33,7 @@ class ClientsController < ApplicationController
 
   def update
     if @client.update(client_params)
-      redirect_to team_clients_path(@team), notice: "クライアントを更新しました。", status: :see_other
+      redirect_to team_clients_path(@client.team), notice: "クライアントを更新しました。", status: :see_other
     else
       @needs_by_week = @client.client_needs.order(:week, :shift_type, :start_time).group_by(&:week)
       @users = @team.users

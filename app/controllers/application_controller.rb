@@ -51,6 +51,9 @@ class ApplicationController < ActionController::Base
   def set_client
     if @team.clients.present?
       @client = @team.clients.find_by(id: params[:client_id] || params[:id]) || @team.clients.order(:id).first
+    else
+      @team = @office.teams.joins(:clients).distinct.order(:id).first
+      @client = @team.clients.find_by(id: params[:client_id] || params[:id]) || @team.clients.order(:id).first
     end
   end
 end

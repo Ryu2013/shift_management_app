@@ -2,7 +2,7 @@
 class UsersController < ApplicationController
   before_action :set_team
   before_action :set_client
-  before_action :set_user, only: [ :edit, :update ]
+  before_action :set_user, only: [ :edit, :update, :destroy ]
 
   def index
     @users = @office.users.all.order(:name).group_by(&:team_id)
@@ -27,11 +27,16 @@ class UsersController < ApplicationController
     end
 
     if @user.update(attributes)
-      redirect_to users_path, notice: "従業員情報を更新しました。", status: :see_other
+      redirect_to team_users_path(@user.team), notice: "従業員情報を更新しました。", status: :see_other
     else
       @teams = @office.teams
       render :edit, status: :unprocessable_entity
     end
+  end
+
+  def destroy
+    @user.destroy
+    redirect_to team_users_path(current_user.team), notice: "従業員を削除しました。", status: :see_other
   end
 
   private

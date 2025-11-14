@@ -34,6 +34,6 @@
     <% end %>
     <div class="flexbox">
       <%= f.submit t("devise.invitations.new.submit_button") %>
-      <%= link_to "戻る", users_path, class: "flex-btn" %>
+      <%= link_to "戻る", team_users_path(@office.teams.first), class: "flex-btn" %>
     </div>
   <% end %>

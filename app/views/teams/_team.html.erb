@@ -5,24 +5,14 @@
                 <strong><%= t(".name") %></strong>
                         <%= team.name %>
                         <%= link_to "編集", edit_team_path(team) ,class: "flex-btn" ,style: "width: 3rem;" %>
-                        <% if @office.teams.count > 1 && team != current_user.team %>
+                        <% if @office.teams.count > 1 && !team.clients.exists? && !team.users.exists? %>
                                 <%= button_to "削除",
                                 team_path(team),
                                 method: :delete,
-                                form: {
-                                    onsubmit: "return confirmDelete()"
-                                },
                                 data: { turbo: false },
                                 class: "flex-btn",
                                 style: "width: 3rem;" %>
                         <% end %>
         </div>
-      <% end %>
+    <% end %>
 </div>
-
-<script>
-  function confirmDelete() {
-    const text = prompt("部署に所属している全ての従業員、利用者も削除されます。本当に削除する場合は『削除』と入力してください。");
-    return text === "削除";
-  }
-</script>

@@ -15,8 +15,10 @@
 <%= render "form", user: @user %>
 
   <div class="flexbox">
-    <% if @team.users.count > 1 && @user != current_user %>
+    <% if @user != current_user %>
       <%= button_to "従業員を消去", [@team, @user], method: :delete, data: { turbo_confirm: t(".confirm_destroy") }, class: "flex-btn" %>
+    <% else %>
+      自分のアカウントは削除できません。
     <% end %>
   </div>
 

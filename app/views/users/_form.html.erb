@@ -1,4 +1,4 @@
-<%= form_with model: @user, url: user_path(@user), method: :patch, local: true do |form| %>
+<%= form_with model: @user, url: team_user_path(@user.team, @user), method: :patch, local: true do |form| %>
   <% if @user.errors.any? %>
     <div style="color: red">
       <h2><%= "#{@user.errors.count}件のエラーがあります。内容を確認してください。" %></h2>
@@ -62,12 +62,6 @@
     <div id="open-modal" class="flex-btn">
     出勤希望
     </div>
-
-    <% if @user == current_user %>
-     自分を削除することはできません。
-    <% else %>
-    <%= button_to "アカウントを消す", team_user_path(@team, @user), data: { confirm: t(".cancel_confirm"), turbo_confirm: t(".cancel_confirm") }, method: :delete , class: "flex-btn" %>
-    <% end %>
 
     <%= form.submit "更新する" %>
   </div>

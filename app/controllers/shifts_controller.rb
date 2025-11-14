@@ -4,7 +4,7 @@ class ShiftsController < ApplicationController
   before_action :set_client
 
   def index
-    @teams = @office.teams
+    @teams = @office.teams.joins(:clients).distinct
     @clients = @team.clients
     @date = params[:date].present? ? Date.strptime(params[:date], "%Y-%m") : Date.current
     @today = Date.today

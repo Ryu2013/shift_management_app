@@ -11,10 +11,9 @@
     </div>
   <% end %>
   
-  <div>
   <%= form.label :team_id, t(".team"), style: "display: block" %>
   <%= form.collection_select :team_id, @teams, :id, :name,selected: params[:team_id] %>
-  </div>
+
 
   <div>
     <%= form.label :name, style: "display: block" %>
