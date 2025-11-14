@@ -41,13 +41,17 @@ class ApplicationController < ActionController::Base
     end
   end
 
-
+  # オフィスにチームが存在するか確認し、存在しなければ新規作成画面へリダイレクト
+  # ネストルートではパスパラメータを常に優先。単一の場合のみid。Devise等ネストされてないページのバックボタン用にfirst
   def set_team
     if @office.teams.present?
       @team = @office.teams.find_by(id: params[:team_id] || params[:id]) || @office.teams.order(:id).first
+    else
+      redirect_to new_team_path, alert: "部署を作成してください" and return
     end
   end
 
+  # 選択中の部署にクライアントが存在するか確認し、存在しなければ別のクライアントがいる部署へ変更
   def set_client
     if @team.clients.present?
       @client = @team.clients.find_by(id: params[:client_id] || params[:id]) || @team.clients.order(:id).first
