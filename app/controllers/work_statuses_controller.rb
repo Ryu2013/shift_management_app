@@ -25,7 +25,7 @@ class WorkStatusesController < ApplicationController
     @work_count     = all_shifts.count { |s| s.work_status == "work" }
     @not_work_count = all_shifts.count { |s| s.work_status == "not_work" }
 
-    @teams = @office.teams.all.order(:id)
+    @teams = @office.teams.joins(:clients).distinct.order(:id)
   end
   
 end

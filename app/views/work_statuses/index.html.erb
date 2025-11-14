@@ -8,7 +8,7 @@
   <%= image_tag "back-btn.png", alt: "シフト一覧", class: "back-image" %>  
 <% end %>
 
-<h1>出勤状況</h1>
+<h1><%= @team.name %></h1>
 
 <p style="text-align: center;">出勤: <%= @work_count %> / 未出勤: <%= @not_work_count %></p>
 
@@ -16,7 +16,12 @@
 <%= form_with url: team_work_statuses_path(@team), method: :get, local: true do |f| %>
   <div class="flexbox" style="margin: 20px;"> 
     <%= f.date_field :date, value: @date, id: "real-date" ,style: "display:none;" %>
-    <%= f.collection_select :selected_team_id, @teams, :id, :name, selected: @team.id %>
+    <%= f.collection_select :selected_team_id,
+                            @teams,
+                            :id,
+                            :name,
+                            { prompt: "部署を変更"  },
+                            { onchange: "this.form.requestSubmit();" } %>
       <div id="fake-date" class="flex-btn">
         <%= @date.strftime("%Y年%m月%d日") %>
       </div>

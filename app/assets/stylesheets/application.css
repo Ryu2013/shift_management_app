@@ -102,10 +102,6 @@ input[type="submit"] {
     white-space: nowrap;
 }
 
-.flex-btn:hover {
-    background: #F19494;
-}
-
 .card {
     background-color: #fff;
     border: solid 0.1rem #000000;
