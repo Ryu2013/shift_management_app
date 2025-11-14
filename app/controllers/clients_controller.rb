@@ -3,8 +3,15 @@ class ClientsController < ApplicationController
   before_action :set_client, only: %i[index edit update destroy]
 
   def index
-    @clients = @office.clients.all.order(:name).group_by(&:team_id)
-    @teams = @office.teams.all.order(:id)
+    if params[:selected_team_id].present?
+      requested_team = @office.teams.find_by(id: params[:selected_team_id])
+      if requested_team && requested_team.id != @team&.id
+        redirect_to team_clients_path(requested_team) and return
+      end
+    end
+
+    @clients = @team.clients.all.order(:name)
+    @teams = @office.teams.joins(:clients).distinct.order(:id)
   end
 
   def new

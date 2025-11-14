@@ -7,31 +7,41 @@
  <%= image_tag "back-btn.png", alt: t(".shifts"), class: "back-image" %>
 <% end %>
 
-<h1>利用者</h1>
+<h1><%= @team.name %></h1>
+
+<%= form_with url: team_clients_path(@team), method: :get, local: true do |f| %>
+  <div class="flexbox" style="margin: 20px;"> 
+
+    <%= f.collection_select :selected_team_id,
+                            @teams,
+                            :id,
+                            :name,
+                            { prompt: "部署を変更"  },
+                            { onchange: "this.form.requestSubmit();" } %>
+
+  </div>
+<% end %>
+
 <div class="flexbox">
   <%= link_to t(".new"), new_team_client_path(@team), class: "flex-btn" %>
 
   <div class="toggle-switch">
-    <%= link_to team_users_path(@team), class: "toggle-selected #{'active' if current_page?(team_users_path(@team))}" do %>
+    <%= link_to team_users_path(@team), class: "toggle-selected" do %>
       従業員
     <% end %>
 
-    <%= link_to team_clients_path(@team), class: "toggle-selected #{'active' if current_page?(team_clients_path(@team))}" do %>
+    <%= link_to team_clients_path(@team), class: "toggle-selected active" do %>
       利用者
     <% end %>
   </div>
 </div>
 
 <div id="clients">
-  <% @teams.each do |team| %>
-
-    <h3><%= team.name %></h3>
-    <% Array(@clients[team.id]).each do |client| %>
-        <%= link_to edit_team_client_path(team, client) do %>
-          <div class="card">
-          <%= render client %>
-          </div>
-        <% end %>
-    <% end %>
+  <% @clients.each do |client| %>
+      <%= link_to edit_team_client_path(@team, client) do %>
+        <div class="card">
+        <%= render client %>
+        </div>
+      <% end %>
   <% end %>
 </div>
