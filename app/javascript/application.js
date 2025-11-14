@@ -5,11 +5,12 @@ document.addEventListener("turbo:load", () => {
   const fake = document.getElementById("fake-month");
   const real = document.getElementById("real-month");
   const modal = document.getElementById("modal");
-  const fakeClient = document.getElementById("open-modal");
+  const openModal = document.getElementById("open-modal");
   const closeModal = document.getElementById("close-modal");
 
-  if (fakeClient && closeModal && modal) {
-    fakeClient.onclick = () => {
+  // user_client用簡易モーダル表示処理
+  if (openModal && closeModal && modal) {
+    openModal.onclick = () => {
       modal.classList.toggle("open");
     }
 
@@ -18,6 +19,7 @@ document.addEventListener("turbo:load", () => {
     };
   }
 
+  // シフト一覧ページの月選択カスタマイズ処理
   if (fake && real) {
   fake.onclick = () => real.showPicker();
 
@@ -67,6 +69,7 @@ if (fakeDate && realDate) {
   realDate.onchange = () => {
     const [y, m, d] = realDate.value.split("-");
     fakeDate.textContent = `${y}年${m}月${d}日`;
+    realDate.form.requestSubmit();
   };
 }
 });
