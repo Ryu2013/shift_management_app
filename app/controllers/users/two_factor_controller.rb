@@ -22,6 +22,8 @@ class Users::TwoFactorController < ApplicationController
         Rails.logger.info "current_user.name: #{current_user.name}"
       redirect_to root_path
     else
+      @team = @office.teams.joins(:clients).distinct.order(:id).first
+      @client = @team.clients.order(:id).first
       flash.now[:alert] = t("users.two_factor.invalid_code")
       ensure_secret_key!
       render :setup, status: :unprocessable_entity, formats: [:html]
