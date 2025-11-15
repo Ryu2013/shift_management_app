@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   devise :invitable, :database_authenticatable, :registerable,
-         :validatable, :confirmable, :lockable
+         :validatable, :confirmable, :lockable, :two_factor_authenticatable,
+    otp_secret_encryption_key: Rails.application.credentials.otp_secret_key
 
   belongs_to :office
   belongs_to :team

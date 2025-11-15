@@ -1,0 +1,6 @@
+<h3>2段階認証コードを入力</h3>
+
+<%= form_with url: users_verify_otp_path do |f| %>
+  <%= f.number_field :otp_attempt %>
+  <%= f.submit "送信" %>
+<% end %>
