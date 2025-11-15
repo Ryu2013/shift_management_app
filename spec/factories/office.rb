@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :office do
-    name { "テストオフィス" }
+    sequence(:name) { |n| "テストオフィス#{n}" }
   end
 end
