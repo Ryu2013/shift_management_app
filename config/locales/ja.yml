@@ -189,6 +189,8 @@ ja:
       user:
         signed_out: "ログアウトしました。"
         signed_in: "ログインしました。"
+        invalid: "メールアドレスまたはパスワードが正しくありません。"
+      invalid: "メールアドレスまたはパスワードが正しくありません。"
     passwords:
       new:
         heading: "パスワード再設定"
@@ -558,6 +560,9 @@ ja:
       new: "従業員を追加"
       shifts: "シフト一覧"
       clients: "利用者一覧"
+    two_factor:
+      invalid_code: "認証コードが正しくありません。再度お試しください。"
+      persistence_failed: "二段階認証の設定保存に失敗しました。時間をおいて再度お試しください。"
     user:
       name: "氏名"
       address: "住所"

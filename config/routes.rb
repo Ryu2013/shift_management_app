@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  root "home#index"
+
   resources :teams do
     resources :users, only: %i[ index edit update destroy]
     resources :clients, only: %i[index new create edit update destroy] do
@@ -16,13 +18,17 @@ Rails.application.routes.draw do
   end
 
   resources :user_needs
-  resources :user_clients
-
-  root "home#index"
 
   resources :offices, only: %i[new create show edit update destroy]
-  devise_for :users, controllers: { registrations: "users/registrations", invitations: "users/invitations" }
+  devise_for :users, controllers: { registrations: "users/registrations", invitations: "users/invitations", sessions: "users/sessions" }
+  # 二段階認証用ルート
+  devise_scope :user do
+    get  "users/two_factor_setup", to: "users/two_factor#setup"
+    post "users/confirm_two_factor", to: "users/two_factor#confirm"
 
+    get  "users/two_factor", to: "users/two_factor#two_factor"
+    post "users/verify_otp", to: "users/two_factor#verify_otp"
+  end
 
   if Rails.env.development?
   mount LetterOpenerWeb::Engine, at: "/letter_opener"
