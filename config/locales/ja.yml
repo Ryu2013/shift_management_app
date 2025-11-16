@@ -186,9 +186,11 @@ ja:
         password: "パスワード"
         remember_me: "ログイン状態を保持する"
         submit: "ログイン"
+      already_signed_out: "ログアウトしました。"
       user:
         signed_out: "ログアウトしました。"
         signed_in: "ログインしました。"
+        already_signed_out: "ログアウトしました。"
         invalid: "メールアドレスまたはパスワードが正しくありません。"
       invalid: "メールアドレスまたはパスワードが正しくありません。"
     passwords:
