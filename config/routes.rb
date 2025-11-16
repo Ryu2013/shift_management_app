@@ -20,14 +20,11 @@ Rails.application.routes.draw do
   resources :user_needs
 
   resources :offices, only: %i[new create show edit update destroy]
-  devise_for :users, controllers: { registrations: "users/registrations", invitations: "users/invitations", sessions: "users/sessions" }
+  devise_for :users, controllers: { registrations: "users/registrations", invitations: "users/invitations"}
   # 二段階認証用ルート
   devise_scope :user do
     get  "users/two_factor_setup", to: "users/two_factor#setup"
     post "users/confirm_two_factor", to: "users/two_factor#confirm"
-
-    get  "users/two_factor", to: "users/two_factor#two_factor"
-    post "users/verify_otp", to: "users/two_factor#verify_otp"
   end
 
   if Rails.env.development?
