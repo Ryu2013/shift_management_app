@@ -29,23 +29,6 @@ class Users::TwoFactorController < ApplicationController
     end
   end
 
-  # 二段階認証コード入力画面表示
-  def two_factor
-    @user = User.find(session[:otp_user_id])
-  end
-
-  # 二段階認証コード検証処理
-  def verify_otp
-  user = User.find(session[:otp_user_id])
-
-    if user.validate_and_consume_otp!(params[:otp_attempt])
-        session.delete(:otp_user_id)
-        sign_in_and_redirect user
-    else
-        render :two_factor
-    end
-  end
-
   private
 
   def ensure_secret_key!

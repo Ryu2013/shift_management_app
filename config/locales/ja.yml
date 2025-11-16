@@ -19,12 +19,16 @@ ja:
       record_invalid: "%{errors}"
       blank: "を入力してください。"
       taken: "はすでに存在します。"
+      confirmation: "と一致しません。"
       already_confirmed: "このメールアドレスは既に確認済みです。"
       too_short: "は%{count}文字以上で入力してください。"
       not_saved:
         one: "%{resource}は保存できませんでした（1件のエラーがあります）。"
         other: "%{resource}は保存できませんでした（%{count}件のエラーがあります）。"
   activerecord:
+    errors:
+      messages:
+        confirmation: "と一致しません。"
     models:
       office: 会社名
       team: 部署
