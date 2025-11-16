@@ -11,7 +11,5 @@ class User < ApplicationRecord
   has_many :shifts, dependent: :nullify
   has_many :user_needs, dependent: :destroy
   validates :name, presence: true
-  validates :account_status, presence: true
-  enum :account_status, { active: 0, inactive: 1 }
   enum :role, { employee: 0, admin: 1 }
 end
