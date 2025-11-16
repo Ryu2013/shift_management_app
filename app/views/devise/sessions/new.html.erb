@@ -11,6 +11,13 @@
     <%= f.password_field :password, autocomplete: "current-password" %>
   </div>
 
+  <div class="field">
+    <%= f.label :otp_attempt, "認証コード（2段階認証を有効にしている人だけ）" %><br />
+    <%= f.text_field :otp_attempt,
+          autocomplete: "one-time-code",
+          inputmode: "numeric" %>
+  </div>
+
   <div class="flexbox">
     <%= f.submit t(".submit") %>
   </div>

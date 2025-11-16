@@ -9,6 +9,10 @@
 # ここを使って Devise のメール送信者、warden フックなどを設定します。
 # 多くの設定オプションはモデルで直接設定可能です。
 Devise.setup do |config|
+  config.warden do |manager|
+    manager.default_strategies(:scope => :user).unshift :two_factor_authenticatable
+  end
+
   # Devise が使用する秘密キーです。Devise はこのキーを使って
   # ランダムなトークンを生成します。このキーを変更すると、
   # データベース内の既存の確認トークン、パスワードリセットトークン、
@@ -286,10 +290,6 @@ Devise.setup do |config|
   # サポートされていない戦略を使いたい場合や failure app を変更したい場合は
   # config.warden ブロック内で設定できます。
   #
-  # config.warden do |manager|
-  #   manager.intercept_401 = false
-  #   manager.default_strategies(scope: :user).unshift :some_external_strategy
-  # end
 
   # ==> マウント可能エンジンの設定
   # Devise をエンジン内で使用する場合（例：MyEngine）でそのエンジンがマウント可能な場合、
