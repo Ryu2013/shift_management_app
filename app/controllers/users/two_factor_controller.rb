@@ -25,7 +25,7 @@ class Users::TwoFactorController < ApplicationController
       @client = @team.clients.order(:id).first
       flash.now[:alert] = t("users.two_factor.invalid_code")
       ensure_secret_key!
-      render :setup, status: :unprocessable_entity, formats: [:html]
+      render :setup, status: :unprocessable_entity, formats: [ :html ]
     end
   end
 
@@ -41,5 +41,4 @@ class Users::TwoFactorController < ApplicationController
     # rqrcodeGEMでQRコードをSVG形式で生成。スタンドアローンで親タグ付き。
     @qr_svg = RQRCode::QRCode.new(otp_uri).as_svg(module_size: 3, standalone: true)
   end
-
 end

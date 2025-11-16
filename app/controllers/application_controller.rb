@@ -28,7 +28,7 @@ class ApplicationController < ActionController::Base
 
   # ログイン時に二段階認証コードを許可
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_in, keys: [:otp_attempt])
+    devise_parameter_sanitizer.permit(:sign_in, keys: [ :otp_attempt ])
   end
 
   private

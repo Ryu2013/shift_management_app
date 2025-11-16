@@ -27,5 +27,4 @@ class WorkStatusesController < ApplicationController
 
     @teams = @office.teams.joins(:clients).distinct.order(:id)
   end
-  
 end

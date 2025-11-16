@@ -14,4 +14,3 @@ FactoryBot.define do
     note { nil }
   end
 end
-

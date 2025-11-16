@@ -10,7 +10,7 @@
 # 多くの設定オプションはモデルで直接設定可能です。
 Devise.setup do |config|
   config.warden do |manager|
-    manager.default_strategies(:scope => :user).unshift :two_factor_authenticatable
+    manager.default_strategies(scope: :user).unshift :two_factor_authenticatable
   end
 
   # Devise が使用する秘密キーです。Devise はこのキーを使って
@@ -219,7 +219,7 @@ Devise.setup do |config|
   config.lock_strategy = :failed_attempts
 
   # ロックおよびアンロック時に使用するキーを定義します
-  config.unlock_keys = [:email]
+  config.unlock_keys = [ :email ]
 
   # アカウントをアンロックするための戦略を定義します。
   # :email = ユーザーにアンロックリンクをメールで送信
@@ -240,7 +240,7 @@ Devise.setup do |config|
   # ==> :recoverable の設定
   #
   # パスワード回復時に使用するキーを定義します
-  config.reset_password_keys = [:email]
+  config.reset_password_keys = [ :email ]
 
   # リセットパスワードキーでパスワードをリセットできる時間間隔。
   # ユーザーがパスワードを変更する時間が短すぎないように注意してください。

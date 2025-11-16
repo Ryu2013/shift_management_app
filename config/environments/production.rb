@@ -101,11 +101,10 @@ Rails.application.configure do
     enable_starttls_auto: true
   }
   config.action_mailer.default_url_options = { host: "shift-management-app-f04c8ce17ef9.herokuapp.com", protocol: "https" }
-  
+
   # Action Cable の接続先と許可元（Heroku のアプリ名に合わせる）
   config.action_cable.url = "wss://shift-management-app-f04c8ce17ef9.herokuapp.com/cable"
   config.action_cable.allowed_request_origins = [
     "https://shift-management-app-f04c8ce17ef9.herokuapp.com"
   ]
-  
 end
