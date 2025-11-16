@@ -19,7 +19,6 @@ class Users::TwoFactorController < ApplicationController
             otp_required_for_login: true,
             otp_secret: session.delete(:pending_otp_secret)
         )
-        Rails.logger.info "current_user.name: #{current_user.name}"
       redirect_to root_path
     else
       @team = @office.teams.joins(:clients).distinct.order(:id).first

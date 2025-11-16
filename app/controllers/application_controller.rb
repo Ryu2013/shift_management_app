@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!, unless: :devise_controller?
   before_action :office_authenticate, unless: :devise_controller?
   before_action :user_authenticate, unless: :devise_controller?
+  before_action :configure_permitted_parameters, if: :devise_controller?
 
   # deviseのログイン後のリダイレクト先を指定
   def after_sign_in_path_for(resource)
@@ -21,6 +22,13 @@ class ApplicationController < ActionController::Base
     else
       employee_shifts_path
     end
+  end
+
+  protected
+
+  # ログイン時に二段階認証コードを許可
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit(:sign_in, keys: [:otp_attempt])
   end
 
   private
