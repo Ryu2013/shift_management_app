@@ -1,7 +1,7 @@
 class ClientNeed < ApplicationRecord
   belongs_to :office
   belongs_to :client
-  before_validation :set_office_id
+  before_validation :set_office_id, if: -> { client.present? }
 
   validates :shift_type, :week, :start_time, :end_time, :slots, presence: true
 

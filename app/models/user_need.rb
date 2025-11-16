@@ -1,7 +1,7 @@
 class UserNeed < ApplicationRecord
   belongs_to :office
   belongs_to :user
-  before_validation :set_office_id
+  before_validation :set_office_id, if: -> { user.present? }
 
   validates :week, :start_time, :end_time, presence: true
   enum week: { sunday: 0, monday: 1, tuesday: 2, wednesday: 3, thursday: 4, friday: 5, saturday: 6 }

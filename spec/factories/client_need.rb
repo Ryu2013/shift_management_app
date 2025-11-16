@@ -1,6 +1,9 @@
 FactoryBot.define do
   factory :client_need do
-    association :client
+    after(:build) do |client_need|
+      client_need.office ||= build(:office)
+      client_need.client ||= build(:client, office: client_need.office)
+    end
 
     week { :monday }
     shift_type { :day }
