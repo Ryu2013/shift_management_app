@@ -67,4 +67,26 @@ RSpec.describe UserClient, type: :model do
       end
     end
   end
+
+  describe 'コールバック（office_id 自動補完）' do
+    it 'office が未設定のとき、client.office で埋まること（client優先）' do
+      office_a = create(:office)
+      office_b = create(:office)
+      client = create(:client, office: office_a)
+      user   = create(:user, office: office_b)
+      uc = UserClient.new(user: user, client: client, office: nil)
+      expect(uc.office_id).to be_nil
+      uc.valid? # before_validation で補完
+      expect(uc.office_id).to eq(client.office_id)
+    end
+
+    it 'office が未設定で client が無いとき、user.office で埋まること（フォールバック）' do
+      user = create(:user)
+      uc = UserClient.new(user: user, client: nil, office: nil)
+      expect(uc.office_id).to be_nil
+      uc.valid?
+      expect(uc.office_id).to eq(user.office_id)
+      expect(uc.errors[:client]).to include('必須です') # client は必須のまま
+    end
+  end
 end

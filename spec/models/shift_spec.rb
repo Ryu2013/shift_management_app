@@ -80,4 +80,31 @@ RSpec.describe Shift, type: :model do
       end
     end
   end
+
+  describe 'スコープ' do
+    it 'scope_month は指定月のみ返すこと' do
+      month = Date.new(2025, 11, 1)
+      in_month   = create(:shift, date: month + 10.days)
+      prev_month = create(:shift, date: month - 1.day)
+      next_month = create(:shift, date: month.next_month)
+
+      result = Shift.scope_month(month)
+      expect(result).to include(in_month)
+      expect(result).not_to include(prev_month)
+      expect(result).not_to include(next_month)
+    end
+  end
+
+  describe 'enum' do
+    it 'work_status の既定値は not_work であること' do
+      shift = build(:shift)
+      expect(shift.work_status).to eq('not_work')
+    end
+
+    it 'work_status を :work に変更できること' do
+      shift = build(:shift)
+      shift.work_status = :work
+      expect(shift.work_status).to eq('work')
+    end
+  end
 end

@@ -60,4 +60,32 @@ RSpec.describe UserNeed, type: :model do
       end
     end
   end
+
+  describe 'enum' do
+    it 'week は定義済みの曜日を受理すること' do
+      un = build(:user_need, week: :monday)
+      expect(un.week).to eq('monday')
+    end
+
+    it '未定義の week は拒否すること' do
+      un = build(:user_need)
+      expect { un.week = :funday }.to raise_error(ArgumentError)
+    end
+  end
+
+  describe 'コールバック（office_id 自動補完）' do
+    it 'office が未設定のとき、user.office で埋まること' do
+      user = create(:user)
+      un = UserNeed.new(
+        user: user,
+        office: nil,
+        week: :monday,
+        start_time: '09:00',
+        end_time: '17:00'
+      )
+      expect(un.office_id).to be_nil
+      un.valid? # before_validation で補完
+      expect(un.office_id).to eq(user.office_id)
+    end
+  end
 end

@@ -3,19 +3,53 @@
     {
       "warning_type": "Dynamic Render Path",
       "warning_code": 15,
-      "fingerprint": "1528de5db7c4113eef7a1ce32c50a2851cf1f5c93721a9f20d224334619731f2",
+      "fingerprint": "7279d0394407f93106787626f3cda36994ffa40790c74e45732398450e40c7f5",
+      "check_name": "Render",
+      "message": "Render path contains parameter value",
+      "file": "app/views/users/edit.html.erb",
+      "line": 34,
+      "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
+      "code": "render(action => (@office.users.find(params[:id]).user_needs.order(:week, :start_time).group_by(&:week)[week] or []), {})",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "UsersController",
+          "method": "edit",
+          "line": 22,
+          "file": "app/controllers/users_controller.rb",
+          "rendered": {
+            "name": "users/edit",
+            "file": "app/views/users/edit.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "users/edit"
+      },
+      "user_input": "params[:id]",
+      "confidence": "Weak",
+      "cwe_id": [
+        22
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "Dynamic Render Path",
+      "warning_code": 15,
+      "fingerprint": "7a6b4d941a4ac90bf3dc53be3c0f30f75ac671ce5477f0ad85f4ee9be718715b",
       "check_name": "Render",
       "message": "Render path contains parameter value",
       "file": "app/views/clients/edit.html.erb",
       "line": 36,
       "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
-      "code": "render(action => (((@office.teams.find_by(:id => ((params[:team_id] or params[:id]))) or @office.teams.order(:id).first).clients.find_by(:id => ((params[:client_id] or params[:id]))) or (@office.teams.find_by(:id => ((params[:team_id] or params[:id]))) or @office.teams.order(:id).first).clients.order(:id).first).client_needs.order(:week, :shift_type, :start_time).group_by(&:week)[week] or []), {})",
+      "code": "render(action => ((((@office.teams.find_by(:id => ((params[:team_id] or params[:id]))) or @office.teams.order(:id).first).clients.find_by(:id => ((params[:client_id] or params[:id]))) or (@office.teams.find_by(:id => ((params[:team_id] or params[:id]))) or @office.teams.order(:id).first).clients.order(:id).first) or (@office.teams.joins(:clients).distinct.order(:id).first.clients.find_by(:id => ((params[:client_id] or params[:id]))) or @office.teams.joins(:clients).distinct.order(:id).first.clients.order(:id).first)).client_needs.order(:week, :shift_type, :start_time).group_by(&:week)[week] or []), {})",
       "render_path": [
         {
           "type": "controller",
           "class": "ClientsController",
           "method": "edit",
-          "line": 19,
+          "line": 27,
           "file": "app/controllers/clients_controller.rb",
           "rendered": {
             "name": "clients/edit",
@@ -37,53 +71,19 @@
     {
       "warning_type": "Dynamic Render Path",
       "warning_code": 15,
-      "fingerprint": "265bff740295c569a34b5bc127cddccb1c2ba1ea340de9ed79ad5c0d58db8293",
-      "check_name": "Render",
-      "message": "Render path contains parameter value",
-      "file": "app/views/client_needs/show.html.erb",
-      "line": 1,
-      "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
-      "code": "render(action => ((@office.teams.find_by(:id => ((params[:team_id] or params[:id]))) or @office.teams.order(:id).first).clients.find_by(:id => ((params[:client_id] or params[:id]))) or (@office.teams.find_by(:id => ((params[:team_id] or params[:id]))) or @office.teams.order(:id).first).clients.order(:id).first).client_needs.find(params[:id]), { :locals => ({ :brakemanunresolvedmodel => ((@office.teams.find_by(:id => ((params[:team_id] or params[:id]))) or @office.teams.order(:id).first).clients.find_by(:id => ((params[:client_id] or params[:id]))) or (@office.teams.find_by(:id => ((params[:team_id] or params[:id]))) or @office.teams.order(:id).first).clients.order(:id).first).client_needs.find(params[:id]) }) })",
-      "render_path": [
-        {
-          "type": "controller",
-          "class": "ClientNeedsController",
-          "method": "show",
-          "line": 12,
-          "file": "app/controllers/client_needs_controller.rb",
-          "rendered": {
-            "name": "client_needs/show",
-            "file": "app/views/client_needs/show.html.erb"
-          }
-        }
-      ],
-      "location": {
-        "type": "template",
-        "template": "client_needs/show"
-      },
-      "user_input": "params[:id]",
-      "confidence": "Weak",
-      "cwe_id": [
-        22
-      ],
-      "note": ""
-    },
-    {
-      "warning_type": "Dynamic Render Path",
-      "warning_code": 15,
-      "fingerprint": "936f8505fe91edaf765080f0939cec90ce6a1af86465b140f56d4932368d07c1",
+      "fingerprint": "fb7124ae96ebf74312d45e45d714bc93e21c421165a796eb385a0768dbc8798c",
       "check_name": "Render",
       "message": "Render path contains parameter value",
       "file": "app/views/shifts/index.html.erb",
-      "line": 75,
+      "line": 78,
       "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
-      "code": "render(action => (((@office.teams.find_by(:id => ((params[:team_id] or params[:id]))) or @office.teams.order(:id).first).clients.find_by(:id => ((params[:client_id] or params[:id]))) or (@office.teams.find_by(:id => ((params[:team_id] or params[:id]))) or @office.teams.order(:id).first).clients.order(:id).first).shifts.scope_month((Date.strptime(params[:date], \"%Y-%m\") or Date.current)).group_by do\n shift.date\n end[date] or []), {})",
+      "code": "render(action => ((((@office.teams.find_by(:id => ((params[:team_id] or params[:id]))) or @office.teams.order(:id).first).clients.find_by(:id => ((params[:client_id] or params[:id]))) or (@office.teams.find_by(:id => ((params[:team_id] or params[:id]))) or @office.teams.order(:id).first).clients.order(:id).first) or (@office.teams.joins(:clients).distinct.order(:id).first.clients.find_by(:id => ((params[:client_id] or params[:id]))) or @office.teams.joins(:clients).distinct.order(:id).first.clients.order(:id).first)).shifts.scope_month((Date.strptime(params[:date], \"%Y-%m\") or Date.current)).group_by do\n shift.date\n end[date] or []), {})",
       "render_path": [
         {
           "type": "controller",
           "class": "ShiftsController",
           "method": "index",
-          "line": 17,
+          "line": 31,
           "file": "app/controllers/shifts_controller.rb",
           "rendered": {
             "name": "shifts/index",

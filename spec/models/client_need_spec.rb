@@ -71,4 +71,46 @@ RSpec.describe ClientNeed, type: :model do
       end
     end
   end
+
+  describe 'enum' do
+    it 'shift_type は day/night を受理すること' do
+      cn_day = build(:client_need, shift_type: :day)
+      cn_night = build(:client_need, shift_type: :night)
+      expect(cn_day.shift_type).to eq('day')
+      expect(cn_night.shift_type).to eq('night')
+    end
+
+    it 'week は定義済みの曜日を受理すること' do
+      cn = build(:client_need, week: :monday)
+      expect(cn.week).to eq('monday')
+    end
+
+    it '未定義の shift_type は拒否すること' do
+      cn = build(:client_need)
+      expect { cn.shift_type = :invalid }.to raise_error(ArgumentError)
+    end
+
+    it '未定義の week は拒否すること' do
+      cn = build(:client_need)
+      expect { cn.week = :funday }.to raise_error(ArgumentError)
+    end
+  end
+
+  describe 'コールバック（office_id 自動補完）' do
+    it 'office が未設定のとき、client.office で埋まること' do
+      client = create(:client)
+      cn = ClientNeed.new(
+        client: client,
+        office: nil,
+        week: :monday,
+        shift_type: :day,
+        start_time: '09:00',
+        end_time: '17:00',
+        slots: 1
+      )
+      expect(cn.office_id).to be_nil
+      cn.valid? # before_validation で補完
+      expect(cn.office_id).to eq(client.office_id)
+    end
+  end
 end

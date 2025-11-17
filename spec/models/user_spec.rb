@@ -73,4 +73,21 @@ RSpec.describe User, type: :model do
       end
     end
   end
+
+  describe '二段階認証(2FA) 最小確認' do
+    it 'otp_secret から current_otp を生成し、validate_and_consume_otp! が true を返すこと' do
+      user = create(:user)
+      user.otp_secret = User.generate_otp_secret
+      user.save!
+
+      code = user.current_otp
+      expect(code).to be_present
+
+      # 生成直後のコードは検証に通る
+      expect(user.validate_and_consume_otp!(code)).to be true
+
+      # 同じコードは消費済みとして再利用不可
+      expect(user.validate_and_consume_otp!(code)).to be false
+    end
+  end
 end

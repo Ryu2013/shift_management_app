@@ -54,4 +54,33 @@ RSpec.describe Client, type: :model do
       end
     end
   end
+
+  describe 'accepts_nested_attributes_for :user_clients' do
+    it 'create時に user_clients を同時作成できること' do
+      office = create(:office)
+      team   = create(:team, office: office)
+      user   = create(:user, office: office, team: team)
+
+      expect {
+        Client.create!(
+          office: office,
+          team: team,
+          name: '利用者A',
+          user_clients_attributes: [ { user_id: user.id } ]
+        )
+      }.to change(UserClient, :count).by(1)
+    end
+
+    it 'update時に _destroy: true で user_clients を削除できること' do
+      client = create(:client)
+      user   = create(:user, office: client.office, team: client.team)
+      uc     = create(:user_client, client: client, user: user, office: client.office)
+
+      expect {
+        client.update!(
+          user_clients_attributes: [ { id: uc.id, _destroy: true } ]
+        )
+      }.to change(UserClient, :count).by(-1)
+    end
+  end
 end
