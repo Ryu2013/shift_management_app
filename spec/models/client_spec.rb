@@ -25,5 +25,33 @@ RSpec.describe Client, type: :model do
       expect(client.errors[:team]).to include('必須です')
     end
   end
-end
 
+  describe '関連付け（dependent: :destroy）' do
+    let!(:client) { create(:client) }
+
+    context 'shifts' do
+      let!(:shift) { create(:shift, client: client, office: client.office) }
+
+      it 'client 削除時に shifts も削除されること' do
+        expect { client.destroy }.to change(Shift, :count).by(-1)
+      end
+    end
+
+    context 'client_needs' do
+      let!(:client_need) { create(:client_need, client: client, office: client.office) }
+
+      it 'client 削除時に client_needs も削除されること' do
+        expect { client.destroy }.to change(ClientNeed, :count).by(-1)
+      end
+    end
+
+    context 'user_clients' do
+      let!(:user) { create(:user, office: client.office, team: client.team) }
+      let!(:user_client) { create(:user_client, client: client, user: user, office: client.office) }
+
+      it 'client 削除時に user_clients も削除されること' do
+        expect { client.destroy }.to change(UserClient, :count).by(-1)
+      end
+    end
+  end
+end

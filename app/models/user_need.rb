@@ -6,9 +6,9 @@ class UserNeed < ApplicationRecord
   validates :week, :start_time, :end_time, presence: true
   enum week: { sunday: 0, monday: 1, tuesday: 2, wednesday: 3, thursday: 4, friday: 5, saturday: 6 }
 
-  after_create_commit  -> { broadcast_append_to  stream_key, target: "user_needs_#{week}" if stream_key}
-  after_update_commit  -> { broadcast_replace_to stream_key if stream_key}
-  after_destroy_commit -> { broadcast_remove_to  stream_key if stream_key}
+  after_create_commit  -> { broadcast_append_to  stream_key, target: "user_needs_#{week}" if stream_key }
+  after_update_commit  -> { broadcast_replace_to stream_key if stream_key }
+  after_destroy_commit -> { broadcast_remove_to  stream_key if stream_key }
 
   private
   def set_office_id

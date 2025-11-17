@@ -51,5 +51,24 @@ RSpec.describe ClientNeed, type: :model do
       expect(client_need.errors[:slots]).to include('を入力してください。')
     end
   end
-end
 
+  describe '関連付け（dependent）' do
+    context 'client（Client has_many :client_needs, dependent: :destroy）' do
+      let!(:client) { create(:client) }
+      let!(:client_need) { create(:client_need, client: client, office: client.office) }
+
+      it 'client 削除時に client_need も削除されること' do
+        expect { client.destroy }.to change(ClientNeed, :count).by(-1)
+      end
+    end
+
+    context 'office（Office has_many :client_needs, dependent: :destroy）' do
+      let!(:office) { create(:office) }
+      let!(:client_need) { create(:client_need, office: office) }
+
+      it 'office 削除時に client_need も削除されること' do
+        expect { office.destroy }.to change(ClientNeed, :count).by(-1)
+      end
+    end
+  end
+end

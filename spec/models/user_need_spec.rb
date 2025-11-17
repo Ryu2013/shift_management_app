@@ -39,5 +39,25 @@ RSpec.describe UserNeed, type: :model do
       expect(user_need.errors[:end_time]).to include('を入力してください。')
     end
   end
-end
 
+  describe '関連付け（dependent）' do
+    context 'user（User has_many :user_needs, dependent: :destroy）' do
+      let!(:user) { create(:user) }
+      let!(:user_need) { create(:user_need, user: user, office: user.office) }
+
+      it 'user 削除時に user_need も削除されること' do
+        expect { user.destroy }.to change(UserNeed, :count).by(-1)
+      end
+    end
+
+    context 'office（Office has_many :user_needs, dependent: :destroy）' do
+      let!(:office) { create(:office) }
+      let!(:user) { create(:user, office: office) }
+      let!(:user_need) { create(:user_need, user: user, office: office) }
+
+      it 'office 削除時に user_need も削除されること' do
+        expect { office.destroy }.to change(UserNeed, :count).by(-1)
+      end
+    end
+  end
+end

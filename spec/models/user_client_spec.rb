@@ -37,5 +37,34 @@ RSpec.describe UserClient, type: :model do
       expect(dup.errors[:user_id]).to include('はすでに存在します。')
     end
   end
-end
 
+  describe '関連付け（dependent）' do
+    context 'office（Office has_many :user_clients, dependent: :destroy）' do
+      let!(:office) { create(:office) }
+      let!(:user_client) { create(:user_client, office: office) }
+
+      it 'office 削除時に user_client も削除されること' do
+        expect { office.destroy }.to change(UserClient, :count).by(-1)
+      end
+    end
+
+    context 'user（User has_many :user_clients, dependent: :destroy）' do
+      let!(:user) { create(:user) }
+      let!(:user_client) { create(:user_client, user: user, office: user.office, client: create(:client, office: user.office, team: user.team)) }
+
+      it 'user 削除時に user_client も削除されること' do
+        expect { user.destroy }.to change(UserClient, :count).by(-1)
+      end
+    end
+
+    context 'client（Client has_many :user_clients, dependent: :destroy）' do
+      let!(:client) { create(:client) }
+      let!(:user) { create(:user, office: client.office, team: client.team) }
+      let!(:user_client) { create(:user_client, client: client, user: user, office: client.office) }
+
+      it 'client 削除時に user_client も削除されること' do
+        expect { client.destroy }.to change(UserClient, :count).by(-1)
+      end
+    end
+  end
+end

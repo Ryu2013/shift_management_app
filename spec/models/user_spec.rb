@@ -40,5 +40,37 @@ RSpec.describe User, type: :model do
       expect(user.errors[:team]).to include('チームは必須です')
     end
   end
-end
 
+  describe '関連付け（dependent）' do
+    let!(:user) { create(:user) }
+
+    context 'user_clients（dependent: :destroy）' do
+      let!(:user_client) { create(:user_client, user: user, office: user.office, client: create(:client, office: user.office, team: user.team)) }
+
+      it 'user 削除時に user_clients も削除されること' do
+        expect { user.destroy }.to change(UserClient, :count).by(-1)
+      end
+    end
+
+    context 'user_needs（dependent: :destroy）' do
+      let!(:user_need) { create(:user_need, user: user, office: user.office) }
+
+      it 'user 削除時に user_needs も削除されること' do
+        expect { user.destroy }.to change(UserNeed, :count).by(-1)
+      end
+    end
+
+    context 'shifts（dependent: :nullify）' do
+      let!(:client_for_shift) { create(:client, office: user.office, team: user.team) }
+      let!(:shift) { create(:shift, office: user.office, client: client_for_shift, user: user) }
+
+      it 'user 削除時に shifts の user_id がNULLになること（レコードは残る）' do
+        expect {
+          user.destroy
+          shift.reload
+        }.to change(Shift, :count).by(0)
+        expect(shift.user_id).to be_nil
+      end
+    end
+  end
+end

@@ -20,4 +20,24 @@ RSpec.describe Team, type: :model do
       expect(team.errors[:office]).to include('必須です')
     end
   end
+
+  describe '関連付け（dependent: :destroy）' do
+    let!(:team) { create(:team) }
+
+    context 'clients' do
+      let!(:client) { create(:client, team: team, office: team.office) }
+
+      it 'team 削除時に clients も削除されること' do
+        expect { team.destroy }.to change(Client, :count).by(-1)
+      end
+    end
+
+    context 'users' do
+      let!(:user) { create(:user, team: team, office: team.office) }
+
+      it 'team 削除時に users も削除されること' do
+        expect { team.destroy }.to change(User, :count).by(-1)
+      end
+    end
+  end
 end
