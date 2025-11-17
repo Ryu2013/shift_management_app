@@ -1,7 +1,5 @@
 class Employee::ShiftsController < ApplicationController
   skip_before_action :user_authenticate
-  before_action :set_team
-  before_action :set_client
 
   def index
     @date = params[:date].present? ? Date.strptime(params[:date], "%Y-%m") : Date.current

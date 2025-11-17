@@ -1,13 +1,14 @@
 class Users::TwoFactorController < ApplicationController
   before_action :authenticate_user!, only: %i[setup confirm]
   before_action :ensure_secret_key!, only: %i[setup confirm]
-  skip_before_action :office_authenticate, only: %i[two_factor verify_otp]
   skip_before_action :user_authenticate
 
   # 二段階認証の有効化画面表示
   def setup
+    if current_user.admin?
     @team = @office.teams.joins(:clients).distinct.order(:id).first
     @client = @team.clients.order(:id).first
+    end
   end
 
   # 二段階認証の有効化確認処理

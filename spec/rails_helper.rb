@@ -33,18 +33,9 @@ RSpec.configure do |config|
   # app_hostはseleniumコンテナから見たwebサーバーのURLを指定する。
   # 同一composeネットワーク内のサービス名で指定できる。
   config.before(:each, type: :system) do
-    if ENV['SELENIUM_DRIVER_URL'].present?
-      # ローカルではSeleniumを使う
-      driven_by :remote_chrome
-      Capybara.server_host = '0.0.0.0'
-      Capybara.server_port = 3001
-      Capybara.app_host = 'http://web:3001'
-    else
-      # github actions/ローカルとも、Seleniumサーバ無しでヘッドレスChromeを利用
       driven_by :selenium, using: :headless_chrome do |options|
         options.add_argument('--no-sandbox')
         options.add_argument('--disable-dev-shm-usage')
-      end
     end
     Capybara.ignore_hidden_elements = false
   end

@@ -317,4 +317,6 @@ Devise.setup do |config|
   # false に設定すると、パスワード変更後にユーザーを自動でサインインしません。
   # デフォルトは true で、パスワード変更後に自動サインインされます。
   # config.sign_in_after_change_password = true
+
+  config.otp_allowed_drift = 60 if Rails.env.test?
 end
