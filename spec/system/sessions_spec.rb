@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'uri'
 
 RSpec.describe "サインアップ処理", type: :system do
   describe '新規登録' do
@@ -22,15 +23,14 @@ RSpec.describe "サインアップ処理", type: :system do
       
       mail = ActionMailer::Base.deliveries.last
       raw_body = mail.body.decoded
-      confirmation_url = raw_body.scan(%r{https?://[^"]+}).first
-      confirmation_url&.gsub!(/\r?\n/, "")
-
-      visit confirmation_url
+      absolute = raw_body.scan(%r{https?://[^"]+}).first&.gsub(/\r?\n/, "")
+      path = URI.parse(absolute).request_uri
+      visit path
       expect(page).to have_text "メールアドレスの確認が完了しました。"
 
       fill_in "メールアドレス", with: "test@example.com"
       fill_in "パスワード", with: "password"
-      click_on "ログインする"
+      click_on "ログイン"
       expect(page).to have_text "ログインしました。"
       expect(page).to have_current_path new_team_client_path(team_id: Team.last.id)
       end
