@@ -313,7 +313,8 @@ Devise.setup do |config|
   config.responder.redirect_status = :see_other
 
   # ==> :registerable の設定
-
+  # pwned_password 拡張機能の設定
+  config.min_password_matches = 10
   # false に設定すると、パスワード変更後にユーザーを自動でサインインしません。
   # デフォルトは true で、パスワード変更後に自動サインインされます。
   # config.sign_in_after_change_password = true

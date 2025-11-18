@@ -23,7 +23,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # サインアップ後の画面推移先をオフィス作成後のユーザー登録画面に留まる
   def after_inactive_sign_up_path_for(resource)
-    new_user_registration_path
+    new_user_registration_path(request.query_parameters)
   end
 
   private

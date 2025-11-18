@@ -1,5 +1,8 @@
+<p>ケアシフトへようこそ！</p>
+
 <p><%= t(".greeting", email: @email) %></p>
 
 <p><%= t(".instruction") %></p>
 
 <p><%= link_to t(".action"), confirmation_url(@resource, confirmation_token: @token) %></p>
+<p>メールに心当たりがない場合はこのメールを破棄してください。上記リンクからパスワードを設定するまではアカウントは作成されません。</p>

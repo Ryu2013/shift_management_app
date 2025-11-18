@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   devise :invitable, :registerable,
          :validatable, :confirmable, :lockable, :two_factor_authenticatable
-
+  devise :pwned_password unless Rails.env.test?
   encrypts :otp_secret
 
   belongs_to :office
