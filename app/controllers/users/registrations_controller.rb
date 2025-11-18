@@ -6,6 +6,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
    before_action :office_authenticate, only: [ :edit, :update, :destroy ]
    before_action :set_team, only: [ :edit, :update ]
 
+  # Deviseのデフォルト処理に任せ、未確認時は after_inactive_sign_up_path_for でリダイレクトさせる
+
   protected
   def update_resource(resource, params)
   email_changed = params.key?(:email) && params[:email] != resource.email
@@ -19,6 +21,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
     end
   end
 
+  # サインアップ後の画面推移先をオフィス作成後のユーザー登録画面に留まる
+  def after_inactive_sign_up_path_for(resource)
+    new_user_registration_path(request.query_parameters)
+  end
 
   private
   # New,Create時に@officeをセット。session[:office_id]がなければリダイレクト

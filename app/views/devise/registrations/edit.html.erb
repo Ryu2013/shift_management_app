@@ -41,7 +41,7 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :password, t(".password") %> <i style="font-size: 0.8em;"><%= t(".password_hint") %></i>
+    <%= f.label :password, t(".password") %> 
     <em style="font-size: 0.8em;"><%= t(".password_length", count: @minimum_password_length) %></em>
   </div>
     <%= f.password_field :password, autocomplete: "new-password" %>
@@ -54,7 +54,7 @@
   </div>
 
   <div class="field">
-    <%= f.label :current_password, t(".current_password") %> <i style="font-size: 0.8em;"><%= t(".current_password_hint") %></i>
+    <%= f.label :current_password, t(".current_password") %> <i style="font-size: 0.8em;">パスワード、メールアドレスを変更する場合は入力してください</i>
     <%= f.password_field :current_password, autocomplete: "current-password" %>
   </div>
 

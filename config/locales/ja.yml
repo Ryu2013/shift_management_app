@@ -16,6 +16,8 @@ ja:
       default_title: "シフト管理システム"
   errors:
     messages:
+      not_locked: "はロックされていません。"
+      pwned_password: "ご登録のパスワードはPwnedPasswordに登録されています。パスワードを変更してください。どこかで同じパスワードを使用したことがある場合は、変更を強くお勧めいたします。"
       record_invalid: "%{errors}"
       blank: "を入力してください。"
       taken: "はすでに存在します。"
@@ -29,6 +31,7 @@ ja:
     errors:
       messages:
         confirmation: "と一致しません。"
+        not_locked: "はロックされていません。"
     models:
       office: 会社名
       team: 部署
@@ -197,6 +200,7 @@ ja:
         already_signed_out: "ログアウトしました。"
         invalid: "メールアドレスまたはパスワードが正しくありません。"
       invalid: "メールアドレスまたはパスワードが正しくありません。"
+      warn_pwned: "ご登録のパスワードはPwnedPasswordに登録されています。パスワードを変更してください。どこかで同じパスワードを使用したことがある場合は、変更を強くお勧めいたします。"
     passwords:
       new:
         heading: "パスワード再設定"

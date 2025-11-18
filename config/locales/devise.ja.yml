@@ -68,6 +68,7 @@ ja:
         greeting: "%{email} 様、ようこそ。"
         instruction: "以下のリンクからアカウントのメールアドレスを確認できます。"
         action: "アカウントを確認する"
+        subject: "アカウント確認の案内"
       password_change:
         greeting: "%{email} 様"
         message: "パスワードが変更されたことをお知らせします。"

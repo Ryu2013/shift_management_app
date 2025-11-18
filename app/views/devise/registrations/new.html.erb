@@ -33,7 +33,7 @@
   <div class="field">
     <%= f.label :password, t(".password") %>
     <% if @minimum_password_length %>
-    <em><%= t(".password_hint", count: @minimum_password_length) %></em>
+    <div style="text-align: center;"><%= t(".password_hint", count: @minimum_password_length) %></div>
     <% end %>
     <%= f.password_field :password, autocomplete: "new-password", required: true %>
   </div>
@@ -48,4 +48,4 @@
   </div>
 <% end %>
 
-<%= render "devise/shared/links" %>
+  <%= link_to "確認メールを再送する", new_confirmation_path(resource_name) %>

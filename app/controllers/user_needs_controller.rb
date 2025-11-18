@@ -6,7 +6,6 @@ class UserNeedsController < ApplicationController
   def index
     @user_needs = current_user.user_needs.order(:week, :start_time).group_by(&:week)
     @user_need = current_user.user_needs.build
-    @user = current_user
   end
 
   def show

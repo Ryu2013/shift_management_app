@@ -19,4 +19,10 @@ class Users::InvitationsController < Devise::InvitationsController
   def after_invite_path_for(inviter, invitee)
     team_users_path(@office.teams.order(:id).first)
   end
+
+  # 　招待メールのリンクからパスワードを設定した後のリダイレクト先をオーバーライド
+  def after_accept_path_for(resource)
+    session[:office_id] = resource.office_id
+    after_sign_in_path_for(resource)
+  end
 end

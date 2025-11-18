@@ -1,6 +1,6 @@
 <h2><%= t(".heading") %></h2>
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+<%= form_for(resource, as: resource_name, url: session_path(resource_name), data: { turbo: false }) do |f| %>
   <div class="field">
     <%= f.label :email, t(".email") %>
     <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
@@ -12,7 +12,7 @@
   </div>
 
   <div class="field">
-    <%= f.label :otp_attempt, "認証コード（2段階認証を有効にしている人だけ）" %><br />
+    <%= f.label :otp_attempt, "認証コード（2段階認証を有効にしている方のみ）" %>
     <%= f.text_field :otp_attempt,
           autocomplete: "one-time-code",
           inputmode: "numeric" %>

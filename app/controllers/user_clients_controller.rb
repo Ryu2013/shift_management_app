@@ -5,7 +5,7 @@ class UserClientsController < ApplicationController
 
   def new
     @user_client = @client.user_clients.build
-    @user_clients = @client&.user_clients
+    @user_clients = @client&.user_clients.includes(:user, client: :team)
     @users = @team.users
   end
 

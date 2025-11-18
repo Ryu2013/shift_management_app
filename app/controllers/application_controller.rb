@@ -10,7 +10,8 @@ class ApplicationController < ActionController::Base
   session[:office_id] = resource.office_id
   office = Office.find_by(id: session[:office_id])
   team = resource.team || office.teams.order(:id).first
-
+  # PwnedPasswordによるパスワード漏洩チェック+メッセージ
+  set_flash_message! :alert, :warn_pwned if resource.respond_to?(:pwned?) && resource.pwned?
     if resource.admin?
       case
       when !office.teams.joins(:clients).exists?
@@ -28,7 +29,7 @@ class ApplicationController < ActionController::Base
 
   # ログイン時に二段階認証コードを許可
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_in, keys: [:otp_attempt])
+    devise_parameter_sanitizer.permit(:sign_in, keys: [ :otp_attempt ])
   end
 
   private

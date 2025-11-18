@@ -5,14 +5,17 @@ class UserClient < ApplicationRecord
   before_validation :set_office_id
   validates :user_id, uniqueness: { scope: :client_id }
 
-  after_create_commit  -> { broadcast_append_to  stream_key }
-  after_update_commit  -> { broadcast_replace_to stream_key }
-  after_destroy_commit -> { broadcast_remove_to  stream_key }
+  after_create_commit  -> { broadcast_append_to  stream_key }, if: -> { stream_key.present? }
+  after_update_commit  -> { broadcast_replace_to stream_key }, if: -> { stream_key.present? }
+  after_destroy_commit -> { broadcast_remove_to  stream_key }, if: -> { stream_key.present? }
 
   private
     def set_office_id
     self.office_id ||= client&.office_id || user&.office_id
     end
 
-    def stream_key = [ client.team, :user_clients ]
+    def stream_key
+      return if client.nil? || client.team.nil?
+      [ client.team, :user_clients ]
+    end
 end

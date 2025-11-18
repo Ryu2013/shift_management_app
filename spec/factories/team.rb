@@ -4,4 +4,3 @@ FactoryBot.define do
     sequence(:name) { |n| "部署#{n}" }
   end
 end
-

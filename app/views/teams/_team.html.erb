@@ -5,7 +5,7 @@
                 <strong><%= t(".name") %></strong>
                         <%= team.name %>
                         <%= link_to "編集", edit_team_path(team) ,class: "flex-btn" ,style: "width: 3rem;" %>
-                        <% if @office.teams.count > 1 && !team.clients.exists? && !team.users.exists? %>
+                        <% if @teams.size > 1 && !team.clients.empty? && !team.users.empty? %>
                                 <%= button_to "削除",
                                 team_path(team),
                                 method: :delete,
