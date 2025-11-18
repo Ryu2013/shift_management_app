@@ -89,4 +89,3 @@ RSpec.describe Shifts::MonthlyGenerator, type: :model do
     end
   end
 end
-
