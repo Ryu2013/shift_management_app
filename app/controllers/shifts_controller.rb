@@ -2,22 +2,9 @@ class ShiftsController < ApplicationController
   before_action :set_shift, only: %i[ edit update destroy ]
   before_action :set_team
   before_action :set_client
+  before_action :check_selected, only: %i[ index ]
 
   def index
-    if params[:selected_team_id].present?
-      requested_team = @office.teams.find_by(id: params[:selected_team_id])
-      if requested_team && requested_team.id != @team&.id
-        redirect_to team_client_shifts_path(requested_team, @client, date: params[:date]) and return
-      end
-    end
-
-    if params[:selected_client_id].present?
-      requested_client = @team.clients.find_by(id: params[:selected_client_id])
-      if requested_client && requested_client.id != @client&.id
-        redirect_to team_client_shifts_path(@team, requested_client, date: params[:date]) and return
-      end
-    end
-
     @teams = @office.teams.joins(:clients).distinct.order(:id)
     @clients = @team.clients
     @date = params[:date].present? ? Date.strptime(params[:date], "%Y-%m") : Date.current
@@ -79,6 +66,18 @@ class ShiftsController < ApplicationController
 
 
   private
+
+  def check_selected
+    if params[:selected_team_id].present? && params[:selected_team_id].to_i != @team&.id
+    requested_team = @office.teams.find_by(id: params[:selected_team_id])
+    redirect_to team_client_shifts_path(requested_team, @client, date: params[:date]) and return
+    end
+
+    if params[:selected_client_id].present? && params[:selected_client_id].to_i != @client&.id
+      requested_client = @team.clients.find_by(id: params[:selected_client_id])
+      redirect_to team_client_shifts_path(@team, requested_client, date: params[:date]) and return
+    end
+  end
 
   def set_shift
     @shift = @office.shifts.find(params[:id])
