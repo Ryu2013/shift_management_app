@@ -64,7 +64,6 @@ RSpec.describe "サインイン処理", type: :system do
         fill_in 'user_password', with: password
         fill_in 'user_otp_attempt', with: otp
         click_button 'ログイン'
-
       end
 
       expect(page).to have_current_path(employee_shifts_path, ignore_query: true)

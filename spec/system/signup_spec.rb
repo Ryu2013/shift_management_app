@@ -20,7 +20,7 @@ RSpec.describe "サインアップ処理", type: :system do
       fill_in "パスワード（確認用）", with: "password"
       click_on "登録する"
       assert_text "ご登録のメールアドレス宛に確認メールを送信しました。メールをご確認ください。"
-      
+
       mail = ActionMailer::Base.deliveries.last
       raw_body = mail.body.decoded
       absolute = raw_body.scan(%r{https?://[^"]+}).first&.gsub(/\r?\n/, "")

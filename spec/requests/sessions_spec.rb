@@ -57,7 +57,7 @@ RSpec.describe "Sessions", type: :request do
         post user_session_path, params: { user: { email: user.email, password: 'wrongpassword' } }
 
         # 成否の実装差（200 or 422）を許容
-        expect([200, 422]).to include(response.status)
+        expect([ 200, 422 ]).to include(response.status)
 
         # 未ログインなので保護ページにリダイレクトされる
         get employee_shifts_path
@@ -72,7 +72,7 @@ RSpec.describe "Sessions", type: :request do
         post user_session_path, params: { user: { email: user.email, password: password } }
 
         # 実装により 200 再描画 or 302 でサインインに戻す可能性あり
-        expect([200, 302, 422]).to include(response.status)
+        expect([ 200, 302, 422 ]).to include(response.status)
 
         get employee_shifts_path
         expect(response).to redirect_to(new_user_session_path)
@@ -114,7 +114,7 @@ RSpec.describe "Sessions", type: :request do
 
         post user_session_path, params: { user: { email: user.email, password: password, otp_attempt: wrong_code } }
 
-        expect([200, 422]).to include(response.status)
+        expect([ 200, 422 ]).to include(response.status)
         get employee_shifts_path
         expect(response).to redirect_to(new_user_session_path)
       end
