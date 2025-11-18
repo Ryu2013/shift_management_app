@@ -3,6 +3,10 @@ ja:
     formats:
       default: "%H:%M"
   date:
+    formats:
+      default: "%Y-%m-%d"
+      short: "%m/%d"
+      long: "%Y年%m月%d日"
     abbr_day_names:
       - 日
       - 月
@@ -32,6 +36,18 @@ ja:
       messages:
         confirmation: "と一致しません。"
         not_locked: "はロックされていません。"
+      models:
+        shift:
+          attributes:
+            user_id:
+              already_assigned: "%{date}の%{user_name}さんは%{client_name}さんに配属されてます。"
+        user:
+          attributes:
+            email:
+              not_found: "メールアドレスが見つかりません。"
+              already_confirmed: "このメールアドレスは既に確認済みです。"
+            confirmation_token:
+              invalid: "確認トークンが無効です。再送したメールをご確認ください。"
     models:
       office: 会社名
       team: 部署
@@ -61,6 +77,8 @@ ja:
       shift:
         office_id: 会社名
         client_id: 利用者
+        user: 従業員
+        user_id: 従業員
         shift_type: シフト種別
         slots: 必要人数
         note: 備考
@@ -121,20 +139,7 @@ ja:
         password: パスワード
         password_confirmation: パスワード（確認用）
         current_password: 現在のパスワード
-    errors:
-      models:
-        user:
-          attributes:
-            email:
-              not_found: "メールアドレスが見つかりません。"
-    errors:
-      models:
-        user:
-          attributes:
-            email:
-              already_confirmed: "このメールアドレスは既に確認済みです。"
-            confirmation_token:
-              invalid: "確認トークンが無効です。再送したメールをご確認ください。"
+    
   devise:
     confirmations:
       confirmed: "メールアドレスの確認が完了しました。"
@@ -302,6 +307,8 @@ ja:
               blank: "を入力してください。"
             end_time:
               blank: "を入力してください。"
+            user_id:
+              already_assigned: "%{date}の%{user_name}さんは%{client_name}さんに配属されてます。"
   home:
     index:
       heading: "ホーム"

@@ -64,7 +64,9 @@ input[type="submit"] {
     height: 40px;
     box-shadow: 2px 3px rgba(2, 2, 2, 0.188);
 }
-
+li {
+  list-style: none;
+}
 .pc-logo{
   width: 110px;
 

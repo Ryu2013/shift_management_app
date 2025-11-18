@@ -1,7 +1,6 @@
 <%= form_with model: @user, url: team_user_path(@user.team, @user), method: :patch, local: true do |form| %>
   <% if @user.errors.any? %>
     <div style="color: red">
-      <h2><%= "#{@user.errors.count}件のエラーがあります。内容を確認してください。" %></h2>
       <ul>
         <% @user.errors.full_messages.each do |msg| %>
           <li><%= msg %></li>
@@ -66,4 +65,3 @@
     <%= form.submit "更新する" %>
   </div>
 <% end %>
-
