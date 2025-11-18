@@ -16,6 +16,6 @@ class UserClient < ApplicationRecord
 
     def stream_key
       return if client.nil? || client.team.nil?
-      [client.team, :user_clients]
+      [ client.team, :user_clients ]
     end
 end

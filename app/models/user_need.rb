@@ -17,6 +17,6 @@ class UserNeed < ApplicationRecord
 
   def stream_key
     return if user.nil?
-    [user, :user_needs]
+    [ user, :user_needs ]
   end
 end

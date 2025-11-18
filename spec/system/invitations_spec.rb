@@ -1,75 +1,63 @@
 require 'rails_helper'
+require 'uri'
 
-RSpec.describe "従業員招待フロー", type: :system do
-    before do
-        @admin = create(:user, :admin)
-        page.set_rack_session(office_id: @admin.office_id)
+RSpec.describe '招待フロー', type: :system do
+  include LoginMacros
 
-  describe 'ログイン処理' do
-    include ActiveSupport::Testing::TimeHelpers
-    let!(:user) { build(:user) }
-    let(:password) { 'password123' }
+  let(:password) { 'password123' }
 
-    it '2FA無効のadminでログインできる' do
-      user.role = :admin
-      user.otp_required_for_login = false
-      user.save!
-      visit new_user_session_path
-      fill_in 'user_email', with: user.email
-      fill_in 'user_password', with: password
-      click_button 'ログイン'
+  it 'adminが従業員を招待し、招待されたユーザーが受諾してパスワード設定・ログインできる' do
+    # 管理者でログイン
+    team  = create(:team)
+    # 招待送信後に UsersController#index に遷移するため、set_client が動作するよう
+    # 少なくとも1件のクライアントを事前に作成しておく
+    create(:client, office: team.office, team: team)
+    admin = create(:user, role: :admin, team: team, office: team.office,
+                     password: password, password_confirmation: password)
 
-      expect(page).to have_current_path(new_team_client_path(user.team), ignore_query: true)
-    end
+    # UI経由でログインして session[:office_id] を確実にセット
+    visit new_user_session_path
+    fill_in 'user_email', with: admin.email
+    fill_in 'user_password', with: password
+    click_button 'ログイン'
 
-    it '2FA無効のemployeeでログインできる' do
-      user.role = :employee
-      user.otp_required_for_login = false
-      user.save!
-      visit new_user_session_path
-      fill_in 'user_email', with: user.email
-      fill_in 'user_password', with: password
-      click_button 'ログイン'
+    # 招待画面へ
+    visit new_user_invitation_path
 
-      expect(page).to have_current_path(employee_shifts_path, ignore_query: true)
-    end
+    invite_name  = '招待 太郎'
+    invite_email = "invite_#{SecureRandom.hex(4)}@example.com"
 
-    it '2FA有効のadminでOTP入力してログインできる（1画面）' do
-      user.role = :admin
-      user.otp_required_for_login = true
-      freeze_time = Time.current
-      travel_to (freeze_time) do
-        user.otp_secret = User.generate_otp_secret
-        user.save!
-        otp = user.current_otp
+    # idベースで確実に入力
+    fill_in 'user_name', with: invite_name
+    fill_in 'user_email', with: invite_email
+    find('#user_team_id').find("option[value='#{team.id}']").select_option
+    fill_in 'user_address', with: '東京都港区'
+    select '0', from: 'user_pref_per_week'
+    fill_in 'user_commute', with: '電車'
 
-        visit new_user_session_path
-        fill_in 'user_email', with: user.email
+    click_button '招待を送信する'
+    expect(page).to have_text('招待メールを')
+
+    # 既存セッション(admin)を保持したまま、別ブラウザセッションで招待リンクを開く
+    # 送信されたメールから、招待先に送られたものを特定
+    mail = ActionMailer::Base.deliveries.reverse.find { |m| Array(m.to).include?(invite_email) } || ActionMailer::Base.deliveries.last
+    # マルチパート対応で本文を抽出
+    parts = [ mail&.html_part&.body&.decoded, mail&.text_part&.body&.decoded, mail&.body&.decoded ].compact
+    raw_body = parts.join("\n")
+    # メール本文からトークンを抽出してパスを組み立て
+    token = raw_body[/invitation_token=([^"'&\s]+)/, 1]
+    raise "Invitation token not found in email body" if token.nil?
+    path = accept_user_invitation_path(invitation_token: token)
+
+    # 別のブラウザからログイン
+    Capybara.using_session(:employee) do
+      visit path
+      if page.has_field?('user_password', wait: 5)
         fill_in 'user_password', with: password
-        fill_in 'user_otp_attempt', with: otp
-        click_button 'ログイン'
-
-        expect(page).to have_current_path(new_team_client_path(user.team), ignore_query: true)
+        fill_in 'user_password_confirmation', with: password
       end
-    end
-
-    it '2FA有効のemployeeでOTP入力してログインできる（1画面）' do
-      user.role = :employee
-      user.otp_required_for_login = true
-      freeze_time = Time.current
-      travel_to (freeze_time) do
-        user.otp_secret = User.generate_otp_secret
-        user.save!
-        client = create(:client, team: user.team)
-        otp = user.current_otp
-
-        visit new_user_session_path
-        fill_in 'user_email', with: user.email
-        fill_in 'user_password', with: password
-        fill_in 'user_otp_attempt', with: otp
-        click_button 'ログイン'
-      end
-
+      click_button 'パスワードを設定する'
+      # 招待受諾後は employee_shifts_path にリダイレクトされる
       expect(page).to have_current_path(employee_shifts_path, ignore_query: true)
     end
   end
