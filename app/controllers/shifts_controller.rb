@@ -12,7 +12,7 @@ class ShiftsController < ApplicationController
     @first_day = @date.beginning_of_month
     @last_day  = @date.end_of_month
 
-    @shifts = @client.shifts.scope_month(@date).group_by { |shift| shift.date }
+    @shifts = @client.shifts.scope_month(@date).includes(:user, client: :team).group_by { |shift| shift.date }
     @date_view = @date.strftime("%m月")
     @user_clients = @client.users
   end

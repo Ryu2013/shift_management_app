@@ -7,7 +7,7 @@ class Employee::ShiftsController < ApplicationController
     @first_day = @date.beginning_of_month
     @last_day  = @date.end_of_month
 
-    @shifts = current_user.shifts.scope_month(@date).group_by { |shift| shift.date }
+    @shifts = current_user.shifts.scope_month(@date).includes(:client).group_by { |shift| shift.date }
     @date_view = @date.strftime("%m月")
     @today_shift = current_user.shifts.find_by(date: @today)
   end
