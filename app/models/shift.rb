@@ -9,13 +9,16 @@ class Shift < ApplicationRecord
 
   scope :scope_month, ->(month) { where(date: month.beginning_of_month..month.end_of_month) }
 
-  after_create_commit  -> { broadcast_append_to stream_key, target: "shifts_#{date}" if stream_key }
+  after_create_commit  -> { broadcast_append_to stream_key, target: "shifts_#{date}" }, if: -> { stream_key.present? }
   after_update_commit  :broadcast_shift_update, if: -> { stream_key.present? }
-  after_destroy_commit -> { broadcast_remove_to stream_key if stream_key }
+  after_destroy_commit -> { broadcast_remove_to stream_key }, if: -> { stream_key.present? }
 
   private
 
-  def stream_key = [ client.team, :shifts ]
+  def stream_key
+    return if client.nil? || client.team.nil?
+    [client.team, :shifts]
+  end
 
   def broadcast_shift_update
     if saved_change_to_date?
