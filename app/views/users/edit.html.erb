@@ -37,7 +37,7 @@
     <% end %>
 
     <%= turbo_frame_tag "user_need" do %>
-        <%= link_to "出勤希望日", new_user_need_path, class: "flex-btn" %>
+        <%= link_to "出勤希望日", new_team_user_user_need_path(@team, @user), class: "flex-btn" %>
     <% end %>
 
 </div>
