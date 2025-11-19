@@ -2,6 +2,7 @@ require 'rails_helper'
 require 'uri'
 
 RSpec.describe '招待フロー', type: :system do
+  include ActiveJob::TestHelper
   include LoginMacros
 
   let(:password) { 'password123' }
@@ -39,7 +40,11 @@ RSpec.describe '招待フロー', type: :system do
 
     # 送信でメールが1通増えることを検証（フラッシュ文言依存を避ける）
     ActionMailer::Base.deliveries.clear
-    expect { click_button '招待を送信する' }.
+    expect {
+      perform_enqueued_jobs do
+        click_button '招待を送信する'
+      end
+    }.
       to change { ActionMailer::Base.deliveries.size }.
       by(1)
     # 遷移先の確認（Turbo/redirectの違いを吸収しつつ）
