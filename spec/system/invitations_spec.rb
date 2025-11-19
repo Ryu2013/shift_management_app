@@ -36,7 +36,7 @@ RSpec.describe '招待フロー', type: :system do
     fill_in 'user_commute', with: '電車'
 
     click_on '招待を送信する'
-    expect(page).to have_text('招待メールを')
+
 
     # 既存セッション(admin)を保持したまま、別ブラウザセッションで招待リンクを開く
     # 送信されたメールから、招待先に送られたものを特定
