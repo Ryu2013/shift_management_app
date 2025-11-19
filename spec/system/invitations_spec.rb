@@ -44,10 +44,10 @@ RSpec.describe '招待フロー', type: :system do
     # マルチパート対応で本文を抽出
     parts = [ mail&.html_part&.body&.decoded, mail&.text_part&.body&.decoded, mail&.body&.decoded ].compact
     raw_body = parts.join("\n")
-    # メール本文からトークンを抽出してパスを組み立て
-    token = raw_body[/invitation_token=([^"'&\s]+)/, 1]
-    raise "Invitation token not found in email body" if token.nil?
-    path = accept_user_invitation_path(invitation_token: token)
+    # メール本文からURLを抽出してパスを取得
+    absolute = raw_body.scan(%r{https?://[^"]+}).first&.gsub(/\r?\n/, "")
+    raise "Invitation URL not found in email body" if absolute.nil?
+    path = URI.parse(absolute).request_uri
 
     # 別のブラウザからログイン
     Capybara.using_session(:employee) do
