@@ -37,8 +37,13 @@ RSpec.describe '招待フロー', type: :system do
     select '0', from: 'user_pref_per_week'
     fill_in 'user_commute', with: '電車'
 
-    click_button '招待を送信する'
-    expect(page).to have_text('招待メールを')
+    # 送信でメールが1通増えることを検証（フラッシュ文言依存を避ける）
+    ActionMailer::Base.deliveries.clear
+    expect { click_button '招待を送信する' }.
+      to change { ActionMailer::Base.deliveries.size }.
+      by(1)
+    # 遷移先の確認（Turbo/redirectの違いを吸収しつつ）
+    expect(page).to have_current_path(team_users_path(team), ignore_query: true)
 
     # 既存セッション(admin)を保持したまま、別ブラウザセッションで招待リンクを開く
     # 送信されたメールから、招待先に送られたものを特定

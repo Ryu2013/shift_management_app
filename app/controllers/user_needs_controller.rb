@@ -42,7 +42,7 @@ class UserNeedsController < ApplicationController
     @user_need.destroy!
     respond_to do |format|
       format.turbo_stream
-      format.html { redirect_to user_needs_path, notice: "ユーザー希望を削除しました。", status: :see_other }
+      format.html { redirect_to edit_team_user_path(@team, @user), notice: "ユーザー希望を削除しました。", status: :see_other }
     end
   end
 
