@@ -5,7 +5,7 @@
 
       <ul>
         <% office.errors.each do |error| %>
-          <li><%= error.full_message %></li>
+          <%= error.message %>
         <% end %>
       </ul>
     </div>

@@ -3,7 +3,7 @@
     <div style="color: red">
       <ul>
         <% team.errors.each do |error| %>
-          <li><%= error.full_message %></li>
+          <%= error.message %>
         <% end %>
       </ul>
     </div>

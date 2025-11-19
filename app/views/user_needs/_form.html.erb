@@ -5,7 +5,7 @@
 
       <ul>
         <% user_need.errors.each do |error| %>
-          <li><%= error.full_message %></li>
+          <%= error.message %>
         <% end %>
       </ul>
     </div>
