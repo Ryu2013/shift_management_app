@@ -29,7 +29,7 @@ class ClientNeedsController < ApplicationController
     @client_need.destroy!
     respond_to do |format|
     format.turbo_stream
-    format.html { redirect_to edit_team_client_path(@team, @client), notice: "シフトを削除しました。", status: :see_other }
+    format.html { redirect_to :new, notice: "シフトを削除しました。", status: :see_other }
     end
   end
 
