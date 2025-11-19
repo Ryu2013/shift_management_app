@@ -12,7 +12,7 @@
   </div>
 
   <div class="field">
-    <%= f.label :otp_attempt, "認証コード（2段階認証を有効にしている方のみ）" %>
+    <%= f.label :otp_attempt, t(".otp_attempt_label") %>
     <%= f.text_field :otp_attempt,
           autocomplete: "one-time-code",
           inputmode: "numeric" %>

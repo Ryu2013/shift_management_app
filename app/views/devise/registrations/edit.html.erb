@@ -54,7 +54,7 @@
   </div>
 
   <div class="field">
-    <%= f.label :current_password, t(".current_password") %> <i style="font-size: 0.8em;">パスワード、メールアドレスを変更する場合は入力してください</i>
+    <%= f.label :current_password, t(".current_password") %> <i style="font-size: 0.8em;"><%= t(".current_password_note") %></i>
     <%= f.password_field :current_password, autocomplete: "current-password" %>
   </div>
 
@@ -62,4 +62,3 @@
     <%= f.submit t(".submit"), class: "flex-btn" %>
   </div>
 <% end %>
-
