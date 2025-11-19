@@ -27,6 +27,9 @@ RSpec.describe '招待フロー', type: :system do
     invite_name  = '招待 太郎'
     invite_email = "invite_#{SecureRandom.hex(4)}@example.com"
 
+    # 招待フォームが表示されるまで待機
+    expect(page).to have_field('user_name', wait: 10)
+    
     # idベースで確実に入力
     fill_in 'user_name', with: invite_name
     fill_in 'user_email', with: invite_email
@@ -36,7 +39,7 @@ RSpec.describe '招待フロー', type: :system do
     fill_in 'user_commute', with: '電車'
 
     click_button '招待を送信する'
-    expect(page).to have_text('招待メールを')
+    expect(page).to have_text('招待メールを', wait: 10)
 
     # 既存セッション(admin)を保持したまま、別ブラウザセッションで招待リンクを開く
     # 送信されたメールから、招待先に送られたものを特定
@@ -52,13 +55,15 @@ RSpec.describe '招待フロー', type: :system do
     # 別のブラウザからログイン
     Capybara.using_session(:employee) do
       visit path
-      if page.has_field?('user_password', wait: 5)
-        fill_in 'user_password', with: password
-        fill_in 'user_password_confirmation', with: password
-      end
+      # パスワード設定フォームが表示されるまで待機
+      expect(page).to have_button('パスワードを設定する', wait: 10)
+      # パスワードフィールドに入力
+      fill_in 'user_password', with: password
+      fill_in 'user_password_confirmation', with: password
+      # パスワードを設定するボタンをクリック
       click_button 'パスワードを設定する'
       # 招待受諾後は employee_shifts_path にリダイレクトされる
-      expect(page).to have_current_path(employee_shifts_path, ignore_query: true)
+      expect(page).to have_current_path(employee_shifts_path, ignore_query: true, wait: 10)
     end
   end
 end
