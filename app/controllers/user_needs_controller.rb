@@ -4,6 +4,10 @@ class UserNeedsController < ApplicationController
   before_action :set_user
   before_action :set_user_need, only: %i[update destroy]
 
+  def index
+     @user_needs = @user.user_needs.includes(user: :team).order(:week, :start_time).group_by(&:week)
+  end
+
   def new
     @user_need = @user.user_needs.build
   end

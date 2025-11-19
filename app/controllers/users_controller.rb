@@ -18,7 +18,6 @@ class UsersController < ApplicationController
 
   def edit
     @teams = @office.teams
-    @user_needs = @user.user_needs.includes(user: :team).order(:week, :start_time).group_by(&:week)
   end
 
   def update

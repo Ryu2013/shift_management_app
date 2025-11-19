@@ -1,10 +1,8 @@
 <%= form_with model: @user_need, url: team_user_user_needs_path(@team, @user) do |form| %>
-  <% if user_need.errors.any? %>
+  <% if @user_need.errors.any? %>
     <div style="color: red">
-      
-
       <ul>
-        <% user_need.errors.each do |error| %>
+        <% @user_need.errors.each do |error| %>
           <%= error.message %>
         <% end %>
       </ul>
