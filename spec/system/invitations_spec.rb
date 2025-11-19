@@ -27,16 +27,18 @@ RSpec.describe '招待フロー', type: :system do
     invite_name  = '招待 太郎'
     invite_email = "invite_#{SecureRandom.hex(4)}@example.com"
 
-    # idベースで確実に入力
+    # 入力（ヘッドレスChromeでも確実に選択できるようにselectを使用）
     fill_in 'user_name', with: invite_name
     fill_in 'user_email', with: invite_email
-    find('#user_team_id').find("option[value='#{team.id}']").select_option
+    select team.name, from: 'user_team_id', wait: 5
+    # 選択が反映されたことを確認
+    expect(page.find('#user_team_id').value).to eq(team.id.to_s)
     fill_in 'user_address', with: '東京都港区'
     select '0', from: 'user_pref_per_week'
     fill_in 'user_commute', with: '電車'
 
-    click_on '招待を送信する'
-
+    click_button '招待を送信する'
+    expect(page).to have_text('招待メールを')
 
     # 既存セッション(admin)を保持したまま、別ブラウザセッションで招待リンクを開く
     # 送信されたメールから、招待先に送られたものを特定
