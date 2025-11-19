@@ -1,25 +1,26 @@
 class UserNeedsController < ApplicationController
   before_action :set_team
   before_action :set_client
-  before_action :set_user_need, only: %i[show edit update destroy]
+  before_action :set_user
+  before_action :set_user_need, only: %i[index show edit update destroy]
 
   def index
-    @user_needs = current_user.user_needs.order(:week, :start_time).group_by(&:week)
-    @user_need = current_user.user_needs.build
+    @user_needs = @user.user_needs.order(:week, :start_time).group_by(&:week)
+    @user_need = @user.user_needs.build
   end
 
   def show
   end
 
   def new
-    @user_need = current_user.user_needs.build
+    @user_need = @user.user_needs.build
   end
 
   def edit
   end
 
   def create
-    @user_need = current_user.user_needs.build(user_need_params)
+    @user_need = @user.user_needs.build(user_need_params)
 
     if @user_need.save
       respond_to do |format|
@@ -58,8 +59,12 @@ class UserNeedsController < ApplicationController
 
   private
 
+  def set_user
+    @user = @team.users.find(params[:user_id])
+  end
+
   def set_user_need
-    @user_need = current_user.user_needs.find(params[:id])
+    @user_need = @user.user_needs.find(params[:id])
   end
 
   def user_need_params
