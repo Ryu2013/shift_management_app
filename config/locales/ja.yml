@@ -2,6 +2,10 @@ ja:
   time:
     formats:
       default: "%H:%M"
+      devise:
+        mailer:
+          invitation_instructions:
+            accept_until_format: "%Y年%m月%d日 %H:%M"
   date:
     formats:
       default: "%Y-%m-%d"
@@ -19,6 +23,11 @@ ja:
     application:
       default_title: "シフト管理システム"
   errors:
+    attributes:
+      team:
+        required: "チームは必須です"
+    messages:
+      required: "必須です"
     messages:
       not_locked: "はロックされていません。"
       pwned_password: "ご登録のパスワードはPwnedPasswordに登録されています。パスワードを変更してください。どこかで同じパスワードを使用したことがある場合は、変更を強くお勧めいたします。"
@@ -48,6 +57,9 @@ ja:
               already_confirmed: "このメールアドレスは既に確認済みです。"
             confirmation_token:
               invalid: "確認トークンが無効です。再送したメールをご確認ください。"
+            team:
+              required: "チームは必須です"
+          required: "必須項目です"
     models:
       office: 会社名
       team: 部署
@@ -141,6 +153,8 @@ ja:
         current_password: 現在のパスワード
     
   devise:
+    failure:
+      invited: "招待が保留中です。招待を承認して登録を完了してください。"
     confirmations:
       confirmed: "メールアドレスの確認が完了しました。"
       user:
@@ -196,7 +210,6 @@ ja:
         heading: "ログイン"
         email: "メールアドレス"
         password: "パスワード"
-        remember_me: "ログイン状態を保持する"
         submit: "ログイン"
       already_signed_out: "ログアウトしました。"
       user:
@@ -242,6 +255,9 @@ ja:
         heading: "ロック解除メールを再送"
         email: "メールアドレス"
         submit: "送信する"
+      send_instructions: "ロック解除方法を記載したメールを送信しました。数分後に届かない場合は迷惑メールをご確認ください。"
+      send_paranoid_instructions: "アカウントが存在する場合、ロック解除方法を記載したメールを送信します。"
+      unlocked: "アカウントのロックを解除しました。ログインしてください。"
     shared:
       links:
         sign_in: "ログイン"
@@ -250,11 +266,25 @@ ja:
         resend_confirmation: "確認メールを再送する"
         resend_unlock: "ロック解除メールを再送する"
         omniauth: "%{provider}でログイン"
+    invitations:
+      send_instructions: "招待メールを%{email}宛に送信しました。"
+      invitation_token_invalid: "招待トークンが無効です。"
+      updated: "パスワードを設定しました。ログインしました。"
+      updated_not_active: "パスワードを設定しました。"
+      no_invitations_remaining: "招待の残数がありません。"
+      invitation_removed: "招待を取り消しました。"
+      new:
+        header: "招待を送信"
+        submit_button: "招待を送信する"
+      edit:
+        header: "パスワードを設定"
+        submit_button: "パスワードを設定する"
     mailer:
       confirmation_instructions:
         greeting: "%{email} 様"
         instruction: "以下のリンクからメールアドレスの確認を行ってください。"
         action: "メールアドレスを確認する"
+        subject: "アカウント確認の案内"
       email_changed:
         greeting: "%{email} 様"
         changing: "メールアドレスを%{email}に変更しようとしています。"
@@ -273,6 +303,13 @@ ja:
         message: "複数回のログイン失敗によりアカウントがロックされています。"
         instruction: "以下のリンクからアカウントのロックを解除できます。"
         action: "アカウントのロックを解除する"
+      invitation_instructions:
+        subject: "招待のお知らせ"
+        hello: "%{email} 様"
+        someone_invited_you: "%{url} への招待が届いています。以下のリンクから承認してください。"
+        accept: "招待を承認する"
+        accept_until: "この招待の有効期限は %{due_date} です。"
+        ignore: "招待を利用しない場合はこのメールを破棄してください。上記リンクからパスワードを設定するまではアカウントは作成されません。"
     enums:
       shift:
         shift_type:
