@@ -10,6 +10,7 @@
 
 <%= form_with url: team_work_statuses_path(@team), method: :get, local: true do |f| %>
   <div class="flexbox" style="margin: 20px;"> 
+
     <%= f.date_field :date, value: @date, id: "real-date" ,style: "display:none;" %>
 
     <%= f.collection_select :selected_team_id,
@@ -30,12 +31,12 @@
 
 <% @clients.each do |client| %>
   <div class="card">
-  <h2><%= client.name %></h2>
-   <%= render partial: 'work_statuses/shift', collection: (@shifts[client.id] || []) %>
-   <%= if @shifts[client.id].blank?
-         content_tag :p, "シフトが登録されていません。", style: "margin-bottom: 20px; text-align: center;"
-       end %>
-  </div>
+    <h2><%= client.name %></h2>
+    <%= render partial: 'work_statuses/shift', collection: (@shifts[client.id] || []) %>
+      <%= if @shifts[client.id].blank?
+            content_tag :p, "シフトが登録されていません。", style: "margin-bottom: 20px; text-align: center;"
+          end %>
+    </div>
 <% end %>
 
 

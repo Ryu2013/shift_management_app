@@ -1,7 +1,7 @@
 class ShiftsController < ApplicationController
-  before_action :set_shift, only: %i[ edit update destroy ]
   before_action :set_team
   before_action :set_client
+  before_action :set_shift, only: %i[ edit update destroy ]
   before_action :check_selected, only: %i[ index ]
 
   def index
@@ -14,7 +14,6 @@ class ShiftsController < ApplicationController
 
     @shifts = @client.shifts.scope_month(@date).includes(:user, client: :team).group_by { |shift| shift.date }
     @date_view = @date.strftime("%m月")
-    @user_clients = @client.users
   end
 
   def new
@@ -80,7 +79,7 @@ class ShiftsController < ApplicationController
   end
 
   def set_shift
-    @shift = @office.shifts.find(params[:id])
+    @shift = @client.shifts.find(params[:id])
   end
 
   def shift_params

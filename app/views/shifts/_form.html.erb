@@ -1,100 +1,39 @@
 <%= form_with(model: [@team, @client, shift], local: true) do |form| %>
-    <% if shift.errors.any? %>
-      <div style="color: red">
-      
-
-        <ul>
-        <% shift.errors.each do |error| %>
-          <li><%= error.message %></li>
-        <% end %>
-        </ul>
-      </div>
-    <% end %>
 
   <div>
     <%= form.hidden_field :client_id %>
   </div>
 
-  <div>
-      <% if shift&.persisted? %>
-      <div class="flexbox" style="gap: 0.5rem; flex-wrap: wrap; margin:1rem 0 1rem 0;">
-        <%= button_tag "未配置", type: "submit", name: "shift[user_id]", value: "", class: ["shift nil", ("night" if shift.shift_type == "night"), ("escort" if shift.shift_type == "escort")].compact.join(" "), style: "font-size: 0.8rem; " %>
-        <% @client.users.each do |u| %>
-        <%= button_tag u.name, type: "submit", name: "shift[user_id]", value: u.id, class: ["shift", ("night" if shift.shift_type == "night"), ("escort" if shift.shift_type == "escort")].compact.join(" "), style: "font-size: 0.8rem;" %>
-        <% end %>
-      </div>
-        <div class="flexbox" style="justify-content: flex-end;">
-          <%= button_tag "シフトを変更", type: "button", id: "shift-form-btn", class: "flex-btn" %>
-        </div>
-
-        <div id="shift-form" class="shift-form">
-          <div>
-            <%= form.label :shift_type, style: "display: block" %>
-            <%= form.select :shift_type, [['日勤', 'day'], ['夜勤', 'night'],['同行','escort']] %>
-          </div>
-
-          <div>
-            <%= form.label :start_time, t(".start_time"), style: "display:block" %>
-            <%= form.time_field :start_time ,required: true %>
-          </div>
-
-          <div>
-            <%= form.label :end_time, t(".end_time"), style: "display:block" %>
-            <%= form.time_field :end_time ,required: true %>
-          </div>
-
-          <div>
-            <%= form.label :note, style: "display: block" %>
-            <%= form.text_field :note %>
-          </div>
-
-          <div>
-            <%= form.label :date, style: "display: block" %>
-            <%= form.date_field :date , required: true %>
-          </div>
-
-          <div>
-            <%= form.label :work_status,"出勤状況", style: "display: block" %>
-            <%= form.select :work_status, [['未出勤', 'not_work'], ['出勤', 'work']] %>
-          </div>
-
-          <div class="flexbox">
-            <%= form.submit t(".submit") %>
-          </div>
-        </div>
-        
-      <% else %>
-
-        <%= form.collection_select :user_id, @client.users, :id, :name, prompt: "担当従業員を選択" %>
-        <div>
-          <%= form.label :shift_type, style: "display: block" %>
-          <%= form.select :shift_type, [['日勤', 'day'], ['夜勤', 'night'],['同行','escort']] %>
-        </div>
-
-        <div>
-          <%= form.label :start_time, t(".start_time"), style: "display:block" %>
-          <%= form.time_field :start_time ,required: true %>
-        </div>
-
-        <div>
-          <%= form.label :end_time, t(".end_time"), style: "display:block" %>
-          <%= form.time_field :end_time ,required: true %>
-        </div>
-
-        <div>
-          <%= form.label :note, style: "display: block" %>
-          <%= form.text_field :note %>
-        </div>
-
-        <div>
-          <%= form.label :date, style: "display: block" %>
-          <%= form.date_field :date , required: true %>
-        </div>
-
-        <div class="flexbox">
-          <%= form.submit t(".submit") %>
-        </div>
-      
+    <% unless @shift.persisted? %>
+    <%= form.collection_select :user_id, @client.users, :id, :name, prompt: "担当従業員を選択" %>
     <% end %>
-  </div>
+
+    <div>
+      <%= form.label :shift_type, style: "display: block" %>
+      <%= form.select :shift_type, [['日勤', 'day'], ['夜勤', 'night'],['同行','escort']] %>
+    </div>
+
+    <div>
+      <%= form.label :start_time, t(".start_time"), style: "display:block" %>
+      <%= form.time_field :start_time ,required: true %>
+    </div>
+
+    <div>
+      <%= form.label :end_time, t(".end_time"), style: "display:block" %>
+      <%= form.time_field :end_time ,required: true %>
+    </div>
+
+    <div>
+      <%= form.label :note, style: "display: block" %>
+      <%= form.text_field :note %>
+    </div>
+
+    <div>
+      <%= form.label :date, style: "display: block" %>
+      <%= form.date_field :date , required: true %>
+    </div>
+
+    <div class="flexbox">
+      <%= form.submit t(".submit") %>
+    </div>
  <% end %>

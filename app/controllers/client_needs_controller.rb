@@ -3,6 +3,10 @@ class ClientNeedsController < ApplicationController
   before_action :set_client
   before_action :set_client_need, only: %i[edit destroy ]
 
+  def index
+     @needs_by_week = @client.client_needs.order(:week, :shift_type, :start_time).includes(:client).group_by(&:week)
+  end
+
   def new
     @client_need = @client.client_needs.build
   end

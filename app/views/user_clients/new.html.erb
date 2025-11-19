@@ -17,10 +17,11 @@
       <hr style="display:block;">
 
       <h2><%= @team.name %>の従業員</h2>
+
       <div class="flexbox">
-      <% @users.each do |u| %>
-      <%= button_to u.name, team_client_user_clients_path(@team, @client), method: :post, params: { user_client: { user_id: u.id, client_id: @client.id } }, class: "flex-btn" %>
-      <% end %>
+        <% @users.each do |u| %>
+          <%= button_to u.name, team_client_user_clients_path(@team, @client), method: :post, params: { user_client: { user_id: u.id, client_id: @client.id } }, class: "flex-btn" %>
+        <% end %>
       </div>
   </div>
 <% end %>

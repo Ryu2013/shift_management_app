@@ -1,8 +1,6 @@
 <%= form_with(model: team, data: {turbo: false}) do |form| %>
   <% if team.errors.any? %>
     <div style="color: red">
-      
-
       <ul>
         <% team.errors.each do |error| %>
           <li><%= error.full_message %></li>
@@ -10,8 +8,7 @@
       </ul>
     </div>
   <% end %>
-<div class="card">
-  <%= link_to "✕", teams_path ,style:"float: right; color: red; font-weight: bold;" %>
+
   <div>
     <%= form.label :name, style: "display: block" %>
     <%= form.text_field :name %>
@@ -20,5 +17,5 @@
   <div class="flexbox">
     <%= form.submit t(".submit") ,class: "flex-btn" %>
   </div>
-</div>
+
 <% end %>

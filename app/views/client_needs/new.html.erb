@@ -1,6 +1,6 @@
-<%= turbo_frame_tag "client_need" do %>
+<%= turbo_frame_tag "new_client_need" do %>
 <div class="flexbox">
-  <%= link_to "閉じる", edit_team_client_path(@team, @client) ,class: "flex-btn"%>
+  <%= link_to "閉じる", team_client_client_needs_path(@team, @client) ,class: "flex-btn"%>
 </div>
 <h1><%= t(".heading") %></h1>
 
