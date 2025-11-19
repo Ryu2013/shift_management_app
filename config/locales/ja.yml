@@ -26,9 +26,10 @@ ja:
     attributes:
       team:
         required: "チームは必須です"
+      office:
+        required: "必須です"
     messages:
       required: "必須です"
-    messages:
       not_locked: "はロックされていません。"
       pwned_password: "ご登録のパスワードはPwnedPasswordに登録されています。パスワードを変更してください。どこかで同じパスワードを使用したことがある場合は、変更を強くお勧めいたします。"
       record_invalid: "%{errors}"
@@ -43,9 +44,18 @@ ja:
   activerecord:
     errors:
       messages:
+        required: "必須です"
         confirmation: "と一致しません。"
         not_locked: "はロックされていません。"
       models:
+        user_client:
+          attributes:
+            office:
+              required: "必須です"
+            user:
+              required: "必須です"
+            client:
+              required: "必須です"
         shift:
           attributes:
             user_id:
@@ -57,9 +67,16 @@ ja:
               already_confirmed: "このメールアドレスは既に確認済みです。"
             confirmation_token:
               invalid: "確認トークンが無効です。再送したメールをご確認ください。"
+            office:
+              required: "必須項目です"
             team:
               required: "チームは必須です"
-          required: "必須項目です"
+        user_need:
+          attributes:
+            office:
+              required: "必須です"
+            user:
+              required: "必須です"
     models:
       office: 会社名
       team: 部署
@@ -186,7 +203,6 @@ ja:
         submit: "登録する"
       edit:
         heading: "従業員の情報を編集"
-        users: "従業員一覧"
         name: "氏名"
         address: "住所"
         pref_per_week: "希望出勤日数（週）"
@@ -199,7 +215,6 @@ ja:
         password_confirmation: "新しいパスワード（確認用）"
         current_password: "現在のパスワード"
         current_password_hint: "変更を保存するには現在のパスワードが必要です。"
-        current_password_note: "パスワード、メールアドレスを変更する場合は入力してください"
         submit: "更新する"
         cancel_heading: "アカウントを削除"
         requires_employee: "従業員を削除するには最低1名必要です。"
@@ -212,8 +227,8 @@ ja:
         heading: "ログイン"
         email: "メールアドレス"
         password: "パスワード"
-        otp_attempt_label: "認証コード（2段階認証を有効にしている方のみ）"
         submit: "ログイン"
+        otp_attempt_label: "二段階認証コード(有効にしている場合)"
       already_signed_out: "ログアウトしました。"
       user:
         signed_out: "ログアウトしました。"
@@ -278,26 +293,15 @@ ja:
       invitation_removed: "招待を取り消しました。"
       new:
         header: "招待を送信"
-        name: "氏名"
-        team: "所属部署"
-        team_prompt: "所属部署を選択してください"
-        address: "住所"
-        pref_per_week: "週あたりの希望勤務日数"
-        commute: "通勤手段"
         submit_button: "招待を送信する"
-        back: "戻る"
       edit:
         header: "パスワードを設定"
         submit_button: "パスワードを設定する"
     mailer:
       confirmation_instructions:
-        welcome: "ケアシフトへようこそ！"
         greeting: "%{email} 様"
         instruction: "以下のリンクからメールアドレスの確認を行ってください。"
         action: "メールアドレスを確認する"
-        ignore_text: "メールに心当たりがない場合はこのメールを破棄してください。上記リンクからパスワードを設定するまではアカウントは作成されません。"
-      invitation_instructions:
-        intro_html: "%{office_name}様よりケアシフトへの招待が届きました。下記リンクより承認をお願いします。"
         subject: "アカウント確認の案内"
       email_changed:
         greeting: "%{email} 様"
@@ -320,7 +324,6 @@ ja:
       invitation_instructions:
         subject: "招待のお知らせ"
         hello: "%{email} 様"
-        intro_html: "%{office_name}様よりケアシフトへの招待が届きました。下記リンクより承認をお願いします。"
         someone_invited_you: "%{url} への招待が届いています。以下のリンクから承認してください。"
         accept: "招待を承認する"
         accept_until: "この招待の有効期限は %{due_date} です。"
@@ -415,14 +418,12 @@ ja:
     new:
       title: "利用者を追加"
       heading: "利用者を追加"
-      clients: "利用者一覧"
       back: "利用者一覧に戻る"
       destroy: "この利用者を削除"
       confirm_destroy: "本当に削除しますか？"
     edit:
       title: "利用者を編集"
       heading: "利用者を編集"
-      clients: "利用者一覧"
       show: "この利用者を表示"
       back: "利用者一覧に戻る"
       destroy: "この利用者を削除"
@@ -455,7 +456,6 @@ ja:
     index:
       title: "部署一覧"
       heading: "部署一覧"
-      shifts: "シフト一覧"
       show: "この部署を表示"
       new: "部署を追加"
     new:
@@ -632,17 +632,9 @@ ja:
       new: "従業員を追加"
       shifts: "シフト一覧"
       clients: "利用者一覧"
-    edit:
-      users: "従業員一覧"
-      confirm_destroy: "本当に削除しますか？"
-    form:
-      email: "メールアドレス"
     two_factor:
       invalid_code: "認証コードが正しくありません。再度お試しください。"
       persistence_failed: "二段階認証の設定保存に失敗しました。時間をおいて再度お試しください。"
-      setup:
-        users: "従業員一覧"
-        shifts: "シフト一覧"
     user:
       name: "氏名"
       address: "住所"

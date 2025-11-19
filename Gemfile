@@ -53,7 +53,7 @@ group :development do
   gem "web-console"
   gem "letter_opener"
   gem "letter_opener_web"
-  gem 'i18n-tasks'
+  gem "i18n-tasks"
 end
 
 group :test do
