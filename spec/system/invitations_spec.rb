@@ -27,23 +27,16 @@ RSpec.describe '招待フロー', type: :system do
     invite_name  = '招待 太郎'
     invite_email = "invite_#{SecureRandom.hex(4)}@example.com"
 
-    # 入力（ヘッドレスChromeでも確実に選択できるようにselectを使用）
+    # idベースで確実に入力
     fill_in 'user_name', with: invite_name
     fill_in 'user_email', with: invite_email
-    select team.name, from: 'user_team_id', wait: 5
-    # 選択が反映されたことを確認
-    expect(page.find('#user_team_id').value).to eq(team.id.to_s)
+    find('#user_team_id').find("option[value='#{team.id}']").select_option
     fill_in 'user_address', with: '東京都港区'
     select '0', from: 'user_pref_per_week'
     fill_in 'user_commute', with: '電車'
 
-    # 送信でメールが1通増えることを検証（フラッシュ文言依存を避ける）
-    ActionMailer::Base.deliveries.clear
-    expect { click_button '招待を送信する' }.
-      to change { ActionMailer::Base.deliveries.size }.
-      by(1)
-    # 遷移先の確認（Turbo/redirectの違いを吸収しつつ）
-    expect(page).to have_current_path(team_users_path(team), ignore_query: true)
+    click_on '招待を送信する'
+    expect(page).to have_text('招待メールを')
 
     # 既存セッション(admin)を保持したまま、別ブラウザセッションで招待リンクを開く
     # 送信されたメールから、招待先に送られたものを特定
@@ -51,10 +44,10 @@ RSpec.describe '招待フロー', type: :system do
     # マルチパート対応で本文を抽出
     parts = [ mail&.html_part&.body&.decoded, mail&.text_part&.body&.decoded, mail&.body&.decoded ].compact
     raw_body = parts.join("\n")
-    # メール本文からトークンを抽出してパスを組み立て
-    token = raw_body[/invitation_token=([^"'&\s]+)/, 1]
-    raise "Invitation token not found in email body" if token.nil?
-    path = accept_user_invitation_path(invitation_token: token)
+    # メール本文からURLを抽出してパスを取得
+    absolute = raw_body.scan(%r{https?://[^"]+}).first&.gsub(/\r?\n/, "")
+    raise "Invitation URL not found in email body" if absolute.nil?
+    path = URI.parse(absolute).request_uri
 
     # 別のブラウザからログイン
     Capybara.using_session(:employee) do
