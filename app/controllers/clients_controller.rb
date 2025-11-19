@@ -21,7 +21,7 @@ class ClientsController < ApplicationController
 
   def edit
     @teams = @office.teams.all
-    @needs_by_week = @client.client_needs.order(:week, :shift_type, :start_time).group_by(&:week)
+    @needs_by_week = @client.client_needs.order(:week, :shift_type, :start_time).includes(:client).group_by(&:week)
     @client.user_clients.build(office: @office)
     @users = @team.users
   end

@@ -7,7 +7,7 @@ Rails.application.routes.draw do
       resources :user_needs, only: %i[new create edit destroy]
     end
     resources :clients, only: %i[index new create edit update destroy] do
-      resources :client_needs, only: %i[ new create edit destroy], shallow: true
+      resources :client_needs, only: %i[ new create edit destroy]
       resources :user_clients, only: %i[new create destroy]
       resources :shifts, only: %i[index new create edit update destroy] do
         post :generate_monthly_shifts, on: :collection
