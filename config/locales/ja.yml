@@ -293,7 +293,14 @@ ja:
       invitation_removed: "招待を取り消しました。"
       new:
         header: "招待を送信"
+        name: "氏名"
+        team: "部署"
+        team_prompt: "部署を選択"
+        address: "住所"
+        pref_per_week: "希望出勤日数（週）"
+        commute: "通勤手段"
         submit_button: "招待を送信する"
+        back: "従業員一覧へ戻る"
       edit:
         header: "パスワードを設定"
         submit_button: "パスワードを設定する"
