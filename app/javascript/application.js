@@ -4,20 +4,6 @@ import "./controllers"
 document.addEventListener("turbo:load", () => {
   const fake = document.getElementById("fake-month");
   const real = document.getElementById("real-month");
-  const modal = document.getElementById("modal");
-  const openModal = document.getElementById("open-modal");
-  const closeModal = document.getElementById("close-modal");
-
-  // user_client用簡易モーダル表示処理
-  if (openModal && closeModal && modal) {
-    openModal.onclick = () => {
-      modal.classList.toggle("open");
-    }
-
-    closeModal.onclick = () => {
-      modal.classList.remove("open");
-    };
-  }
 
   // シフト一覧ページの月選択カスタマイズ処理
   if (fake && real) {

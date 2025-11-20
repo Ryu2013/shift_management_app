@@ -35,6 +35,8 @@ gem "devise-two-factor"
 gem "rotp"
 gem "rqrcode"
 gem "devise-pwned_password"
+gem "pundit"
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
@@ -53,6 +55,7 @@ group :development do
   gem "web-console"
   gem "letter_opener"
   gem "letter_opener_web"
+  gem "i18n-tasks"
 end
 
 group :test do

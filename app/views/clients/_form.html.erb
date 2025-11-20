@@ -1,11 +1,11 @@
 <%= form_with(model: [@team, client]) do |form| %>
   <% if client.errors.any? %>
     <div style="color: red">
-      <h2><%= t(".errors.title", count: client.errors.count) %></h2>
+      
 
       <ul>
         <% client.errors.each do |error| %>
-          <li><%= error.full_message %></li>
+          <%= error.message %>
         <% end %>
       </ul>
     </div>
@@ -47,11 +47,6 @@
 
   
   <div class="flexbox">
-      
-      <div id="open-modal" class="flex-btn">
-      シフト作成
-      </div>
-
       <%= form.submit t(".submit"), class: "flex-btn" %>
   </div>
 

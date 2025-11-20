@@ -1,11 +1,21 @@
+<% content_for :head do %>
+  <%= stylesheet_link_tag "team/index", "data-turbo-track": "dynamic" %>
+<% end %>
+
 <% content_for :title, t(".title") %>
- <%= link_to  team_client_shifts_path(@team,@client) do %>
+<%= turbo_frame_tag "team_edit" do %>
+<% end %>
+
+<%= link_to  team_client_shifts_path(@team,@client) do %>
   <%= image_tag "back-btn.png", alt: t(".shifts"), class: "back-image" %>
 <% end %>
+
 <h1><%= t(".heading") %></h1>
+
 <div class="flexbox">
   <p>部署を消去するには従業員、利用者がいない必要があります。</p>
 </div>
+
 <div id="teams">
   <% @teams.each do |team| %>
     <%= render team %>

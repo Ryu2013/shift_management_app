@@ -1,10 +1,13 @@
 Rails.application.routes.draw do
   root "home#index"
+  resources :offices, only: %i[new create show edit update destroy]
 
   resources :teams do
-    resources :users, only: %i[ index edit update destroy]
+    resources :users, only: %i[ index edit update destroy] do
+      resources :user_needs, only: %i[index new create edit destroy]
+    end
     resources :clients, only: %i[index new create edit update destroy] do
-      resources :client_needs, only: %i[ new create edit destroy], shallow: true
+      resources :client_needs, only: %i[index new create edit destroy]
       resources :user_clients, only: %i[new create destroy]
       resources :shifts, only: %i[index new create edit update destroy] do
         post :generate_monthly_shifts, on: :collection
@@ -17,9 +20,6 @@ Rails.application.routes.draw do
     resources :shifts, only: %i[index update]
   end
 
-  resources :user_needs
-
-  resources :offices, only: %i[new create show edit update destroy]
   devise_for :users, controllers: { registrations: "users/registrations", invitations: "users/invitations" }
   # 二段階認証用ルート
   devise_scope :user do
@@ -28,15 +28,15 @@ Rails.application.routes.draw do
   end
 
   if Rails.env.development?
-  mount LetterOpenerWeb::Engine, at: "/letter_opener"
+    mount LetterOpenerWeb::Engine, at: "/letter_opener"
   end
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  # ルーティングDSLに従ってアプリケーションのルートを定義します https://guides.rubyonrails.org/routing.html
 
-  # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
-  # Can be used by load balancers and uptime monitors to verify that the app is live.
+  # /up でヘルスステータスを公開し、アプリが例外なく起動した場合は200を、そうでない場合は500を返します。
+  # ロードバランサーやアップタイムモニターがアプリの稼働状態を確認するために使用できます。
   get "up" => "rails/health#show", as: :rails_health_check
 
-  # Render dynamic PWA files from app/views/pwa/*
+  # app/views/pwa/* から動的なPWAファイルをレンダリング
   get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
   get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
 end

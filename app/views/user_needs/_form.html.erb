@@ -1,11 +1,9 @@
-<%= form_with(model: user_need) do |form| %>
-  <% if user_need.errors.any? %>
+<%= form_with model: @user_need, url: team_user_user_needs_path(@team, @user) do |form| %>
+  <% if @user_need.errors.any? %>
     <div style="color: red">
-      <h2><%= t(".errors.title", count: user_need.errors.count) %></h2>
-
       <ul>
-        <% user_need.errors.each do |error| %>
-          <li><%= error.full_message %></li>
+        <% @user_need.errors.each do |error| %>
+          <%= error.message %>
         <% end %>
       </ul>
     </div>

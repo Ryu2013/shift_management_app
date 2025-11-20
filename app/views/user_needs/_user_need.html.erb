@@ -4,6 +4,6 @@
     <%= l user_need.end_time %>
     <br>
 
-  <%= button_to "Delete", user_need_path(user_need), method: :delete, form: { data: { turbo_confirm: "delete?" } },class: "flex-btn" %>
+  <%= button_to "Delete", team_user_user_need_path(user_need.user.team_id, user_need.user_id, user_need), method: :delete, form: { data: { turbo_confirm: "消去しますか?" } }, class: "flex-btn" %>
 
 </div>

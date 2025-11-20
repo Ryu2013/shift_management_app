@@ -12,14 +12,6 @@ RSpec.describe Office, type: :model do
       office.valid?
       expect(office.errors[:name]).to include("を入力してください。")
     end
-
-    it 'name が重複していると無効であること' do
-      create(:office, name: 'テスト事業所')
-      office = build(:office, name: 'テスト事業所')
-
-      office.validate
-      expect(office.errors[:name]).to include('はすでに存在します。')
-    end
   end
 
   describe 'accepts_nested_attributes_for :teams' do

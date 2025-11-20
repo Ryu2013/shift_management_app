@@ -1,4 +1,5 @@
 <h3>二段階認証セットアップ</h3>
+
 <div class="flexbox">
 <p>二段階認証アプリで下記の QR コードをスキャンしてください。</p>
 </div>
@@ -8,10 +9,10 @@
 </div>
 
 <div class="flexbox">
-<p>QR コードが使用できない場合は、下記のセットアップキーを手入力してください。</p>
-<div style="font-size: 20px; font-weight: bold;">
-  <%= @secret_key.scan(/.{1,4}/).join(" ") %>
-</div>
+  <p>QR コードが使用できない場合は、下記のセットアップキーを手入力してください。</p>
+  <div style="font-size: 20px; font-weight: bold;">
+    <%= @secret_key.scan(/.{1,4}/).join(" ") %>
+  </div>
 </div>
 
 <%= form_with url: users_confirm_two_factor_path do |f| %>
@@ -21,4 +22,5 @@
   <%= f.submit "有効化" %>
   </div>
 <% end %>
+
 <p style="text-align: center;">セットアップが完了したら、次回ログイン時に二段階認証アプリのコード入力が求められます。</p>

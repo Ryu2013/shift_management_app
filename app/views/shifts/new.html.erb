@@ -1,7 +1,19 @@
-<%= turbo_frame_tag "shift_edit" do %>
+<%= turbo_frame_tag "shift_new" do %>
+
 <div class="modal open">
+
 <%= link_to "✕", team_client_shifts_path(@team, @client), class: "back-btn" %>
+
 <h1><%= t(".heading") %></h1>
+
+<% if @shift.errors.any? %>
+  <div style="color: red">
+     <% @shift.errors.each do |error| %>
+        <%= error.message %>
+     <% end %>
+  </div>
+<% end %>
+
 <div class="flexbox" style="margin: 1rem;">
 <%= button_to "今月のシフト自動生成",
       generate_monthly_shifts_team_client_shifts_path(@team, @client, date: @date),

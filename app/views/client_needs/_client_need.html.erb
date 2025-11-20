@@ -10,7 +10,7 @@
     <strong><%= t(".slots") %></strong>
     <%= client_need.slots %>
 
-  <%= button_to "消去", client_need_path(client_need), method: :delete, form: { data: { turbo_confirm: "delete?" } },class: "flex-btn" %>
+  <%= button_to "消去", team_client_client_need_path(client_need.client.team_id, client_need.client_id, client_need), method: :delete, form: { data: { turbo_confirm: "delete?" } },class: "flex-btn" %>
 
  </div>
 </div>
