@@ -53,7 +53,7 @@ RSpec.describe '招待フロー', type: :system do
     expect(absolute).to be_present
     path = URI.parse(absolute).request_uri
     reset_session!
-  
+
     visit path
     # パスワード設定フォームが表示されるまで待機
     expect(page).to have_button('パスワードを設定する', wait: 10)
@@ -64,6 +64,5 @@ RSpec.describe '招待フロー', type: :system do
     click_button 'パスワードを設定する'
     # 招待受諾後は employee_shifts_path にリダイレクトされる
     expect(page).to have_current_path(employee_shifts_path, ignore_query: true, wait: 10)
-
   end
 end
