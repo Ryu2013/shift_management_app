@@ -36,6 +36,7 @@ ja:
       blank: "を入力してください。"
       taken: "はすでに存在します。"
       confirmation: "と一致しません。"
+      invalid: "は無効です。"
       already_confirmed: "このメールアドレスは既に確認済みです。"
       too_short: "は%{count}文字以上で入力してください。"
       not_saved:
@@ -54,6 +55,10 @@ ja:
               required: "必須です"
             user:
               required: "必須です"
+        user:
+          attributes:
+            unlock_token:
+              invalid: "ロック解除トークンが無効です。ロック解除メールのリンクをご確認ください。"
             client:
               required: "必須です"
         shift:
