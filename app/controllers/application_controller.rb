@@ -54,10 +54,9 @@ class ApplicationController < ActionController::Base
   def user_authenticate
     authorize :admin, :allow?
   rescue Pundit::NotAuthorizedError
-    # CI環境でnoticeが重複する問題の対策
-    flash.delete(:notice)
-    flash[:alert] = "権限がありません"
-    redirect_to employee_shifts_path and return
+    # 直前のフラッシュ（例: Deviseの「ログインしました。」）が残っているケースを排除
+    flash.clear
+    redirect_to employee_shifts_path, alert: "権限がありません" and return
   end
 
   # オフィスにチームが存在するか確認し、存在しなければ新規作成画面へリダイレクト
