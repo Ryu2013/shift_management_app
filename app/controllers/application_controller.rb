@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  include Pundit::Authorization
+
   allow_browser versions: :modern
   before_action :authenticate_user!, unless: :devise_controller?
   before_action :office_authenticate, unless: :devise_controller?
@@ -50,9 +52,11 @@ class ApplicationController < ActionController::Base
 
   # ユーザー権限確認（admin以外はリダイレクト）
   def user_authenticate
-    if current_user.employee?
-      redirect_to employee_shifts_path, alert: "権限がありません" and return
-    end
+    authorize :admin, :allow?
+  rescue Pundit::NotAuthorizedError
+    # 直前のフラッシュ（例: Deviseの「ログインしました。」）が残っているケースを排除
+    flash.clear
+    redirect_to employee_shifts_path, alert: "権限がありません" and return
   end
 
   # オフィスにチームが存在するか確認し、存在しなければ新規作成画面へリダイレクト
