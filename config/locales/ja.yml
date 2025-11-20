@@ -55,18 +55,16 @@ ja:
               required: "必須です"
             user:
               required: "必須です"
-        user:
-          attributes:
-            unlock_token:
-              invalid: "ロック解除トークンが無効です。ロック解除メールのリンクをご確認ください。"
-            client:
-              required: "必須です"
         shift:
           attributes:
             user_id:
               already_assigned: "%{date}の%{user_name}さんは%{client_name}さんに配属されてます。"
         user:
           attributes:
+            unlock_token:
+              invalid: "ロック解除トークンが無効です。ロック解除メールのリンクをご確認ください。"
+            client:
+              required: "必須です"
             email:
               not_found: "メールアドレスが見つかりません。"
               already_confirmed: "このメールアドレスは既に確認済みです。"
