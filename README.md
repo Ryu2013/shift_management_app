@@ -15,7 +15,6 @@
 ## ユーザー層について
 50〜60代の訪問介護 管理職（シフト作成・調整担当）。
 PC は得意でない前提で、学習コストゼロ・入力の手戻りゼロを狙う。
-「使い方ガイド」を記載し迷った際に観覧できるようにする。
 
 ## サービスの利用イメージ
 1画面で月/週のシフト表を表示（大きな文字・太めの行・配色は高コントラスト）
@@ -79,15 +78,13 @@ DB : pg
 
 自動リロード : listen
 
-テスト用：rspec-rails, factory_bot_rails, faker, capybara, selenium-webdriver
+テスト用：rspec-rails, factory_bot_rails, capybara, selenium-webdriver
 
 コード統一：rubocop
 
 デバッグ用：byebug, web-console
 
-ページネーション : kaminari
-
-日本語化 : rails-i18n,devise-i18n
+日本語化 : rails-i18n
 
 環境変数読み込み : dotenv-rails
 
