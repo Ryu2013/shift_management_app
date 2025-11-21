@@ -92,12 +92,12 @@ Rails.application.configure do
   config.active_record.attributes_for_inspect = [ :id ]
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    address:              "smtp.gmail.com",
+    address:              "smtp.sendgrid.net",
     port:                 587,
-    domain:               "gmail.com",
-    user_name:            ENV["GMAIL_USERNAME"],
-    password:             ENV["GMAIL_APP_PASSWORD"],
-    authentication:       "plain",
+    domain:               "care-shift.jp",
+    user_name:            "apikey",
+    password:             Rails.application.credentials.dig(:sendgrid, :api_key),
+    authentication:       :plain,
     enable_starttls_auto: true
   }
   config.action_mailer.default_url_options = { host: "shift-management-app-f04c8ce17ef9.herokuapp.com", protocol: "https" }
