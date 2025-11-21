@@ -28,7 +28,7 @@ Devise.setup do |config|
   # ==> メーラー設定
   # Devise::Mailer に表示される送信元メールアドレスを設定します。
   # 独自のメーラークラスで default "from" を指定している場合は上書きされます。
-  config.mailer_sender = ENV.fetch("GMAIL_USERNAME", "no-reply@example.com")
+  config.mailer_sender = Rails.application.credentials.dig(:mail, :from)
 
   # メール送信を担当するクラスを設定します。
   # config.mailer = 'Devise::Mailer'
