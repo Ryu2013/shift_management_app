@@ -20,7 +20,7 @@ Rails.application.routes.draw do
     resources :shifts, only: %i[index update]
   end
 
-  devise_for :users, controllers: { registrations: "users/registrations", invitations: "users/invitations" }
+  devise_for :users, controllers: { registrations: "users/registrations", invitations: "users/invitations", omniauth_callbacks: "users/omniauth_callbacks" }
   # 二段階認証用ルート
   devise_scope :user do
     get  "users/two_factor_setup", to: "users/two_factor#setup"

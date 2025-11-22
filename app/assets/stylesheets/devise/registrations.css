@@ -1,0 +1,38 @@
+/* --- Googleボタン --- */
+.btn-google {
+    background: #ffffff;
+    color: #3c4043;
+    border: 1px solid #8e8e8f;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    min-width: 240px;
+    vertical-align: bottom;
+    margin: 1rem;
+    padding: 1rem;
+}
+
+.btn-google:hover {
+  background-color: #f8faff;
+  border-color: #cce0ff;
+  box-shadow: 0 2px 8px rgba(60,64,67,0.15);
+  transform: translateY(-2px);
+}
+
+.google-icon {
+  width: 20px;
+  height: 25px;
+}
+.btn {
+  border-radius: 50px;
+  transition: all 0.3s ease;
+  text-align: center;
+  cursor: pointer;
+}
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
