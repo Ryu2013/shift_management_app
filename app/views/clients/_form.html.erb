@@ -20,6 +20,8 @@
     <%= form.text_field :name ,required: true%>
   </div>
 
+  <% if @client.persisted? %>
+
   <div>
     <%= form.label :email, style: "display: block" %>
     <%= form.text_field :email %>
@@ -44,6 +46,8 @@
     <%= form.label :note, style: "display: block" %>
     <%= form.text_field :note %>
   </div>
+
+  <% end %>
 
   
   <div class="flexbox">

@@ -7,6 +7,26 @@
     <%= f.text_field :name,autocomplete: "name", autofocus: true , required: true%>
   </div>
 
+  <div class="field">
+    <%= f.label :email, t(".email") %>
+    <%= f.email_field :email, autocomplete: "email" , required: true %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password, t(".password") %>
+    <% if @minimum_password_length %>
+    <div style="text-align: center; font-size: small;"><%= t(".password_hint", count: @minimum_password_length) %></div>
+    <% end %>
+    <%= f.password_field :password, autocomplete: "new-password", required: true %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password_confirmation, t(".password_confirmation") %>
+    <%= f.password_field :password_confirmation, autocomplete: "new-password", required: true %>
+  </div>
+
+  <% if resource.persisted? %>
+
    <div>
     <%= f.label :address, t(".address") %>
     <%= f.text_field :address , required: true%>
@@ -22,23 +42,7 @@
     <%= f.text_field :commute %>
   </div>
 
-  <div class="field">
-    <%= f.label :email, t(".email") %>
-    <%= f.email_field :email, autocomplete: "email" , required: true %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password, t(".password") %>
-    <% if @minimum_password_length %>
-    <div style="text-align: center;"><%= t(".password_hint", count: @minimum_password_length) %></div>
-    <% end %>
-    <%= f.password_field :password, autocomplete: "new-password", required: true %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation, t(".password_confirmation") %>
-    <%= f.password_field :password_confirmation, autocomplete: "new-password", required: true %>
-  </div>
+  <% end %>
 
   <div class="flexbox">
     <%= f.submit t(".submit"), class: "flex-btn" %>
