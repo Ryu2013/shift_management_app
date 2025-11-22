@@ -14,6 +14,12 @@
   <%= image_tag "logo.png", alt: "ロゴ画像", class: "pc-logo" %>
   <%= image_tag "hamburger.png", alt: "ハンバーガーメニュー", class: "hamburger" ,id: "hamburger" %>
 </div>
+<%= link_to edit_office_path(@office) do %>
+  <div class="flexbox">
+    <%= @office.name %>
+  </div>
+<% end %>
+
 <div class="menus">
   <%= link_to "部署", teams_path, class: "menu" %>
   <%= link_to t(".nav.clients_and_staff"), team_clients_path(@team),class: "menu" %>

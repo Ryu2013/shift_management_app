@@ -1,36 +1,90 @@
+<%# app/views/home/index.html.erb %>
+
 <% content_for :head do %>
   <%= stylesheet_link_tag "home/index", "data-turbo-track": "dynamic" %>
 <% end %>
 
+<div class="lp-container">
+  <%# --- ヘッダー --- %>
+  <header class="lp-header fade-in-down">
+    <div class="header-inner">
+      <%= image_tag "logo.png", alt: "ケアシフト ロゴ", class: "header-logo" %>
+      <nav class="header-nav">
+        <%= link_to "新規登録", new_user_registration_path, class: "btn btn-primary" %>
+        <%= link_to "ログイン", new_user_session_path, class: "btn btn-secondary" %>
+        <%= link_to "Googleログイン", "#", class: "btn btn-google mobile-hide" %>
+      </nav>
+    </div>
+  </header>
 
-<div class="flexbox header">
-  <%= image_tag "logo.png", alt: "ロゴ画像", class: "pc-logo" %>
-  <%= link_to "新規登録", new_office_path ,class: "flex-btn",style: " margin-left: auto;"%>
-</div>
+  <%# --- メインビジュアル --- %>
+  <section class="hero-section">
+    <div class="hero-content scroll-trigger">
+      <%= image_tag "title.png", alt: "タイトル", class: "hero-title" %>
+      <p class="hero-catch">シフト管理のストレスをゼロに。</p>
+    </div>
+  </section>
 
-<%= image_tag "title.png", alt: "タイトル画像", class: "title fadein" %>
+  <%# --- 特徴1: シフト登録 --- %>
+  <section class="feature-section">
+    <div class="feature-container">
+      <div class="feature-text scroll-trigger from-left">
+        <h2 class="feature-heading">2クリックで<br><span class="highlight">簡単にシフト登録!</span></h2>
+        <p class="feature-desc">担当者を選んでポチッとするだけ。<br>直感的な操作で完了します。</p>
+      </div>
+      <div class="feature-visual scroll-trigger from-right">
+        <%# 背景画像をCSSではなくHTML構造で管理しやすく変更 %>
+        <div class="device-frame shifts-frame">
+          <%= image_tag "shifts.png", class: "frame-bg", alt: "背景" %>
+          <%= image_tag "client_need.png", class: "frame-content float-anim", alt: "担当者選択" %>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<div class="shifts_img fadein">
-  <%= image_tag "client_need.png", alt: "担当者選択", class: "client_need_img fadein" %>
-</div>
+  <%# --- 特徴2: 勤怠管理 --- %>
+  <section class="feature-section reverse">
+    <div class="feature-container">
+      <div class="feature-text scroll-trigger from-right">
+        <h2 class="feature-heading">勤怠管理も<br><span class="highlight">らくらく!</span></h2>
+        <p class="feature-desc">出勤状況が一目瞭然。<br>管理の手間を大幅に削減します。</p>
+      </div>
+      <div class="feature-visual scroll-trigger from-left">
+        <div class="simple-frame">
+          <%= image_tag "work_statuses.png", class: "feature-img shadow-lg", alt: "出勤状況管理" %>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<p class="home_text fadein">2クイックで</p>
-<p class="home_text2 fadein" >簡単にシフト登録!</p>
+  <%# --- 特徴3: 出勤共有 --- %>
+  <section class="feature-section">
+    <div class="feature-container">
+      <div class="feature-text scroll-trigger from-left">
+        <h2 class="feature-heading">出勤も共有も<br><span class="highlight">１クリック</span></h2>
+        <p class="feature-desc">従業員への連絡もスムーズ。<br>もう連絡漏れは起きません。</p>
+      </div>
+      <div class="feature-visual scroll-trigger from-right">
+        <div class="device-frame employee-frame">
+          <%= image_tag "employee.png", class: "frame-bg", alt: "背景" %>
+          <%= image_tag "pointer.png", class: "floating-pointer", alt: "ポインター" %>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<%= image_tag "work_statuses.png", alt: "出勤状況管理", class: "work_statuses_img fadein" %>
-
-<p class="home_text3 fadein">勤怠管理も</p>
-<p class="home_text4 fadein" >らくらく!</p>
-
-<div class="employee_img fadein">
-  <%= image_tag "pointer.png", alt: "ポインター", class: "pointer_img" %>
-</div>
-
-<p class="home_text5 fadein">出勤も</p>
-<p class="home_text6 fadein" >共有も１クイック</p>
-
-<%= image_tag "footer_title.png", alt: "フッター画像", class: "footer_title fadein" %>
-
-<div class="flexbox footer">
-  <%= link_to "新規登録", new_office_path ,class: "flex-btn"%>
+  <%# --- フッター/CTA --- %>
+  <footer class="lp-footer scroll-trigger">
+    <div class="footer-content">
+      <%= image_tag "footer_title.png", alt: "さあ、始めましょう", class: "footer-title" %>
+      <div class="footer-actions">
+        <%= link_to "新規登録して始める", new_user_registration_path, class: "btn btn-primary btn-lg" %>
+        <div class="sub-actions">
+          <%= link_to "ログイン", new_user_session_path, class: "text-link" %>
+          <span class="separator">|</span>
+          <%= link_to "Googleでログイン", "#", class: "text-link" %>
+        </div>
+      </div>
+    </div>
+  </footer>
 </div>

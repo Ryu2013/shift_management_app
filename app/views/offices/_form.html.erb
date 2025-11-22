@@ -1,8 +1,6 @@
 <%= form_with(model: office) do |form| %>
   <% if office.errors.any? %>
     <div style="color: red">
-      
-
       <ul>
         <% office.errors.each do |error| %>
           <%= error.message %>
@@ -15,13 +13,6 @@
     <%= form.label :name, style: "display: block" %>
     <%= form.text_field :name, required: true %>
   </div>
-
-<%= form.fields_for :teams do |team_form| %>
-  <div>
-    <%= team_form.label :name, t(".team_name"), style: "display: block" %>
-    <%= team_form.text_field :name, required: true %>
-  </div>
-<% end %>
 
   <div class="flexbox">
     <%= form.submit t(".submit") ,class: "flex-btn"%>

@@ -206,6 +206,7 @@ ja:
         submit: "登録する"
       edit:
         heading: "従業員の情報を編集"
+        users: "従業員シフト"
         name: "氏名"
         address: "住所"
         pref_per_week: "希望出勤日数（週）"
@@ -218,6 +219,7 @@ ja:
         password_confirmation: "新しいパスワード（確認用）"
         current_password: "現在のパスワード"
         current_password_hint: "変更を保存するには現在のパスワードが必要です。"
+        current_password_note: "（変更を確定するため現在のパスワードが必要です）"
         submit: "更新する"
         cancel_heading: "アカウントを削除"
         requires_employee: "従業員を削除するには最低1名必要です。"
@@ -309,10 +311,12 @@ ja:
         submit_button: "パスワードを設定する"
     mailer:
       confirmation_instructions:
+        welcome: "ケアシフトへようこそ！"
         greeting: "%{email} 様"
         instruction: "以下のリンクからメールアドレスの確認を行ってください。"
         action: "メールアドレスを確認する"
         subject: "アカウント確認の案内"
+        ignore_text: "このメールに心当たりがない場合は破棄してください。"
       email_changed:
         greeting: "%{email} 様"
         changing: "メールアドレスを%{email}に変更しようとしています。"
@@ -334,6 +338,7 @@ ja:
       invitation_instructions:
         subject: "招待のお知らせ"
         hello: "%{email} 様"
+        intro_html: "%{office_name} のシフト管理システムへの招待が届いています。以下のリンクからパスワードを設定してご利用を開始してください。"
         someone_invited_you: "%{url} への招待が届いています。以下のリンクから承認してください。"
         accept: "招待を承認する"
         accept_until: "この招待の有効期限は %{due_date} です。"
@@ -428,12 +433,14 @@ ja:
     new:
       title: "利用者を追加"
       heading: "利用者を追加"
+      clients: "利用者一覧"
       back: "利用者一覧に戻る"
       destroy: "この利用者を削除"
       confirm_destroy: "本当に削除しますか？"
     edit:
       title: "利用者を編集"
       heading: "利用者を編集"
+      clients: "利用者一覧"
       show: "この利用者を表示"
       back: "利用者一覧に戻る"
       destroy: "この利用者を削除"
@@ -468,6 +475,7 @@ ja:
       heading: "部署一覧"
       show: "この部署を表示"
       new: "部署を追加"
+      shifts: "シフト一覧"
     new:
       title: "部署を追加"
       heading: "部署を追加"
@@ -642,9 +650,23 @@ ja:
       new: "従業員を追加"
       shifts: "シフト一覧"
       clients: "利用者一覧"
+    edit:
+      title: "従業員を編集"
+      heading: "従業員の情報を編集"
+      users: "従業員一覧"
+      confirm_destroy: "本当に削除しますか？"
+    form:
+      email: "メールアドレス"
+      errors:
+        title:
+          one: "%{count}件のエラーがあります。内容を確認してください。"
+          other: "%{count}件のエラーがあります。内容を確認してください。"
     two_factor:
       invalid_code: "認証コードが正しくありません。再度お試しください。"
       persistence_failed: "二段階認証の設定保存に失敗しました。時間をおいて再度お試しください。"
+      setup:
+        users: "従業員シフト"
+        shifts: "シフト一覧"
     user:
       name: "氏名"
       address: "住所"
