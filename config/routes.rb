@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   root "home#index"
-  resources :offices, only: %i[new create show edit update destroy]
+  resources :offices, only: %i[edit update]
 
   resources :teams do
     resources :users, only: %i[ index edit update destroy] do

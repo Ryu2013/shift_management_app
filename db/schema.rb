@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_11_19_120000) do
+ActiveRecord::Schema[7.2].define(version: 2025_11_22_073524) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -45,7 +45,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_11_19_120000) do
   end
 
   create_table "offices", force: :cascade do |t|
-    t.string "name", null: false
+    t.string "name", default: "未設定会社名", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -71,7 +71,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_11_19_120000) do
 
   create_table "teams", force: :cascade do |t|
     t.bigint "office_id", null: false
-    t.string "name", null: false
+    t.string "name", default: "未設定部署名", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["office_id"], name: "index_teams_on_office_id"

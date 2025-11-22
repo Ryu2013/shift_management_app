@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class Users::RegistrationsController < Devise::RegistrationsController
-   prepend_before_action :set_office_from_session, only: [ :new, :create ]
    before_action :set_team, only: [ :edit ]
    before_action :office_authenticate, only: [ :edit, :update, :destroy ]
    before_action :set_team, only: [ :edit, :update ]
@@ -27,22 +26,16 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   private
-  # New,Create時に@officeをセット。session[:office_id]がなければリダイレクト
-  def set_office_from_session
-    @office = Office.find_by(id: session[:office_id])
-    redirect_to root_path, alert: "事業所情報が不明です" unless @office
-  end
 
   # 登録用ストロングパラメータ（permit + office_id/role をサーバ側で付与）
   # 一人目（該当オフィス内で初のユーザー）のみ admin、それ以外は employee を付与
   def sign_up_params
     permitted = params.require(:user).permit(
       :name, :address, :pref_per_week, :commute,
-      :email, :password, :password_confirmation, :team_id
-    )
-    first_in_office = !@office.users.exists?
-    role_value = first_in_office ? User.roles[:admin] : User.roles[:employee]
-    permitted.merge(office_id: @office.id, role: role_value)
+      :email, :password, :password_confirmation)
+    @office = Office.create
+    @team = Team.create(office_id: @office.id)
+    permitted.merge(office_id: @office.id, role: "admin", team_id: @team.id)
   end
 
   # 編集画面用ストロングパラメータ
