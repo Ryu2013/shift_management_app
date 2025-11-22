@@ -78,9 +78,7 @@ document.addEventListener("turbo:load", () => {
 });
 
 
-// (application.jsで `import "./custom/home_animation"` などとして読み込み)
-
-const setupAnimations = () => {
+document.addEventListener("turbo:load",() => {
   const targets = document.querySelectorAll('.scroll-trigger');
 
   if (targets.length === 0) return;
@@ -101,8 +99,4 @@ const setupAnimations = () => {
   }, options);
 
   targets.forEach(target => observer.observe(target));
-};
-
-// Turbo Drive Load & Initial Load
-document.addEventListener("turbo:load", setupAnimations);
-document.addEventListener("DOMContentLoaded", setupAnimations);
+});
