@@ -76,3 +76,38 @@ document.addEventListener("turbo:load", () => {
 
   targets.forEach(target => observer.observe(target)); 
 });
+
+
+// app/javascript/custom/home_animation.js
+// (application.jsなどでimportしてください)
+
+const setupAnimations = () => {
+  // 監視対象の要素を取得
+  const targets = document.querySelectorAll('.scroll-trigger');
+
+  // オプション設定
+  const options = {
+    root: null, // ビューポート
+    rootMargin: '0px 0px -15% 0px', // 画面の下15%に入ったら発火（少し早めに）
+    threshold: 0
+  };
+
+  const observer = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        // クラス付与でCSSトランジションを開始
+        entry.target.classList.add('is-visible');
+        // 一度表示したら監視をやめる（パフォーマンス考慮）
+        observer.unobserve(entry.target);
+      }
+    });
+  }, options);
+
+  targets.forEach(target => {
+    observer.observe(target);
+  });
+};
+
+// Turbo Driveのロード時と、通常のロード時の両方に対応
+document.addEventListener("turbo:load", setupAnimations);
+document.addEventListener("DOMContentLoaded", setupAnimations);

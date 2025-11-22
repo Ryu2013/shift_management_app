@@ -1,6 +1,4 @@
 class OfficesController < ApplicationController
-  skip_before_action :authenticate_user!
-  skip_before_action :user_authenticate
 
   def edit
   end
