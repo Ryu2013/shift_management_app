@@ -1,5 +1,4 @@
 class OfficesController < ApplicationController
-
   def edit
   end
 
