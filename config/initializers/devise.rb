@@ -285,7 +285,11 @@ Devise.setup do |config|
   # ==> OmniAuth
   # 新しい OmniAuth プロバイダを追加します。モデルやフックのセットアップについては wiki を参照してください。
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
-
+  config.omniauth :google_oauth2,
+  Rails.application.credentials.dig(:google, :client_id),
+  Rails.application.credentials.dig(:google, :client_secret),
+  scope: 'email,profile',
+  prompt: 'select_account'
   # ==> Warden 設定
   # サポートされていない戦略を使いたい場合や failure app を変更したい場合は
   # config.warden ブロック内で設定できます。

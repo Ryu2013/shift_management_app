@@ -1,4 +1,7 @@
 class OfficesController < ApplicationController
+  before_action :set_team
+  before_action :set_client
+
   def edit
   end
 

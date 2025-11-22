@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   devise :invitable, :registerable,
-         :validatable, :confirmable, :lockable, :two_factor_authenticatable
+         :validatable, :confirmable, :lockable, :two_factor_authenticatable,
+         :omniauthable, omniauth_providers: [:google_oauth2]
   devise :pwned_password unless Rails.env.test?
   encrypts :otp_secret
 
@@ -12,4 +13,19 @@ class User < ApplicationRecord
   has_many :user_needs, dependent: :destroy
   validates :name, presence: true
   enum :role, { employee: 0, admin: 1 }
+
+  private
+  def self.from_omniauth(auth)
+    where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+      user.email = auth.info.email
+      user.password = Devise.friendly_token[0, 20]
+      user.name = auth.info.name
+      # confirmed_at を設定してメール確認をスキップ
+      user.confirmed_at = Time.current
+      # office と team は既存ユーザーから引き継ぐか、デフォルトを設定
+      user.office = Office.create
+      user.team = Team.create(office: user.office)
+      user.role = :admin
+    end
+  end
 end

@@ -173,6 +173,12 @@ ja:
         current_password: 現在のパスワード
     
   devise:
+    omniauth_callbacks:
+      success: "%{kind}アカウントでログインしました。"
+      failure: "%{kind}でのログインに失敗しました。理由: %{reason}"
+      user:
+        success: "%{kind}アカウントでログインしました。"
+        failure: "%{kind}でのログインに失敗しました。理由: %{reason}"
     failure:
       invited: "招待が保留中です。招待を承認して登録を完了してください。"
     confirmations:
