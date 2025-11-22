@@ -6,6 +6,8 @@
 <div class="flexbox header">
   <%= image_tag "logo.png", alt: "ロゴ画像", class: "pc-logo" %>
   <%= link_to "新規登録", new_user_registration_path ,class: "flex-btn",style: " margin-left: auto;"%>
+  <%= link_to "ログイン", new_user_session_path ,class: "flex-btn" %>
+  <%= link_to "グーグルでログイン", "#", class: "flex-btn" %>
 </div>
 
 <%= image_tag "title.png", alt: "タイトル画像", class: "title fadein" %>
@@ -32,5 +34,7 @@
 <%= image_tag "footer_title.png", alt: "フッター画像", class: "footer_title fadein" %>
 
 <div class="flexbox footer">
-  <%= link_to "新規登録", new_office_path ,class: "flex-btn"%>
+  <%= link_to "新規登録", new_user_registration_path ,class: "flex-btn"%>
+  <%= link_to "ログイン", new_user_session_path ,class: "flex-btn" %>
+  <%= link_to "グーグルでログイン", "#", class: "flex-btn" %>
 </div>

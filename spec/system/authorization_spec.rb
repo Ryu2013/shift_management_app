@@ -45,6 +45,7 @@ RSpec.describe "権限管理", type: :system do
 
         it 'adminは利用者一覧にアクセスできる' do
             visit team_clients_path(team)
+            expect(page).to have_content '利用者を追加'
             expect(page).to have_current_path(team_clients_path(team))
         end
 

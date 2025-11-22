@@ -6,11 +6,6 @@ RSpec.describe "サインアップ処理", type: :system do
     it 'オフィス・部署を作成してサインアップできること' do
       visit root_path
       first(:link_or_button, '新規登録').click
-      fill_in "会社名", with: "テストオフィス"
-      fill_in "部署名", with: "テストチーム"
-      click_on "保存する"
-      expect(page).to have_text "オフィスと部署を作成しました"
-      expect(page).to have_current_path new_user_registration_path(team_id: Team.last.id)
 
       fill_in "氏名", with: "新しいユーザー"
       fill_in "住所", with: "東京都新宿区"

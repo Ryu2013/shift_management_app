@@ -14,21 +14,6 @@ RSpec.describe Office, type: :model do
     end
   end
 
-  describe 'accepts_nested_attributes_for :teams' do
-    it 'teams_attributes 経由で team が作成されること' do
-      office_attrs = attributes_for(:office)       # FactoryBot
-      team_attrs   = attributes_for(:team).slice(:name) # name だけ使う想定
-
-      expect {
-        Office.create!(
-          office_attrs.merge(
-            teams_attributes: [ team_attrs ]
-          )
-        )
-      }.to change(Team, :count).by(1)
-    end
-  end
-
   describe '関連付け（dependent: :destroy）' do
     let!(:office) { create(:office) }
     context 'users' do
