@@ -61,22 +61,6 @@ if (fakeDate && realDate) {
 });
 
 
-//home用インターセクト時にクラス付与
-document.addEventListener("turbo:load", () => {
-  const targets = document.querySelectorAll('.fadein'); 
-
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {          
-        entry.target.classList.add('visible'); 
-        observer.unobserve(entry.target);      
-      }
-    });
-  }, { threshold: 0.3 }); // 10%見えたら反応
-
-  targets.forEach(target => observer.observe(target)); 
-});
-
 
 document.addEventListener("turbo:load",() => {
   const targets = document.querySelectorAll('.scroll-trigger');
