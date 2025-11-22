@@ -8,11 +8,14 @@
   <%# --- ヘッダー --- %>
   <header class="lp-header fade-in-down">
     <div class="header-inner">
-      <%= image_tag "logo.png", alt: "ケアシフト ロゴ", class: "header-logo" %>
+      <div class="logo-area">
+        <%= image_tag "logo.png", alt: "ケアシフト ロゴ", class: "header-logo" %>
+        <span class="header-tag">無料のシフト管理</span>
+      </div>
       <nav class="header-nav">
+        <%# スマホではハンバーガーにするか、ボタンを減らす %>
         <%= link_to "新規登録", new_user_registration_path, class: "btn btn-primary" %>
-        <%= link_to "ログイン", new_user_session_path, class: "btn btn-secondary" %>
-        <%= link_to "Googleログイン", "#", class: "btn btn-google mobile-hide" %>
+        <%= link_to "ログイン", new_user_session_path, class: "btn btn-secondary mobile-hide" %>
       </nav>
     </div>
   </header>
@@ -21,7 +24,39 @@
   <section class="hero-section">
     <div class="hero-content scroll-trigger">
       <%= image_tag "title.png", alt: "タイトル", class: "hero-title" %>
-      <p class="hero-catch">シフト管理のストレスをゼロに。</p>
+      
+      <%# ★追加: 強調バッジエリア %>
+      <div class="hero-badges">
+        <div class="badge-item free-badge">
+          <span class="badge-icon">¥0</span>
+          <span class="badge-text">ずっと無料</span>
+        </div>
+        <div class="badge-item device-badge">
+          <%# SVGアイコン: PC & Mobile %>
+          <svg class="badge-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="3" width="13" height="9" rx="2" ry="2"></rect>
+            <path d="M2 12h13"></path>
+            <rect x="17" y="8" width="5" height="9" rx="1" ry="1"></rect>
+          </svg>
+          <span class="badge-text">PC・スマホ対応</span>
+        </div>
+          <%# --- ★追加: 簡単操作！ --- %>
+        <div class="badge-item easy-badge">
+          <%# SVGアイコン: キラキラ（手軽・快適） %>
+          <svg class="badge-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+          </svg>
+          <span class="badge-text">簡単操作！</span>
+        </div>
+      </div>
+
+      <p class="hero-catch">シフト管理のストレスをゼロに。<br class="sp-only">いつでもどこでも、コストをかけずに。</p>
+      
+      <div class="hero-cta">
+        <%= link_to new_user_registration_path, class: "btn btn-primary btn-xl shadow-pulse" do %>
+          無料で始める
+        <% end %>
+      </div>
     </div>
   </section>
 
@@ -30,13 +65,12 @@
     <div class="feature-container">
       <div class="feature-text scroll-trigger from-left">
         <h2 class="feature-heading">2クリックで<br><span class="highlight">簡単にシフト登録!</span></h2>
-        <p class="feature-desc">担当者を選んでポチッとするだけ。<br>直感的な操作で完了します。</p>
+        <p class="feature-desc">担当者を選んでポチッとするだけ。<br>PCの大画面でも、スマホのタッチ操作でも<br>直感的に登録完了します。</p>
       </div>
       <div class="feature-visual scroll-trigger from-right">
-        <%# 背景画像をCSSではなくHTML構造で管理しやすく変更 %>
         <div class="device-frame shifts-frame">
-          <%= image_tag "shifts.png", class: "frame-bg", alt: "背景" %>
-          <%= image_tag "client_need.png", class: "frame-content float-anim", alt: "担当者選択" %>
+          <%= image_tag "shifts.png", class: "frame-bg", alt: "シフト画面背景" %>
+          <%= image_tag "client_need.png", class: "frame-content float-anim", alt: "担当者選択ポップアップ" %>
         </div>
       </div>
     </div>
@@ -66,10 +100,41 @@
       </div>
       <div class="feature-visual scroll-trigger from-right">
         <div class="device-frame employee-frame">
-          <%= image_tag "employee.png", class: "frame-bg", alt: "背景" %>
+          <%= image_tag "employee.png", class: "frame-bg", alt: "従業員画面背景" %>
           <%= image_tag "pointer.png", class: "floating-pointer", alt: "ポインター" %>
         </div>
       </div>
+    </div>
+  </section>
+
+  <%# --- ★追加: コスト＆デバイス訴求セクション --- %>
+  <section class="value-section">
+    <div class="value-container">
+      
+      <%# PC/スマホ対応 %>
+      <div class="value-card scroll-trigger">
+        <div class="value-icon-wrapper">
+          <svg class="value-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="4" y="2" width="16" height="12" rx="2"></rect>
+            <rect x="8" y="18" width="8" height="4" rx="1"></rect>
+            <path d="M12 14v4"></path>
+            <path d="M20 10h2"></path>
+            <path d="M2 10h2"></path>
+          </svg>
+        </div>
+        <h3>PCでもスマホでも</h3>
+        <p>事務所のパソコンでじっくり管理。<br>移動中にスマホでサッと確認。<br>クラウドだからデータは常に同期されます。</p>
+      </div>
+
+      <%# ずっと無料 %>
+      <div class="value-card highlight-card scroll-trigger" style="transition-delay: 0.2s;">
+        <div class="value-icon-wrapper">
+          <span class="value-text-icon">¥0</span>
+        </div>
+        <h3>ずっと無料で使い放題</h3>
+        <p>初期費用も月額費用も一切かかりません。<br>期間の制限なく<br>無料でご利用いただけます。</p>
+      </div>
+
     </div>
   </section>
 
@@ -78,7 +143,7 @@
     <div class="footer-content">
       <%= image_tag "footer_title.png", alt: "さあ、始めましょう", class: "footer-title" %>
       <div class="footer-actions">
-        <%= link_to "新規登録して始める", new_user_registration_path, class: "btn btn-primary btn-lg" %>
+        <%= link_to "今すぐ無料で登録する", new_user_registration_path, class: "btn btn-primary btn-lg shadow-pulse" %>
         <div class="sub-actions">
           <%= link_to "ログイン", new_user_session_path, class: "text-link" %>
           <span class="separator">|</span>
