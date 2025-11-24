@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class Users::RegistrationsController < Devise::RegistrationsController
-   before_action :set_team, only: [ :edit ]
    before_action :office_authenticate, only: [ :edit, :update, :destroy ]
    before_action :set_team, only: [ :edit, :update ]
 
@@ -57,6 +56,15 @@ class Users::RegistrationsController < Devise::RegistrationsController
       params.except(:current_password, :password, :password_confirmation, :email)
       )
       end
+  end
+
+  # CSRFトークンがブラウザバックボタンでキャッシュを使ってしまう場合の対策
+  rescue_from ActionController::InvalidAuthenticityToken do |exception|
+    # ログにエラーを残しておく（任意）
+    Rails.logger.error "CSRF Token Error: #{exception.message}"
+    
+    # ログイン画面などにリダイレクトし、メッセージを出す
+    redirect_to new_user_session_path, alert: '画面の有効期限が切れました。もう一度操作してください。'
   end
 
   def office_authenticate

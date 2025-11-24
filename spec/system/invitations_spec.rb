@@ -3,8 +3,13 @@ require 'uri'
 
 RSpec.describe '招待フロー', type: :system do
   include LoginMacros
+  ActiveJob::Base.queue_adapter = :inline
 
   let(:password) { 'password123' }
+
+  before do
+    ActiveJob::Base.queue_adapter = :inline
+  end
 
   it 'adminが従業員を招待し、招待されたユーザーが受諾してパスワード設定・ログインできる' do
     # 管理者でログイン
@@ -20,7 +25,7 @@ RSpec.describe '招待フロー', type: :system do
     fill_in 'user_email', with: admin.email
     fill_in 'user_password', with: password
     click_button 'ログイン'
-
+    expect(page).to have_content 'ログインしました'
     # 招待画面へ
     visit new_user_invitation_path
 
@@ -33,12 +38,21 @@ RSpec.describe '招待フロー', type: :system do
     select '0', from: 'user_pref_per_week'
     fill_in 'user_commute', with: '電車'
 
+    ActiveJob::Base.queue_adapter = :inline
+    
     click_button '招待を送信する'
-    expect(page).to have_text('招待メールを', wait: 10)
+    expect(page).to have_text('招待メールを', wait: 10) 
+
+    mail = nil
+    Timeout.timeout(5) do
+      loop do
+        mail = ActionMailer::Base.deliveries.last
+        break if mail.present?
+        sleep 0.1 # 0.1秒待って再確認
+      end
+    end
 
 
-    mail = ActionMailer::Base.deliveries.last
-    # マルチパート対応: html/text いずれかのデコード済み本文から招待URLを抽出
     body = if mail.multipart?
       (mail.html_part&.decoded || mail.text_part&.decoded || mail.body&.decoded)
     else
@@ -56,6 +70,7 @@ RSpec.describe '招待フロー', type: :system do
 
     visit path
     # パスワード設定フォームが表示されるまで待機
+    puts path
     expect(page).to have_button('パスワードを設定する', wait: 10)
     # パスワードフィールドに入力
     fill_in 'user_password', with: password

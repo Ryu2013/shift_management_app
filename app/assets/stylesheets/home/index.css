@@ -16,7 +16,6 @@ body {
   padding: 0;
   font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", sans-serif;
   color: var(--text-color);
-  background-color: var(--bg-color);
   line-height: 1.6;
   overflow-x: hidden;
 }
@@ -147,7 +146,7 @@ a { text-decoration: none; }
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: radial-gradient(circle at center, #f0f8ff 0%, #fff 70%);
+
 }
 
 .hero-title {
@@ -224,9 +223,7 @@ a { text-decoration: none; }
   padding: 5rem 1rem;
   overflow: hidden;
 }
-.feature-section.reverse {
-  background-color: var(--bg-alt);
-}
+
 
 .feature-container {
   max-width: 1000px;
@@ -290,7 +287,7 @@ a { text-decoration: none; }
 /* --- Value セクション (New) --- */
 .value-section {
   padding: 4rem 1rem;
-  background: white;
+
 }
 
 .value-container {
@@ -344,7 +341,7 @@ a { text-decoration: none; }
 
 /* --- フッター --- */
 .lp-footer {
-  background: var(--bg-alt);
+
   padding: 4rem 1rem 6rem;
   text-align: center;
   border-top: 1px solid #eee;

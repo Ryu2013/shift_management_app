@@ -288,8 +288,8 @@ Devise.setup do |config|
   config.omniauth :google_oauth2,
   Rails.application.credentials.dig(:google, :client_id),
   Rails.application.credentials.dig(:google, :client_secret),
-  scope: 'email,profile',
-  prompt: 'select_account'
+  scope: "email,profile",
+  prompt: "select_account"
   # ==> Warden 設定
   # サポートされていない戦略を使いたい場合や failure app を変更したい場合は
   # config.warden ブロック内で設定できます。

@@ -8,8 +8,6 @@ RSpec.describe "サインアップ処理", type: :system do
       first(:link_or_button, '新規登録').click
 
       fill_in "氏名", with: "新しいユーザー"
-      fill_in "住所", with: "東京都新宿区"
-      fill_in "通勤手段", with: "電車"
       fill_in "メールアドレス", with: "test@example.com"
       fill_in "パスワード", with: "password"
       fill_in "パスワード（確認用）", with: "password"
