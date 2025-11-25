@@ -44,7 +44,7 @@ class Shift < ApplicationRecord
     return unless conflict
 
     # エラーメッセージを追加
-    errors.add(:base, I18n.t('errors.messages.time_slot_conflict',
+    errors.add(:base, I18n.t("errors.messages.time_slot_conflict",
                               user_name: user&.name,
                               date: I18n.l(date, format: :long),
                               start_time: I18n.l(start_time, format: :time),
