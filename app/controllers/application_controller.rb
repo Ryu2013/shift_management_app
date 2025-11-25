@@ -83,8 +83,8 @@ class ApplicationController < ActionController::Base
   rescue_from ActionController::InvalidAuthenticityToken do |exception|
     # ログにエラーを残しておく（任意）
     Rails.logger.error "CSRF Token Error: #{exception.message}"
-    
+
     # ログイン画面などにリダイレクトし、メッセージを出す
-    redirect_to new_user_session_path, alert: '画面の有効期限が切れました。もう一度操作してください。'
+    redirect_to new_user_session_path, alert: "画面の有効期限が切れました。もう一度操作してください。"
   end
 end

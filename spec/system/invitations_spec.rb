@@ -39,9 +39,9 @@ RSpec.describe '招待フロー', type: :system do
     fill_in 'user_commute', with: '電車'
 
     ActiveJob::Base.queue_adapter = :inline
-    
+
     click_button '招待を送信する'
-    expect(page).to have_text('招待メールを', wait: 10) 
+    expect(page).to have_text('招待メールを', wait: 10)
 
     mail = nil
     Timeout.timeout(5) do

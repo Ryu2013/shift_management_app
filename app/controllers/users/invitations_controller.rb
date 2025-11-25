@@ -1,6 +1,6 @@
 class Users::InvitationsController < Devise::InvitationsController
   include Pundit::Authorization
-  before_action :configure_permitted_parameters, only: [:create]
+  before_action :configure_permitted_parameters, only: [ :create ]
   before_action :office_authenticate, only: [ :new, :create ]
   before_action :user_authenticate, only: [ :new, :create ]
 
@@ -9,7 +9,7 @@ class Users::InvitationsController < Devise::InvitationsController
   # Strong Parametersの設定
   # ここでフォームから送信されるカスタム属性を許可します
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:invite, keys: [:name, :team_id, :address, :pref_per_week, :commute])
+    devise_parameter_sanitizer.permit(:invite, keys: [ :name, :team_id, :address, :pref_per_week, :commute ])
   end
 
   # ここでは、フォームに含まれない「サーバー側で強制的に決める値」だけをマージします
@@ -17,7 +17,7 @@ class Users::InvitationsController < Devise::InvitationsController
     # superの時点で name や address は既に許可されているため、
     # 個別に params[:user][:name] などと書く必要がなくなります。
     super.merge(
-      office_id: @office.id, 
+      office_id: @office.id,
       role: User.roles[:employee]
     )
   end
