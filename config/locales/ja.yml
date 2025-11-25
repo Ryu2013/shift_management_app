@@ -101,12 +101,10 @@ ja:
       client:
         office_id: 会社名
         team_id: 部署
-        medical_care: 医療区分
         name: 氏名
         email: メールアドレス
         address: 住所
         disease: 疾患
-        public_token: 公開トークン
         note: 備考
       shift:
         office_id: 会社名
@@ -463,13 +461,9 @@ ja:
     client:
       office: "会社名"
       team: "部署"
-      medical_care: "医療区分"
       name: "氏名"
       email: "メールアドレス"
       address: "住所"
-      disease: "疾患"
-      public_token: "公開トークン"
-      note: "備考"
   teams:
     index:
       title: "部署一覧"
