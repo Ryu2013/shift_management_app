@@ -165,8 +165,6 @@ ja:
       user:
         name: 氏名
         address: 住所
-        pref_per_week: 希望出勤日数（週）
-        commute: 通勤手段
         email: メールアドレス
         password: パスワード
         password_confirmation: パスワード（確認用）
@@ -203,8 +201,6 @@ ja:
         heading: "従業員を登録"
         name: "氏名"
         address: "住所"
-        pref_per_week: "希望出勤日数（週）"
-        commute: "通勤手段"
         email: "メールアドレス"
         password: "パスワード"
         password_hint: "%{count}文字以上で入力してください。"
@@ -215,8 +211,6 @@ ja:
         users: "従業員シフト"
         name: "氏名"
         address: "住所"
-        pref_per_week: "希望出勤日数（週）"
-        commute: "通勤手段"
         email: "メールアドレス"
         pending_confirmation: "現在%{email}で確認中です。"
         password: "新しいパスワード"
@@ -309,8 +303,6 @@ ja:
         team: "部署"
         team_prompt: "部署を選択"
         address: "住所"
-        pref_per_week: "希望出勤日数（週）"
-        commute: "通勤手段"
         submit_button: "招待を送信する"
         back: "従業員一覧へ戻る"
       edit:

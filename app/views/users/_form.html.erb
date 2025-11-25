@@ -24,16 +24,6 @@
     <%= form.text_field :address %>
   </div>
 
-  <div>
-    <%= form.label :pref_per_week, "希望出勤日数（週）", style: "display: block" %>
-    <%= form.number_field :pref_per_week, min: 0 %>
-  </div>
-
-  <div>
-    <%= form.label :commute, "通勤手段", style: "display: block" %>
-    <%= form.text_field :commute %>
-  </div>
-
   <% unless current_user == form.object %>
     <div>
       <%= form.label :role, "管理者権限の付与", style: "display: block" %>

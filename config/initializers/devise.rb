@@ -290,7 +290,7 @@ Devise.setup do |config|
   Rails.application.credentials.dig(:google, :client_secret),
   scope: "email,profile",
   prompt: "select_account",
-  :redirect_uri => ENV['REDIRECT_HOST'] + "/users/auth/google_oauth2/callback"
+  redirect_uri: ENV["REDIRECT_HOST"] + "/users/auth/google_oauth2/callback"
   # ==> Warden 設定
   # サポートされていない戦略を使いたい場合や failure app を変更したい場合は
   # config.warden ブロック内で設定できます。

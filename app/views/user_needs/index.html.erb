@@ -5,6 +5,12 @@
       <div class="back-btn">✕</div>
   <% end %>
 
+  <%= turbo_frame_tag "new_user_need" do %>
+    <div class="flexbox">
+      <%= link_to "出勤希望日", new_team_user_user_need_path(@team, @user), class: "flex-btn" %>
+    </div>
+  <% end %>
+
     <h3>出勤希望日</h3>
 
     <% UserNeed.weeks.keys.each do |week| %>
@@ -13,12 +19,6 @@
         <div id="user_needs_<%= week %>">
            <%= render (@user_needs[week] || []) %>
         </div>
-      </div>
-    <% end %>
-
-    <%= turbo_frame_tag "new_user_need" do %>
-      <div class="flexbox">
-        <%= link_to "出勤希望日", new_team_user_user_need_path(@team, @user), class: "flex-btn" %>
       </div>
     <% end %>
 
