@@ -36,6 +36,7 @@ RSpec.describe "権限管理", type: :system do
             fill_in 'user_email', with: admin_user.email
             fill_in 'user_password', with: password
             click_button 'ログイン'
+            expect(page).to have_content 'ログインしました'
         end
 
         it 'adminはシフト一覧にアクセスできる' do
@@ -66,6 +67,7 @@ RSpec.describe "権限管理", type: :system do
             fill_in 'user_email', with: employee_user.email
             fill_in 'user_password', with: password
             click_button 'ログイン'
+            expect(page).to have_content 'ログインしました'
         end
 
         it 'employeeはシフト一覧にアクセスしようとすると従業員用シフトページにリダイレクトされる' do

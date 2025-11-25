@@ -23,6 +23,17 @@ RSpec.configure do |config|
   config.fixture_paths = [
     Rails.root.join('spec/fixtures')
   ]
+  config.before(:each) do
+    # ログファイルを強制的にサイズ0（空）にする
+    File.truncate('log/test.log', 0)
+    Rails.logger.info("🧹 Log cleared for new test")
+  end
+  config.before(:each) do |example|
+    # ログに目立つ区切り線と、これから実行するテスト名を出力
+    Rails.logger.info("\n\n" + "=" * 80)
+    Rails.logger.info("🚀 START TEST: #{example.full_description}")
+    Rails.logger.info("=" * 80 + "\n")
+  end
 
   # ActiveRecord を使用していないか、各例をトランザクション内で実行したくない場合は、
   # 以下の行を削除するか true の代わりに false を設定してください。

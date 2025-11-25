@@ -163,7 +163,7 @@
         <div class="sub-actions">
           <%= link_to "ログイン", new_user_session_path, class: "text-link" %>
           <span class="separator">|</span>
-          <%= link_to "Googleでログイン",  user_google_oauth2_omniauth_authorize_path, class: "text-link" %>
+          <%= button_to "Googleでログイン", user_google_oauth2_omniauth_authorize_path, data: { turbo: false }, class: "text-link",form: { style: "display: inline-block;" } %>
         </div>
       </div>
     </div>

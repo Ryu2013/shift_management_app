@@ -34,10 +34,12 @@
     <%= form.text_field :commute %>
   </div>
 
-  <div>
-    <%= form.label :role, "管理者権限の付与", style: "display: block" %>
-    <%= form.select :role, [['管理者', 'admin'], ['一般', 'employee']] %>
-  </div>
+  <% unless current_user == form.object %>
+    <div>
+      <%= form.label :role, "管理者権限の付与", style: "display: block" %>
+      <%= form.select :role, [['管理者', 'admin'], ['一般', 'employee']] %>
+    </div>
+  <% end %>
 
   <div class="field">
     <%= form.label :email, t(".email") %>
@@ -57,11 +59,6 @@
 
 
   <div class="flexbox">
-
-    <div id="open-modal" class="flex-btn">
-    出勤希望
-    </div>
-
     <%= form.submit "更新する" %>
   </div>
 <% end %>
