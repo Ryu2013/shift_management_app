@@ -1,7 +1,6 @@
 /*JSで操作する部分はcontent_forで差し込んだ方が安定する*/
 .modal{
-    display:none;
-    position: fixed;
+    position: absolute;
     top: 50px;
     left: 50%;
     transform: translateX(-50%);
@@ -19,7 +18,6 @@
 .open {
     display: block;
 }
-
 .close-modal {
     position: absolute;
     top: 10px;
