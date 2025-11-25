@@ -35,9 +35,6 @@ class Shift < ApplicationRecord
     return unless user_id.present?
     conflict = Shift.where(user_id: user_id, date: date)
                    .where.not(id: id)
-                   # 既存のシフトの時間帯と、これから作成/更新する時間帯が重複する条件
-                   # 重複の条件:
-                   # (既存のstart_time < 新しいend_time) AND (既存のend_time > 新しいstart_time)
                    .where("start_time < ? AND end_time > ?", end_time, start_time)
                    .first
 

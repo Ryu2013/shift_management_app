@@ -3,9 +3,7 @@ Rails.application.routes.draw do
   resources :offices, only: %i[edit update]
 
   resources :teams do
-    resources :users, only: %i[ index edit update destroy] do
-      resources :user_needs, only: %i[index new create edit destroy]
-    end
+    resources :users, only: %i[ index edit update destroy]
     resources :clients, only: %i[index new create edit update destroy] do
       resources :client_needs, only: %i[index new create edit destroy]
       resources :user_clients, only: %i[new create destroy]

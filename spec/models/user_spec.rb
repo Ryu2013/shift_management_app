@@ -52,14 +52,6 @@ RSpec.describe User, type: :model do
       end
     end
 
-    context 'user_needs（dependent: :destroy）' do
-      let!(:user_need) { create(:user_need, user: user, office: user.office) }
-
-      it 'user 削除時に user_needs も削除されること' do
-        expect { user.destroy }.to change(UserNeed, :count).by(-1)
-      end
-    end
-
     context 'shifts（dependent: :nullify）' do
       let!(:client_for_shift) { create(:client, office: user.office, team: user.team) }
       let!(:shift) { create(:shift, office: user.office, client: client_for_shift, user: user) }

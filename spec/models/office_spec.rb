@@ -40,12 +40,6 @@ RSpec.describe Office, type: :model do
         expect { office.destroy }.to change(UserClient, :count).by(-1)
       end
     end
-    context 'user_needs' do
-      let!(:user_need) { create(:user_need, office: office) }
-      it 'office 削除時に user_needs も削除されること' do
-        expect { office.destroy }.to change(UserNeed, :count).by(-1)
-      end
-    end
     context 'client_needs' do
       let!(:client_need) { create(:client_need, office: office) }
       it 'office 削除時に client_needs も削除されること' do

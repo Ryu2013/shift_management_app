@@ -54,7 +54,7 @@ RSpec.describe Shift, type: :model do
       dup = build(:shift, office: user.office, client: client, user: user, date: date, start_time: '11:00', end_time: '14:00')
 
       expect(dup).to be_invalid
-      expect(dup.errors[:base]).to be_present 
+      expect(dup.errors[:base]).to be_present
     end
 
     it '同じ日付に同じユーザーでも、時間帯が重複しなければ割り当てられること' do
@@ -66,7 +66,7 @@ RSpec.describe Shift, type: :model do
       dup = build(:shift, office: user.office, client: client, user: user, date: date, start_time: '12:00', end_time: '16:00')
 
       expect(dup).to be_valid
-      expect(dup.errors[:base]).to be_empty 
+      expect(dup.errors[:base]).to be_empty
     end
   end
 
