@@ -14,6 +14,9 @@ html {
   background: url("background-mobile.jpg") center/cover repeat-y;
   background-size: 100%;
 }
+body {
+  position: relative;
+}
 
 h1,h2,h3,h4,h5,h6{
   text-align: center;

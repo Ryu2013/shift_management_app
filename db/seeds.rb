@@ -35,7 +35,7 @@ ActiveRecord::Base.transaction do
     admin.save!
     puts "[seed] Admin created => #{admin.email} / #{admin_password}"
   else
-    puts "[seed] Admin exists   => #{admin.email}"
+    puts "[seed] Admin exists   => #{admin.email} / #{admin_password}"
   end
 
   # Employee user
@@ -56,7 +56,7 @@ ActiveRecord::Base.transaction do
     employee.save!
     puts "[seed] Employee created => #{employee.email} / #{employee_password}"
   else
-    puts "[seed] Employee exists   => #{employee.email}"
+    puts "[seed] Employee exists   => #{employee.email}/ #{employee_password}"
   end
 
   puts "[seed] Office: #{office.name} (id=#{office.id})"
