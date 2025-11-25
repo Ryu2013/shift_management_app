@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_11_22_110057) do
+ActiveRecord::Schema[7.2].define(version: 2025_11_25_100657) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -31,13 +31,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_11_22_110057) do
   create_table "clients", force: :cascade do |t|
     t.bigint "office_id", null: false
     t.bigint "team_id", null: false
-    t.integer "medical_care"
     t.string "name", null: false
-    t.string "email"
     t.string "address"
-    t.string "disease"
-    t.string "public_token"
-    t.string "note"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["office_id"], name: "index_clients_on_office_id"
@@ -65,7 +60,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_11_22_110057) do
     t.time "end_time", null: false
     t.index ["client_id"], name: "index_shifts_on_client_id"
     t.index ["office_id"], name: "index_shifts_on_office_id"
-    t.index ["user_id", "date"], name: "index_shifts_on_user_id_and_date_unique", unique: true, where: "(user_id IS NOT NULL)"
     t.index ["user_id"], name: "index_shifts_on_user_id"
   end
 
@@ -90,25 +84,10 @@ ActiveRecord::Schema[7.2].define(version: 2025_11_22_110057) do
     t.index ["user_id"], name: "index_user_clients_on_user_id"
   end
 
-  create_table "user_needs", force: :cascade do |t|
-    t.bigint "office_id", null: false
-    t.bigint "user_id", null: false
-    t.integer "week"
-    t.time "start_time"
-    t.time "end_time"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["office_id"], name: "index_user_needs_on_office_id"
-    t.index ["user_id"], name: "index_user_needs_on_user_id"
-  end
-
   create_table "users", force: :cascade do |t|
     t.bigint "office_id", null: false
     t.string "name", null: false
     t.string "address"
-    t.integer "pref_per_week"
-    t.string "commute"
-    t.string "note"
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
@@ -161,8 +140,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_11_22_110057) do
   add_foreign_key "user_clients", "clients"
   add_foreign_key "user_clients", "offices"
   add_foreign_key "user_clients", "users"
-  add_foreign_key "user_needs", "offices"
-  add_foreign_key "user_needs", "users"
   add_foreign_key "users", "offices"
   add_foreign_key "users", "teams"
 end

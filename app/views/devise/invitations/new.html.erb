@@ -41,21 +41,6 @@
         <%= f.text_field :address, class: "form-input" %>
       </div>
 
-      <%# --- 週の希望回数・通勤時間 (横並びに配置) --- %>
-      <div style="display: flex; gap: 1rem;">
-        <div class="form-group" style="flex: 1;">
-          <%= f.label :pref_per_week, t("devise.invitations.new.pref_per_week"), class: "form-label" %>
-          <div class="select-wrapper">
-            <%= f.select :pref_per_week, 0..7, {}, class: "form-select" %>
-          </div>
-        </div>
-
-        <div class="form-group" style="flex: 1;">
-          <%= f.label :commute, t("devise.invitations.new.commute"), class: "form-label" %>
-          <%= f.text_field :commute, class: "form-input" %>
-        </div>
-      </div>
-
       <%# --- アクションボタン --- %>
       <div class="form-actions">
         <%= f.submit t("devise.invitations.new.submit_button"), class: "btn btn-primary btn-block shadow-pulse" %>

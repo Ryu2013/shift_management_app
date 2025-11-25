@@ -9,7 +9,7 @@ class Users::InvitationsController < Devise::InvitationsController
   # Strong Parametersの設定
   # ここでフォームから送信されるカスタム属性を許可します
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:invite, keys: [ :name, :team_id, :address, :pref_per_week, :commute ])
+    devise_parameter_sanitizer.permit(:invite, keys: [ :name, :team_id, :address ])
   end
 
   # ここでは、フォームに含まれない「サーバー側で強制的に決める値」だけをマージします

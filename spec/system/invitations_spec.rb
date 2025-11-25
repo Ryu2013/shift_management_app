@@ -35,8 +35,6 @@ RSpec.describe '招待フロー', type: :system do
     fill_in 'user_email', with: "test2@example.com"
     find('#user_team_id').find("option[value='#{team.id}']").select_option
     fill_in 'user_address', with: '東京都港区'
-    select '0', from: 'user_pref_per_week'
-    fill_in 'user_commute', with: '電車'
 
     ActiveJob::Base.queue_adapter = :inline
 

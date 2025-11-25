@@ -33,20 +33,6 @@
           <%= f.text_field :address, class: "form-input", placeholder: "住所を入力" %>
         </div>
 
-        <%# 横並びレイアウト %>
-        <div class="form-row">
-          <div class="form-group half">
-            <%= f.label :pref_per_week, t(".pref_per_week"), class: "form-label" %>
-            <div class="select-wrapper">
-              <%= f.select :pref_per_week, 0..7, {}, class: "form-select" %>
-            </div>
-          </div>
-
-          <div class="form-group half">
-            <%= f.label :commute, t(".commute"), class: "form-label" %>
-            <%= f.text_field :commute, class: "form-input", placeholder: "例: 30分" %>
-          </div>
-        </div>
       </div>
 
       <hr class="section-divider">

@@ -57,6 +57,6 @@ class ClientsController < ApplicationController
 
 
   def client_params
-    params.require(:client).permit(:team_id, :medical_care, :name, :email, :address, :disease, :public_token, :note, user_clients_attributes: [ :id, :user_id, :note, :_destroy ])
+    params.require(:client).permit(:team_id, :name, :address, user_clients_attributes: [ :id, :user_id, :note, :_destroy ])
   end
 end

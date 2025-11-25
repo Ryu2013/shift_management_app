@@ -45,16 +45,28 @@ RSpec.describe Shift, type: :model do
       expect(shift.errors[:end_time]).to include('を入力してください。')
     end
 
-    it '同じ日付に同じユーザーを複数のシフトへ割り当てられないこと' do
+    it '同じ日付に同じユーザーを、時間帯が重複する複数のシフトへ割り当てられないこと' do
       user   = create(:user)
       client = create(:client, office: user.office, team: user.team)
       date   = Date.current
-
       first = create(:shift, office: user.office, client: client, user: user, date: date, start_time: '09:00', end_time: '12:00')
-      dup   = build(:shift,  office: user.office, client: client, user: user, date: date, start_time: '13:00', end_time: '17:00')
+
+      dup = build(:shift, office: user.office, client: client, user: user, date: date, start_time: '11:00', end_time: '14:00')
 
       expect(dup).to be_invalid
-      expect(dup.errors[:user_id]).to be_present
+      expect(dup.errors[:base]).to be_present
+    end
+
+    it '同じ日付に同じユーザーでも、時間帯が重複しなければ割り当てられること' do
+      user   = create(:user)
+      client = create(:client, office: user.office, team: user.team)
+      date   = Date.current
+      first = create(:shift, office: user.office, client: client, user: user, date: date, start_time: '09:00', end_time: '12:00')
+
+      dup = build(:shift, office: user.office, client: client, user: user, date: date, start_time: '12:00', end_time: '16:00')
+
+      expect(dup).to be_valid
+      expect(dup.errors[:base]).to be_empty
     end
   end
 

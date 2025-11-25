@@ -30,7 +30,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # 一人目（該当オフィス内で初のユーザー）のみ admin、それ以外は employee を付与
   def sign_up_params
     permitted = params.require(:user).permit(
-      :name, :address, :pref_per_week, :commute,
+      :name, :address,
       :email, :password, :password_confirmation)
     @office = Office.create
     @team = Team.create(office_id: @office.id)
@@ -40,7 +40,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # 編集画面用ストロングパラメータ
   def account_update_params
     params.require(:user).permit(
-      :name, :address, :pref_per_week, :commute, :team_id,
+      :name, :address, :team_id,
       :email, :password, :password_confirmation, :current_password
     )
   end

@@ -1,5 +1,4 @@
 <% content_for :title, "従業員の情報を編集" %>
-<%= turbo_stream_from [@user, :user_needs] %>
 <% content_for :head do %>
   <%= stylesheet_link_tag "user/edit", "data-turbo-track": "dynamic" %>
 <% end %>
@@ -19,9 +18,6 @@
       <%= button_to "従業員を消去", [@team, @user], method: :delete, data: { turbo_confirm: t(".confirm_destroy") }, class: "flex-btn" %>
     <% else %>
       自分のアカウントは削除できません。
-    <% end %>
-    <%= turbo_frame_tag "user_needs" do %>
-      <%= link_to "シフト作成", team_user_user_needs_path(@team, @user), id: "open-modal", class: "flex-btn" %>
     <% end %>
   </div>
 
