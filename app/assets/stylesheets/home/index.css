@@ -360,8 +360,10 @@ a { text-decoration: none; }
   font-size: 0.9rem;
 }
 .text-link {
+  all: unset;  
   color: #888;
   transition: color 0.2s;
+  display: inline
 }
 .text-link:hover { color: var(--primary-color); }
 .separator { margin: 0 0.5rem; color: #ccc; }

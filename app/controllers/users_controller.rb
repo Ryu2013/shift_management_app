@@ -51,6 +51,16 @@ class UsersController < ApplicationController
     end
 
     def user_params
-      params.require(:user).permit(:name, :address, :pref_per_week, :commute, :team_id, :email, :password, :password_confirmation)
+      # 1. 常に許可する基本のパラメータ
+      permitted_attributes = [:name, :email, :password, :password_confirmation]
+
+      # 2. 「自分自身ではない」場合のみ、role の更新を許可リストに加える
+      # ※ @user は edit/update アクションの set_user で定義されている前提です
+      if current_user != @user
+        permitted_attributes << :role
+      end
+
+      # 3. 許可されたリストを使ってデータをフィルタリング
+      params.require(:user).permit(permitted_attributes)
     end
 end
