@@ -7,7 +7,6 @@ FactoryBot.define do
     end
 
     sequence(:name) { |n| "利用者#{n}" }
-    email { nil }
     address { nil }
   end
 end
