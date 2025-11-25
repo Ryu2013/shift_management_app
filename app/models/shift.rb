@@ -32,11 +32,25 @@ class Shift < ApplicationRecord
   end
 
   def user_unique_per_date
-    conflict = Shift.where(user_id: user_id, date: date).where.not(id: id).first
+    return unless user_id.present?
+    conflict = Shift.where(user_id: user_id, date: date)
+                   .where.not(id: id)
+                   # 既存のシフトの時間帯と、これから作成/更新する時間帯が重複する条件
+                   # 重複の条件:
+                   # (既存のstart_time < 新しいend_time) AND (既存のend_time > 新しいstart_time)
+                   .where("start_time < ? AND end_time > ?", end_time, start_time)
+                   .first
+
     return unless conflict
-    errors.add(:user_id, :already_assigned,
-               date: I18n.l(date),
-               user_name: user&.name,
-               client_name: conflict.client&.name)
+
+    # エラーメッセージを追加
+    errors.add(:base, I18n.t('errors.messages.time_slot_conflict',
+                              user_name: user&.name,
+                              date: I18n.l(date, format: :long),
+                              start_time: I18n.l(start_time, format: :time),
+                              end_time: I18n.l(end_time, format: :time),
+                              conflict_client: conflict.client&.name,
+                              conflict_start: I18n.l(conflict.start_time, format: :time),
+                              conflict_end: I18n.l(conflict.end_time, format: :time)))
   end
 end

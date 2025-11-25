@@ -1,6 +1,7 @@
 ja:
   time:
     formats:
+      time: "%H:%M"
       default: "%H:%M"
       devise:
         mailer:
@@ -29,6 +30,7 @@ ja:
       office:
         required: "必須です"
     messages:
+      time_slot_conflict: "%{user_name}は、%{date} %{start_time} から %{end_time} の時間帯で、既に %{conflict_client} 様のシフト（%{conflict_start}〜%{conflict_end}）に割り当てられています。時間帯が重複しています。"
       required: "必須です"
       not_locked: "はロックされていません。"
       pwned_password: "ご登録のパスワードはPwnedPasswordに登録されています。パスワードを変更してください。どこかで同じパスワードを使用したことがある場合は、変更を強くお勧めいたします。"

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_11_25_082308) do
+ActiveRecord::Schema[7.2].define(version: 2025_11_25_085010) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -65,7 +65,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_11_25_082308) do
     t.time "end_time", null: false
     t.index ["client_id"], name: "index_shifts_on_client_id"
     t.index ["office_id"], name: "index_shifts_on_office_id"
-    t.index ["user_id", "date"], name: "index_shifts_on_user_id_and_date_unique", unique: true, where: "(user_id IS NOT NULL)"
     t.index ["user_id"], name: "index_shifts_on_user_id"
   end
 
