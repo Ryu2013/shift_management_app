@@ -1,12 +1,9 @@
 class TeamsController < ApplicationController
   before_action :set_team
-  before_action :set_client, only: %i[index show new edit create update]
+  before_action :set_client, only: %i[index new edit create update]
 
   def index
     @teams = @office.teams.includes(:clients, :users).order(:id)
-  end
-
-  def show
   end
 
   def new

@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   root "home#index"
   resources :offices, only: %i[edit update]
 
-  resources :teams do
+  resources :teams, only: %i[index new create edit update destroy] do
     resources :users, only: %i[ index edit update destroy]
     resources :clients, only: %i[index new create edit update destroy] do
       resources :client_needs, only: %i[index new create destroy]

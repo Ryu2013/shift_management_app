@@ -17,6 +17,8 @@ class UserClientsController < ApplicationController
         format.html { redirect_to new_team_client_user_client_path(@team, @client), notice: "ユーザークライアントを作成しました。" }
         format.turbo_stream
       else
+        @user_clients = @client&.user_clients.includes(:user, client: :team)
+        @users = @team.users
         format.html { render :new, status: :unprocessable_entity }
         format.turbo_stream
       end
@@ -27,7 +29,7 @@ class UserClientsController < ApplicationController
     @user_client.destroy!
 
     respond_to do |format|
-      format.html { redirect_to user_clients_path, notice: "ユーザークライアントを削除しました。", status: :see_other }
+      format.html { redirect_to team_client_user_clients_path(@team, @client), notice: "ユーザークライアントを削除しました。", status: :see_other }
       format.turbo_stream
     end
   end
