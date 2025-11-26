@@ -1,3 +1,5 @@
+require 'simplecov'
+SimpleCov.start 'rails'
 # このファイルは `rails generate rspec:install` を実行したときに spec/ にコピーされます
 require 'spec_helper'
 ENV['RAILS_ENV'] ||= 'test'
