@@ -14,7 +14,7 @@ class Client < ApplicationRecord
     return nil unless latitude.present? && longitude.present?
 
     destination = "#{self.latitude},#{self.longitude}"
-    
+
     "https://www.google.com/maps/dir/?api=1&destination=#{self.latitude},#{self.longitude}&travelmode=driving"
   end
 end

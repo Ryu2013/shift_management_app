@@ -33,11 +33,11 @@ if Rails.env.test?
   Geocoder::Lookup::Test.set_default_stub(
     [
       {
-        'coordinates'  => [35.6895, 139.6917],
-        'address'      => 'Tokyo, Japan',
-        'state'        => 'Tokyo',
-        'country'      => 'Japan',
-        'country_code' => 'JP'
+        "coordinates"  => [ 35.6895, 139.6917 ],
+        "address"      => "Tokyo, Japan",
+        "state"        => "Tokyo",
+        "country"      => "Japan",
+        "country_code" => "JP"
       }
     ]
   )
