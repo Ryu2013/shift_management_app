@@ -203,3 +203,32 @@ li {
 @media (display-mode: standalone) {
 .turbo-progress-bar { display: none !important; }
 }
+
+.google-map-btn {
+  background-color: #fff;       /* 清潔感のある白背景 */
+  border: 1px solid #dadce0;    /* Google風の薄いグレーの枠線 */
+  color: #3c4043;               /* 読みやすい濃いグレーの文字 */
+  font-weight: bold;
+  font-family: 'Roboto', sans-serif; /* Googleっぽいフォント（あれば） */
+  gap: 0.6rem;                  /* アイコンと文字の間隔 */
+  padding: 0.5em 1.2em;         /* 少しゆったりめの余白 */
+  border-radius: 24px;          /* 丸みを帯びた形状 */
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1); /* 浮き上がるような影 */
+  transition: all 0.2s ease;
+}
+
+/* ホバー時の動き */
+.google-map-btn:hover {
+  background-color: #f8f9fa;    /* 薄いグレーに変化 */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15); /* 影を強くして浮遊感を出す */
+  transform: translateY(-2px);  /* 少し上に持ち上がる */
+  color: #202124;
+}
+
+/* アイコンのサイズ調整 */
+.map-icon {
+  width: 22px;
+  height: 22px;
+  /* アイコン自体にも少し影をつけて立体的に */
+  filter: drop-shadow(0 1px 1px rgba(0,0,0,0.1));
+}
