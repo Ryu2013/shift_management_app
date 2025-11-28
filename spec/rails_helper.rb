@@ -1,5 +1,11 @@
 require 'simplecov'
-SimpleCov.start 'rails'
+
+SimpleCov.start 'rails' do
+  # ここに add_filter を追加します
+  add_filter 'app/jobs/application_job.rb'
+  add_filter 'app/mailers/application_mailer.rb'
+  add_filter 'app/channels/application_cable/channel.rb'
+end
 # このファイルは `rails generate rspec:install` を実行したときに spec/ にコピーされます
 require 'spec_helper'
 ENV['RAILS_ENV'] ||= 'test'
@@ -36,7 +42,7 @@ RSpec.configure do |config|
     Rails.logger.info("🚀 START TEST: #{example.full_description}")
     Rails.logger.info("=" * 80 + "\n")
   end
-
+  config.include Devise::Test::IntegrationHelpers, type: :request
   # ActiveRecord を使用していないか、各例をトランザクション内で実行したくない場合は、
   # 以下の行を削除するか true の代わりに false を設定してください。
   config.use_transactional_fixtures = true

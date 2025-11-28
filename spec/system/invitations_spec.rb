@@ -68,7 +68,7 @@ RSpec.describe '招待フロー', type: :system do
 
     visit path
     # パスワード設定フォームが表示されるまで待機
-    
+
     expect(page).to have_button('パスワードを設定する', wait: 10)
     # パスワードフィールドに入力
     fill_in 'user_password', with: password
