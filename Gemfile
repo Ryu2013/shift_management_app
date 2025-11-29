@@ -1,35 +1,35 @@
 source "https://rubygems.org"
 
-# Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
+# Railsの最新版（edge）を使用する場合: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.2.2", ">= 7.2.2.1"
-# The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
+# Railsの元々のアセットパイプライン [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
-# Use postgresql as the database for Active Record
+# Active Recordのデータベースとしてpostgresqlを使用
 gem "pg", "~> 1.1"
-# Use the Puma web server [https://github.com/puma/puma]
+# Pumaウェブサーバーを使用 [https://github.com/puma/puma]
 gem "puma", ">= 5.0"
-# Bundle and transpile JavaScript [https://github.com/rails/jsbundling-rails]
+# JavaScriptのバンドル(結合)とトランスパイル(変換) [https://github.com/rails/jsbundling-rails]
 gem "jsbundling-rails"
-# Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
+# HotwireのSPA風ページアクセラレータ [https://turbo.hotwired.dev]
 gem "turbo-rails"
-# Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
+# Hotwireの控えめなJavaScriptフレームワーク [https://stimulus.hotwired.dev]
 gem "stimulus-rails"
-# Build JSON APIs with ease [https://github.com/rails/jbuilder]
+# JSON APIを簡単に構築 [https://github.com/rails/jbuilder]
 gem "jbuilder"
-# Use Redis adapter to run Action Cable in production
+# 本番環境でAction Cableを実行するためにRedisアダプタを使用
 # gem "redis", ">= 4.0.1"
 gem "devise"
-# Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
+# Redisでより高度なデータ型を使用するためにKredisを使用 [https://github.com/rails/kredis]
 # gem "kredis"
-# Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
+# Active Modelのhas_secure_passwordを使用 [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 # gem "bcrypt", "~> 3.1.7"
-# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
+# Windowsにはzoneinfoファイルが含まれていないため、tzinfo-data gemをバンドル
 gem "tzinfo-data", platforms: %i[ windows jruby ]
 gem "redis"
-# Reduces boot times through caching; required in config/boot.rb
+# キャッシュによる起動時間の短縮; config/boot.rbで必要
 gem "bootsnap", require: false
 gem "devise_invitable", "~> 2.0"
-# Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
+# Active Storageのバリアントを使用 [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
 gem "devise-two-factor"
 gem "rotp"
@@ -41,20 +41,20 @@ gem "omniauth-rails_csrf_protection"
 gem "geocoder"
 
 group :development, :test do
-  # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
+  # 参照: https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
 
-  # Static analysis for security vulnerabilities [https://brakemanscanner.org/]
+  # セキュリティ脆弱性の静的解析 [https://brakemanscanner.org/]
   gem "brakeman", require: false
 
-  # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
+  # Omakase Rubyスタイル [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
   gem "rspec-rails"
   gem "factory_bot_rails"
 end
 
 group :development do
-  # Use console on exceptions pages [https://github.com/rails/web-console]
+  # 例外ページでコンソールを使用 [https://github.com/rails/web-console]
   gem "web-console"
   gem "letter_opener"
   gem "letter_opener_web"
@@ -62,7 +62,7 @@ group :development do
 end
 
 group :test do
-  # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
+  # システムテストを使用 [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
   gem "selenium-webdriver"
   gem "simplecov", require: false
