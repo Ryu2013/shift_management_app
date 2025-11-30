@@ -9,6 +9,7 @@
     <%= image_tag "hamburger.png", alt: "ハンバーガーメニュー", class: "hamburger" ,id: "hamburger" %>
   </div>
   <div class="menus">
+    <%= link_to "チャット", rooms_path, class: "menu" %>
     <%= link_to "従業員情報の変更", edit_user_registration_path, class: "menu margin-mobile"%>
     <%= link_to "二段階認証", users_two_factor_setup_path, class: "menu" %>
     <%= link_to "ログアウト",

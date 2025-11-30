@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_11_30_033518) do
+ActiveRecord::Schema[7.2].define(version: 2025_11_30_054635) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -41,10 +41,41 @@ ActiveRecord::Schema[7.2].define(version: 2025_11_30_033518) do
     t.index ["team_id"], name: "index_clients_on_team_id"
   end
 
+  create_table "entries", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "room_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "office_id", null: false
+    t.index ["office_id"], name: "index_entries_on_office_id"
+    t.index ["room_id"], name: "index_entries_on_room_id"
+    t.index ["user_id"], name: "index_entries_on_user_id"
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "room_id", null: false
+    t.text "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "office_id", null: false
+    t.index ["office_id"], name: "index_messages_on_office_id"
+    t.index ["room_id"], name: "index_messages_on_room_id"
+    t.index ["user_id"], name: "index_messages_on_user_id"
+  end
+
   create_table "offices", force: :cascade do |t|
     t.string "name", default: "未設定会社名", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "rooms", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "office_id", null: false
+    t.index ["office_id"], name: "index_rooms_on_office_id"
   end
 
   create_table "shifts", force: :cascade do |t|
@@ -137,6 +168,13 @@ ActiveRecord::Schema[7.2].define(version: 2025_11_30_033518) do
   add_foreign_key "client_needs", "offices"
   add_foreign_key "clients", "offices"
   add_foreign_key "clients", "teams"
+  add_foreign_key "entries", "offices"
+  add_foreign_key "entries", "rooms"
+  add_foreign_key "entries", "users"
+  add_foreign_key "messages", "offices"
+  add_foreign_key "messages", "rooms"
+  add_foreign_key "messages", "users"
+  add_foreign_key "rooms", "offices"
   add_foreign_key "shifts", "clients"
   add_foreign_key "shifts", "offices"
   add_foreign_key "shifts", "users"

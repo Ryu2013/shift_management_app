@@ -1,0 +1,90 @@
+/* チャットルーム全体の背景 */
+body {
+    background-color: #7494c0;
+}
+
+/* メッセージエリア */
+.messages-container {
+    height: calc(100vh - 120px);
+    /* ヘッダーとフッターの高さを引く */
+    overflow-y: scroll;
+    padding: 10px;
+    padding-bottom: 20px;
+}
+
+/* メッセージ行（共通） */
+.message-row {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+    max-width: 80%;
+}
+
+/* 自分のメッセージ行 */
+.my-row {
+    align-items: flex-end;
+    margin-left: auto;
+    /* 右寄せ */
+}
+
+/* 相手のメッセージ行 */
+.other-row {
+    align-items: flex-start;
+    /* 左寄せ */
+}
+
+/* ユーザー名（相手のみ） */
+.message-header {
+    font-size: 0.8rem;
+    color: #333;
+    margin-bottom: 2px;
+    margin-left: 5px;
+}
+
+/* 吹き出し（共通） */
+.message-bubble {
+    position: relative;
+    padding: 8px 12px;
+    border-radius: 15px;
+    font-size: 0.95rem;
+    line-height: 1.4;
+    word-wrap: break-word;
+    max-width: 100%;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+/* 自分の吹き出し */
+.my-message {
+    background-color: #8de055;
+    color: #000;
+    border-top-right-radius: 0;
+    /* 右上の角を尖らせる */
+}
+
+/* 相手の吹き出し */
+.other-message {
+    background-color: #ffffff;
+    color: #000;
+    border-top-left-radius: 0;
+    /* 左上の角を尖らせる */
+}
+
+/* 時間表示 */
+.message-time {
+    font-size: 0.65rem;
+    color: #888;
+    margin-top: 2px;
+    text-align: right;
+    min-width: 30px;
+}
+
+.my-message .message-time {
+    color: #555;
+}
+
+/* フォームエリアの調整（必要に応じて） */
+#message_form {
+    background-color: #f0f0f0;
+    padding: 10px;
+    box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.1);
+}

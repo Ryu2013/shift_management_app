@@ -1,0 +1,12 @@
+<h1>チャットルーム</h1>
+
+<h2>参加中のルーム</h2>
+<% @rooms.each do |room| %>
+  <div style="margin-bottom: 10px;">
+    <%= link_to "ルーム #{room.id}", room_path(room), data: { turbo: false } %>
+    <% room.users.each do |user| %>
+      <%= user.name %>
+    <% end %>
+    <%= button_to "削除", room_path(room), method: :delete, data: { turbo: false }, class: "flex-btn", style: "width: 3rem;" %>
+  </div>
+<% end %>

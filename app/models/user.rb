@@ -10,6 +10,9 @@ class User < ApplicationRecord
   has_many :clients, through: :user_clients
   has_many :user_clients, dependent: :destroy
   has_many :shifts, dependent: :nullify
+  has_many :entries, dependent: :destroy
+  has_many :rooms, through: :entries
+  has_many :messages, dependent: :destroy
   validates :name, presence: true
   enum :role, { employee: 0, admin: 1 }
 

@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  resources :rooms, only: [:index, :show, :create, :destroy] do
+    resources :messages, only: [:create]
+  end
+
   root "home#index"
   resources :offices, only: %i[edit update]
 
