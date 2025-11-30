@@ -1,7 +1,4 @@
 <% content_for :title, "従業員の情報を編集" %>
-<% content_for :head do %>
-  <%= stylesheet_link_tag "user/edit", "data-turbo-track": "dynamic" %>
-<% end %>
 
   <% if @team.users.exists? %>
       <%= link_to team_users_path(@team) do %>
