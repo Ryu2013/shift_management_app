@@ -52,7 +52,7 @@ class UsersController < ApplicationController
 
     def user_params
       # 1. 常に許可する基本のパラメータ
-      permitted_attributes = [ :name, :email, :password, :password_confirmation ]
+      permitted_attributes = [:team_id, :address, :name, :email, :password, :password_confirmation ]
 
       # 2. 「自分自身ではない」場合のみ、role の更新を許可リストに加える
       # ※ @user は edit/update アクションの set_user で定義されている前提です

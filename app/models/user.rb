@@ -13,6 +13,9 @@ class User < ApplicationRecord
   validates :name, presence: true
   enum :role, { employee: 0, admin: 1 }
 
+  geocoded_by :address, latitude: :latitude, longitude: :longitude
+  after_validation :geocode, if: :address_changed?
+
   private
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|

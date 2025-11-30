@@ -4,9 +4,18 @@ class UserClientsController < ApplicationController
   before_action :set_user_client, only: %i[ destroy ]
 
   def new
-    @user_client = @client.user_clients.build
-    @user_clients = @client&.user_clients.includes(:user, client: :team)
-    @users = @team.users
+    if @client.latitude && @client.longitude
+      @user_client = @client.user_clients.build
+      @user_clients = @client&.user_clients.includes(:user, client: :team)
+      @users = @team.users
+             .where.not(latitude: nil, longitude: nil)
+             .sort_by { |u| u.distance_to(@client) }
+      @users_notaddress = @team.users.where(latitude: nil, longitude: nil)
+    else
+      @user_client = @client.user_clients.build
+      @user_clients = @client&.user_clients.includes(:user, client: :team)
+      @users = @team.users
+    end
   end
 
   def create
@@ -18,7 +27,7 @@ class UserClientsController < ApplicationController
         format.turbo_stream
       else
         @user_clients = @client&.user_clients.includes(:user, client: :team)
-        @users = @team.users
+        @users = @team.users.sort_by { |u| u.distance_to(@client) }
         format.html { render :new, status: :unprocessable_entity }
         format.turbo_stream
       end

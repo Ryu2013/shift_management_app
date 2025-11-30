@@ -5,7 +5,7 @@
   --primary-color: #69C5FF;
   --primary-dark: #4a90e2;
   --accent-color: #F19494;
-  --d-red:#E35B5B;
+  --d-red: #E35B5B;
   --text-color: #333;
   --text-light: #666;
   --bg-color: #fefdf8;
@@ -19,12 +19,13 @@
 * {
   margin: 0;
   padding: 0;
-  box-sizing: border-box; 
+  box-sizing: border-box;
   text-decoration: none;
 }
 
 html {
-  font-size: 100%; /* 初期サイズ設定 */
+  font-size: 100%;
+  /* 初期サイズ設定 */
   background-color: var(--bg-color);
   /* 背景画像の指定（SP版デフォルト） */
   background-image: url("background-mobile.jpg");
@@ -37,7 +38,12 @@ body {
   position: relative;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   text-align: center;
 }
 
@@ -73,7 +79,9 @@ button {
 }
 
 /* フォーム入力欄の基本 */
-input:not([type="submit"]), select, textarea {
+input:not([type="submit"]),
+select,
+textarea {
   padding: 0.2em;
   border: 0.2rem solid #333333;
   border-radius: 4px;
@@ -135,20 +143,20 @@ input[type="submit"] {
   display: block;
 }
 
-.modal{
-    display:none;
-    position: absolute;
-    top: 50px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 90%;
-    background: white;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    padding: 1em;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-    z-index: 1000;
-    display: block;
+.modal {
+  display: none;
+  position: absolute;
+  top: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 1em;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  display: block;
 }
 
 /* ハンバーガーアイコン */
@@ -221,7 +229,7 @@ input[type="submit"] {
   gap: 0.6rem;
   padding: 0.5em 1.2em;
   border-radius: 24px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   transition: all 0.2s ease;
 }
 
@@ -229,7 +237,7 @@ input[type="submit"] {
 .map-icon {
   width: 22px;
   height: 22px;
-  filter: drop-shadow(0 1px 1px rgba(0,0,0,0.1));
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.1));
 }
 
 
@@ -250,7 +258,7 @@ input[type="submit"] {
 /* Google Map ボタンのホバー */
 .google-map-btn:hover {
   background-color: #f8f9fa;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
   transform: translateY(-2px);
   color: #202124;
 }
@@ -269,15 +277,17 @@ input[type="submit"] {
    ========================================= */
 /* PC/タブレット用スタイル */
 @media (min-width: 450px) {
+
   /* Baseの上書き */
   html {
     font-size: 125%;
     background-color: #FFF8F0;
-    background-image: url("background.jpg"); /* PC用画像 */
+    background-image: url("background.jpg");
+    /* PC用画像 */
     background-position: center top;
     background-repeat: repeat-y;
   }
-  
+
   hr {
     display: block;
   }
@@ -316,7 +326,7 @@ input[type="submit"] {
 
 /* PWA用のスタイル調整 */
 @media (display-mode: standalone) {
-  .turbo-progress-bar { 
-    display: none !important; 
+  .turbo-progress-bar {
+    display: none !important;
   }
 }
