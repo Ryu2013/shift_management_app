@@ -1,7 +1,7 @@
 class ClientNeedsController < ApplicationController
   before_action :set_team
   before_action :set_client
-  before_action :set_client_need, only: %i[edit destroy ]
+  before_action :set_client_need, only: %i[destroy ]
 
   def index
      @needs_by_week = @client.client_needs.order(:week, :shift_type, :start_time).includes(:client).group_by(&:week)
@@ -9,9 +9,6 @@ class ClientNeedsController < ApplicationController
 
   def new
     @client_need = @client.client_needs.build
-  end
-
-  def edit
   end
 
   def create
@@ -33,7 +30,7 @@ class ClientNeedsController < ApplicationController
     @client_need.destroy!
     respond_to do |format|
     format.turbo_stream
-    format.html { redirect_to :new, notice: "シフトを削除しました。", status: :see_other }
+    format.html { redirect_to new_team_client_client_need_path(@team, @client), notice: "シフトを削除しました。", status: :see_other }
     end
   end
 

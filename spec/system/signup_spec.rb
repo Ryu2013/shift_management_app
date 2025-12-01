@@ -6,7 +6,7 @@ RSpec.describe "サインアップ処理", type: :system do
     it 'オフィス・部署を作成してサインアップできること' do
       visit root_path
       first(:link_or_button, '新規登録').click
-
+      expect(page).to have_text "従業員を登録"
       fill_in "氏名", with: "新しいユーザー"
       fill_in "メールアドレス", with: "test@example.com"
       fill_in "パスワード", with: "password"

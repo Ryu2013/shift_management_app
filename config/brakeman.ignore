@@ -41,7 +41,7 @@
       "check_name": "Render",
       "message": "Render path contains parameter value",
       "file": "app/views/shifts/index.html.erb",
-      "line": 80,
+      "line": 87,
       "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
       "code": "render(action => ((((@office.teams.find_by(:id => ((params[:team_id] or params[:id]))) or @office.teams.order(:id).first).clients.find_by(:id => ((params[:client_id] or params[:id]))) or (@office.teams.find_by(:id => ((params[:team_id] or params[:id]))) or @office.teams.order(:id).first).clients.order(:id).first) or (@office.teams.joins(:clients).distinct.order(:id).first.clients.find_by(:id => ((params[:client_id] or params[:id]))) or @office.teams.joins(:clients).distinct.order(:id).first.clients.order(:id).first)).shifts.scope_month((Date.strptime(params[:date], \"%Y-%m\") or Date.current)).includes(:user, :client => :team).group_by do\n shift.date\n end[date] or []), {})",
       "render_path": [
@@ -71,31 +71,31 @@
     {
       "warning_type": "Dynamic Render Path",
       "warning_code": 15,
-      "fingerprint": "59c0e4c94959417c71df6a0ceb52c45911f75c4f215f9625f9cf93e0212bebd8",
+      "fingerprint": "7f153462e6661d69040f6afe06155d491b0287dbf4f2cc68cf3d8b9e823c6c0e",
       "check_name": "Render",
       "message": "Render path contains parameter value",
-      "file": "app/views/user_needs/index.html.erb",
-      "line": 14,
+      "file": "app/views/rooms/show.html.erb",
+      "line": 35,
       "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
-      "code": "render(action => (((@office.teams.find_by(:id => ((params[:team_id] or params[:id]))) or @office.teams.order(:id).first) or @office.teams.joins(:clients).distinct.order(:id).first).users.find(params[:user_id]).user_needs.includes(:user => :team).order(:week, :start_time).group_by(&:week)[week] or []), {})",
+      "code": "render(action => @office.rooms.find(params[:id]).messages.select(&:persisted?), {})",
       "render_path": [
         {
           "type": "controller",
-          "class": "UserNeedsController",
-          "method": "index",
-          "line": 9,
-          "file": "app/controllers/user_needs_controller.rb",
+          "class": "RoomsController",
+          "method": "show",
+          "line": 16,
+          "file": "app/controllers/rooms_controller.rb",
           "rendered": {
-            "name": "user_needs/index",
-            "file": "app/views/user_needs/index.html.erb"
+            "name": "rooms/show",
+            "file": "app/views/rooms/show.html.erb"
           }
         }
       ],
       "location": {
         "type": "template",
-        "template": "user_needs/index"
+        "template": "rooms/show"
       },
-      "user_input": "params[:user_id]",
+      "user_input": "params[:id]",
       "confidence": "Weak",
       "cwe_id": [
         22

@@ -21,6 +21,7 @@
 <% end %>
 
 <div class="menus">
+  <%= link_to "チャット", rooms_path, class: "menu" %>
   <%= link_to "部署", teams_path, class: "menu" %>
   <%= link_to t(".nav.clients_and_staff"), team_clients_path(@team),class: "menu" %>
   <%= link_to t(".nav.attendance_status"), team_work_statuses_path(@team),class: "menu" %>

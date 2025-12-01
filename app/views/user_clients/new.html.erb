@@ -19,9 +19,21 @@
       <h2><%= @team.name %>の従業員</h2>
 
       <div class="flexbox">
-        <% @users.each do |u| %>
+       <% if @client.latitude && @client.longitude %>
+        <p>家が近い順</p>
+        <% @users&.each do |u| %>
           <%= button_to u.name, team_client_user_clients_path(@team, @client), method: :post, params: { user_client: { user_id: u.id, client_id: @client.id } }, class: "flex-btn" %>
         <% end %>
+        <p>住所未登録</p>
+        <% @user_notaddress&.each do |u| %>
+          <%= button_to u.name, team_client_user_clients_path(@team, @client), method: :post, params: { user_client: { user_id: u.id, client_id: @client.id } }, class: "flex-btn" %>
+        <% end %>
+       <% else %>
+        <p>お客様、従業員の住所を登録すると近い順になります。</p>
+        <% @users_notaddress&.each do |u| %>
+          <%= button_to u.name, team_client_user_clients_path(@team, @client), method: :post, params: { user_client: { user_id: u.id, client_id: @client.id } }, class: "flex-btn" %>
+        <% end %>
+       <% end %>
       </div>
   </div>
 <% end %>

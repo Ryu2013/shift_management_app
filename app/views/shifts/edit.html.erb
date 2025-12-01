@@ -1,6 +1,6 @@
 <%= turbo_frame_tag "shift_edit" do %>
 <div class="modal open">
- <%= link_to "✕", team_client_shifts_path(@team, @client) ,class: "close-modal" %>
+ <%= link_to "✕", team_client_shifts_path(@team, @client) ,class: "back-btn" %>
     <h2><%= "担当可能従業員" %></h2>
 
     <% if @shift.errors.any? %>

@@ -38,10 +38,12 @@
 
 
 <% @users.each do |user| %>
-  <%= link_to edit_team_user_path(@team, user) do %>
     <div class="card">
-      <%= render user %>
+     <div class="flexbox" style="justify-content: space-between;">
+      <%= link_to edit_team_user_path(@team, user) do %>
+        <%= render user %>
+      <% end %>
+     </div>
     </div>
-  <% end %>
 <% end %>
 

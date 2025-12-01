@@ -45,7 +45,7 @@ class ApplicationController < ActionController::Base
     sess = session[:office_id]
     if sess.blank? || sess.to_i != current_user.office_id
       session.delete(:office_id)
-      redirect_to root_path, alert: "事業所情報が不明です" and return
+      redirect_to new_user_session_path, alert: "事業所情報が不明です" and return
     end
     @office = Office.find_by(id: session[:office_id])
   end

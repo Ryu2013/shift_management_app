@@ -61,6 +61,10 @@
       <div style="margin-top: 0.5rem;">
           <%= link_to "確認メールが届かない場合", new_confirmation_path(resource_name), class: "text-link-sm" %>        <% end %>
       </div>
+
+      <%- if devise_mapping.lockable? && resource_class.unlock_strategy_enabled?(:email) && controller_name != 'unlocks' %>
+        <%= link_to "アカウントがロックされた場合", new_unlock_path(resource_name), class: "text-link-sm" %>
+      <% end %>
     </div>
   </div>
 

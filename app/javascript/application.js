@@ -84,3 +84,27 @@ document.addEventListener("turbo:load",() => {
 
   targets.forEach(target => observer.observe(target));
 });
+
+// ▼ 一番下にスクロールさせる関数
+function scrollToBottom() {
+  const messages = document.getElementById("messages");
+  // IDが 'messages' の要素がある時だけ実行（エラー防止）
+  if (messages) { 
+    messages.scrollTop = messages.scrollHeight;
+  }
+}
+
+// 1. 画面が表示された瞬間に実行（Turboのページ移動に対応）
+document.addEventListener("turbo:load", () => {
+  scrollToBottom();
+
+  // 2. リアルタイム更新の監視（MutationObserverという標準機能を使います）
+  const messages = document.getElementById("messages");
+  if (messages) {
+    const observer = new MutationObserver(() => {
+      scrollToBottom();
+    });
+    // メッセージエリアの中身が増えたら検知してスクロール
+    observer.observe(messages, { childList: true, subtree: true });
+  }
+});
