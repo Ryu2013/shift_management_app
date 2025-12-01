@@ -89,7 +89,7 @@ RSpec.describe "Rooms", type: :request do
 
         new_room = Room.order(:id).last
         expect(new_room.office).to eq(office)
-        expect(new_room.entries.pluck(:user_id)).to match_array([current_user.id, other_user.id])
+        expect(new_room.entries.pluck(:user_id)).to match_array([ current_user.id, other_user.id ])
         expect(response).to redirect_to(room_path(new_room))
         expect(response).to have_http_status(:found)
       end

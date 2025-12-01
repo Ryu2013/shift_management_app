@@ -26,12 +26,12 @@ class User < ApplicationRecord
     if icon.attached?
       icon
     else
-      'default_icon.png' 
+      "default_icon.png"
     end
   end
 
   private
-  # OmniAuth 
+  # OmniAuth
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.email = auth.info.email

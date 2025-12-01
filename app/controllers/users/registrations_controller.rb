@@ -32,10 +32,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
       # 3. ユーザーに関連付けをセット
       resource.office = @office
       resource.team = @team
-      
+
       # 4. ユーザーの保存 (Devise標準の処理)
       resource.save
-      
+
       # 5. 保存に失敗していたら、強制的にロールバック
       unless resource.persisted?
         raise ActiveRecord::Rollback
@@ -87,7 +87,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # 更新後のリダイレクト先を指定するメソッド
   def after_update_path_for(resource)
-    edit_user_registration_path(resource) 
+    edit_user_registration_path(resource)
   end
 
   # CSRFトークンがブラウザバックボタンでキャッシュを使ってしまう場合の対策

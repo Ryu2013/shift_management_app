@@ -10,6 +10,5 @@ class Message < ApplicationRecord
 
   def set_office_id
     self.office_id = room.office_id
-  end 
-  
+  end
 end

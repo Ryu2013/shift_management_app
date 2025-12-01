@@ -14,7 +14,7 @@ class RoomsController < ApplicationController
     @messages = @room.messages
     @message = @room.messages.new
   end
-  
+
   def new
     if current_user.admin?
       @team = @office.teams.joins(:clients).distinct.order(:id).first
