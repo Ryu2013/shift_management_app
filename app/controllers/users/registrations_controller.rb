@@ -6,14 +6,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # Deviseのデフォルト処理に任せ、未確認時は after_inactive_sign_up_path_for でリダイレクトさせる
 
-  protected
-
   # サインアップ後の画面推移先をオフィス作成後のユーザー登録画面に留まる
   def after_inactive_sign_up_path_for(resource)
     new_user_registration_path(request.query_parameters)
   end
-
-  private
 
   # 登録用ストロングパラメータ（permit + office_id/role をサーバ側で付与）
   # 一人目（該当オフィス内で初のユーザー）のみ admin、それ以外は employee を付与
@@ -64,8 +60,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
       set_minimum_password_length
       respond_with resource
     end
+  end
 
-  
+  private
 
   # 編集画面用ストロングパラメータ(何を受け取ってよいか定義する)
   def account_update_params
