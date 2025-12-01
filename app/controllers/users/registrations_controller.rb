@@ -21,10 +21,51 @@ class Users::RegistrationsController < Devise::RegistrationsController
     permitted = params.require(:user).permit(
       :name, :address,
       :email, :password, :password_confirmation)
-    @office = Office.create
-    @team = Team.create(office_id: @office.id)
-    permitted.merge(office_id: @office.id, role: "admin", team_id: @team.id)
+    permitted.merge(role: "admin")
   end
+
+  def create
+    ActiveRecord::Base.transaction do
+      # 1. ユーザーインスタンスの準備（まだ保存しない）
+      build_resource(sign_up_params)
+
+      # 2. 関連モデルの作成 (失敗したら例外発生でロールバック)
+      @office = Office.create!
+      @team = Team.create!(office: @office)
+
+      # 3. ユーザーに関連付けをセット
+      resource.office = @office
+      resource.team = @team
+      
+      # 4. ユーザーの保存 (Devise標準の処理)
+      resource.save
+      
+      # 5. 保存に失敗していたら、強制的にロールバック
+      unless resource.persisted?
+        raise ActiveRecord::Rollback
+      end
+    end
+
+    # --- ここから下は super の中身（Deviseの標準レスポンス処理）をコピーしたもの ---
+    yield resource if block_given?
+    if resource.persisted?
+      if resource.active_for_authentication?
+        set_flash_message! :notice, :signed_up
+        sign_up(resource_name, resource)
+        respond_with resource, location: after_sign_up_path_for(resource)
+      else
+        set_flash_message! :notice, :"signed_up_but_#{resource.inactive_message}"
+        expire_data_after_sign_in!
+        respond_with resource, location: after_inactive_sign_up_path_for(resource)
+      end
+    else
+      # 失敗時の処理
+      clean_up_passwords resource
+      set_minimum_password_length
+      respond_with resource
+    end
+
+  
 
   # 編集画面用ストロングパラメータ(何を受け取ってよいか定義する)
   def account_update_params
