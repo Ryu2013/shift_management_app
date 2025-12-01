@@ -21,6 +21,15 @@
       <%# === セクション1: プロフィール情報 === %>
       <div class="form-section">
         <h3 class="section-label">基本情報</h3>
+
+        <div class="flexbox"  >
+        <%= image_tag current_user.icon_url,style: "height: 300px; width: 300px;", class: "icon" %>
+        </div>
+
+        <div class="field">
+          <%= f.label :icon, "アイコン画像" %>
+          <%= f.file_field :icon %>
+        </div>
         
         <div class="form-group">
           <%= f.label :name, t(".name"), class: "form-label" %>
@@ -71,7 +80,7 @@
         <div class="form-group current-password-group">
           <%= f.label :current_password, t(".current_password"), class: "form-label" %>
           <div class="note-text"><%= t(".current_password_note") %></div>
-          <%= f.password_field :current_password, autocomplete: "current-password", class: "form-input", required: true %>
+          <%= f.password_field :current_password, autocomplete: "current-password", class: "form-input" %>
         </div>
       </div>
 

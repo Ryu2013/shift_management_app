@@ -7,17 +7,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # Deviseのデフォルト処理に任せ、未確認時は after_inactive_sign_up_path_for でリダイレクトさせる
 
   protected
-  def update_resource(resource, params)
-  email_changed = params.key?(:email) && params[:email] != resource.email
-    if params[:password].present? || email_changed
-    super
-    else
-    # プロフィール系のみを current_password なしで更新
-    resource.update_without_password(
-    params.except(:current_password, :password, :password_confirmation, :email)
-    )
-    end
-  end
 
   # サインアップ後の画面推移先をオフィス作成後のユーザー登録画面に留まる
   def after_inactive_sign_up_path_for(resource)
@@ -37,11 +26,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
     permitted.merge(office_id: @office.id, role: "admin", team_id: @team.id)
   end
 
-  # 編集画面用ストロングパラメータ
+  # 編集画面用ストロングパラメータ(何を受け取ってよいか定義する)
   def account_update_params
     params.require(:user).permit(
       :name, :address, :team_id,
-      :email, :password, :password_confirmation, :current_password
+      :email, :password, :password_confirmation, :current_password, :icon
     )
   end
 
@@ -56,6 +45,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
       params.except(:current_password, :password, :password_confirmation, :email)
       )
       end
+  end
+
+  # 更新後のリダイレクト先を指定するメソッド
+  def after_update_path_for(resource)
+    edit_user_registration_path(resource) 
   end
 
   # CSRFトークンがブラウザバックボタンでキャッシュを使ってしまう場合の対策

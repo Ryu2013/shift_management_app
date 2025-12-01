@@ -1,5 +1,4 @@
 class MessagesController < ApplicationController
-  before_action :authenticate_user!
   skip_before_action :user_authenticate
 
   def create

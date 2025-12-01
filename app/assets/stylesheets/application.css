@@ -233,13 +233,42 @@ input[type="submit"] {
   transition: all 0.2s ease;
 }
 
+/* プロフィールアイコン */
+.icon {
+  border-radius: 50%;
+}
+
 /* Google Map アイコン */
 .map-icon {
   width: 22px;
   height: 22px;
   filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.1));
 }
+.toggle-switch {
+    display: inline-flex; 
+    border: 2px solid #666666; 
+    border-radius: 30px; 
+    overflow: hidden; 
+}
 
+.toggle-selected {
+    padding: 8px 18px; 
+    text-decoration: none; 
+    color: #333333; 
+    background: #FFF8F0;
+     display: inline-block;
+      font-weight: 500; 
+}
+
+.toggle-selected.active {
+    background: #4CAF50; 
+    color: #FFF8F0; 
+}
+
+.toggle-selected:not(.active):hover { 
+    background: #4CAF50; 
+    color: #111827; 
+}
 
 /* =========================================
    4. State (状態変化)

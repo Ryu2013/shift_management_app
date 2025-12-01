@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :rooms, only: [:index, :show, :create, :destroy] do
+  resources :rooms, only: [:index, :show, :new, :create, :destroy] do
     resources :messages, only: [:create]
   end
 

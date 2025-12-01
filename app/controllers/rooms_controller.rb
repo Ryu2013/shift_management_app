@@ -1,16 +1,26 @@
 class RoomsController < ApplicationController
-  before_action :authenticate_user!
   skip_before_action :user_authenticate
   before_action :set_room, only: %i[show destroy]
 
   def index
+    if current_user.admin?
+      @team = @office.teams.joins(:clients).distinct.order(:id).first
+      @client = @team.clients.order(:id).first
+    end
     @rooms = @office.rooms.joins(:entries).where(entries: { user_id: current_user.id })
-    @users = @office.users.where.not(id: current_user.id)
   end
 
   def show
     @messages = @room.messages
     @message = @room.messages.new
+  end
+  
+  def new
+    if current_user.admin?
+      @team = @office.teams.joins(:clients).distinct.order(:id).first
+      @client = @team.clients.order(:id).first
+    end
+    @users = @office.users.where.not(id: current_user.id).order(:id)
   end
 
   def create

@@ -1,12 +1,55 @@
-<h1>チャットルーム</h1>
+<% content_for :head do %>
+  <%= stylesheet_link_tag "room/index", "data-turbo-track": "dynamic" %>
+<% end %>
 
-<h2>参加中のルーム</h2>
-<% @rooms.each do |room| %>
-  <div style="margin-bottom: 10px;">
-    <%= link_to "ルーム #{room.id}", room_path(room), data: { turbo: false } %>
-    <% room.users.each do |user| %>
-      <%= user.name %>
+<% if current_user.role == "admin" %>
+  <div class="flex-box">
+    <%= link_to team_client_shifts_path(@team,@client), class: "back-image-link" do %>
+        <%= image_tag "back-btn.png", alt: t(".users"), class: "back-image" %>
     <% end %>
-    <%= button_to "削除", room_path(room), method: :delete, data: { turbo: false }, class: "flex-btn", style: "width: 3rem;" %>
+  </div>
+<% else %>
+  <div class="flex-box">
+    <%= link_to employee_shifts_path do %>
+        <%= image_tag "back-btn.png", alt: t(".shifts"), class: "back-image" %>
+    <% end %>
   </div>
 <% end %>
+
+<h1>チャットルーム</h1>
+<div class="flexbox">
+  <div class="toggle-switch">
+    <%= link_to rooms_path, class: "toggle-selected active" do %>
+      既存
+    <% end %>
+
+    <%= link_to new_room_path, class: "toggle-selected" do %>
+      新規
+    <% end %>
+  </div>
+</div>
+
+<ul class="room-list">
+  <% @rooms.each do |room| %>
+    <div class="card">
+     <div class="flexbox" style="justify-content: space-between; flex-wrap: nowrap;">
+      <%= link_to room_path(room), class: "room-link", data: { turbo: false } do %>
+        <div class="room-icon">
+          <%= image_tag room.users.where.not(id: current_user.id).first.icon_url,style: "height: 80px; width: 80px;", class: "icon" %>
+        </div>
+        <div class="room-content">
+          <div class="room-name">
+            <%= room.users.where.not(id: current_user.id).first&.name %>
+          </div>
+          <div class="room-message">
+            <%= room.messages&.last&.content  %>  <span><%= room.messages&.last&.created_at&.strftime("%H:%M") %></span>
+          </div>
+        </div>
+      <% end %>
+      
+      <div class="room-meta">
+        <%= button_to "削除", room_path(room), method: :delete, data: { turbo: false }, class: "delete-btn", form: { style: "display:inline-block;" } %>
+      </div>
+    </div>
+  <% end %>
+</ul>

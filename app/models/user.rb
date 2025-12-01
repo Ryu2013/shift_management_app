@@ -16,10 +16,22 @@ class User < ApplicationRecord
   validates :name, presence: true
   enum :role, { employee: 0, admin: 1 }
 
+  has_one_attached :icon
+
   geocoded_by :address, latitude: :latitude, longitude: :longitude
   after_validation :geocode, if: :address_changed?
 
+  # アイコンを表示するためのメソッド
+  def icon_url
+    if icon.attached?
+      icon
+    else
+      'default_icon.png' 
+    end
+  end
+
   private
+  # OmniAuth 
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.email = auth.info.email

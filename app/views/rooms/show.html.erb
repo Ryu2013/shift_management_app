@@ -13,13 +13,16 @@
         border-top-right-radius: 0;
         border-top-left-radius: 15px;
       }
+      .message-user-<%= current_user.id %> .icon {
+        display: none;
+      }
   </style>
 <% end %>
 
 
 <div style="position: relative;">
 
-<div class="flex-box">
+<div class="flex-box" style="align-items: center;" >
 <%= link_to rooms_path do %>
  <%= image_tag "back-btn.png", class: "back-image" %>
 <% end %>
