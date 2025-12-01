@@ -1,8 +1,8 @@
 class CreateClients < ActiveRecord::Migration[7.2]
   def change
-    create_table :clients do |t|
-      t.references :office, foreign_key: true, null: false
-      t.references :team, foreign_key: true, null: false
+    create_table :clients, id: :uuid do |t|
+      t.references :office, foreign_key: true, null: false, type: :uuid
+      t.references :team, foreign_key: true, null: false, type: :uuid
       t.integer :medical_care
       t.string :name
       t.string :email
