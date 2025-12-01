@@ -10,21 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_11_30_175422) do
+ActiveRecord::Schema[7.2].define(version: 2025_12_01_082945) do
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pgcrypto"
   enable_extension "plpgsql"
 
-  create_table "active_storage_attachments", force: :cascade do |t|
+  create_table "active_storage_attachments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
-    t.bigint "record_id", null: false
-    t.bigint "blob_id", null: false
+    t.uuid "record_id", null: false
+    t.uuid "blob_id", null: false
     t.datetime "created_at", null: false
     t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
   end
 
-  create_table "active_storage_blobs", force: :cascade do |t|
+  create_table "active_storage_blobs", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "key", null: false
     t.string "filename", null: false
     t.string "content_type"
@@ -36,15 +37,15 @@ ActiveRecord::Schema[7.2].define(version: 2025_11_30_175422) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
-  create_table "active_storage_variant_records", force: :cascade do |t|
-    t.bigint "blob_id", null: false
+  create_table "active_storage_variant_records", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
-  create_table "client_needs", force: :cascade do |t|
-    t.bigint "office_id", null: false
-    t.bigint "client_id", null: false
+  create_table "client_needs", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "office_id", null: false
+    t.uuid "client_id", null: false
     t.integer "week", null: false
     t.integer "shift_type", null: false
     t.time "start_time", null: false
@@ -56,9 +57,9 @@ ActiveRecord::Schema[7.2].define(version: 2025_11_30_175422) do
     t.index ["office_id"], name: "index_client_needs_on_office_id"
   end
 
-  create_table "clients", force: :cascade do |t|
-    t.bigint "office_id", null: false
-    t.bigint "team_id", null: false
+  create_table "clients", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "office_id", null: false
+    t.uuid "team_id", null: false
     t.string "name", null: false
     t.string "address"
     t.datetime "created_at", null: false
@@ -69,52 +70,52 @@ ActiveRecord::Schema[7.2].define(version: 2025_11_30_175422) do
     t.index ["team_id"], name: "index_clients_on_team_id"
   end
 
-  create_table "entries", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "room_id", null: false
+  create_table "entries", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "user_id", null: false
+    t.uuid "room_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "office_id", null: false
+    t.uuid "office_id", null: false
     t.index ["office_id"], name: "index_entries_on_office_id"
     t.index ["room_id"], name: "index_entries_on_room_id"
     t.index ["user_id"], name: "index_entries_on_user_id"
   end
 
-  create_table "messages", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "room_id", null: false
+  create_table "messages", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "user_id", null: false
+    t.uuid "room_id", null: false
     t.text "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "office_id", null: false
+    t.uuid "office_id", null: false
     t.index ["office_id"], name: "index_messages_on_office_id"
     t.index ["room_id"], name: "index_messages_on_room_id"
     t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
-  create_table "offices", force: :cascade do |t|
+  create_table "offices", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name", default: "未設定会社名", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "rooms", force: :cascade do |t|
+  create_table "rooms", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "office_id", null: false
+    t.uuid "office_id", null: false
     t.index ["office_id"], name: "index_rooms_on_office_id"
   end
 
-  create_table "shifts", force: :cascade do |t|
-    t.bigint "office_id", null: false
-    t.bigint "client_id", null: false
+  create_table "shifts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "office_id", null: false
+    t.uuid "client_id", null: false
     t.integer "shift_type"
     t.string "note"
     t.date "date", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "user_id"
+    t.uuid "user_id"
     t.boolean "is_escort", default: false
     t.integer "work_status", default: 0
     t.time "start_time", null: false
@@ -124,18 +125,18 @@ ActiveRecord::Schema[7.2].define(version: 2025_11_30_175422) do
     t.index ["user_id"], name: "index_shifts_on_user_id"
   end
 
-  create_table "teams", force: :cascade do |t|
-    t.bigint "office_id", null: false
+  create_table "teams", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "office_id", null: false
     t.string "name", default: "未設定部署名", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["office_id"], name: "index_teams_on_office_id"
   end
 
-  create_table "user_clients", force: :cascade do |t|
-    t.bigint "office_id", null: false
-    t.bigint "user_id", null: false
-    t.bigint "client_id", null: false
+  create_table "user_clients", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "office_id", null: false
+    t.uuid "user_id", null: false
+    t.uuid "client_id", null: false
     t.string "note"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -145,8 +146,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_11_30_175422) do
     t.index ["user_id"], name: "index_user_clients_on_user_id"
   end
 
-  create_table "users", force: :cascade do |t|
-    t.bigint "office_id", null: false
+  create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "office_id", null: false
     t.string "name", null: false
     t.string "address"
     t.string "email", default: "", null: false
@@ -156,7 +157,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_11_30_175422) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "team_id", null: false
+    t.uuid "team_id", null: false
     t.string "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
@@ -167,7 +168,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_11_30_175422) do
     t.datetime "invitation_accepted_at"
     t.integer "invitation_limit"
     t.string "invited_by_type"
-    t.bigint "invited_by_id"
+    t.uuid "invited_by_id"
     t.integer "invitations_count", default: 0
     t.integer "role", default: 0, null: false
     t.integer "failed_attempts", default: 0, null: false

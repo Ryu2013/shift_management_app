@@ -17,6 +17,11 @@ module App
     config.autoload_lib(ignore: %w[assets tasks])
     config.i18n.default_locale = :ja
 
+    # PKをUUIDにする
+    config.generators do |g|
+      g.orm :active_record, primary_key_type: :uuid
+    end
+
     # アプリケーション、エンジン、railtiesの設定はここに記述します。
     #
     # これらの設定は、後で処理される config/environments の各環境ファイルで
