@@ -49,7 +49,7 @@ RSpec.describe "Teams", type: :request do
         post teams_path, params: { team: { name: "新規チーム" } }
       end.to change(Team, :count).by(1)
 
-      new_team = Team.order(:id).last
+      new_team = Team.order(:created_at).last
       expect(response).to redirect_to(new_team_client_path(team_id: new_team.id))
     end
 
