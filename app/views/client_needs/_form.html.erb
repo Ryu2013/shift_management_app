@@ -1,8 +1,6 @@
 <%= form_with(model:[@team, @client, client_need]) do |form| %>
   <% if client_need.errors.any? %>
     <div style="color: red">
-      
-
       <ul>
         <% client_need.errors.each do |error| %>
           <%= error.message %>
