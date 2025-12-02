@@ -10,7 +10,12 @@
     
     <div class="auth-header">
       <h2 class="auth-title"><%= t(".heading") %></h2>
-      <p class="auth-subtitle">必要な情報を入力してアカウントを作成してください</p>
+      <p class="auth-subtitle">    
+      アカウントを作成することで、
+      <%= link_to "利用規約", terms_path, target: "_blank", rel: "noopener noreferrer" ,style: "color: blue;" %>
+      および<br>
+      <%= link_to "プライバシーポリシー", privacy_policy_path, target: "_blank", rel: "noopener noreferrer", style: "color: blue;" %>
+      に同意したものとみなします。</p>
     </div>
 
     <%= form_for(resource, as: resource_name, url: registration_path(resource_name, team_id: params[:team_id]), html: { class: "auth-form" }) do |f| %>

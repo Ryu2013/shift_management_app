@@ -5,16 +5,11 @@ class UserClientsController < ApplicationController
 
   def new
     if @client.latitude && @client.longitude
-      @user_client = @client.user_clients.build
       @user_clients = @client&.user_clients.includes(:user, client: :team)
-      @users = @team.users
-             .where.not(latitude: nil, longitude: nil)
-             .sort_by { |u| u.distance_to(@client) }
-      @users_notaddress = @team.users.where(latitude: nil, longitude: nil)
+      @users = @team.users.where.not(id: @user_clients.select(:user_id)).sort_by { |u| u.distance_to(@client) || Float::INFINITY }
     else
-      @user_client = @client.user_clients.build
       @user_clients = @client&.user_clients.includes(:user, client: :team)
-      @users = @team.users
+      @users = @team.users.where.not(id: @user_clients.select(:user_id))
     end
   end
 

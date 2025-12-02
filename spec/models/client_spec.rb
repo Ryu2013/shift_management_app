@@ -14,13 +14,13 @@ RSpec.describe Client, type: :model do
     end
 
     it 'office がなければ無効であること' do
-      client = Client.new(name: '利用者A', team: build(:team))
+      client = Client.new(name: '顧客A', team: build(:team))
       client.valid?
       expect(client.errors[:office]).to include('必須です')
     end
 
     it 'team がなければ無効であること' do
-      client = Client.new(name: '利用者A', office: build(:office))
+      client = Client.new(name: '顧客A', office: build(:office))
       client.valid?
       expect(client.errors[:team]).to include('必須です')
     end
@@ -65,7 +65,7 @@ RSpec.describe Client, type: :model do
         Client.create!(
           office: office,
           team: team,
-          name: '利用者A',
+          name: '顧客A',
           user_clients_attributes: [ { user_id: user.id } ]
         )
       }.to change(UserClient, :count).by(1)

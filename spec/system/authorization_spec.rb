@@ -44,9 +44,9 @@ RSpec.describe "権限管理", type: :system do
             expect(page).to have_current_path(team_client_shifts_path(team, client))
         end
 
-        it 'adminは利用者一覧にアクセスできる' do
+        it 'adminは顧客一覧にアクセスできる' do
             visit team_clients_path(team)
-            expect(page).to have_content '利用者を追加'
+            expect(page).to have_content '顧客を追加'
             expect(page).to have_current_path(team_clients_path(team))
         end
 
@@ -75,7 +75,7 @@ RSpec.describe "権限管理", type: :system do
             expect(page).to have_current_path(employee_shifts_path)
         end
 
-        it 'employeeは利用者一覧にアクセスしようとすると従業員用シフトページにリダイレクトされる' do
+        it 'employeeは顧客一覧にアクセスしようとすると従業員用シフトページにリダイレクトされる' do
             visit team_clients_path(team)
             expect(page).to have_current_path(employee_shifts_path)
         end

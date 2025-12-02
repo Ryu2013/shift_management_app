@@ -132,6 +132,29 @@ RSpec.describe "Shifts", type: :request do
     end
   end
 
+  describe "PATCH /employee/shifts/:id" do
+    let(:user) { create(:user, role: :employee, password: password, password_confirmation: password) }
+    let!(:shift) { create(:shift, office: office, client: client, user: user, work_status: :not_work) }
+
+    it "updates the signed-in employee's shift work_status and redirects to employee shifts" do
+      patch employee_shift_path(shift), params: { shift: { work_status: "work" } }
+
+      expect(response).to redirect_to(employee_shifts_path)
+      expect(flash[:notice]).to eq("シフトを更新しました。")
+      expect(shift.reload.work_status).to eq("work")
+    end
+
+    it "renders index with errors when the update fails" do
+      allow_any_instance_of(Shift).to receive(:update).and_return(false)
+
+      patch employee_shift_path(shift), params: { shift: { work_status: "work" } }
+
+      expect(response).to have_http_status(:unprocessable_entity)
+      expect(flash[:alert]).to eq("シフトの更新に失敗しました。")
+      expect(shift.reload.work_status).to eq("not_work")
+    end
+  end
+
   describe "GET /teams/:team_id/clients/:client_id/shifts" do
     let(:date_param) { Date.current.strftime("%Y-%m") }
     let!(:other_team) { create(:team, office: office) }

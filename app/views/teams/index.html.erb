@@ -10,7 +10,23 @@
 <h1><%= t(".heading") %></h1>
 
 <div class="flexbox">
-  <p>部署を消去するには従業員、利用者がいない必要があります。</p>
+  <%= turbo_frame_tag "new_team" do %>
+  <%= link_to t(".new"), new_team_path ,class: "flex-btn" %>
+  <% end %>
+
+  <div class="toggle-switch">
+    <%= link_to teams_path, class: "toggle-selected active" do %>
+      部署
+    <% end %>
+
+    <%= link_to edit_office_path(@office), class: "toggle-selected" do %>
+      会社
+    <% end %>
+  </div>
+</div>
+
+<div class="flexbox">
+  <p>部署を消去するには従業員、顧客がいない必要があります。</p>
 </div>
 
 <div id="teams">
@@ -18,7 +34,3 @@
     <%= render team %>
   <% end %>
 </div>
-
-<%= turbo_frame_tag "new_team" do %>
-<%= link_to t(".new"), new_team_path ,class: "flex-btn" %>
-<% end %>

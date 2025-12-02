@@ -54,7 +54,7 @@
       
       <div class="hero-cta">
         <%= link_to new_user_registration_path, class: "btn btn-primary btn-xl shadow-pulse" do %>
-          無料で始める
+          新規登録
         <% end %>
 
             <%# 2. Googleで登録ボタン %>
@@ -69,6 +69,13 @@
               </svg>
               <span>Googleで登録</span>
             <% end %>
+            <p class="text-small">
+              アカウントを作成することで、
+              <%= link_to "利用規約", terms_path, target: "_blank", rel: "noopener noreferrer" ,style: "color: blue;" %>
+              および<br>
+              <%= link_to "プライバシーポリシー", privacy_policy_path, target: "_blank", rel: "noopener noreferrer", style: "color: blue;" %>
+              に同意したものとみなします。
+            </p>
 
           
 
@@ -164,6 +171,16 @@
           <%= link_to "ログイン", new_user_session_path, class: "text-link" %>
           <span class="separator">|</span>
           <%= button_to "Googleでログイン", user_google_oauth2_omniauth_authorize_path, data: { turbo: false }, class: "text-link",form: { style: "display: inline-block;" } %>
+        </div>
+        <div class="sub-actions">
+          <%= link_to "使い方", how_to_use_path, class: "text-link" %>
+          <span class="separator">|</span>
+          <%= link_to "アプリ運営者", "https://ryu2013.github.io/ryuuiti_memos/", class: "text-link" %>
+        </div>
+        <div class="sub-actions">
+          <%= link_to "利用規約", terms_path, target: "_blank", rel: "noopener noreferrer" ,class: "text-link" %>
+          <span class="separator">|</span>
+          <%= link_to "プライバシーポリシー", privacy_policy_path, target: "_blank", rel: "noopener noreferrer", class: "text-link" %>
         </div>
       </div>
     </div>

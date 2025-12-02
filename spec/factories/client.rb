@@ -6,7 +6,7 @@ FactoryBot.define do
       client.team ||= build(:team, office: client.office)
     end
 
-    sequence(:name) { |n| "利用者#{n}" }
+    sequence(:name) { |n| "顧客#{n}" }
     address { nil }
   end
 end
