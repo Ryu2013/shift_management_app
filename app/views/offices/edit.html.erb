@@ -6,4 +6,16 @@
 
 <h1><%= t(".heading") %></h1>
 
+<div class="flexbox">
+  <div class="toggle-switch">
+    <%= link_to teams_path, class: "toggle-selected" do %>
+      部署
+    <% end %>
+
+    <%= link_to edit_office_path(@office), class: "toggle-selected active" do %>
+      会社
+    <% end %>
+  </div>
+</div>
+
 <%= render "form", office: @office %>
