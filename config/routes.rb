@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  get "terms"
+  get "privacy_policy"
+
   resources :rooms, only: [ :index, :show, :new, :create, :destroy ] do
     resources :messages, only: [ :create ]
   end
