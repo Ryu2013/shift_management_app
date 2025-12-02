@@ -1,6 +1,12 @@
 Rails.application.routes.draw do
   get "terms", to: "static_pages#terms"
   get "privacy_policy", to: "static_pages#privacy_policy"
+  get "how_to_use", to: "static_pages#how_to_use"
+  get "how_to_use/registration", to: "static_pages#how_to_use_registration"
+  get "how_to_use/login", to: "static_pages#how_to_use_login"
+  get "how_to_use/shift_creation", to: "static_pages#how_to_use_shift_creation"
+  get "how_to_use/attendance", to: "static_pages#how_to_use_attendance"
+  get "how_to_use/chat", to: "static_pages#how_to_use_chat"
 
   resources :rooms, only: [ :index, :show, :new, :create, :destroy ] do
     resources :messages, only: [ :create ]
