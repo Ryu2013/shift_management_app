@@ -15,7 +15,7 @@ ActiveRecord::Base.transaction do
   team = office.teams.find_or_create_by!(name: "Aチーム")
 
   # Client (for initial navigation after login)
-  client = office.clients.find_or_create_by!(team: team, name: "テスト利用者")
+  client = office.clients.find_or_create_by!(team: team, name: "テスト顧客")
 
   # Admin user
   admin_email = ENV.fetch("SEED_ADMIN_EMAIL", "admin@example.com")
