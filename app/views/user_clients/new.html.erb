@@ -6,38 +6,39 @@
           <div class="back-btn">✕</div>
       <% end %>
 
-      <h2>担当可能従業員</h2>
+      <h2><%= @team.name %></h2>
 
-      <h2><%= @team.name %>の従業員</h2>
+      <h2>担当不可</h2>
 
-      <div class="flexbox">
        <% if @client.latitude && @client.longitude %>
-        <p style="width: 100%; margin-left: 1rem;">家が近い順</p>
-        <% @users&.each do |u| %>
-          <%= button_to u.name, team_client_user_clients_path(@team, @client), method: :post, params: { user_client: { user_id: u.id, client_id: @client.id } }, class: "flex-btn" %>
-        <% end %>
-        <p style="width: 100%; margin-left: 1rem;">住所未登録</p>
-        <% @user_notaddress&.each do |u| %>
-          <%= button_to u.name, team_client_user_clients_path(@team, @client), method: :post, params: { user_client: { user_id: u.id, client_id: @client.id } }, class: "flex-btn" %>
-        <% end %>
-       <% else %>
-        <p style="width: 100%; margin-left: 1rem;">お客様、従業員の住所を登録すると近い順になります。</p>
+
+        <p style="width: 100%; margin-left: 1rem;">家が近い順(住所未登録は後ろになります)</p>
+        <div id="not_users" class="flexbox">
         <% @users&.each do |u| %>
           <%= render partial: "not_user_client", locals: { u: u, team: @team, client: @client } %>
         <% end %>
+        </div>
+
+       <% else %>
+
+        <p style="width: 100%; margin-left: 1rem;">お客様、従業員の住所を登録すると近い順になります。</p>
+         <div id="not_users" class="flexbox">
+          <% @users&.each do |u| %>
+            <%= render partial: "not_user_client", locals: { u: u, team: @team, client: @client } %>
+          <% end %>
+         </div>
+
        <% end %>
-      </div>
+
 
       <hr style="display:block;">
 
       <h2>担当可能</h2>
 
-      <div id="user_clients">
-      <div class="flexbox">
+      <div id="user_clients" class="flexbox">
         <% @user_clients.select(&:persisted?).each do |u| %>
           <%= render u, locals: {team: @team, client: @client } %>
         <% end %>
-      </div>
       </div>
   </div>
 <% end %>

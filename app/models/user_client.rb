@@ -5,9 +5,8 @@ class UserClient < ApplicationRecord
   before_validation :set_office_id
   validates :user_id, uniqueness: { scope: :client_id }
 
-  after_create_commit  -> { broadcast_append_to  stream_key }, if: -> { stream_key.present? }
-  after_update_commit  -> { broadcast_replace_to stream_key }, if: -> { stream_key.present? }
-  after_destroy_commit -> { broadcast_remove_to  stream_key }, if: -> { stream_key.present? }
+  after_create_commit  :broadcast_create, if: -> { stream_key.present? }
+  after_destroy_commit :broadcast_remove, if: -> { stream_key.present? }
 
   private
     def set_office_id
@@ -17,5 +16,18 @@ class UserClient < ApplicationRecord
     def stream_key
       return if client.nil? || client.team.nil?
       [ client.team, :user_clients ]
+    end
+
+    def broadcast_create
+        broadcast_remove_to stream_key, target: "not_user_#{user.id}"
+        broadcast_append_to stream_key
+    end
+
+    def broadcast_remove
+        broadcast_remove_to stream_key
+        broadcast_append_to stream_key,
+        target: "not_users",
+        partial: "user_clients/not_user_client",  # 使いたいパーシャルのパス
+        locals: { u: self.user, team: self.client.team, client: self.client } # パーシャル内で使う変数
     end
 end
