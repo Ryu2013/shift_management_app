@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
-  get "terms"
-  get "privacy_policy"
+  get "terms", to: "static_pages#terms"
+  get "privacy_policy", to: "static_pages#privacy_policy"
 
   resources :rooms, only: [ :index, :show, :new, :create, :destroy ] do
     resources :messages, only: [ :create ]
