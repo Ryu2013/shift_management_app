@@ -16,7 +16,7 @@ RSpec.describe "Registrations", type: :request do
       }
     end
 
-    it "creates a user with office/team and admin role, then redirects preserving query params" do
+    it "事業所/チームと管理者権限を持つユーザーを作成し、クエリパラメータを保持してリダイレクトすること" do
       expect do
         post user_registration_path(ref: "ref-code"), params: valid_params
       end.to change(User, :count).by(1)
@@ -32,7 +32,7 @@ RSpec.describe "Registrations", type: :request do
       expect(response).to redirect_to(new_user_registration_path(ref: "ref-code"))
     end
 
-    it "rolls back creation when validation fails" do
+    it "バリデーション失敗時に作成をロールバックすること" do
       expect do
         post user_registration_path, params: {
           user: {
@@ -55,7 +55,7 @@ RSpec.describe "Registrations", type: :request do
 
     before { sign_in user }
 
-    it "redirects when office session is missing" do
+    it "事業所セッションがない場合にリダイレクトすること" do
       get edit_user_registration_path
 
       expect(response).to redirect_to(root_path)
@@ -71,8 +71,8 @@ RSpec.describe "Registrations", type: :request do
       post user_session_path, params: { user: { email: user.email, password: password } }
     end
 
-    context "when updating profile fields without credential changes" do
-      it "updates without current password and redirects to edit path" do
+    context "認証情報の変更なしでプロフィールフィールドを更新する場合" do
+      it "現在のパスワードなしで更新し、編集パスへリダイレクトすること" do
         sign_in_via_form
 
         patch user_registration_path, params: {
@@ -91,8 +91,8 @@ RSpec.describe "Registrations", type: :request do
       end
     end
 
-    context "when changing email" do
-      it "requires current password and does not update without it" do
+    context "メールアドレスを変更する場合" do
+      it "現在のパスワードが必要であり、それなしでは更新されないこと" do
         sign_in_via_form
 
         patch user_registration_path, params: {

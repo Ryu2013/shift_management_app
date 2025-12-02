@@ -46,7 +46,7 @@ ActiveRecord::Base.transaction do
     ENV.fetch("SEED_EMPLOYEE_EMAIL_4", "employee4@example.com"),
     ENV.fetch("SEED_EMPLOYEE_EMAIL_5", "employee5@example.com")
   ]
-  employee_names = ["従業員 太郎", "従業員 次郎", "従業員 三郎", "従業員 四郎", "従業員 五郎"]
+  employee_names = [ "従業員 太郎", "従業員 次郎", "従業員 三郎", "従業員 四郎", "従業員 五郎" ]
   employee_password = ENV["SEED_EMPLOYEE_PASSWORD"] || SecureRandom.base58(16)
 
   employee_emails.zip(employee_names).each do |email, name|
