@@ -19,20 +19,19 @@ class User < ApplicationRecord
   delegate :subscription_active?, to: :office, allow_nil: true
   validate :validate_user_limit, on: :create
 
-  private
+  has_one_attached :icon
+
+  geocoded_by :address, latitude: :latitude, longitude: :longitude
+  after_validation :geocode, if: :address_changed?
 
   def validate_user_limit
+    return unless office.present?
     current_count = office.users.count
 
     if current_count >= 5 && !subscription_active?
       errors.add(:base, "無料プランの上限（5名）に達しました。メンバーを追加するにはサブスクリプション登録が必要です。")
     end
   end
-
-  has_one_attached :icon
-
-  geocoded_by :address, latitude: :latitude, longitude: :longitude
-  after_validation :geocode, if: :address_changed?
 
   # アイコンを表示するためのメソッド
   def icon_url

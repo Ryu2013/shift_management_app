@@ -45,21 +45,36 @@ RSpec.describe "Shifts", type: :request do
       }
     end
 
-    it "creates a shift and redirects to index" do
-      expect do
-        post team_client_shifts_path(team, client), params: valid_params
-      end.to change(Shift, :count).by(1)
+    context "サブスク有効" do
+      before { office.update!(subscription_status: "active") }
 
-      expect(response).to redirect_to(team_client_shifts_path(team, client))
-      expect(response).to have_http_status(:found)
+      it "creates a shift and redirects to index" do
+        expect do
+          post team_client_shifts_path(team, client), params: valid_params
+        end.to change(Shift, :count).by(1)
+
+        expect(response).to redirect_to(team_client_shifts_path(team, client))
+        expect(response).to have_http_status(:found)
+      end
+
+      it "renders new with errors when invalid" do
+        expect do
+          post team_client_shifts_path(team, client), params: { shift: valid_params[:shift].merge(start_time: nil) }
+        end.not_to change(Shift, :count)
+
+        expect(response).to have_http_status(:unprocessable_entity)
+      end
     end
 
-    it "renders new with errors when invalid" do
-      expect do
-        post team_client_shifts_path(team, client), params: { shift: valid_params[:shift].merge(start_time: nil) }
-      end.not_to change(Shift, :count)
+    context "サブスク無効" do
+      it "作成せずサブスクページへリダイレクトする" do
+        expect do
+          post team_client_shifts_path(team, client), params: valid_params
+        end.not_to change(Shift, :count)
 
-      expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to redirect_to(subscriptions_index_path)
+        expect(flash[:alert]).to eq("サブスクリプションが有効ではないため、メッセージを送信できません。")
+      end
     end
   end
 
