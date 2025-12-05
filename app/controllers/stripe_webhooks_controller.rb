@@ -6,7 +6,7 @@ class StripeWebhooksController < ApplicationController
 
   def create
     payload = request.body.read
-    sig_header = request.env['HTTP_STRIPE_SIGNATURE']
+    sig_header = request.env["HTTP_STRIPE_SIGNATURE"]
     # .env または credentials から取得
     endpoint_secret = Rails.application.credentials.dig(:stripe, :webhook_secret)
 
@@ -24,24 +24,24 @@ class StripeWebhooksController < ApplicationController
     Rails.logger.info "★Webhook受信: #{event.type}"
 
     case event.type
-    
+
     # 1. 初回契約完了
-    when 'checkout.session.completed'
+    when "checkout.session.completed"
       session = event.data.object
       handle_checkout_session_completed(session)
 
     # 2. 毎月の支払い成功（更新）
-    when 'invoice.payment_succeeded'
+    when "invoice.payment_succeeded"
       invoice = event.data.object
       handle_payment_succeeded(invoice)
 
     # 3. 支払い失敗
-    when 'invoice.payment_failed'
+    when "invoice.payment_failed"
       invoice = event.data.object
       handle_payment_failed(invoice)
 
     # 4. ステータス変更・解約
-    when 'customer.subscription.updated', 'customer.subscription.deleted'
+    when "customer.subscription.updated", "customer.subscription.deleted"
       subscription = event.data.object
       handle_subscription_updated(subscription)
     end
@@ -123,7 +123,7 @@ class StripeWebhooksController < ApplicationController
     return unless office
 
     stripe_sub = Stripe::Subscription.retrieve(invoice.subscription)
-    
+
     # ステータスを更新（past_dueなど）
     office.update!(subscription_status: stripe_sub.status)
     Rails.logger.warn "★支払い失敗: Office #{office.id} (Status: #{stripe_sub.status})"

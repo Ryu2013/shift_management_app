@@ -19,7 +19,7 @@ RSpec.describe "Stripe Webhooks", type: :request do
       status: status,
       cancel_at_period_end: cancel_at_period_end,
       cancel_at: cancel_at,
-      items: double(data: [double(current_period_end: period_end)])
+      items: double(data: [ double(current_period_end: period_end) ])
     )
     allow(subscription).to receive(:[]).with(:status).and_return(status)
     allow(Stripe::Subscription).to receive(:retrieve).with(id).and_return(subscription)
@@ -84,7 +84,7 @@ RSpec.describe "Stripe Webhooks", type: :request do
       status: 'canceled',
       cancel_at_period_end: false,
       cancel_at: period_end,
-      items: double(data: [double(current_period_end: period_end)])
+      items: double(data: [ double(current_period_end: period_end) ])
     )
     allow(subscription).to receive(:[]).with(:status).and_return('canceled')
     event = build_event(type: 'customer.subscription.deleted', object: subscription)

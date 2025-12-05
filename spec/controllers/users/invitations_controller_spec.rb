@@ -20,16 +20,16 @@ RSpec.describe Users::InvitationsController, type: :controller do
     context "ユーザー数が5人未満の場合" do
       it "新しい招待を作成する" do
         # adminで1人。create_listでさらに3人作成 = 合計4人。次は5人目（許可される）。
-        
+
         # クリーンアップ（参考）
         # office.users.destroy_all # adminは削除しない
         # create(:user, office: office, role: :admin) # admin (1)
         # create_list(:user, 3, office: office) # +3 = 4 total
-        
+
         # adminが存在すると仮定(1)。さらに3人作成。合計4人。
         create_list(:user, 3, office: office)
         admin.reload
-        
+
         post :create, params: { user: { email: "new@example.com", name: "New User", team_id: team.id } }
         expect(response).to redirect_to(team_users_path(office.teams.first))
         expect(User.count).to eq(5) # 1 admin + 3 existing + 1 new = 5

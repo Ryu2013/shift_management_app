@@ -4,7 +4,7 @@ class Users::InvitationsController < Devise::InvitationsController
   before_action :office_authenticate, only: [ :new, :create ]
   before_action :office_authenticate, only: [ :new, :create ]
   before_action :user_authenticate, only: [ :new, :create ]
-  before_action :check_user_limit, only: [:create]
+  before_action :check_user_limit, only: [ :create ]
 
   private
 
