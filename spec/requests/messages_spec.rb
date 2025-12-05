@@ -57,6 +57,7 @@ RSpec.describe "Messages", type: :request do
     end
 
     context "サブスク無効" do
+    before { office.update!(subscription_status: "canceled") }
       it "メッセージ作成をせずにサブスクページへリダイレクトする" do
         expect do
           post room_messages_path(room),

@@ -67,6 +67,7 @@ RSpec.describe "Shifts", type: :request do
     end
 
     context "サブスク無効" do
+      before { office.update!(subscription_status: "canceled") }
       it "作成せずサブスクページへリダイレクトする" do
         expect do
           post team_client_shifts_path(team, client), params: valid_params

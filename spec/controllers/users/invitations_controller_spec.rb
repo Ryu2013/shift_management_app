@@ -43,6 +43,7 @@ RSpec.describe Users::InvitationsController, type: :controller do
       end
 
       it "サブスクリプションがない場合、サブスクリプションページにリダイレクトする" do
+        office.update!(subscription_status: "canceled")
         post :create, params: { user: { email: "new@example.com", name: "New User", team_id: team.id } }
         expect(response).to redirect_to(subscriptions_index_path)
         expect(flash[:alert]).to include("無料プランの上限")
