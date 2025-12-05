@@ -1,53 +1,75 @@
 require 'rails_helper'
 
 RSpec.describe StripeSubscriptionService do
-  let(:office) { create(:office) }
   let(:service) { described_class.new(office) }
-  let(:stripe_customer) { double('Stripe::Customer', id: 'cus_test123') }
-  let(:stripe_subscription) { double('Stripe::Subscription', id: 'sub_test123', status: 'active') }
+  let(:success_url) { 'https://example.com/success' }
+  let(:cancel_url) { 'https://example.com/cancel' }
+  let(:price_id) { 'price_test_123' }
+  let(:session_url) { 'https://checkout.stripe.com/test-session' }
+  let(:session_double) { instance_double(Stripe::Checkout::Session, url: session_url) }
+
+  around do |example|
+    original = ENV['STRIPE_METERED_PRICE_ID']
+    ENV['STRIPE_METERED_PRICE_ID'] = price_id
+    example.run
+    ENV['STRIPE_METERED_PRICE_ID'] = original
+  end
 
   before do
-    allow(Stripe::Customer).to receive(:create).and_return(stripe_customer)
-    allow(Stripe::Subscription).to receive(:create).and_return(stripe_subscription)
-    allow(Stripe::Subscription).to receive(:retrieve).and_return(stripe_subscription)
-    ENV['STRIPE_METERED_PRICE_ID'] = 'price_test123'
+    allow(Stripe::Checkout::Session).to receive(:create).and_return(session_double)
   end
 
-  describe '#create_customer' do
-    it 'creates a Stripe customer and updates the office' do
-      service.create_customer
-      expect(Stripe::Customer).to have_received(:create).with(
-        email: office.users.first&.email,
-        name: office.name,
-        metadata: { office_id: office.id }
-      )
-      expect(office.reload.stripe_customer_id).to eq('cus_test123')
+  describe '#create_checkout_session' do
+    context 'stripe_customer_id が設定済みの場合' do
+      let(:office) { create(:office, stripe_customer_id: 'cus_existing') }
+
+      it '既存の顧客を使ってチェックアウトセッションを作成し、URLを返す' do
+        expect(Stripe::Customer).not_to receive(:create)
+
+        result = service.create_checkout_session(success_url: success_url, cancel_url: cancel_url)
+
+        expect(result).to eq(session_url)
+        expect(Stripe::Checkout::Session).to have_received(:create).with(
+          customer: 'cus_existing',
+          mode: 'subscription',
+          line_items: [ { price: price_id } ],
+          success_url: success_url,
+          cancel_url: cancel_url,
+          metadata: { office_id: office.id },
+          subscription_data: { metadata: { office_id: office.id } }
+        )
+      end
     end
 
-    it 'does not create a customer if one already exists' do
-      office.update!(stripe_customer_id: 'cus_existing')
-      service.create_customer
-      expect(Stripe::Customer).not_to have_received(:create)
-    end
-  end
+    context 'stripe_customer_id が未設定の場合' do
+      let(:office) { create(:office, stripe_customer_id: nil, name: 'サブスク用オフィス') }
+      let!(:user) { create(:user, office: office, email: 'owner@example.com') }
+      let(:stripe_customer) { instance_double(Stripe::Customer, id: 'cus_new') }
 
-  describe '#create_subscription' do
-    before { office.update!(stripe_customer_id: 'cus_test123') }
+      before do
+        allow(Stripe::Customer).to receive(:create).and_return(stripe_customer)
+      end
 
-    it 'creates a Stripe subscription and updates the office' do
-      service.create_subscription
-      expect(Stripe::Subscription).to have_received(:create).with(
-        customer: 'cus_test123',
-        items: [{ price: 'price_test123' }]
-      )
-      expect(office.reload.stripe_subscription_id).to eq('sub_test123')
-      expect(office.subscription_status).to eq('active')
-    end
+      it 'Stripe顧客を作成してOfficeに保存し、その顧客でチェックアウトセッションを作成する' do
+        result = service.create_checkout_session(success_url: success_url, cancel_url: cancel_url)
 
-    it 'does not create a subscription if one already exists' do
-      office.update!(stripe_subscription_id: 'sub_existing')
-      service.create_subscription
-      expect(Stripe::Subscription).not_to have_received(:create)
+        expect(result).to eq(session_url)
+        expect(Stripe::Customer).to have_received(:create).with(
+          email: user.email,
+          name: office.name,
+          metadata: { office_id: office.id }
+        )
+        expect(office.reload.stripe_customer_id).to eq('cus_new')
+        expect(Stripe::Checkout::Session).to have_received(:create).with(
+          customer: 'cus_new',
+          mode: 'subscription',
+          line_items: [ { price: price_id } ],
+          success_url: success_url,
+          cancel_url: cancel_url,
+          metadata: { office_id: office.id },
+          subscription_data: { metadata: { office_id: office.id } }
+        )
+      end
     end
   end
 end

@@ -14,8 +14,8 @@ class UserClient < ApplicationRecord
     end
 
     def stream_key
-      return if client.nil? || client.team.nil?
-      [ client.team, :user_clients ]
+      return if client.nil?
+      [ client, :user_clients ]
     end
 
     def broadcast_create

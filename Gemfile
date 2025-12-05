@@ -68,4 +68,4 @@ group :test do
   gem "simplecov", require: false
 end
 
-gem 'stripe', '>= 8.0'
+gem "stripe", ">= 8.0"

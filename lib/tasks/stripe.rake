@@ -1,13 +1,13 @@
 namespace :stripe do
   desc "全オフィスの従業員数をStripe Meters V2に送信する"
   task report_usage: :environment do
-    require 'faraday'
-    require 'json'
+    require "faraday"
+    require "json"
 
     # --- 設定 ---
-    EVENT_NAME = 'office_seat_update' 
-    API_URL = 'https://api.stripe.com/v2/billing/meter_events'
-    
+    EVENT_NAME = "office_seat_update"
+    API_URL = "https://api.stripe.com/v2/billing/meter_events"
+
     puts "--- [開始] Stripe Meters V2 人数同期 ---"
 
     offices = Office.where.not(stripe_customer_id: nil).preload(:users)
@@ -24,7 +24,7 @@ namespace :stripe do
     offices.find_each do |office|
       begin
         current_count = office.users.count
-        
+
         event_id = "seat_sync_#{Time.current.strftime('%Y%m%d')}_#{office.id}"
 
         body = {
@@ -38,15 +38,15 @@ namespace :stripe do
         }
 
         response = conn.post(API_URL) do |req|
-          req.headers['Authorization'] = "Bearer #{Stripe.api_key}"
-          req.headers['Content-Type'] = 'application/json'
-          req.headers['Stripe-Version'] = '2025-11-17.clover'
-          
+          req.headers["Authorization"] = "Bearer #{Stripe.api_key}"
+          req.headers["Content-Type"] = "application/json"
+          req.headers["Stripe-Version"] = "2025-11-17.clover"
+
           req.body = body
         end
 
         # ★修正: 200 も成功リストに追加
-        if [200, 201, 202].include?(response.status)
+        if [ 200, 201, 202 ].include?(response.status)
           puts "Office ID: #{office.id} -> #{current_count}名 (送信成功)"
         elsif response.status == 400 && response.body.to_s.include?("duplicate_meter_event")
           # 400エラーだけど、重複ならOKとする

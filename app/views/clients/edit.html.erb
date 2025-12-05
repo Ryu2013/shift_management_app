@@ -1,5 +1,5 @@
 <% content_for :title, t(".title") %>
-<%= turbo_stream_from [@team, :client_needs] %>
+<%= turbo_stream_from [@client, :client_needs] %>
 <% content_for :head do %>
   <%= stylesheet_link_tag "client/edit", "data-turbo-track": "dynamic" %>
 <% end %>

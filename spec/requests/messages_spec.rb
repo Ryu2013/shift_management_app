@@ -13,46 +13,61 @@ RSpec.describe "Messages", type: :request do
   describe "POST /messages" do
     let(:headers) { { "Accept" => "text/vnd.turbo-stream.html" } }
 
-    it "メッセージを作成して200を返す" do
-      sign_in_user
+    before { sign_in_user }
 
-      expect do
-        post room_messages_path(room),
-          params: { message: { content: "こんにちは" } },
-          headers: headers
-      end.to change(Message, :count).by(1)
+    context "サブスク有効" do
+      before { office.update!(subscription_status: "active") }
 
-      created_message = Message.order(:id).last
-      expect(created_message.content).to eq("こんにちは")
-      expect(created_message.user).to eq(user)
-      expect(created_message.room).to eq(room)
-      expect(created_message.office).to eq(office)
-      expect(response).to have_http_status(:ok)
+      it "メッセージを作成して200を返す" do
+        expect do
+          post room_messages_path(room),
+            params: { message: { content: "こんにちは" } },
+            headers: headers
+        end.to change(Message, :count).by(1)
+
+        created_message = Message.order(:id).last
+        expect(created_message.content).to eq("こんにちは")
+        expect(created_message.user).to eq(user)
+        expect(created_message.room).to eq(room)
+        expect(created_message.office).to eq(office)
+        expect(response).to have_http_status(:ok)
+      end
+
+      it "内容が空なら作成されない" do
+        expect do
+          post room_messages_path(room),
+            params: { message: { content: "" } },
+            headers: headers
+        end.not_to change(Message, :count)
+
+        expect(response).to have_http_status(:ok)
+      end
+
+      it "他オフィスのroomなら404を返す" do
+        other_room = create(:room) # 別オフィス
+
+        expect do
+          post room_messages_path(other_room),
+            params: { message: { content: "test" } },
+            headers: headers
+        end.not_to change(Message, :count)
+
+        expect(response).to have_http_status(:not_found)
+      end
     end
 
-    it "内容が空なら作成されない" do
-      sign_in_user
+    context "サブスク無効" do
+    before { office.update!(subscription_status: "canceled") }
+      it "メッセージ作成をせずにサブスクページへリダイレクトする" do
+        expect do
+          post room_messages_path(room),
+            params: { message: { content: "禁止" } },
+            headers: headers
+        end.not_to change(Message, :count)
 
-      expect do
-        post room_messages_path(room),
-          params: { message: { content: "" } },
-          headers: headers
-      end.not_to change(Message, :count)
-
-      expect(response).to have_http_status(:ok)
-    end
-
-    it "他オフィスのroomなら404を返す" do
-      sign_in_user
-      other_room = create(:room) # 別オフィス
-
-      expect do
-        post room_messages_path(other_room),
-          params: { message: { content: "test" } },
-          headers: headers
-      end.not_to change(Message, :count)
-
-      expect(response).to have_http_status(:not_found)
+        expect(response).to redirect_to(subscriptions_index_path)
+        expect(flash[:alert]).to eq("サブスクリプションが有効ではないため、メッセージを送信できません。")
+      end
     end
   end
 end

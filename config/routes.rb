@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   get "subscriptions/checkout"
   post "subscriptions/subscribe"
   post "subscriptions/portal"
-  post '/stripe/webhook', to: 'stripe_webhooks#create'
+  post "/stripe/webhook", to: "stripe_webhooks#create"
   get "terms", to: "static_pages#terms"
   get "privacy_policy", to: "static_pages#privacy_policy"
   get "how_to_use", to: "static_pages#how_to_use"

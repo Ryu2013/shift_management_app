@@ -27,6 +27,10 @@ class ShiftsController < ApplicationController
   end
 
   def create
+    unless current_user.office.subscription_active?
+      redirect_to subscriptions_index_path, alert: "サブスクリプションが有効ではないため、メッセージを送信できません。"
+      return
+    end
     @shift = @office.shifts.build(shift_params)
     if @shift.save
       respond_to do |format|
