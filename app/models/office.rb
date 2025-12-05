@@ -11,12 +11,10 @@ class Office < ApplicationRecord
     has_many :messages, through: :rooms
 
   def subscription_active?
-    return false unless subscription_status.present?
+    return true if ['active', 'trialing', 'past_due', 'unpaid'].include?(subscription_status)
 
-    if [ "active", "trialing", "past_due" ].include?(subscription_status)
-      return true
-    end
+    return true unless subscription_status.present? 
 
-    false
+    return false
   end
 end
