@@ -2,7 +2,26 @@ class Users::InvitationsController < Devise::InvitationsController
   include Pundit::Authorization
   before_action :configure_permitted_parameters, only: [ :create ]
   before_action :office_authenticate, only: [ :new, :create ]
+  before_action :office_authenticate, only: [ :new, :create ]
   before_action :user_authenticate, only: [ :new, :create ]
+  before_action :check_user_limit, only: [:create]
+
+  private
+
+  def check_user_limit
+    return unless current_user&.office
+
+    # 既存のユーザー数をカウント (招待済み・参加済み含む)
+    # current_user.office.users は自分も含む
+    current_count = current_user.office.users.count
+    # Rails.logger.info "CheckUserLimit: Count=#{current_count}, SubActive=#{current_user.office.subscription_active?}"
+
+    # 5人以上（= 次が6人目）かつサブスクリプションが有効でない場合
+    if current_count >= 5 && !current_user.office.subscription_active?
+      flash[:alert] = "無料プランの上限（5名）に達しました。メンバーを追加するにはサブスクリプション登録が必要です。"
+      redirect_to subscriptions_index_path
+    end
+  end
 
   protected
 
