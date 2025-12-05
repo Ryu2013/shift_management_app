@@ -18,8 +18,8 @@ class Shift < ApplicationRecord
   private
 
   def stream_key
-    return if client.nil? || client.team.nil?
-    [ client.team, :shifts ]
+    return if client.nil?
+    [ client, :shifts ]
   end
 
   def broadcast_shift_update

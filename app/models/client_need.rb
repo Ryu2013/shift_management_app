@@ -17,5 +17,5 @@ class ClientNeed < ApplicationRecord
     self.office_id = client.office_id
   end
 
-  def stream_key = [ client&.team, :client_needs ]
+  def stream_key = [ client, :client_needs ]
 end

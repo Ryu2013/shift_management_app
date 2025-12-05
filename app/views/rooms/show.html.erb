@@ -29,8 +29,6 @@
 <h1 style="display: inline;"><%= @room.users.where.not(id: current_user.id).first.name %></h1>
 </div>
 
-<%= turbo_stream_from @room %>
-
 <div id="messages" class="messages-container">
   <%= render @messages.select(&:persisted?) %>
 </div>
