@@ -16,6 +16,19 @@ class User < ApplicationRecord
   validates :name, presence: true
   enum :role, { employee: 0, admin: 1 }
 
+  delegate :subscription_active?, to: :office, allow_nil: true
+  validate :validate_user_limit, on: :create
+
+  private
+
+  def validate_user_limit
+    current_count = office.users.count
+
+    if current_count >= 5 && !subscription_active?
+      errors.add(:base, "無料プランの上限（5名）に達しました。メンバーを追加するにはサブスクリプション登録が必要です。")
+    end
+  end
+
   has_one_attached :icon
 
   geocoded_by :address, latitude: :latitude, longitude: :longitude

@@ -19,6 +19,12 @@
     <%= @office.name %>
   </div>
 
+  <%# --- メッセージ表示エリア（通常時は何も表示しない） --- %>
+  <% if @office.subscription_status == 'active' && @office.cancel_at_period_end? %>
+    <%= render partial: "shifts/subscription_canceling", locals: { office: @office } %>
+  <% elsif @office.subscription_status == 'canceled' %>
+    <%= render partial: "shifts/subscription_canceled_status", locals: { office: @office } %>
+  <% end %>
 
 <div class="menus">
   <%= link_to "チャット", rooms_path, class: "menu" %>
