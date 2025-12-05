@@ -32,7 +32,7 @@ RSpec.describe StripeSubscriptionService do
         expect(Stripe::Checkout::Session).to have_received(:create).with(
           customer: 'cus_existing',
           mode: 'subscription',
-          line_items: [{ price: price_id }],
+          line_items: [ { price: price_id } ],
           success_url: success_url,
           cancel_url: cancel_url,
           metadata: { office_id: office.id },
@@ -63,7 +63,7 @@ RSpec.describe StripeSubscriptionService do
         expect(Stripe::Checkout::Session).to have_received(:create).with(
           customer: 'cus_new',
           mode: 'subscription',
-          line_items: [{ price: price_id }],
+          line_items: [ { price: price_id } ],
           success_url: success_url,
           cancel_url: cancel_url,
           metadata: { office_id: office.id },
