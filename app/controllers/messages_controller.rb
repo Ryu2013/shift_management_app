@@ -6,7 +6,11 @@ class MessagesController < ApplicationController
       redirect_to subscriptions_index_path, alert: "サブスクリプションが有効ではないため、メッセージを送信できません。"
       return
     end
-    @room = @office.rooms.find(params[:room_id])
+    @room = current_user.rooms.where(rooms: { office_id: @office.id }).find_by(id: params[:room_id])
+    unless @room
+      head :not_found
+      return
+    end
     @message = @room.messages.build(message_params)
     @message.user = current_user
     @message.save
