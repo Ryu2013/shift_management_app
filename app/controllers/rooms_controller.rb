@@ -45,6 +45,9 @@ class RoomsController < ApplicationController
   private
 
   def set_room
-    @room = @office.rooms.find(params[:id])
+    @room = current_user.rooms.where(rooms: { office_id: @office.id }).find_by(id: params[:id])
+    unless @room
+      redirect_to rooms_path, alert: "チャットへの参加者のみアクセスできます。" and return
+    end
   end
 end
