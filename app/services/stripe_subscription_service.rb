@@ -14,8 +14,8 @@ class StripeSubscriptionService
       customer: office.stripe_customer_id,
       mode: "subscription",
       line_items: [ {
-        price: price_id
-        # 従量課金(Metered)の場合は quantity 指定は不要
+        price: price_id,
+        quantity: 1
       } ],
       success_url: success_url,
       cancel_url: cancel_url,
