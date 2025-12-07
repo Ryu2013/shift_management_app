@@ -18,7 +18,7 @@
   </div>
 </div>
 
-<% if @office.subscription_status == 'active' %>
+<% if %w[active trialing past_due unpaid].include?(@office.subscription_status) %>
 
   <div class="card">
    <h3>契約状況</h3>

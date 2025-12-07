@@ -1,7 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe StripeSubscriptionService do
-  let(:service) { described_class.new(office) }
+  let(:user) { create(:user) }
+  let(:service) { described_class.new(office, user) }
   let(:success_url) { 'https://example.com/success' }
   let(:cancel_url) { 'https://example.com/cancel' }
   let(:price_id) { 'price_test_123' }
@@ -32,7 +33,7 @@ RSpec.describe StripeSubscriptionService do
         expect(Stripe::Checkout::Session).to have_received(:create).with(
           customer: 'cus_existing',
           mode: 'subscription',
-          line_items: [ { price: price_id, quantity: 1 } ],
+          line_items: [ { price: price_id } ],
           success_url: success_url,
           cancel_url: cancel_url,
           metadata: { office_id: office.id },
@@ -63,7 +64,7 @@ RSpec.describe StripeSubscriptionService do
         expect(Stripe::Checkout::Session).to have_received(:create).with(hash_including(
           customer: 'cus_new',
           mode: 'subscription',
-          line_items: [ { price: price_id, quantity: 1 } ],
+          line_items: [ { price: price_id } ],
           success_url: success_url,
           cancel_url: cancel_url,
           metadata: { office_id: office.id },
