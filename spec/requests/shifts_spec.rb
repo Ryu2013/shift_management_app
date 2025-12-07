@@ -14,7 +14,7 @@ RSpec.describe "Shifts", type: :request do
   before { sign_in_user }
 
   describe "GET /teams/:team_id/clients/:client_id/shifts/new" do
-    it "renders successfully" do
+    it "正常にレンダリングされること" do
       get new_team_client_shift_path(team, client, date: Date.current.strftime("%Y-%m"))
 
       expect(response).to have_http_status(:ok)
@@ -24,7 +24,7 @@ RSpec.describe "Shifts", type: :request do
   describe "GET /teams/:team_id/clients/:client_id/shifts/:id/edit" do
     let!(:shift) { create(:shift, office: office, client: client) }
 
-    it "renders successfully" do
+    it "正常にレンダリングされること" do
       get edit_team_client_shift_path(team, client, shift)
 
       expect(response).to have_http_status(:ok)
@@ -48,7 +48,7 @@ RSpec.describe "Shifts", type: :request do
     context "サブスク有効" do
       before { office.update!(subscription_status: "active") }
 
-      it "creates a shift and redirects to index" do
+      it "シフトを作成し、一覧ページへリダイレクトすること" do
         expect do
           post team_client_shifts_path(team, client), params: valid_params
         end.to change(Shift, :count).by(1)
@@ -57,7 +57,7 @@ RSpec.describe "Shifts", type: :request do
         expect(response).to have_http_status(:found)
       end
 
-      it "renders new with errors when invalid" do
+      it "無効なパラメータの場合、エラーと共に新規作成ページを再描画すること" do
         expect do
           post team_client_shifts_path(team, client), params: { shift: valid_params[:shift].merge(start_time: nil) }
         end.not_to change(Shift, :count)
@@ -68,7 +68,8 @@ RSpec.describe "Shifts", type: :request do
 
     context "サブスク無効" do
       before { office.update!(subscription_status: "canceled") }
-      it "作成せずサブスクページへリダイレクトする" do
+      it "作成せずサブスクページへリダイレクトすること" do
+        create_list(:user, 4, office: office)
         expect do
           post team_client_shifts_path(team, client), params: valid_params
         end.not_to change(Shift, :count)
@@ -96,7 +97,7 @@ RSpec.describe "Shifts", type: :request do
       (month.beginning_of_month..month.end_of_month).count { |d| d.wday == ClientNeed.weeks[client_need.week] } * client_need.slots
     end
 
-    it "creates monthly shifts based on needs and redirects" do
+    it "必要数に基づいて月間シフトを作成し、リダイレクトすること" do
       expect do
         post generate_monthly_shifts_team_client_shifts_path(team, client), params: { date: date_param }
       end.to change(Shift, :count).by(expected_created)
@@ -124,7 +125,7 @@ RSpec.describe "Shifts", type: :request do
       }
     end
 
-    it "updates the shift and redirects to index" do
+    it "シフトを更新し、一覧ページへリダイレクトすること" do
       patch team_client_shift_path(team, client, shift), params: update_params
 
       expect(response).to redirect_to(team_client_shifts_path(team, client))
@@ -136,7 +137,7 @@ RSpec.describe "Shifts", type: :request do
       expect(shift.work_status).to eq("work")
     end
 
-    it "renders edit with errors when invalid" do
+    it "無効なパラメータの場合、エラーと共に編集ページを再描画すること" do
       patch team_client_shift_path(team, client, shift), params: { shift: update_params[:shift].merge(start_time: nil) }
 
       expect(response).to have_http_status(:unprocessable_entity)
@@ -152,7 +153,7 @@ RSpec.describe "Shifts", type: :request do
     let(:user) { create(:user, role: :employee, password: password, password_confirmation: password) }
     let!(:shift) { create(:shift, office: office, client: client, user: user, work_status: :not_work) }
 
-    it "updates the signed-in employee's shift work_status and redirects to employee shifts" do
+    it "ログイン中の従業員のシフトのwork_statusを更新し、従業員シフト一覧へリダイレクトすること" do
       patch employee_shift_path(shift), params: { shift: { work_status: "work" } }
 
       expect(response).to redirect_to(employee_shifts_path)
@@ -160,7 +161,7 @@ RSpec.describe "Shifts", type: :request do
       expect(shift.reload.work_status).to eq("work")
     end
 
-    it "renders index with errors when the update fails" do
+    it "更新に失敗した場合、エラーと共に一覧ページを再描画すること" do
       allow_any_instance_of(Shift).to receive(:update).and_return(false)
 
       patch employee_shift_path(shift), params: { shift: { work_status: "work" } }
@@ -177,13 +178,13 @@ RSpec.describe "Shifts", type: :request do
     let!(:other_team_client) { create(:client, office: office, team: other_team) }
     let!(:another_client_in_same_team) { create(:client, office: office, team: team) }
 
-    it "redirects to selected team when selected_team_id differs" do
+    it "selected_team_idが異なる場合、選択されたチームへリダイレクトすること" do
       get team_client_shifts_path(team, client), params: { selected_team_id: other_team.id, date: date_param }
 
       expect(response).to redirect_to(team_client_shifts_path(other_team, client, date: date_param))
     end
 
-    it "redirects to selected client when selected_client_id differs" do
+    it "selected_client_idが異なる場合、選択されたクライアントへリダイレクトすること" do
       get team_client_shifts_path(team, client), params: { selected_client_id: another_client_in_same_team.id, date: date_param }
 
       expect(response).to redirect_to(team_client_shifts_path(team, another_client_in_same_team, date: date_param))
@@ -193,7 +194,7 @@ RSpec.describe "Shifts", type: :request do
   describe "DELETE /teams/:team_id/clients/:client_id/shifts/:id" do
     let!(:shift) { create(:shift, office: office, client: client) }
 
-    it "destroys the shift and redirects" do
+    it "シフトを削除し、リダイレクトすること" do
       expect do
         delete team_client_shift_path(team, client, shift)
       end.to change(Shift, :count).by(-1)

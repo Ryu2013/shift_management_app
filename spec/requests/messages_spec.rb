@@ -5,6 +5,7 @@ RSpec.describe "Messages", type: :request do
   let!(:user) { create(:user, role: :admin, password: password, password_confirmation: password) }
   let!(:office) { user.office }
   let!(:room) { create(:room, office: office) }
+  let!(:entry) { create(:entry, room: room, user: user) }
 
   def sign_in_user
     post user_session_path, params: { user: { email: user.email, password: password } }
@@ -59,6 +60,7 @@ RSpec.describe "Messages", type: :request do
     context "サブスク無効" do
     before { office.update!(subscription_status: "canceled") }
       it "メッセージ作成をせずにサブスクページへリダイレクトする" do
+        create_list(:user, 4, office: office)
         expect do
           post room_messages_path(room),
             params: { message: { content: "禁止" } },

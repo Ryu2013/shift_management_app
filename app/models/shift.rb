@@ -8,7 +8,7 @@ class Shift < ApplicationRecord
   validate :user_unique_per_date, if: -> { user_id.present? && date.present? }
   enum :shift_type, { day: 0, night: 1, escort: 2 }
   enum :work_status, { not_work: 0, work: 1 }
-
+  delegate :subscription_active?, to: :office, allow_nil: true
   scope :scope_month, ->(month) { where(date: month.beginning_of_month..month.end_of_month) }
 
   after_create_commit  -> { broadcast_append_to stream_key, target: "shifts_#{date}" }, if: -> { stream_key.present? }
@@ -16,6 +16,15 @@ class Shift < ApplicationRecord
   after_destroy_commit -> { broadcast_remove_to stream_key }, if: -> { stream_key.present? }
 
   private
+  def validate_user_limit
+    return unless office.present?
+    current_count = office.users.count
+
+    if current_count >= 5 && !subscription_active?
+      errors.add(:base, "無料プランの上限（5名）に達しました。メンバーを追加するにはサブスクリプション登録が必要です。")
+    end
+  end
+
 
   def stream_key
     return if client.nil?

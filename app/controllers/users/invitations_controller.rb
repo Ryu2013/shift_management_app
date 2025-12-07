@@ -12,10 +12,10 @@ class Users::InvitationsController < Devise::InvitationsController
     return unless current_user&.office
 
     current_count = current_user.office.users.count
-
+    puts "🍌🍌🍌: #{current_count}"
     if current_count >= 5 && !current_user.office.subscription_active?
       flash[:alert] = "無料プランの上限（5名）に達しました。メンバーを追加するにはサブスクリプション登録が必要です。"
-      redirect_to subscriptions_index_path
+      redirect_to subscriptions_index_path and return
     end
   end
 

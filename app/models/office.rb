@@ -11,7 +11,7 @@ class Office < ApplicationRecord
     has_many :messages, through: :rooms
 
   def subscription_active?
-    return true if users.count <= 5
+    return true if users.count <= 4
 
     return true if [ "active", "trialing", "past_due", "unpaid" ].include?(subscription_status)
 

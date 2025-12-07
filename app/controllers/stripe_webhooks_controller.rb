@@ -8,7 +8,7 @@ class StripeWebhooksController < ApplicationController
     payload = request.body.read
     sig_header = request.env["HTTP_STRIPE_SIGNATURE"]
     # .env または credentials から取得
-    endpoint_secret = Rails.application.credentials.dig(:stripe, :webhook_secret) || ENV['STRIPE_WEBHOOK_SECRET']
+    endpoint_secret = Rails.application.credentials.dig(:stripe, :webhook_secret) || ENV["STRIPE_WEBHOOK_SECRET"]
 
     event = nil
 
@@ -18,6 +18,7 @@ class StripeWebhooksController < ApplicationController
       )
     rescue JSON::ParserError, Stripe::SignatureVerificationError
       head :bad_request
+      puts "★署名検証エラーまたはJSONパースエラー"
       return
     end
 
@@ -58,15 +59,15 @@ class StripeWebhooksController < ApplicationController
   # 2. 毎月の更新（支払い成功） ★FIXED
   # ----------------------------------------------------------------
   def handle_payment_succeeded(invoice)
-    # ★修正箇所: IDをInvoiceのlinesから安全に取得する (NoMethodErrorの回避)
+    puts "🍎🍎🍎 Handling payment succeeded #{invoice}"
     subscription_id = invoice.lines.data.first.parent.subscription_item_details.subscription
-    
+    puts "🍎🍎🍎 Subscription ID: #{subscription_id}"
     office = Office.find_by(stripe_subscription_id: subscription_id)
     return unless office
 
     # Subscriptionを再取得
     stripe_sub = Stripe::Subscription.retrieve(subscription_id)
-    
+
     # データ抽出
     period_end = stripe_sub.items.data[0].current_period_end
     is_canceling = stripe_sub.cancel_at_period_end || stripe_sub.cancel_at.present?
@@ -89,7 +90,7 @@ class StripeWebhooksController < ApplicationController
     return unless office
 
     stripe_sub = Stripe::Subscription.retrieve(subscription_id)
-    
+
     # ステータスを更新（past_due, unpaidなど）
     office.update!(subscription_status: stripe_sub.status)
     Rails.logger.warn "★支払い失敗: Office #{office.id} (Status: #{stripe_sub.status})"
@@ -110,7 +111,7 @@ class StripeWebhooksController < ApplicationController
     stripe_sub = Stripe::Subscription.retrieve(session.subscription)
     period_end = stripe_sub.items.data[0].current_period_end
     is_canceling = stripe_sub.cancel_at_period_end || stripe_sub.cancel_at.present?
-    
+
     office.update!(
       stripe_customer_id:     session.customer,
       stripe_subscription_id: stripe_sub.id,
@@ -128,10 +129,10 @@ class StripeWebhooksController < ApplicationController
   def handle_subscription_updated(stripe_sub)
     office = Office.find_by(stripe_subscription_id: stripe_sub.id)
     return unless office
-    
+
     period_end = stripe_sub.items.data[0].current_period_end
     is_canceling = stripe_sub.cancel_at_period_end || stripe_sub.cancel_at.present?
-    
+
     office.update!(
       subscription_status: stripe_sub.status,
       current_period_end:  Time.at(period_end),
