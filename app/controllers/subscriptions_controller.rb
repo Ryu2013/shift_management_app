@@ -7,7 +7,7 @@ class SubscriptionsController < ApplicationController
   end
 
   def subscribe
-    service = StripeSubscriptionService.new(current_user.office)
+    service = StripeSubscriptionService.new(current_user.office, current_user)
     session_url = service.create_checkout_session(
       success_url: subscriptions_checkout_url,
       cancel_url: subscriptions_index_url
