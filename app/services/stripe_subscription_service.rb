@@ -41,7 +41,7 @@ class StripeSubscriptionService
   # Stripeに顧客を作成し、Officeに保存する
   def create_customer
     customer = Stripe::Customer.create(
-      email: office.users.first&.email, # 代表者のメールアドレスなどを想定
+      email: current_user.email
       name: office.name,
       metadata: {
         office_id: office.id
