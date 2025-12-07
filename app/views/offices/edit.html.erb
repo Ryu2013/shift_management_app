@@ -18,10 +18,10 @@
   </div>
 </div>
 
-  <div class="card">
-  <h3>契約状況</h3>
+<% if @office.subscription_status == 'active' %>
 
-  <% if @office.subscription_status == 'active' %>
+  <div class="card">
+   <h3>契約状況</h3>
   
     <% if @office.cancel_at_period_end? %>
       <div style="background-color: #fff3cd; border: 1px solid #ffeeba; color: #856404; padding: 1em; border-radius: 4px; margin-bottom: 1em;">
@@ -41,13 +41,25 @@
       </div>
     <% end %>
 
-  <% elsif @office.subscription_status == 'canceled' %>
+      <div class="flexbox" style="margin-top: 1.5rem;">
+      <%= button_to "契約内容の確認・変更・解約", 
+          subscriptions_portal_path, 
+          method: :post, 
+          data: { turbo: false }, 
+          class: "flex-btn", # 独自の汎用ボタンスタイルを適用
+          style: "width: auto; padding-left: 1.5em; padding-right: 1.5em;" # 少し横幅を広げる調整
+      %>
+    </div>
+  </div>
+
+<% elsif @office.subscription_status == 'canceled' %>
+  <div class="card">
+  <h3>契約状況</h3>
     <div style="background-color: #f8f9fa; border: 1px solid #dae0e5; color: #383d41; padding: 1em; border-radius: 4px; margin-bottom: 1em;">
       <p>現在は解約済みです。</p>
     </div>
-  <% end %>
 
-  <div class="flexbox" style="margin-top: 1.5rem;">
+    <div class="flexbox" style="margin-top: 1.5rem;">
     <%= button_to "契約内容の確認・変更・解約", 
         subscriptions_portal_path, 
         method: :post, 
@@ -55,8 +67,8 @@
         class: "flex-btn", # 独自の汎用ボタンスタイルを適用
         style: "width: auto; padding-left: 1.5em; padding-right: 1.5em;" # 少し横幅を広げる調整
     %>
+    </div>
   </div>
-</div>
-
+<% end %>
 
 <%= render "form", office: @office %>

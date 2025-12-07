@@ -17,7 +17,7 @@ ActiveRecord::Base.transaction do
   client = office.clients.find_or_create_by!(team: team, name: "テスト顧客")
 
   # Admin user
-  admin_email = ENV.fetch("SEED_ADMIN_EMAIL", "admin@example.com")
+  admin_email = ENV.fetch("SEED_ADMIN_EMAIL", "kakusikerotan2@gmail.com")
   admin_password = ENV["SEED_ADMIN_PASSWORD"] || SecureRandom.base58(20)
 
   admin = User.find_or_initialize_by(email: admin_email)
