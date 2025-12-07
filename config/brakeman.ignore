@@ -7,7 +7,7 @@
       "check_name": "Render",
       "message": "Render path contains parameter value",
       "file": "app/views/client_needs/index.html.erb",
-      "line": 14,
+      "line": 20,
       "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
       "code": "render(action => ((((@office.teams.find_by(:id => ((params[:team_id] or params[:id]))) or @office.teams.order(:id).first).clients.find_by(:id => ((params[:client_id] or params[:id]))) or (@office.teams.find_by(:id => ((params[:team_id] or params[:id]))) or @office.teams.order(:id).first).clients.order(:id).first) or (@office.teams.joins(:clients).distinct.order(:id).first.clients.find_by(:id => ((params[:client_id] or params[:id]))) or @office.teams.joins(:clients).distinct.order(:id).first.clients.order(:id).first)).client_needs.order(:week, :shift_type, :start_time).includes(:client).group_by(&:week)[week] or []), {})",
       "render_path": [
@@ -41,7 +41,7 @@
       "check_name": "Render",
       "message": "Render path contains parameter value",
       "file": "app/views/shifts/index.html.erb",
-      "line": 87,
+      "line": 93,
       "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
       "code": "render(action => ((((@office.teams.find_by(:id => ((params[:team_id] or params[:id]))) or @office.teams.order(:id).first).clients.find_by(:id => ((params[:client_id] or params[:id]))) or (@office.teams.find_by(:id => ((params[:team_id] or params[:id]))) or @office.teams.order(:id).first).clients.order(:id).first) or (@office.teams.joins(:clients).distinct.order(:id).first.clients.find_by(:id => ((params[:client_id] or params[:id]))) or @office.teams.joins(:clients).distinct.order(:id).first.clients.order(:id).first)).shifts.scope_month((Date.strptime(params[:date], \"%Y-%m\") or Date.current)).includes(:user, :client => :team).group_by do\n shift.date\n end[date] or []), {})",
       "render_path": [
@@ -71,13 +71,13 @@
     {
       "warning_type": "Dynamic Render Path",
       "warning_code": 15,
-      "fingerprint": "7f153462e6661d69040f6afe06155d491b0287dbf4f2cc68cf3d8b9e823c6c0e",
+      "fingerprint": "9fa8d7ea7c30941c1244908eb227b7e1f7bb63ff939777ab9f12ae7055c24a14",
       "check_name": "Render",
       "message": "Render path contains parameter value",
       "file": "app/views/rooms/show.html.erb",
-      "line": 35,
+      "line": 33,
       "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
-      "code": "render(action => @office.rooms.find(params[:id]).messages.select(&:persisted?), {})",
+      "code": "render(action => current_user.rooms.where(:rooms => ({ :office_id => @office.id })).find_by(:id => params[:id]).messages.select(&:persisted?), {})",
       "render_path": [
         {
           "type": "controller",
