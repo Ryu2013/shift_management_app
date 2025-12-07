@@ -1,7 +1,8 @@
 class StripeSubscriptionService
-  attr_reader :office
+  attr_reader :office, :user
 
-  def initialize(office)
+  def initialize(office, user)
+    @user = user
     @office = office
   end
 
@@ -41,7 +42,7 @@ class StripeSubscriptionService
   # Stripeに顧客を作成し、Officeに保存する
   def create_customer
     customer = Stripe::Customer.create(
-      email: current_user.email
+      email: user.email
       name: office.name,
       metadata: {
         office_id: office.id
