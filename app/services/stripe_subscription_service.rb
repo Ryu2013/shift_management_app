@@ -14,8 +14,7 @@ class StripeSubscriptionService
       customer: office.stripe_customer_id,
       mode: "subscription",
       line_items: [ {
-        price: price_id,
-        quantity: 1
+        price: price_id
       } ],
       success_url: success_url,
       cancel_url: cancel_url,
