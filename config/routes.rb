@@ -13,8 +13,9 @@ Rails.application.routes.draw do
   get "how_to_use/attendance", to: "static_pages#how_to_use_attendance"
   get "how_to_use/chat", to: "static_pages#how_to_use_chat"
 
-  resources :rooms, only: [ :index, :show, :new, :create, :destroy ] do
+  resources :rooms, only: [ :index, :show, :edit, :update, :new, :create, :destroy ] do
     resources :messages, only: [ :create ]
+    resources :entries, only: [:create, :destroy], shallow: true
   end
 
   root "home#index"

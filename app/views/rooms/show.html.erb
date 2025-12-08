@@ -22,11 +22,21 @@
 
 <div style="position: relative;">
 
-<div class="flex-box" style="align-items: center;" >
+<div class="flexbox" style="align-items: center; flex-wrap: nowrap;" >
 <%= link_to rooms_path do %>
  <%= image_tag "back-btn.png", class: "back-image" %>
 <% end %>
-<h1 style="display: inline;"><%= @room.users.where.not(id: current_user.id).first.name %></h1>
+<h3 style="display: inline-block; margin-right: auto; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; vertical-align: bottom;">
+  <div class="room-members">
+  <%= @room.users
+          .where.not(id: current_user.id)
+          .pluck(:name)
+          .join("、") %>
+</div>
+</h3>
+ <%= link_to edit_room_path do %>
+  <%= image_tag "hamburger.png", class: "back-image" %>
+<% end %>
 </div>
 
 <div id="messages" class="messages-container">

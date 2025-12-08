@@ -14,11 +14,11 @@ RSpec.describe "Rooms", type: :request do
 
   describe "GET /rooms" do
     it "自分が参加するルームのみを一覧表示する" do
-      visible_room = create(:room, office: office)
+      visible_room = create(:room,name: "Visible Room", office: office)
       create(:entry, room: visible_room, user: current_user, office: office)
       create(:entry, room: visible_room, user: other_user, office: office)
 
-      hidden_room = create(:room, office: office)
+      hidden_room = create(:room,name: "Hidden Room", office: office)
       third_user = create(:user, office: office, team: team)
       create(:entry, room: hidden_room, user: third_user, office: office)
 
@@ -26,8 +26,8 @@ RSpec.describe "Rooms", type: :request do
       get rooms_path
 
       expect(response).to have_http_status(:ok)
-      expect(response.body).to include(other_user.name)
-      expect(response.body).not_to include(third_user.name)
+      expect(response.body).to include(visible_room.name)
+      expect(response.body).not_to include(hidden_room.name)
     end
   end
 

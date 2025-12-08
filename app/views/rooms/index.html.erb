@@ -29,7 +29,7 @@
   </div>
 </div>
 
-<ul class="room-list">
+
   <% @rooms.each do |room| %>
     <div class="card">
      <div class="flexbox" style="justify-content: space-between; flex-wrap: nowrap;">
@@ -39,7 +39,7 @@
         </div>
         <div class="room-content">
           <div class="room-name">
-            <%= room.users.where.not(id: current_user.id).first&.name %>
+            <%= room.name || room.users.where.not(id: current_user.id).first&.name %>
           </div>
           <div class="room-message">
             <%= room.messages&.last&.content  %>  <span><%= room.messages&.last&.created_at&.strftime("%H:%M") %></span>
@@ -51,5 +51,5 @@
         <%= button_to "削除", room_path(room), method: :delete, data: { turbo: false }, class: "delete-btn", form: { style: "display:inline-block;" } %>
       </div>
     </div>
+    </div>
   <% end %>
-</ul>
