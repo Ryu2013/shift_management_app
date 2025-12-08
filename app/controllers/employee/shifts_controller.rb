@@ -2,14 +2,23 @@ class Employee::ShiftsController < ApplicationController
   skip_before_action :user_authenticate
 
   def index
+    if current_user.admin?
+      @user = @office.users.find(params[:user_id])
+    else
+      @user = current_user
+    end
     @date = params[:date].present? ? Date.strptime(params[:date], "%Y-%m") : Date.current
     @today = Date.today
     @first_day = @date.beginning_of_month
     @last_day  = @date.end_of_month
 
-    @shifts = current_user.shifts.scope_month(@date).includes(:client).group_by { |shift| shift.date }
+    @shifts = @user.shifts.scope_month(@date).includes(:client).group_by { |shift| shift.date }
     @date_view = @date.strftime("%m月")
-    @today_shift = current_user.shifts.find_by(date: @today)
+    @today_shift = @user.shifts.find_by(date: @today)
+
+    monthly_shifts = @user.shifts.scope_month(@date)
+    @total_hours = monthly_shifts.sum(&:duration).round(2)
+    @worked_hours = monthly_shifts.work.sum(&:duration).round(2)
   end
 
   def update
@@ -24,6 +33,11 @@ class Employee::ShiftsController < ApplicationController
       @shifts = current_user.shifts.scope_month(@date).group_by { |shift| shift.date }
       @date_view = @date.strftime("%m月")
       @today_shift = current_user.shifts.find_by(date: @today)
+      
+      monthly_shifts = current_user.shifts.scope_month(@date)
+      @total_hours = monthly_shifts.sum(&:duration)
+      @worked_hours = monthly_shifts.work.sum(&:duration)
+
       flash.now[:alert] = "シフトの更新に失敗しました。"
       render :index, status: :unprocessable_entity
     end

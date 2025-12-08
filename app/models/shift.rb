@@ -11,6 +11,16 @@ class Shift < ApplicationRecord
   delegate :subscription_active?, to: :office, allow_nil: true
   scope :scope_month, ->(month) { where(date: month.beginning_of_month..month.end_of_month) }
 
+  def duration
+    return 0 unless start_time && end_time
+    
+    if end_time < start_time
+      ((end_time + 1.day) - start_time) / 3600.0
+    else
+      (end_time - start_time) / 3600.0
+    end
+  end
+
   after_create_commit  -> { broadcast_append_to stream_key, target: "shifts_#{date}" }, if: -> { stream_key.present? }
   after_update_commit  :broadcast_shift_update, if: -> { stream_key.present? }
   after_destroy_commit -> { broadcast_remove_to stream_key }, if: -> { stream_key.present? }

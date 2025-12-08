@@ -131,4 +131,27 @@ RSpec.describe Shift, type: :model do
       expect(shift.work_status).to eq('work')
     end
   end
+
+  describe '#duration' do
+    it '通常シフト（同日内）の時間を正しく計算すること' do
+      shift = build(:shift, start_time: '09:00', end_time: '18:00')
+      expect(shift.duration).to eq(9.0)
+    end
+
+    it '分単位の時間を正しく計算すること' do
+      shift = build(:shift, start_time: '09:00', end_time: '18:30')
+      expect(shift.duration).to eq(9.5)
+    end
+
+    it '日またぎシフトの時間を正しく計算すること' do
+      shift = build(:shift, start_time: '22:00', end_time: '05:00')
+      # 22:00 -> 05:00 is 7 hours
+      expect(shift.duration).to eq(7.0)
+    end
+
+    it '開始・終了時間がない場合は0を返すこと' do
+      shift = build(:shift, start_time: nil)
+      expect(shift.duration).to eq(0)
+    end
+  end
 end

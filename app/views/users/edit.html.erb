@@ -16,5 +16,5 @@
     <% else %>
       自分のアカウントは削除できません。
     <% end %>
+    <%= link_to "シフト確認", employee_shifts_path(user_id: @user.id), class: "flex-btn" %>
   </div>
-
