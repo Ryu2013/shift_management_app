@@ -40,6 +40,9 @@
         <div class="room-content">
           <div class="room-name">
             <%= room.name || room.users.where.not(id: current_user.id).first&.name %>
+            <% if room.has_unread_messages?(current_user) %>
+              <span style="color: red; font-size: 0.8em; margin-left: 5px;">新着</span>
+            <% end %>
           </div>
           <div class="room-message">
             <%= room.messages&.last&.content  %>  <span><%= room.messages&.last&.created_at&.strftime("%H:%M") %></span>

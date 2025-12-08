@@ -40,7 +40,22 @@
 </div>
 
 <div id="messages" class="messages-container">
-  <%= render @messages.select(&:persisted?) %>
+  <% if @last_read_at.nil? && @messages.any?(&:persisted?) %>
+      <div style="text-align: center; border-bottom: 1px solid #ccc; line-height: 0.1em; margin: 10px 0 20px;">
+        <span style="background:#fff; padding:0 10px; color: #999;">ここから未確認</span>
+      </div>
+  <% end %>
+
+  <% shown_unread_separator = false %>
+  <% @messages.select(&:persisted?).each do |message| %>
+    <% if @last_read_at && message.created_at > @last_read_at && !shown_unread_separator %>
+       <div style="text-align: center; border-bottom: 1px solid #ccc; line-height: 0.1em; margin: 10px 0 20px;">
+        <span style="background:#fff; padding:0 10px; color: #999;">ここから未確認</span>
+      </div>
+      <% shown_unread_separator = true %>
+    <% end %>
+    <%= render message %>
+  <% end %>
 </div>
 
 <%= render "form", room: @room, message: @message %>

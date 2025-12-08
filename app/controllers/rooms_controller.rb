@@ -7,12 +7,20 @@ class RoomsController < ApplicationController
       @team = @office.teams.joins(:clients).distinct.order(:id).first
       @client = @team.clients.order(:id).first
     end
-    @rooms = @office.rooms.joins(:entries).where(entries: { user_id: current_user.id })
+    @rooms = @office.rooms.joins(:entries)
+             .where(entries: { user_id: current_user.id })
+             .left_joins(:messages)
+             .group(:id)
+             .order("MAX(messages.created_at) DESC")
   end
 
   def show
     @messages = @room.messages
     @message = @room.messages.new
+
+    entry = @room.entries.find_by(user: current_user)
+    @last_read_at = entry&.last_read_at
+    entry&.update(last_read_at: Time.current)
   end
 
   def edit
