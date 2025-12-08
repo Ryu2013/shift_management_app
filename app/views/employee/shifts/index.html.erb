@@ -1,4 +1,5 @@
 <% content_for :title, "従業員シフトページ" %>
+<%= turbo_stream_from current_user %>
 
 <% content_for :head do %>
   <%= stylesheet_link_tag "shift/index", "data-turbo-track": "dynamic" %>
@@ -9,7 +10,7 @@
     <%= image_tag "hamburger.png", alt: "ハンバーガーメニュー", class: "hamburger" ,id: "hamburger" %>
   </div>
   <div class="menus">
-    <%= link_to "チャット", rooms_path, class: "menu margin-mobile" %>
+    <%= render "shared/chat_link", user: current_user, css_class: "menu margin-mobile" %>
     <%= link_to "従業員情報の変更", edit_user_registration_path, class: "menu"%>
     <%= link_to "二段階認証", users_two_factor_setup_path, class: "menu" %>
     <%= link_to "ログアウト",

@@ -12,6 +12,8 @@ class Message < ApplicationRecord
   def broadcast_room_update
     room.users.each do |user|
       broadcast_replace_to user, target: "room_#{room.id}", partial: "rooms/room", locals: { room: room, current_user: user }
+      css_class = user.employee? ? "menu margin-mobile" : "menu"
+      broadcast_replace_to user, target: "nav_chat_link", partial: "shared/chat_link", locals: { user: user, css_class: css_class }
     end
   end
 
