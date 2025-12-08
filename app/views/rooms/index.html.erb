@@ -30,29 +30,8 @@
 </div>
 
 
+<%= turbo_stream_from current_user %>
+
   <% @rooms.each do |room| %>
-    <div class="card">
-     <div class="flexbox" style="justify-content: space-between; flex-wrap: nowrap;">
-      <%= link_to room_path(room), class: "room-link", data: { turbo: false } do %>
-        <div class="room-icon">
-          <%= image_tag room.users.where.not(id: current_user.id).first.icon_url,style: "height: 80px; width: 80px;", class: "icon" %>
-        </div>
-        <div class="room-content">
-          <div class="room-name">
-            <%= room.name || room.users.where.not(id: current_user.id).first&.name %>
-            <% if room.has_unread_messages?(current_user) %>
-              <span style="color: red; font-size: 0.8em; margin-left: 5px;">新着</span>
-            <% end %>
-          </div>
-          <div class="room-message">
-            <%= room.messages&.last&.content  %>  <span><%= room.messages&.last&.created_at&.strftime("%H:%M") %></span>
-          </div>
-        </div>
-      <% end %>
-      
-      <div class="room-meta">
-        <%= button_to "削除", room_path(room), method: :delete, data: { turbo: false }, class: "delete-btn", form: { style: "display:inline-block;" } %>
-      </div>
-    </div>
-    </div>
+    <%= render "room", room: room, current_user: current_user %>
   <% end %>
