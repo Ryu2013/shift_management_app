@@ -3,14 +3,6 @@
  <%= link_to "✕", team_client_shifts_path(@team, @client) ,class: "back-btn" %>
     <h2><%= "担当可能従業員" %></h2>
 
-    <% if @shift.errors.any? %>
-      <div style="color: red">
-        <% @shift.errors.each do |error| %>
-          <%= error.message %>
-        <% end %>
-      </div>
-    <% end %>
-
     <div class="flexbox" style="gap: 0.5rem; flex-wrap: wrap; margin:1rem 0 1rem 0;">
         <%= button_to "未配置", team_client_shift_path(@team, @client,@shift), method: :patch, params: { shift: { user_id: nil, client_id: @client.id } }, class: ["shift nil", ("night" if @shift.shift_type == "night"), ("escort" if @shift.shift_type == "escort")].compact.join(" "), style: "font-size: 0.8rem; " %>
         <% @client.users.each do |u| %>
@@ -18,18 +10,17 @@
         <% end %>
     </div>
 
-    <div class="flexbox" style="justify-content: flex-end;">
-        <%= button_tag "シフトを変更", type: "button", id: "shift-form-btn", class: "flex-btn" %>
-    </div>
+  <details>
+    <summary>個別編集</summary>
 
-    <div id="shift-form" class="shift-form">
       <%= render "form", shift: @shift %>
-    </div>
 
     <div class="flexbox">
-      <div class="shift-form" id="shift-form-delete">
+      <div id="shift-form-delete">
         <%= button_to t(".destroy"), team_client_shift_path(@team, @client, @shift), method: :delete , class: "flex-btn" %>
       </div>
     </div>
+
+  </details>
 </div>
 <% end %>

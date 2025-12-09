@@ -68,6 +68,18 @@ RSpec.describe Shift, type: :model do
       expect(dup).to be_valid
       expect(dup.errors[:base]).to be_empty
     end
+
+    it '23時間59分以上のシフトはエラーになること' do
+      shift = build(:shift, office: create(:office), client: create(:client), user: create(:user), date: Date.current, start_time: '00:00', end_time: '23:59')
+      expect(shift).to be_invalid
+      expect(shift.errors[:base]).to include('24時間を超える場合、次の日と分割してください')
+    end
+
+    it '開始と終了が同じ時間の場合（24時間とみなす）もエラーになること' do
+      shift = build(:shift, office: create(:office), client: create(:client), user: create(:user), date: Date.current, start_time: '09:00', end_time: '09:00')
+      expect(shift).to be_invalid
+      expect(shift.errors[:base]).to include('24時間を超える場合、次の日と分割してください')
+    end
   end
 
   describe '関連付け（dependent）' do

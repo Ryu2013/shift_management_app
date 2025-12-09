@@ -4,7 +4,7 @@ class EntriesController < ApplicationController
   def create
     room = @office.rooms.find_by(id: params[:room_id])
     user = @office.users.find_by(id: params[:user_id])
-    @entrie = @office.entries.build(room_id: room.id, user_id: user.id , office_id: @office.id)
+    @entrie = @office.entries.build(room_id: room.id, user_id: user.id, office_id: @office.id)
     if @entrie.save
     redirect_to edit_room_path(room), notice: "ユーザーを追加しました"
     else

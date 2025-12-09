@@ -14,11 +14,11 @@ RSpec.describe "Rooms", type: :request do
 
   describe "GET /rooms" do
     it "自分が参加するルームのみを一覧表示する" do
-      visible_room = create(:room,name: "Visible Room", office: office)
+      visible_room = create(:room, name: "Visible Room", office: office)
       create(:entry, room: visible_room, user: current_user, office: office)
       create(:entry, room: visible_room, user: other_user, office: office)
 
-      hidden_room = create(:room,name: "Hidden Room", office: office)
+      hidden_room = create(:room, name: "Hidden Room", office: office)
       third_user = create(:user, office: office, team: team)
       create(:entry, room: hidden_room, user: third_user, office: office)
 
@@ -54,7 +54,7 @@ RSpec.describe "Rooms", type: :request do
       # HTML内の順序を正規表現などでチェックするか、単にindexで取得したオブジェクトの順序をチェックする
       # viewのテストではないので、assignsを確認するのが確実だが、request specなのでresponse bodyを見るのが一般的
       # ここでは単純にroom id等の出現順序を確認する
-      
+
       body = response.body
       expect(body.index(room2.name)).to be < body.index(room1.name)
       expect(body.index(room1.name)).to be < body.index(room3.name)

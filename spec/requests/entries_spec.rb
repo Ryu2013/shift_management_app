@@ -16,7 +16,7 @@ RSpec.describe "エントリ", type: :request do
       it "部屋にユーザーを追加する" do
         puts "🍌🍌"
         expect {
-          post room_entries_path(room), params: { user_id: other_user.id,  }
+          post room_entries_path(room), params: { user_id: other_user.id  }
         }.to change(Entry, :count).by(1)
         expect(response).to redirect_to(edit_room_path(room))
         expect(flash[:notice]).to eq("ユーザーを追加しました")

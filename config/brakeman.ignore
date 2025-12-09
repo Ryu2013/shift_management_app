@@ -41,7 +41,7 @@
       "check_name": "Render",
       "message": "Render path contains parameter value",
       "file": "app/views/shifts/index.html.erb",
-      "line": 93,
+      "line": 94,
       "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
       "code": "render(action => ((((@office.teams.find_by(:id => ((params[:team_id] or params[:id]))) or @office.teams.order(:id).first).clients.find_by(:id => ((params[:client_id] or params[:id]))) or (@office.teams.find_by(:id => ((params[:team_id] or params[:id]))) or @office.teams.order(:id).first).clients.order(:id).first) or (@office.teams.joins(:clients).distinct.order(:id).first.clients.find_by(:id => ((params[:client_id] or params[:id]))) or @office.teams.joins(:clients).distinct.order(:id).first.clients.order(:id).first)).shifts.scope_month((Date.strptime(params[:date], \"%Y-%m\") or Date.current)).includes(:user, :client => :team).group_by do\n shift.date\n end[date] or []), {})",
       "render_path": [
@@ -71,31 +71,31 @@
     {
       "warning_type": "Dynamic Render Path",
       "warning_code": 15,
-      "fingerprint": "9fa8d7ea7c30941c1244908eb227b7e1f7bb63ff939777ab9f12ae7055c24a14",
+      "fingerprint": "34057a512fe9607414b9bf05f852a856a598f142669e1b6ce873de5eab38819e",
       "check_name": "Render",
       "message": "Render path contains parameter value",
-      "file": "app/views/rooms/show.html.erb",
-      "line": 33,
+      "file": "app/views/employee/shifts/index.html.erb",
+      "line": 71,
       "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
-      "code": "render(action => current_user.rooms.where(:rooms => ({ :office_id => @office.id })).find_by(:id => params[:id]).messages.select(&:persisted?), {})",
+      "code": "render(action => ((@office.users.find(params[:user_id]) or current_user).shifts.scope_month((Date.strptime(params[:date], \"%Y-%m\") or Date.current)).includes(:client).group_by do\n shift.date\n end[date] or []), {})",
       "render_path": [
         {
           "type": "controller",
-          "class": "RoomsController",
-          "method": "show",
-          "line": 16,
-          "file": "app/controllers/rooms_controller.rb",
+          "class": "Employee::ShiftsController",
+          "method": "index",
+          "line": 18,
+          "file": "app/controllers/employee/shifts_controller.rb",
           "rendered": {
-            "name": "rooms/show",
-            "file": "app/views/rooms/show.html.erb"
+            "name": "employee/shifts/index",
+            "file": "app/views/employee/shifts/index.html.erb"
           }
         }
       ],
       "location": {
         "type": "template",
-        "template": "rooms/show"
+        "template": "employee/shifts/index"
       },
-      "user_input": "params[:id]",
+      "user_input": "params[:date]",
       "confidence": "Weak",
       "cwe_id": [
         22

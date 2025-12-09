@@ -7,6 +7,7 @@ RSpec.describe Room, type: :model do
     let(:other_user) { create(:user, office: office) } # メッセージ送信者
     let(:room) { create(:room, office: office) }
     let!(:entry) { create(:entry, room: room, user: user, office: office, last_read_at: last_read_at) }
+    let!(:other_entry) { create(:entry, room: room, user: other_user, office: office) }
 
     context 'last_read_atがnilの場合' do
       let(:last_read_at) { nil }

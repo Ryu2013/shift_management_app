@@ -15,7 +15,7 @@ Rails.application.routes.draw do
 
   resources :rooms, only: [ :index, :show, :edit, :update, :new, :create, :destroy ] do
     resources :messages, only: [ :create ]
-    resources :entries, only: [:create, :destroy], shallow: true
+    resources :entries, only: [ :create, :destroy ], shallow: true
   end
 
   root "home#index"

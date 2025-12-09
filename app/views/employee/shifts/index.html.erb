@@ -12,18 +12,15 @@
   <% end %>
 
 <hr>
-
-  <%= form_with url: employee_shifts_path, method: :get, local: true do |f| %>
+<div class="flexbox">
+  <%= form_with url: employee_shifts_path,class: "flexbox", method: :get, local: true do |f| %>
 
     <%= f.month_field :date, id: "real-month", style: "display: none;"%>
-      <div class="flexbox">
         <div style="font-size: 1.5rem;"><%= @user.name %>様</div>
           <div id= "fake-month" class="flex-btn">
             <%= @date_view %>
           </div>
-        </div>
-      </div>
-    <% end %>
+   <% end %>
        
       <% if @today_shift.present? %>
         <%= button_to "出勤", employee_shift_path(@today_shift), method: :patch, params: { shift: { work_status: "work" } },form: { onsubmit: "return confirm('出勤しましたか？')" }, class: "flex-btn" %>
@@ -48,7 +45,7 @@
           <% end %>
         <% end %>
       <% end %>
-    </div>
+</div>
 
   <div class="flexbox">
     <p class="shift ex">日勤</p>

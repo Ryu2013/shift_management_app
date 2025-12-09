@@ -40,7 +40,7 @@ class RoomsController < ApplicationController
     @room = Room
           .joins(:entries)
           .where(office: @office)
-          .group('rooms.id')
+          .group("rooms.id")
           .having(<<~SQL, current_user.id, user.id)
             COUNT(entries.id) = 2
             AND SUM(CASE WHEN entries.user_id = ? THEN 1 ELSE 0 END) = 1
@@ -71,7 +71,7 @@ class RoomsController < ApplicationController
 
   def room_params
     params.require(:room).permit(:name)
-  end 
+  end
 
   def set_room
     @room = current_user.rooms.where(rooms: { office_id: @office.id }).find_by(id: params[:id])

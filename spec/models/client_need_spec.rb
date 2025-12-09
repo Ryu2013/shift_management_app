@@ -50,6 +50,18 @@ RSpec.describe ClientNeed, type: :model do
       client_need.valid?
       expect(client_need.errors[:slots]).to include('を入力してください。')
     end
+
+    it '23時間59分以上のシフトはエラーになること' do
+      client_need = build(:client_need, start_time: '00:00', end_time: '23:59')
+      expect(client_need).to be_invalid
+      expect(client_need.errors[:base]).to include('24時間を超える場合、次の日と分割してください')
+    end
+
+    it '開始と終了が同じ時間の場合（24時間とみなす）もエラーになること' do
+      client_need = build(:client_need, start_time: '09:00', end_time: '09:00')
+      expect(client_need).to be_invalid
+      expect(client_need.errors[:base]).to include('24時間を超える場合、次の日と分割してください')
+    end
   end
 
   describe '関連付け（dependent）' do

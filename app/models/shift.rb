@@ -6,6 +6,8 @@ class Shift < ApplicationRecord
   validates :date, presence: true
   # 1日に同じユーザーを複数のシフトに割り当てない（日本語メッセージ付き）
   validate :user_unique_per_date, if: -> { user_id.present? && date.present? }
+  validate :duration_limit
+
   enum :shift_type, { day: 0, night: 1, escort: 2 }
   enum :work_status, { not_work: 0, work: 1 }
   delegate :subscription_active?, to: :office, allow_nil: true
@@ -13,7 +15,7 @@ class Shift < ApplicationRecord
 
   def duration
     return 0 unless start_time && end_time
-    
+
     if end_time < start_time
       ((end_time + 1.day) - start_time) / 3600.0
     else
@@ -32,6 +34,20 @@ class Shift < ApplicationRecord
 
     if current_count >= 5 && !subscription_active?
       errors.add(:base, "無料プランの上限（5名）に達しました。メンバーを追加するにはサブスクリプション登録が必要です。")
+    end
+  end
+
+  def duration_limit
+    return unless start_time && end_time
+
+    diff_seconds = if end_time <= start_time
+                     (end_time + 1.day) - start_time
+    else
+                     end_time - start_time
+    end
+
+    if diff_seconds >= 23.hours + 59.minutes
+      errors.add(:base, "24時間を超える場合、次の日と分割してください")
     end
   end
 
