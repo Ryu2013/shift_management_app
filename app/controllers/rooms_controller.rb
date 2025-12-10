@@ -12,10 +12,11 @@ class RoomsController < ApplicationController
              .left_joins(:messages)
              .group(:id)
              .order("MAX(messages.created_at) DESC")
+             .includes({ entries: :user }, :users)
   end
 
   def show
-    @messages = @room.messages
+    @messages = @room.messages.order(created_at: :asc)
     @message = @room.messages.new
 
     entry = @room.entries.find_by(user: current_user)

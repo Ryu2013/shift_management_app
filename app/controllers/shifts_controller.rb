@@ -85,12 +85,12 @@ class ShiftsController < ApplicationController
   private
 
   def check_selected
-    if params[:selected_team_id].present? && params[:selected_team_id].to_i != @team&.id
+    if params[:selected_team_id].present? && params[:selected_team_id] != @team&.id
     requested_team = @office.teams.find_by(id: params[:selected_team_id])
     redirect_to team_client_shifts_path(requested_team, @client, date: params[:date]) and return
     end
 
-    if params[:selected_client_id].present? && params[:selected_client_id].to_i != @client&.id
+    if params[:selected_client_id].present? && params[:selected_client_id] != @client&.id
       requested_client = @team.clients.find_by(id: params[:selected_client_id])
       redirect_to team_client_shifts_path(@team, requested_client, date: params[:date]) and return
     end
