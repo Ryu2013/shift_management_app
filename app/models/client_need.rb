@@ -7,8 +7,8 @@ class ClientNeed < ApplicationRecord
   validate :duration_limit
 
 
-  enum shift_type: { day: 0, night: 1 }
-  enum week: { sunday: 0, monday: 1, tuesday: 2, wednesday: 3, thursday: 4, friday: 5, saturday: 6 }
+  enum :shift_type, { day: 0, night: 1 }
+  enum :week, { sunday: 0, monday: 1, tuesday: 2, wednesday: 3, thursday: 4, friday: 5, saturday: 6 }
 
   after_create_commit  -> { broadcast_append_to  stream_key, target: "client_needs_#{week}" if stream_key }
   after_update_commit  -> { broadcast_replace_to stream_key if stream_key }
