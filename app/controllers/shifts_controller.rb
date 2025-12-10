@@ -38,7 +38,14 @@ class ShiftsController < ApplicationController
         format.html { redirect_to team_client_shifts_path(@team, @client), notice: "シフトを作成しました。" }
       end
     else
-      render :new, status: :unprocessable_entity
+      respond_to do |format|
+        format.turbo_stream { render turbo_stream: turbo_stream.replace(
+                               helpers.dom_id(@shift, :form),
+                              partial: "shifts/form",
+                              locals: { shift: @shift }
+                            ), status: :unprocessable_entity}
+        format.html { render :new, status: :unprocessable_entity }
+      end
     end
   end
 
@@ -49,7 +56,14 @@ class ShiftsController < ApplicationController
         format.html { redirect_to team_client_shifts_path(@team, @client), notice: "シフトを更新しました。", status: :see_other }
       end
     else
-      render :edit, status: :unprocessable_entity
+      respond_to do |format|
+        format.turbo_stream { render turbo_stream: turbo_stream.replace(
+                               helpers.dom_id(@shift, :form),
+                              partial: "shifts/form",
+                              locals: { shift: @shift }
+                            ), status: :unprocessable_entity}
+        format.html { render :edit, status: :unprocessable_entity }
+      end
     end
   end
 

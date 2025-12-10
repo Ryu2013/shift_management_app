@@ -1,5 +1,6 @@
 <% content_for :title, t(".title") %>
 <%= turbo_stream_from [@client, :shifts] %>
+<%= turbo_stream_from current_user %>
 <% content_for :head do %>
   <%= stylesheet_link_tag "shift/index", "data-turbo-track": "dynamic" %>
 <% end %>
@@ -27,7 +28,7 @@
   <% end %>
 
 <div class="menus">
-  <%= link_to "チャット", rooms_path, class: "menu" %>
+  <%= render "shared/chat_link", user: current_user, css_class: "menu" %>
   <%= link_to "部署/会社", teams_path, class: "menu" %>
   <%= link_to t(".nav.clients_and_staff"), team_clients_path(@team),class: "menu" %>
   <%= link_to t(".nav.attendance_status"), team_work_statuses_path(@team),class: "menu" %>

@@ -68,6 +68,18 @@ RSpec.describe Shift, type: :model do
       expect(dup).to be_valid
       expect(dup.errors[:base]).to be_empty
     end
+
+    it '23時間59分以上のシフトはエラーになること' do
+      shift = build(:shift, office: create(:office), client: create(:client), user: create(:user), date: Date.current, start_time: '00:00', end_time: '23:59')
+      expect(shift).to be_invalid
+      expect(shift.errors[:base]).to include('24時間を超える場合、次の日と分割してください')
+    end
+
+    it '開始と終了が同じ時間の場合（24時間とみなす）もエラーになること' do
+      shift = build(:shift, office: create(:office), client: create(:client), user: create(:user), date: Date.current, start_time: '09:00', end_time: '09:00')
+      expect(shift).to be_invalid
+      expect(shift.errors[:base]).to include('24時間を超える場合、次の日と分割してください')
+    end
   end
 
   describe '関連付け（dependent）' do
@@ -129,6 +141,29 @@ RSpec.describe Shift, type: :model do
       shift = build(:shift)
       shift.work_status = :work
       expect(shift.work_status).to eq('work')
+    end
+  end
+
+  describe '#duration' do
+    it '通常シフト（同日内）の時間を正しく計算すること' do
+      shift = build(:shift, start_time: '09:00', end_time: '18:00')
+      expect(shift.duration).to eq(9.0)
+    end
+
+    it '分単位の時間を正しく計算すること' do
+      shift = build(:shift, start_time: '09:00', end_time: '18:30')
+      expect(shift.duration).to eq(9.5)
+    end
+
+    it '日またぎシフトの時間を正しく計算すること' do
+      shift = build(:shift, start_time: '22:00', end_time: '05:00')
+      # 22:00 -> 05:00 is 7 hours
+      expect(shift.duration).to eq(7.0)
+    end
+
+    it '開始・終了時間がない場合は0を返すこと' do
+      shift = build(:shift, start_time: nil)
+      expect(shift.duration).to eq(0)
     end
   end
 end

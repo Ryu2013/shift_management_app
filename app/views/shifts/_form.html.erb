@@ -1,4 +1,14 @@
+<div id="<%= dom_id(shift, :form) %>">
 <%= form_with(model: [@team, @client, shift], local: true) do |form| %>
+  <% if shift.errors.any? %>
+    <div style="color: red">
+      <ul>
+        <% shift.errors.full_messages.each do |error| %>
+          <li><%= error %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
 
   <div>
     <%= form.hidden_field :client_id %>
@@ -37,3 +47,4 @@
       <%= form.submit t(".submit") %>
     </div>
  <% end %>
+</div>

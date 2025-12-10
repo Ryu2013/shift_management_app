@@ -1,7 +1,9 @@
-/* チャットルーム全体の背景 */
-body {
-    background-color: #7494c0;
+.room-members {
+  white-space: nowrap;      /* 折り返さない */
+  overflow: hidden;         /* はみ出し部分を隠す */
+  text-overflow: ellipsis;  /* はみ出し部分を ... 表示 */
 }
+
 
 /* メッセージエリア */
 .messages-container {
@@ -51,6 +53,7 @@ body {
     word-wrap: break-word;
     max-width: 100%;
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--text-color);
 }
 
 /* 自分の吹き出し */

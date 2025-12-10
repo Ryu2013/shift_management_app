@@ -42,6 +42,10 @@ class User < ApplicationRecord
     end
   end
 
+  def has_unread_messages?
+    rooms.any? { |room| room.has_unread_messages?(self) }
+  end
+
   private
   # OmniAuth
   def self.from_omniauth(auth)

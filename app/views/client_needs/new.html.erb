@@ -1,6 +1,7 @@
 <%= turbo_frame_tag "new_client_need" do %>
+<div id="<%= dom_id(@client_need, :form) %>">
 <h1 style="margin-top: 1rem;"><%= t(".heading") %></h1>
 
 <%= render "form", client_need: @client_need %>
-
+</div>
 <% end %>

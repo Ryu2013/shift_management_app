@@ -20,7 +20,11 @@ class ClientNeedsController < ApplicationController
       end
     else
       respond_to do |format|
-      format.turbo_stream { render :new, status: :unprocessable_entity }
+      format.turbo_stream { render turbo_stream: turbo_stream.replace(
+                               helpers.dom_id(@client_need, :form),
+                              partial: "client_needs/form",
+                              locals: { client_need: @client_need }
+                            ), status: :unprocessable_entity}
       format.html { render :new, status: :unprocessable_entity }
       end
     end

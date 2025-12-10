@@ -69,6 +69,23 @@
     %>
     </div>
   </div>
+<% else %>
+  <div class="card">
+  <h3>契約状況</h3>
+    <div style="background-color: #9cd4f7ff; border: 1px solid #f5c6cb;  padding: 1em; border-radius: 4px; margin-bottom: 1em;">
+      <p>サブスクリプションのご契約はこちらから</p>
+    </div>
+
+    <div class="flexbox" style="margin-top: 1.5rem;">
+    <%= button_to "サブスクリプション契約へ", 
+        subscriptions_index_path, 
+        method: :get,
+        data: { turbo: false }, 
+        class: "flex-btn", # 独自の汎用ボタンスタイルを適用
+        style: "width: auto; padding-left: 1.5em; padding-right: 1.5em;" # 少し横幅を広げる調整
+    %>
+    </div>
+  </div>
 <% end %>
 
 <%= render "form", office: @office %>
