@@ -10,7 +10,7 @@ class Employee::ShiftsController < ApplicationController
 
     @shifts = @user.shifts.scope_month(@date).includes(:client).group_by { |shift| shift.date }
     @date_view = @date.strftime("%m月")
-    @today_shift = @user.shifts.find_by(date: @today)
+    @today_shifts = @user.shifts.where(date: @today).order(:start_time)
 
     monthly_shifts = @user.shifts.scope_month(@date)
     @total_hours = monthly_shifts.sum(&:duration).round(2)
@@ -28,7 +28,7 @@ class Employee::ShiftsController < ApplicationController
       @last_day  = @date.end_of_month
       @shifts = @user.shifts.scope_month(@date).group_by { |shift| shift.date }
       @date_view = @date.strftime("%m月")
-      @today_shift = @user.shifts.find_by(date: @today)
+      @today_shifts = @user.shifts.where(date: @today).order(:start_time)
 
       monthly_shifts = @user.shifts.scope_month(@date)
       @total_hours = monthly_shifts.sum(&:duration)
