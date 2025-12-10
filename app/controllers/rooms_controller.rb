@@ -59,7 +59,7 @@ class RoomsController < ApplicationController
 
   def update
     @room.update(room_params)
-    redirect_to @room
+    redirect_to edit_room_path(@room), notice: "チャット名を更新しました。"
   end
 
   def destroy
