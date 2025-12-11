@@ -2,14 +2,15 @@
 <html>
   <head>
     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-G49V4L5G7B"></script>
-    <script>
+    <%= javascript_include_tag "https://www.googletagmanager.com/gtag/js?id=G-G49V4L5G7B",
+                           async: true, nonce: true %>
+
+    <%= javascript_tag nonce: true do %>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-
       gtag('config', 'G-G49V4L5G7B');
-    </script>
+    <% end %>
 
     <title><%= content_for(:title) || t("layouts.application.default_title") %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">

@@ -5,5 +5,5 @@
 # サポートされている表記や動作については ActiveSupport::ParameterFilter のドキュメントを参照してください。
 # 例: Parameters: {"email"=>"[FILTERED]", "otp_attempt"=>"[FILTERED]"}
 Rails.application.config.filter_parameters += [
-  :passw, :email, :secret, :token, :_key, :crypt, :salt, :certificate, :otp, :ssn, :otp_attempt
+  :passw, :email, :secret, :token, :_key, :crypt, :salt, :certificate, :otp, :ssn, :otp_attempt, :cvv, :cvc
 ]

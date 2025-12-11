@@ -9,7 +9,7 @@ Bundler.require(*Rails.groups)
 module App
   class Application < Rails::Application
     # 元々生成されたRailsのバージョンに対する設定のデフォルト値を初期化します。
-    config.load_defaults 7.2
+    config.load_defaults 8.1
     config.time_zone = "Tokyo"
     # `.rb`ファイルを含まない、またはリロード／イーガーロードしたくない
     # `lib`のサブディレクトリがあれば、`ignore`リストに追加してください。
