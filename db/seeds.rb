@@ -10,7 +10,7 @@ require "securerandom"
 #   SEED_EMPLOYEE_EMAIL, SEED_EMPLOYEE_PASSWORD
 ActiveRecord::Base.transaction do
   # Office and Team
-  office = Office.find_or_create_by!(name: "デモ事業所", subscription_status: "active")
+  office = Office.find_or_create_by!(name: "デモ事業所")
   team = office.teams.find_or_create_by!(name: "Aチーム")
 
   # Client (for initial navigation after login)
