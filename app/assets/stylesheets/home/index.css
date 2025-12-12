@@ -188,7 +188,7 @@ a { text-decoration: none; }
 .device-badge {
   background: #f0f9ff;
   color: var(--primary-color);
-  border: 1px solid #cceeff;
+  border: 1px solid #82d5ff;
 }
 .badge-icon-svg {
   width: 20px;
@@ -207,15 +207,15 @@ a { text-decoration: none; }
 .easy-badge {
   background: #f0fff4; /* 薄い緑 */
   color: #2b8a3e;      /* 濃い緑 */
-  border: 1px solid #b2f2bb;
+  border: 1px solid #89ff99;
 }
 .cloke {
-  background: #f0fff4; /* 薄い緑 */
-  color: #ffce00;      /* 濃い緑 */
+  background: #fffbeb; /* 薄い緑 */
+  color: #ffcc14;      /* 濃い緑 */
   border: 1px solid #f5d44a;
 }
 .nav {
-  background: #f0fff4; /* 薄い緑 */
+  background: #f4e3ff; /* 薄い緑 */
   color: #bc50ff;      /* 濃い緑 */
   border: 1px solid #d39af7;
 }
