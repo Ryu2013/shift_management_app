@@ -142,6 +142,12 @@ a { text-decoration: none; }
   margin-bottom: 1.5rem;
 }
 
+.mission {
+  width: 100%;
+  margin: 0 auto;
+  border-radius: 15px;
+}
+
 /* バッジエリア */
 .hero-badges {
   display: flex;
@@ -202,6 +208,16 @@ a { text-decoration: none; }
   background: #f0fff4; /* 薄い緑 */
   color: #2b8a3e;      /* 濃い緑 */
   border: 1px solid #b2f2bb;
+}
+.cloke {
+  background: #f0fff4; /* 薄い緑 */
+  color: #ffce00;      /* 濃い緑 */
+  border: 1px solid #f5d44a;
+}
+.nav {
+  background: #f0fff4; /* 薄い緑 */
+  color: #bc50ff;      /* 濃い緑 */
+  border: 1px solid #d39af7;
 }
 
 
