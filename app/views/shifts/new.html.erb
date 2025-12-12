@@ -5,7 +5,7 @@
 
       <h1><%= t(".heading") %></h1>
 
-         <div class="flexbox" style="margin: 1rem;">
+         <div class="flexbox margin-1">
          <%= button_to "今月のシフト自動生成",
                generate_monthly_shifts_team_client_shifts_path(@team, @client, date: @date),
                method: :post,

@@ -39,6 +39,18 @@
   background: #B4E2FF;
 }
 
+.hidden-month-field {
+  display: none;
+}
+
+.month-display {
+  width: 2.5rem;
+}
+
+.auto-width-select {
+  width: auto;
+}
+
 .escort {
   color: #333333;
   border-left: solid 4px #4CAF50;
@@ -49,6 +61,69 @@
 .nil {
   color: #333333;
   background: #E0E0E0;
+}
+
+.error-text {
+  color: red;
+}
+
+.block-label {
+  display: block;
+}
+
+.shift-chip-list {
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin: 1rem 0;
+}
+
+.shift-button-narrow {
+  font-size: 0.8rem;
+}
+
+.subscription-notice {
+  background-color: #fff3cd;
+  border: 1px solid #ffeeba;
+  color: #856404;
+  padding: 1em;
+  border-radius: 4px;
+  margin-bottom: 1em;
+}
+
+.subscription-muted {
+  background-color: #f8f9fa;
+  border: 1px solid #dae0e5;
+  color: #383d41;
+  padding: 1em;
+  border-radius: 4px;
+  margin-bottom: 1em;
+}
+
+.subscription-text-spacing {
+  margin-top: 0.5em;
+}
+
+.wide-button {
+  width: auto;
+  padding-left: 1.5em;
+  padding-right: 1.5em;
+}
+
+.subscription-restart-button {
+  width: auto;
+  padding-left: 1.5em;
+  padding-right: 1.5em;
+  background-color: #69C5FF;
+  color: #fff;
+  border: none;
+}
+
+.margin-top-1-5 {
+  margin-top: 1.5rem;
+}
+
+.margin-1 {
+  margin: 1rem;
 }
 
 .calendar {

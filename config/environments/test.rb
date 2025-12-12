@@ -55,6 +55,9 @@ Rails.application.configure do
   # Tell Active Support which deprecation messages to disallow.
   config.active_support.disallowed_deprecation_warnings = []
 
+  # 本番と同じくCSPを強制する（Report-Onlyにしない）
+  config.content_security_policy_report_only = false
+
   # Raises error for missing translations.
   # config.i18n.raise_on_missing_translations = true
 

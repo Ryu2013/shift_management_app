@@ -43,11 +43,11 @@
 
   <%= form_with url: team_client_shifts_path(@team, @client), method: :get, local: true,  html: { id: "filters-form" } do |f| %>
 
-    <%= f.month_field :date, id: "real-month", style: "display: none;",
+    <%= f.month_field :date, id: "real-month", class: "hidden-month-field",
                         onchange: "this.form.requestSubmit();" %>
     
     <div class="flexbox">
-      <div id= "fake-month" class="flex-btn" style="width: 2.5rem;">
+      <div id= "fake-month" class="flex-btn month-display">
         <%= @date_view %>
       </div>
 
@@ -56,14 +56,14 @@
                   :id,
                   :name,
                   { selected: @team.id  },
-                  { class: "flex-btn", style: "width: auto;", onchange: "this.form.requestSubmit();" } %>
+                  { class: "flex-btn auto-width-select", onchange: "this.form.requestSubmit();" } %>
 
       <%= f.collection_select  :selected_client_id,
                   @clients,
                   :id,
                   :name,
                   { selected: @client.id  },
-                  { class: "flex-btn", style: "width: auto;", onchange: "this.form.requestSubmit();" } %>
+                  { class: "flex-btn auto-width-select", onchange: "this.form.requestSubmit();" } %>
       
       <%= link_to t(".new_shift"), new_team_client_shift_path(@team, @client, date: @date), data: { turbo_frame: "shift_new" }, class: "flex-btn" %>
     </div>

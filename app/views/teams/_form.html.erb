@@ -1,6 +1,6 @@
 <%= form_with(model: team, data: {turbo: false}) do |form| %>
   <% if team.errors.any? %>
-    <div style="color: red">
+    <div class="error-text">
       <ul>
         <% team.errors.each do |error| %>
           <%= error.message %>
@@ -10,7 +10,7 @@
   <% end %>
 
   <div>
-    <%= form.label :name, style: "display: block" %>
+    <%= form.label :name, class: "block-label" %>
     <%= form.text_field :name %>
   </div>
 

@@ -108,3 +108,21 @@ document.addEventListener("turbo:load", () => {
     observer.observe(messages, { childList: true, subtree: true });
   }
 });
+
+document.addEventListener("turbo:load", () => {
+  const currentUserId = document.body.dataset.currentUserId
+  if (!currentUserId) return
+  const messageUserId = document.body.dataset.messageUserId
+  if (!messageUserId || messageUserId !== currentUserId) return
+
+  const message = document.getElementById("message");
+  const messageName = document.getElementById("message-name");
+  const messageIcon = document.getElementById("message-icon");
+  const messageBubble = document.getElementById("message-bubble");
+  messageBubble.classList.add("my-message");
+  messageBubble.classList.remove("other-message");
+  messageIcon.classList.add("icon-hidden");
+  messageName.classList.remove("user-name-offset");
+  message.classList.add("my-row", "message-own");
+  message.classList.remove("other-row");
+})

@@ -134,6 +134,26 @@ input[type="submit"] {
   flex-wrap: wrap;
 }
 
+.flex-nowrap {
+  flex-wrap: nowrap;
+}
+
+.flex-justify-between {
+  justify-content: space-between;
+}
+
+.justify-start {
+  justify-content: flex-start;
+}
+
+.flex-align-start {
+  align-items: flex-start;
+}
+
+.gap-10 {
+  gap: 10px;
+}
+
 
 /* =========================================
    3. Module (部品・コンポーネント)
@@ -199,6 +219,179 @@ input[type="submit"] {
   margin: 0.1rem;
   font-size: 0.8rem;
   white-space: nowrap;
+}
+
+/* 汎用テキスト/マージン/ボックス */
+.error-text {
+  color: red;
+}
+
+.block-label {
+  display: block;
+}
+
+.helper-text {
+  font-size: 0.8rem;
+  margin-left: 0.5rem;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-muted {
+  color: #888;
+}
+
+.text-blue {
+  color: blue;
+}
+
+.text-red {
+  color: red;
+}
+
+.font-bold {
+  font-weight: bold;
+}
+
+.font-large {
+  font-size: 1.5rem;
+}
+
+.mt-05 {
+  margin-top: 0.5em;
+}
+
+.mt-1 {
+  margin-top: 1rem;
+}
+
+.mt-1-5 {
+  margin-top: 1.5rem;
+}
+
+.mb-1 {
+  margin-bottom: 1rem;
+}
+
+.m-1 {
+  margin: 1rem;
+}
+
+.m-20 {
+  margin: 20px;
+}
+
+.ml-1 {
+  margin-left: 1rem;
+}
+
+.hidden-field {
+  display: none;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+.w-auto {
+  width: auto;
+}
+
+.w-3rem {
+  width: 3rem;
+}
+
+.float-right {
+  float: right;
+}
+
+.visible-hr {
+  display: block;
+  border: none;
+  border-top: 1px solid #ccc;
+  height: 1px;
+  margin: 1rem 0;
+}
+
+.alert-warning {
+  background-color: #fff3cd;
+  border: 1px solid #ffeeba;
+  color: #856404;
+  padding: 1em;
+  border-radius: 4px;
+  margin-bottom: 1em;
+}
+
+.alert-success {
+  background-color: #d4edda;
+  border: 1px solid #c3e6cb;
+  color: #155724;
+  padding: 1em;
+  border-radius: 4px;
+  margin-bottom: 1em;
+}
+
+.alert-neutral {
+  background-color: #f8f9fa;
+  border: 1px solid #dae0e5;
+  color: #383d41;
+  padding: 1em;
+  border-radius: 4px;
+  margin-bottom: 1em;
+}
+
+.alert-info {
+  background-color: #9cd4f7ff;
+  border: 1px solid #f5c6cb;
+  padding: 1em;
+  border-radius: 4px;
+  margin-bottom: 1em;
+}
+
+.btn-wide {
+  width: auto;
+  padding-left: 1.5em;
+  padding-right: 1.5em;
+}
+
+.icon-lg {
+  height: 80px;
+  width: 80px;
+}
+
+.icon-md {
+  height: 60px;
+  width: 60px;
+}
+
+.icon-xl {
+  height: 300px;
+  width: 300px;
+}
+
+.rounded-full {
+  border-radius: 50%;
+}
+
+.inline-form {
+  display: inline-block;
+}
+
+.chat-dot {
+  color: var(--accent-color);
+  margin-right: 5px;
+}
+
+.text-small {
+  font-size: 0.85rem;
+}
+
+.badge-new {
+  color: var(--d-red);
+  font-size: 0.8em;
+  margin-left: 5px;
 }
 
 /* 戻るボタン画像 */

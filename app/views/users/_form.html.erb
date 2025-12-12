@@ -1,6 +1,6 @@
 <%= form_with model: @user, url: team_user_path(@user.team, @user), method: :patch, local: true do |form| %>
   <% if @user.errors.any? %>
-    <div style="color: red">
+    <div class="error-text">
       <ul>
         <% @user.errors.full_messages.each do |msg| %>
           <li><%= msg %></li>
@@ -10,7 +10,7 @@
   <% end %>
 
   <div class="flexbox"  >
-  <%= image_tag @user.icon_url,style: "height: 300px; width: 300px;", class: "icon" %>
+  <%= image_tag @user.icon_url, class: "icon icon-xl" %>
   </div>
 
   <div class="field">
@@ -19,23 +19,23 @@
   </div>
 
   <div>
-    <%= form.label :team_id, "部署", style: "display: block" %>
+    <%= form.label :team_id, "部署", class: "block-label" %>
     <%= form.collection_select :team_id, @teams, :id, :name %>
   </div>
 
   <div>
-    <%= form.label :name, "氏名", style: "display: block" %>
+    <%= form.label :name, "氏名", class: "block-label" %>
     <%= form.text_field :name %>
   </div>
 
   <div>
-    <%= form.label :address, "住所", style: "display: block" %>
+    <%= form.label :address, "住所", class: "block-label" %>
     <%= form.text_field :address %>
   </div>
 
   <% unless current_user == form.object %>
     <div>
-      <%= form.label :role, "管理者権限の付与", style: "display: block" %>
+      <%= form.label :role, "管理者権限の付与", class: "block-label" %>
       <%= form.select :role, [['管理者', 'admin'], ['一般', 'employee']] %>
     </div>
   <% end %>

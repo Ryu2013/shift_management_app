@@ -1,6 +1,6 @@
 <%= form_with(model: office) do |form| %>
   <% if office.errors.any? %>
-    <div style="color: red">
+    <div class="error-text">
       <ul>
         <% office.errors.each do |error| %>
           <%= error.message %>
@@ -10,7 +10,7 @@
   <% end %>
 
   <div>
-    <%= form.label :name, style: "display: block" %>
+    <%= form.label :name, class: "block-label" %>
     <%= form.text_field :name, required: true %>
   </div>
 

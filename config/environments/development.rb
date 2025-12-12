@@ -44,7 +44,8 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { host: "localhost", port: 3000 }
   config.action_mailer.delivery_method = :letter_opener
   config.action_mailer.perform_deliveries = true
-    config.content_security_policy_report_only = true
+  # 本番と同じくCSPを強制する（Report-Onlyにしない）
+  config.content_security_policy_report_only = false
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
 

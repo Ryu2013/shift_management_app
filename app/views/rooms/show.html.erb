@@ -1,32 +1,32 @@
 <%= turbo_stream_from @room %>
 <% content_for :head do %>
   <%= stylesheet_link_tag "room/show", "data-turbo-track": "dynamic" %>
-  <style>
-      .message-user-<%= current_user.id %> {
-        justify-content: flex-end;
-        align-items: flex-end;
-        margin-left: auto;
-
-      }
-      .message-user-<%= current_user.id %> .message-bubble {
-        background-color: #8de055;
-        border-top-right-radius: 0;
-        border-top-left-radius: 15px;
-      }
-      .message-user-<%= current_user.id %> .icon {
-        display: none;
-      }
-  </style>
 <% end %>
 
+<style nonce="<%= content_security_policy_nonce %>">
+    .message-user-<%= current_user.id %> {
+      justify-content: flex-end;
+      align-items: flex-end;
+      margin-left: auto;
 
-<div style="position: relative;">
+    }
+    .message-user-<%= current_user.id %> .message-bubble {
+      background-color: #8de055;
+      border-top-right-radius: 0;
+      border-top-left-radius: 15px;
+    }
+    .message-user-<%= current_user.id %> .icon {
+      display: none;
+    }
+</style>
 
-<div class="flexbox" style="align-items: center; flex-wrap: nowrap;" >
+<div class="room-wrapper">
+
+<div class="room-header">
 <%= link_to rooms_path do %>
  <%= image_tag "back-btn.png", class: "back-image" %>
 <% end %>
-<h3 style="display: inline-block; margin-right: auto; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; vertical-align: bottom;">
+<h3 class="room-title">
   <div class="room-members">
   <%= @room.users
           .where.not(id: current_user.id)
@@ -41,16 +41,16 @@
 
 <div id="messages" class="messages-container">
   <% if @last_read_at.nil? && @messages.any?(&:persisted?) %>
-      <div style="text-align: center; border-bottom: 1px solid #ccc; line-height: 0.1em; margin: 10px 0 20px;">
-        <span style="background:#fff; padding:0 10px; color: #999;">ここから未確認</span>
+      <div class="message-separator">
+        <span class="message-separator-text">ここから未確認</span>
       </div>
   <% end %>
 
   <% shown_unread_separator = false %>
   <% @messages.select(&:persisted?).each do |message| %>
     <% if @last_read_at && message.created_at > @last_read_at && !shown_unread_separator %>
-       <div style="text-align: center; border-bottom: 1px solid #ccc; line-height: 0.1em; margin: 10px 0 20px;">
-        <span style="background:#fff; padding:0 10px; color: #999;">ここから未確認</span>
+       <div class="message-separator">
+        <span class="message-separator-text">ここから未確認</span>
       </div>
       <% shown_unread_separator = true %>
     <% end %>

@@ -15,8 +15,8 @@
 <div class="flexbox">
   <%= form_with url: employee_shifts_path,class: "flexbox", method: :get, local: true do |f| %>
 
-    <%= f.month_field :date, id: "real-month", style: "display: none;"%>
-        <div style="font-size: 1.5rem;"><%= @user.name %>様</div>
+    <%= f.month_field :date, id: "real-month", class: "hidden-month-field"%>
+        <div class="font-large"><%= @user.name %>様</div>
           <div id= "fake-month" class="flex-btn">
             <%= @date_view %>
           </div>
@@ -25,7 +25,7 @@
       <% if @today_shifts.exists? %>
       <% is_one = @today_shifts.one? %>
         <% @today_shifts.each do |shift| %>
-          <div class="shift-action-container" style="text-align: center;">
+          <div class="shift-action-container text-center">
             
             <% unless is_one %>
             <p>
@@ -34,15 +34,14 @@
             </p>
             <% end %>
             
-            <div class="flexbox" style="justify-content: center; gap: 10px;">
+            <div class="flexbox gap-10">
               <%= button_to "出勤", employee_shift_path(shift), method: :patch, params: { shift: { work_status: "work" } },form: { onsubmit: "return confirm('出勤しましたか？')" }, class: "flex-btn" %>
 
               <% if shift.client.latitude.present? && shift.client.longitude.present? %>
                 <%= link_to shift.client.google_maps_route_url_template, 
                   target: "_blank", 
                   rel: "noopener", 
-                  class: "flex-btn", 
-                  style: "display: inline-flex; align-items: center; justify-content: center;",
+                  class: "flex-btn",
                   id: "navigate-button-#{shift.id}" do %>
 
                   <svg class="map-icon" viewBox="0 0 34 48" fill="none" xmlns="http://www.w3.org/2000/svg">
