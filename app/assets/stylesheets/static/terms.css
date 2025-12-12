@@ -39,3 +39,37 @@
   margin-top: 40px;
   text-align: right;
 }
+
+.specified-commercial-transactions-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.specified-commercial-transactions-table th,
+.specified-commercial-transactions-table td {
+  border: 1px solid #ddd;
+  padding: 15px;
+  text-align: left;
+  vertical-align: top;
+}
+
+.specified-commercial-transactions-table th {
+  background-color: #f9f9f9;
+  font-weight: bold;
+  width: 30%;
+}
+
+@media (max-width: 600px) {
+
+  .specified-commercial-transactions-table th,
+  .specified-commercial-transactions-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .specified-commercial-transactions-table th {
+    background-color: #eee;
+  }
+}
