@@ -55,10 +55,10 @@
     </div>
 
     <div class="auth-footer-links">
-        <span style="color: #888; font-size: 0.9rem;">アカウントをお持ちでないですか？</span><br>
+        <span class="text-muted text-small">アカウントをお持ちでないですか？</span><br>
         <%= link_to "新規登録はこちら", new_registration_path(resource_name), class: "text-link" %>
       
-      <div style="margin-top: 0.5rem;">
+      <div class="mt-05">
           <%= link_to "確認メールが届かない場合", new_confirmation_path(resource_name), class: "text-link-sm" %>        <% end %>
       </div>
 

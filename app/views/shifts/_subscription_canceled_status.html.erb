@@ -1,4 +1,4 @@
-    <div style="background-color: #f8f9fa; border: 1px solid #dae0e5; color: #383d41; padding: 1em; border-radius: 4px; margin-bottom: 1em;">
+    <div class="subscription-muted">
       <p>現在は解約済みです。</p>
     </div>
 
@@ -6,6 +6,5 @@
           subscriptions_subscribe_path, 
           method: :post, 
           data: { turbo: false }, 
-          class: "flex-btn",
-          style: "width: auto; padding-left: 1.5em; padding-right: 1.5em; background-color: #69C5FF; color: white; border: none;" 
+          class: "flex-btn subscription-restart-button"
       %>

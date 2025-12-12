@@ -2,7 +2,7 @@
   <div id="error_explanation" data-turbo-cache="false">
     <ul>
       <% resource.errors.full_messages.each do |message| %>
-        <li style="color: red;"><%= message %></li>
+        <li class="error-text"><%= message %></li>
       <% end %>
     </ul>
   </div>

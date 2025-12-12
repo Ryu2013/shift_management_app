@@ -31,9 +31,9 @@
 <% @users.each do |user| %>
   <%= button_to rooms_path(user_id: user.id), method: :post, data: { turbo: false } do %>
     <div class="card">
-      <div class="flexbox" style="justify-content: space-between; flex-wrap: nowrap;">
+      <div class="flexbox flex-justify-between flex-nowrap">
         <div class="flexbox">
-          <%= image_tag user.icon_url,style: "height: 80px; width: 80px;", class: "icon" %>
+          <%= image_tag user.icon_url, class: "icon icon-lg" %>
           <%= user.name %>
         </div>
     </div>

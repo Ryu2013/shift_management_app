@@ -1,6 +1,6 @@
 <%= form_with(model: [@team, client]) do |form| %>
-  <% if client.errors.any? %>
-    <div style="color: red">
+<% if client.errors.any? %>
+    <div class="error-text">
       
 
       <ul>
@@ -11,19 +11,19 @@
     </div>
   <% end %>
   
-  <%= form.label :team_id, t(".team"), style: "display: block" %>
+  <%= form.label :team_id, t(".team"), class: "block-label" %>
   <%= form.collection_select :team_id, @teams, :id, :name,selected: params[:team_id] %>
 
 
   <div>
-    <%= form.label :name, style: "display: block" %>
+    <%= form.label :name, class: "block-label" %>
     <%= form.text_field :name ,required: true%>
   </div>
 
   <% if @client.persisted? %>
 
   <div>
-    <%= form.label :address, style: "display: block" %><span style="font-size: 0.8rem; margin-left: 0.5rem;">GoogleMapが開けるようになります</span>
+    <%= form.label :address, class: "block-label" %><span class="helper-text">GoogleMapが開けるようになります</span>
     <%= form.text_field :address %>
   </div>
 

@@ -10,7 +10,7 @@
 
 <div class="flexbox">
   <p>QR コードが使用できない場合は、下記のセットアップキーを手入力してください。</p>
-  <div style="font-size: 20px; font-weight: bold;">
+  <div class="font-bold font-large">
     <%= @secret_key.scan(/.{1,4}/).join(" ") %>
   </div>
 </div>
@@ -23,4 +23,4 @@
   </div>
 <% end %>
 
-<p style="text-align: center;">セットアップが完了したら、次回ログイン時に二段階認証アプリのコード入力が求められます。</p>
+<p class="text-center">セットアップが完了したら、次回ログイン時に二段階認証アプリのコード入力が求められます。</p>

@@ -4,6 +4,26 @@
   text-overflow: ellipsis;  /* はみ出し部分を ... 表示 */
 }
 
+.room-wrapper {
+  position: relative;
+}
+
+.room-header {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+
+.room-title {
+  display: inline-block;
+  margin-right: auto;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  vertical-align: bottom;
+}
+
 
 /* メッセージエリア */
 .messages-container {
@@ -20,6 +40,12 @@
     flex-direction: column;
     margin-bottom: 15px;
     max-width: 80%;
+}
+
+.message-own {
+    justify-content: flex-end;
+    align-items: flex-end;
+    margin-left: auto;
 }
 
 /* 自分のメッセージ行 */
@@ -83,6 +109,45 @@
 
 .my-message .message-time {
     color: #555;
+}
+
+.icon-hidden {
+    display: none;
+}
+
+.user-name-offset {
+    margin-left: 80px;
+}
+
+.message-separator {
+    text-align: center;
+    border-bottom: 1px solid #ccc;
+    line-height: 0.1em;
+    margin: 10px 0 20px;
+}
+
+.message-separator-text {
+    background: #fff;
+    padding: 0 10px;
+    color: #999;
+}
+
+.message-form-bar {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+.message-input {
+    flex-grow: 1;
+    padding: 5px;
+}
+
+.message-submit {
+    padding: 5px 10px;
+    margin-right: 0.2rem;
+    margin-bottom: 0.2rem;
 }
 
 /* フォームエリアの調整（必要に応じて） */

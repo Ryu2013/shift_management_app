@@ -12,7 +12,7 @@
 
        <% if @client.latitude && @client.longitude %>
 
-        <p style="width: 100%; margin-left: 1rem;">家が近い順(住所未登録は後ろになります)</p>
+        <p class="w-100 ml-1">家が近い順(住所未登録は後ろになります)</p>
         <div id="not_users" class="flexbox">
         <% @users&.each do |u| %>
           <%= render partial: "not_user_client", locals: { u: u, team: @team, client: @client } %>
@@ -21,7 +21,7 @@
 
        <% else %>
 
-        <p style="width: 100%; margin-left: 1rem;">お客様、従業員の住所を登録すると近い順になります。</p>
+        <p class="w-100 ml-1">お客様、従業員の住所を登録すると近い順になります。</p>
          <div id="not_users" class="flexbox">
           <% @users&.each do |u| %>
             <%= render partial: "not_user_client", locals: { u: u, team: @team, client: @client } %>
@@ -31,7 +31,7 @@
        <% end %>
 
 
-      <hr style="display:block;">
+      <hr class="visible-hr">
 
       <h2>担当可能</h2>
 

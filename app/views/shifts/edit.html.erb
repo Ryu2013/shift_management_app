@@ -3,10 +3,10 @@
  <%= link_to "✕", team_client_shifts_path(@team, @client) ,class: "back-btn" %>
     <h2><%= "担当可能従業員" %></h2>
 
-    <div class="flexbox" style="gap: 0.5rem; flex-wrap: wrap; margin:1rem 0 1rem 0;">
-        <%= button_to "未配置", team_client_shift_path(@team, @client,@shift), method: :patch, params: { shift: { user_id: nil, client_id: @client.id } }, class: ["shift nil", ("night" if @shift.shift_type == "night"), ("escort" if @shift.shift_type == "escort")].compact.join(" "), style: "font-size: 0.8rem; " %>
+    <div class="flexbox shift-chip-list">
+        <%= button_to "未配置", team_client_shift_path(@team, @client,@shift), method: :patch, params: { shift: { user_id: nil, client_id: @client.id } }, class: ["shift nil", ("night" if @shift.shift_type == "night"), ("escort" if @shift.shift_type == "escort"), "shift-button-narrow"].compact.join(" ") %>
         <% @client.users.each do |u| %>
-        <%= button_to u.name, team_client_shift_path(@team, @client,@shift), method: :patch, params: { shift: { user_id: u.id, client_id: @client.id } }, class: ["shift", ("night" if @shift.shift_type == "night"), ("escort" if @shift.shift_type == "escort")].compact.join(" "), style: "font-size: 0.8rem;" %>
+        <%= button_to u.name, team_client_shift_path(@team, @client,@shift), method: :patch, params: { shift: { user_id: u.id, client_id: @client.id } }, class: ["shift", ("night" if @shift.shift_type == "night"), ("escort" if @shift.shift_type == "escort"), "shift-button-narrow"].compact.join(" ") %>
         <% end %>
     </div>
 

@@ -71,9 +71,9 @@
             <% end %>
             <p class="text-small">
               アカウントを作成することで、
-              <%= link_to "利用規約", terms_path, target: "_blank", rel: "noopener noreferrer" ,style: "color: blue;" %>
+              <%= link_to "利用規約", terms_path, target: "_blank", rel: "noopener noreferrer", class: "text-blue" %>
               および<br>
-              <%= link_to "プライバシーポリシー", privacy_policy_path, target: "_blank", rel: "noopener noreferrer", style: "color: blue;" %>
+              <%= link_to "プライバシーポリシー", privacy_policy_path, target: "_blank", rel: "noopener noreferrer", class: "text-blue" %>
               に同意したものとみなします。
             </p>
 
@@ -150,7 +150,7 @@
       </div>
 
       <%# ずっと無料 %>
-      <div class="value-card highlight-card scroll-trigger" style="transition-delay: 0.2s;">
+      <div class="value-card highlight-card scroll-trigger delay-02">
         <div class="value-icon-wrapper">
           <span class="value-text-icon">¥300</span>
         </div>
@@ -170,7 +170,7 @@
         <div class="sub-actions">
           <%= link_to "ログイン", new_user_session_path, class: "text-link" %>
           <span class="separator">|</span>
-          <%= button_to "Googleでログイン", user_google_oauth2_omniauth_authorize_path, data: { turbo: false }, class: "text-link",form: { style: "display: inline-block;" } %>
+          <%= button_to "Googleでログイン", user_google_oauth2_omniauth_authorize_path, data: { turbo: false }, class: "text-link", form: { class: "inline-form" } %>
         </div>
         <div class="sub-actions">
           <%= link_to "使い方", how_to_use_path, class: "text-link" %>

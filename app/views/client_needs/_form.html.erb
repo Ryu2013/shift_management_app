@@ -1,6 +1,6 @@
 <%= form_with(model:[@team, @client, client_need]) do |form| %>
-  <% if client_need.errors.any? %>
-    <div style="color: red">
+<% if client_need.errors.any? %>
+    <div class="error-text">
       <ul>
         <% client_need.errors.full_messages.each do |error| %>
           <%= error %>
@@ -10,27 +10,27 @@
   <% end %>
 
  <div>
-    <%= form.label :week, style: "display: block" %>
+    <%= form.label :week, class: "block-label" %>
     <%= form.select :week, ClientNeed.weeks.keys.map { |k| [t("activerecord.attributes.client_need.weeks.#{k}"), k] }, required: true %>
   </div>
 
   <div>
-    <%= form.label :shift_type, style: "display: block" %>
+    <%= form.label :shift_type, class: "block-label" %>
     <%= form.select :shift_type, ClientNeed.shift_types.keys.map { |k| [t("activerecord.attributes.client_need.shift_types.#{k}"), k] }, required: true %>
   </div>
 
   <div>
-    <%= form.label :start_time, style: "display: block" %>
+    <%= form.label :start_time, class: "block-label" %>
     <%= form.time_field :start_time, required: true %>
   </div>
 
   <div>
-    <%= form.label :end_time, style: "display: block" %>
+    <%= form.label :end_time, class: "block-label" %>
     <%= form.time_field :end_time, required: true %>
   </div>
 
   <div>
-    <%= form.label :slots, style: "display: block" %>
+    <%= form.label :slots, class: "block-label" %>
     <%= form.select :slots ,[1,2,3,4,5,6,7,8,9,10], required: true %>
   </div>
     

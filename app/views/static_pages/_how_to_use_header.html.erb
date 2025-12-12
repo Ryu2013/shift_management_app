@@ -12,7 +12,7 @@
   </ul>
 </nav>
 
-<script>
+<script nonce="<%= content_security_policy_nonce %>">
   function toggleMenu() {
     var menu = document.getElementById("how-to-use-menu");
     if (menu.style.display === "flex") {
