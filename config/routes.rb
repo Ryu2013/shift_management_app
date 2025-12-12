@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   get "how_to_use/shift_creation", to: "static_pages#how_to_use_shift_creation"
   get "how_to_use/attendance", to: "static_pages#how_to_use_attendance"
   get "how_to_use/chat", to: "static_pages#how_to_use_chat"
+  get "specified_commercial_transactions", to: "static_pages#specified_commercial_transactions"
 
   resources :rooms, only: [ :index, :show, :edit, :update, :new, :create, :destroy ] do
     resources :messages, only: [ :create ]

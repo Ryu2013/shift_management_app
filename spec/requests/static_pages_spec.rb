@@ -14,4 +14,11 @@ RSpec.describe "StaticPages", type: :request do
       expect(response).to have_http_status(:success)
     end
   end
+
+  describe "GET /specified_commercial_transactions" do
+    it "returns http success" do
+      get specified_commercial_transactions_path
+      expect(response).to have_http_status(:success)
+    end
+  end
 end
