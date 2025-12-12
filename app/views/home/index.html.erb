@@ -24,33 +24,37 @@
   <section class="hero-section">
     <div class="hero-content scroll-trigger">
       <%= image_tag "title.png", alt: "タイトル", class: "hero-title" %>
-      
+        <div class="mission"> <%# ヘッダー分のスペース確保 %>
+          <h2 class="feature-heading">サ責の事務「-100時間」</h2>
+        </div>
       <%# ★追加: 強調バッジエリア %>
       <div class="hero-badges">
         <div class="badge-item free-badge">
-          <span class="badge-icon">¥0</span>
-          <span class="badge-text">5人無料</span>
+          <%= image_tag "calendar.png", alt: "シフト管理", class: "badge-icon-img" %>
+          <span class="badge-text">シフト管理</span>
+        </div>
+        <div class="badge-item cloke">
+          <%= image_tag "clock.png", alt: "勤怠管理", class: "badge-icon-img" %>
+          <span class="badge-text">勤怠管理</span>
         </div>
         <div class="badge-item device-badge">
           <%# SVGアイコン: PC & Mobile %>
-          <svg class="badge-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <rect x="2" y="3" width="13" height="9" rx="2" ry="2"></rect>
-            <path d="M2 12h13"></path>
-            <rect x="17" y="8" width="5" height="9" rx="1" ry="1"></rect>
-          </svg>
-          <span class="badge-text">PC・スマホ対応</span>
+          <%= image_tag "chat.png", alt: "チャット", class: "badge-icon-img" %>
+          <span class="badge-text">チャット</span>
+        </div>
+        <div class="badge-item nav">
+          <%# SVGアイコン: PC & Mobile %>
+          <%= image_tag "navi.png", alt: "ナビ", class: "badge-icon-img" %>
+          <span class="badge-text">ナビ</span>
         </div>
           <%# --- ★追加: 簡単操作！ --- %>
         <div class="badge-item easy-badge">
-          <%# SVGアイコン: キラキラ（手軽・快適） %>
-          <svg class="badge-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
-          </svg>
-          <span class="badge-text">簡単操作！</span>
+          <%= image_tag "human.png", alt: "人員配置", class: "badge-icon-img" %>
+          <span class="badge-text">人員配置</span>
         </div>
       </div>
 
-      <p class="hero-catch">シフト管理のストレスをゼロに。<br class="sp-only">いつでもどこでも、コストをかけずに。</p>
+      <p class="hero-catch">複雑な管理業務を。<br class="sp-only">PCでもスマートフォンでも簡単に。</p>
       
       <div class="hero-cta">
         <%= link_to new_user_registration_path, class: "btn btn-primary btn-xl shadow-pulse" do %>
@@ -118,13 +122,42 @@
   <section class="feature-section">
     <div class="feature-container">
       <div class="feature-text scroll-trigger from-left">
-        <h2 class="feature-heading">出勤も共有も<br><span class="highlight">１クリック</span></h2>
-        <p class="feature-desc">従業員への連絡もスムーズ。<br>もう連絡漏れは起きません。</p>
+        <h2 class="feature-heading">業務連絡も<br><span class="highlight">簡単！</span></h2>
+        <p class="feature-desc">チャット機能も搭載<br>色々なアプリを行ったり来たりする必要はもうありません。</p>
       </div>
       <div class="feature-visual scroll-trigger from-right">
         <div class="device-frame employee-frame">
-          <%= image_tag "employee.png", class: "frame-bg", alt: "従業員画面背景" %>
-          <%= image_tag "pointer.png", class: "floating-pointer", alt: "ポインター" %>
+          <%= image_tag "chat_view.png", class: "frame-bg", alt: "チャット画面" %>
+        </div>
+      </div>
+    </div>
+  </section>
+
+    <%# --- 特徴4: ナビゲーション --- %>
+  <section class="feature-section reverse">
+    <div class="feature-container">
+      <div class="feature-text scroll-trigger from-right">
+        <h2 class="feature-heading">ワンタップで<br><span class="highlight">出勤らくらく!</span></h2>
+        <p class="feature-desc">ボタン一つで本日担当のお宅まで<br>ナビゲーション致します。</p>
+      </div>
+      <div class="feature-visual scroll-trigger from-left">
+        <div class="simple-frame">
+          <%= image_tag "nav_view.png", class: "feature-img shadow-lg", alt: "ナビゲーション画面" %>
+        </div>
+      </div>
+    </div>
+  </section>
+
+    <%# --- 特徴5: 人員配置 --- %>
+  <section class="feature-section">
+    <div class="feature-container">
+      <div class="feature-text scroll-trigger from-left">
+        <h2 class="feature-heading">担当従業員の<br><span class="highlight">登録も簡単！</span></h2>
+        <p class="feature-desc">お客様の家から近い順に<br>従業員が表示され、迷う時間が無くなります。</p>
+      </div>
+      <div class="feature-visual scroll-trigger from-right">
+        <div class="device-frame employee-frame">
+          <%= image_tag "shift4.png", class: "frame-bg", alt: "チャット画面" %>
         </div>
       </div>
     </div>
